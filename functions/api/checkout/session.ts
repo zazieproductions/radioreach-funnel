@@ -27,7 +27,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const origin = new URL(request.url).origin || env.PUBLIC_APP_URL;
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      ui_mode: "embedded",
+      ui_mode: "embedded_page",
       line_items,
       return_url: `${origin}/#/success?session_id={CHECKOUT_SESSION_ID}`,
       allow_promotion_codes: false,
