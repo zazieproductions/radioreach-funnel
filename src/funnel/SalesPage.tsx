@@ -60,12 +60,15 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
         <img
-          src="/images/studio.jpg"
+          src="/images/studio-1280.jpg"
+          srcSet="/images/studio-640.jpg 640w, /images/studio-1280.jpg 1280w"
+          sizes="100vw"
           alt=""
           aria-hidden
-          width={1536}
-          height={864}
+          width={1280}
+          height={853}
           fetchPriority="high"
+          loading="eager"
           decoding="async"
           onError={(e) => (e.currentTarget.style.display = "none")}
           className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
