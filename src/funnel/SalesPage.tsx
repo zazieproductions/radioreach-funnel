@@ -123,7 +123,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
           {/* Terminal preview */}
           <div className="mt-10 w-full">
-            <p className="mb-3 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-white/35">
+            <p className="mb-3 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-white/60">
               ↓ live sample — 7 of 18,020 entries
             </p>
             <TerminalPreview onCta={onCta} />
