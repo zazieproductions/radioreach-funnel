@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SalesPage from "./funnel/SalesPage";
 import Checkout, { type Addons } from "./funnel/Checkout";
 import { Downsell, ThankYou, Upsell1, Upsell2 } from "./funnel/Upsells";
-import FunnelNav, { type Stage } from "./funnel/FunnelNav";
+import type { Stage } from "./funnel/FunnelNav";
 import SuccessPage from "./funnel/SuccessPage";
 
 export default function App() {
@@ -58,7 +58,6 @@ export default function App() {
   return (
     <>
       <a href="#main" className="skip-link">Skip to content</a>
-      <FunnelNav stage={stage} go={setStage} />
       <div id="main">{screen()}</div>
     </>
   );

@@ -1,0 +1,17 @@
+{
+  "name": "radioreach-funnel",
+  "pages_build_output_dir": "./dist",
+  "kv_namespaces": [
+    {
+      "binding": "ORDER_STORE",
+      "id": "7a07ed1a29d5432c827c6b80d0327bed"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "bucket_name": "radioreach-downloads",
+      "binding": "radioreach_downloads"
+    }
+  ],
+  "compatibility_date": "2026-08-07"
+}

@@ -19,15 +19,16 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   const items = [];
   const errors = [];
+  const DOWNLOAD_LINK_LIFETIME = 60 * 60 * 24 * 7; // 7 days
 
   for (const item of order.items) {
     try {
-      const url = await createPrivateDownloadUrl(env, item.bundleKey, 60 * 15);
+      const url = await createPrivateDownloadUrl(env, item.bundleKey, DOWNLOAD_LINK_LIFETIME);
       items.push({
         key: item.key,
         name: item.name,
         downloadUrl: url,
-        expiresAt: new Date(Date.now() + 15 * 60 * 1000).toISOString(),
+        expiresAt: new Date(Date.now() + DOWNLOAD_LINK_LIFETIME * 1000).toISOString(),
       });
     } catch (err: any) {
       errors.push({ name: item.name, error: "File is currently being prepared for download. Please contact support if this persists." });

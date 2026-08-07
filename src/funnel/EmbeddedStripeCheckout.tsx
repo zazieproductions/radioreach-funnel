@@ -3,7 +3,7 @@ import {
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { STORE_COPY } from "../config/storefront";
 import { collectUtm, createEmbeddedCheckoutSession } from "../lib/api";
 import type { ProductKey } from "../config/storefront";
@@ -28,6 +28,7 @@ export default function EmbeddedStripeCheckout({
 }) {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const checkoutSessionIdRef = useRef("");
 
   useEffect(() => {
     setError("");
@@ -41,13 +42,14 @@ export default function EmbeddedStripeCheckout({
           setError("");
           setIsLoading(true);
 
-          const { clientSecret } =
+          const { clientSecret, checkoutSessionId } =
             await createEmbeddedCheckoutSession({
               items,
               bundleId,
               utm: collectUtm(),
             });
 
+          checkoutSessionIdRef.current = checkoutSessionId;
           setIsLoading(false);
           return clientSecret;
         } catch (e) {
@@ -59,6 +61,14 @@ export default function EmbeddedStripeCheckout({
           setError(message);
           setIsLoading(false);
           throw e;
+        }
+      },
+      onComplete: () => {
+        const sessionId = checkoutSessionIdRef.current;
+        if (sessionId) {
+          window.location.assign(
+            `${window.location.origin}/#/success?session_id=${encodeURIComponent(sessionId)}`
+          );
         }
       },
     }),
