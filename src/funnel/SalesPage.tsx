@@ -80,7 +80,8 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           </p>
 
           <h1 className="font-display text-4xl leading-[0.95] sm:text-6xl md:text-7xl">
-            "WHO DO I EVEN <span className="text-blood">SEND</span> IT TO?"
+            RADIO STATION CONTACTS <span className="text-blood">FOR MUSICIANS</span>
+            <span className="mt-2 block text-[0.58em]">"WHO DO I EVEN SEND IT TO?"</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl font-serif text-lg leading-relaxed text-white/80 sm:text-2xl">
             You finished the record. You mixed it, mastered it, bled on it — and then it died in a{" "}
@@ -187,7 +188,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       <section className="mx-auto max-w-4xl px-4 py-16">
         <SectionLabel>The mechanism</SectionLabel>
         <h2 className="font-display text-3xl leading-tight sm:text-5xl">
-          WHY <span className="hl">CITY-BY-CITY</span> BEATS SPRAY-AND-PRAY
+          HOW TO <span className="hl">SUBMIT MUSIC TO RADIO STATIONS</span> CITY BY CITY
         </h2>
         <p className="mt-4 max-w-2xl font-serif text-lg text-white/70">
           Major-market stations are drowning in label submissions. Local stations are actively looking for
@@ -214,6 +215,9 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           <SectionLabel>Everything you get today</SectionLabel>
           <h2 className="font-display text-3xl leading-tight sm:text-5xl">
             THE RADIO REACH VAULT
+            <span className="mt-2 block text-[0.55em] text-white/60">
+              RADIO CONTACT LIST FOR INDEPENDENT ARTISTS
+            </span>
           </h2>
           <div className="mt-8 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-black/40">
             {[
