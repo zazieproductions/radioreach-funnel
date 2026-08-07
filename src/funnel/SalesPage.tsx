@@ -18,23 +18,27 @@ import { TESTIMONIALS } from "./testimonials";
 
 const FAQS = [
   [
-    "Is this just a scraped list off Google?",
+    "How do I submit music to radio stations?",
+    "Start by finding stations that actually fit your genre, location, or audience. Identify the music director, program director, DJ, or submission contact when possible, then send a short personalized pitch with a streaming link and the information the station requests. RadioReach is designed to make the contact-research part faster so you can focus on relevant, human outreach instead of sending the same pitch everywhere.",
+  ],
+  [
+    "Are these radio station contacts scraped from Google?",
     "No. 10,372 of the emails are individually verified deliverable addresses tied to a real human — program directors, music directors, and station decision-makers. The remaining entries include station lines and city data. If it were scraped you'd be paying $0 and getting bounces.",
   ],
   [
-    "What format do I get?",
+    "What format is the radio station contact list delivered in?",
     "Instant download: a 400+ page organized PDF plus the city-sorted contact tables. Works on any device. No software, no subscription, no monthly fee that quietly renews.",
   ],
   [
-    "Will this get me played on the radio?",
+    "Will contacting radio stations guarantee airplay?",
     "The database gets you in the room. Your music and your pitch close it. This is meant for targeted, relevant, human outreach — not spam. Be personal. Be respectful. That's what works.",
   ],
   [
-    "Why is it $20 when competitors charge $400?",
+    "Why is the RadioReach radio contact list only $20?",
     "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $20 is the launch rate — it goes to $49 once the founder slots are gone.",
   ],
   [
-    "What if it's not for me?",
+    "Does RadioReach have a refund policy?",
     "You get 30 days. Email me, tell me it didn't help, and I'll refund you. I'd rather have your respect than your $20.",
   ],
 ];
