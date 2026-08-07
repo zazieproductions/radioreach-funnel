@@ -105,13 +105,12 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                 Instant download · <span className="line-through opacity-60">$49</span> $20 today
               </span>
             </button>
-            <div className="mt-3 flex items-center justify-center gap-3 text-[10px] uppercase tracking-widest text-white/40">
-              <span>🔒 Secure</span>
-              <span>·</span>
-              <span>30-day refund</span>
-              <span>·</span>
-              <span>No subscription</span>
+            <div className="mt-3 text-center text-[10px] font-bold uppercase tracking-wider text-white/45">
+              🔒 Secure checkout via Stripe · Instant digital access · No account required
             </div>
+            <p className="mt-1 text-center text-[10px] text-white/30">
+              30-day refund guarantee · One-time payment
+            </p>
           </div>
 
           {/* Terminal preview */}

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import SalesPage from "./funnel/SalesPage";
-import Checkout, { type Addons } from "./funnel/Checkout";
+import type { Addons } from "./funnel/Checkout";
+const Checkout = lazy(() => import("./funnel/Checkout"));
 import { Downsell, ThankYou, Upsell1, Upsell2 } from "./funnel/Upsells";
 import type { Stage } from "./funnel/FunnelNav";
 import SuccessPage from "./funnel/SuccessPage";
@@ -25,7 +26,20 @@ export default function App() {
       case "sales":
         return <SalesPage onCta={() => setStage("checkout")} />;
       case "checkout":
-        return <Checkout onComplete={(t, a) => { setTotal(t); setAddons(a); }} />;
+        return (
+          <Suspense
+            fallback={
+              <div className="min-h-screen grid place-items-center bg-black text-white">
+                <div className="text-center">
+                  <div className="mx-auto h-7 w-7 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+                  <p className="mt-3 text-sm text-white/60">Opening secure checkout…</p>
+                </div>
+              </div>
+            }
+          >
+            <Checkout onComplete={(t, a) => { setTotal(t); setAddons(a); }} />
+          </Suspense>
+        );
       case "oto1":
         return <Upsell1 onAccept={(p) => { setTotal((t) => t + p); setStage("oto2"); }} onDecline={() => setStage("oto2")} />;
       case "oto2":

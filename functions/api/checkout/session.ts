@@ -31,6 +31,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       line_items,
       return_url: `${origin}/#/success?session_id={CHECKOUT_SESSION_ID}`,
       allow_promotion_codes: false,
+      invoice_creation: {
+        enabled: true,
+      },
       payment_intent_data: {
         metadata: {
           bundle_id: body.bundleId || items.join("+"),
