@@ -355,6 +355,63 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
       {/* FAQ */}
       <section id="faq" className="mx-auto max-w-3xl px-4 pb-12 sm:pb-16">
+        {/* SEO / RESOURCE CLUSTER */}
+        <section className="mx-auto max-w-4xl px-4 py-12">
+          <div className="rounded-xl border border-white/10 bg-black/30 p-6 sm:p-8">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-acid">
+              Free Radio Promotion Guides
+            </p>
+
+            <h2 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">
+              DO THE RESEARCH BEFORE YOU HIT SEND
+            </h2>
+
+            <p className="mt-3 max-w-2xl font-serif text-base leading-relaxed text-white/70">
+              Not ready for the Vault yet? Start with the field guides: how to find
+              stations that accept independent music, approach college radio, and
+              build a targeted radio promotion campaign without spraying spam.
+            </p>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <a
+                href="/resources/college-radio-submissions/"
+                className="rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  College Radio Submissions
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Find the right station contacts and pitch college radio.
+                </span>
+              </a>
+
+              <a
+                href="/resources/radio-stations-accepting-music/"
+                className="rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  Stations Accepting Music
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Research stations, submission contacts, and programming fit.
+                </span>
+              </a>
+
+              <a
+                href="/resources/radio-promotion-independent-artists/"
+                className="rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  Independent Radio Promotion
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Build a focused outreach campaign instead of a giant email blast.
+                </span>
+              </a>
+            </div>
+          </div>
+        </section>
+
         <SectionLabel>Objections, handled</SectionLabel>
         <h2 className="font-display text-3xl sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
         <div className="mt-6 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-panel">
