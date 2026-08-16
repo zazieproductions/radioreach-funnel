@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FlipClock, LiveViewers, Stars, StockBar } from "./ui";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
 import { PRODUCTS } from "../config/storefront";
+import { setAdvancedMatching, track } from "../lib/metaPixel";
 
 export type Addons = { contracts: boolean; au: boolean };
 
@@ -29,6 +30,32 @@ export default function Checkout({ onComplete }: Props) {
   );
 
   const bundleId = useMemo(() => items.join("+"), [items]);
+
+  // InitiateCheckout: fires once when the checkout page mounts, with the
+  // initial cart contents. Feeds Meta's optimization between PageView and
+  // Purchase.
+  useEffect(() => {
+    track("InitiateCheckout", {
+      value: total,
+      currency: "USD",
+      content_ids: items,
+      content_type: "product",
+      num_items: items.length,
+    });
+    // Intentionally mount-only: cart tweaks shouldn't re-fire the event.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Advanced Matching: when the visitor types their receipt email, hash it
+  // (SHA-256, client-side) and attach it to the pixel so later events —
+  // including the Purchase on the success page — match better (EMQ).
+  useEffect(() => {
+    if (!email.includes("@") || !email.includes(".")) return;
+    const timer = setTimeout(() => {
+      setAdvancedMatching({ email }).catch(() => {});
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [email]);
 
   return (
     <div className="min-h-screen bg-ink">

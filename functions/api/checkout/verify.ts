@@ -25,5 +25,16 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     status: session.status,
     verified: Boolean(order && session.payment_status === "paid"),
     token,
+    // Order details for client-side conversion tracking (Meta Pixel Purchase).
+    order:
+      order && session.payment_status === "paid"
+        ? {
+            amountTotal: order.amountTotal ?? session.amount_total ?? null,
+            currency: (order.currency || session.currency || "usd").toUpperCase(),
+            email: order.email || session.customer_details?.email || null,
+            productKeys: order.items.map((i) => i.key),
+            productNames: order.items.map((i) => i.name),
+          }
+        : null,
   });
 };

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createDownloadLinks, verifySession } from "../lib/api";
+import { trackVerifiedPurchase } from "../lib/metaPixel";
 import { espLogConversion, getPersistedMode } from "../esp";
 
 /* Keep purchase logging idempotent across re-verifies/re-mounts. */
@@ -64,6 +65,24 @@ export default function SuccessPage() {
           throw new Error(
             "We could not verify this purchase yet. Please refresh in a moment or contact support."
           );
+        }
+
+        // Fire the Meta Pixel Purchase event with value/currency and hashed
+        // Advanced Matching data. Deduplicated per Stripe session, so a page
+        // refresh never double-counts. Non-blocking: tracking failures must
+        // never break order delivery.
+        const orderSummary = verification.order;
+        const amountTotal = orderSummary?.amountTotal;
+        if (orderSummary && typeof amountTotal === "number" && amountTotal > 0) {
+          const o = orderSummary;
+          trackVerifiedPurchase({
+            sessionId,
+            email: o.email || undefined,
+            value: amountTotal / 100, // cents → dollars
+            currency: o.currency || "USD",
+            contentIds: o.productKeys,
+            contentName: o.productNames.join(" + ") || "Radio Reach Vault",
+          }).catch(() => {});
         }
 
         const delivery = await createDownloadLinks(verification.token);

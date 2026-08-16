@@ -36,7 +36,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
           quantity: 1,
         },
       ],
-      success_url: `${origin}/?tip=thanks`,
+      success_url: `${origin}/?tip=thanks&tip_amount=${amount}&tip_session={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/`,
       metadata: {
         payment_type: "tip",
