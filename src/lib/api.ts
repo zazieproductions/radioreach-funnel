@@ -24,11 +24,19 @@ export async function createEmbeddedCheckoutSession(payload: CheckoutSelection) 
   return data;
 }
 
+export type VerifiedOrderSummary = {
+  amountTotal: number | null; // in cents (Stripe convention)
+  currency: string;
+  email: string | null;
+  productKeys: string[];
+  productNames: string[];
+};
+
 export async function verifySession(sessionId: string) {
   const res = await fetch(`/api/checkout/verify?session_id=${encodeURIComponent(sessionId)}`);
   const data = await res.json();
   if (!res.ok) throw new Error(data?.error || "Unable to verify order");
-  return data as { verified: boolean; token?: string };
+  return data as { verified: boolean; token?: string; order?: VerifiedOrderSummary | null };
 }
 
 export async function createDownloadLinks(token: string) {
