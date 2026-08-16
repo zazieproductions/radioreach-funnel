@@ -3,6 +3,7 @@ import { json } from "../../_lib/json";
 import { getStripe } from "../../_lib/stripe";
 import { eventSeen, getOrder, markEventSeen, putOrder, type OrderRecord } from "../../_lib/orders";
 import { ALLOWED_PRODUCTS, resolveAllowedPrices, type AllowedProductKey } from "../../_lib/config";
+import { sendCapiPurchase } from "../../_lib/metaCapi";
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const signature = request.headers.get("stripe-signature");
@@ -82,6 +83,27 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
     if (order) {
       await putOrder(env, session.id, order);
+    }
+
+    // Server-side Meta CAPI Purchase — same event_id as the browser pixel
+    // (the Stripe session id), so Meta deduplicates the pair. Guarded by
+    // eventSeen above, so Stripe webhook retries can't double-send.
+    // Tips use a separate flow and metadata.payment_type === "tip";
+    // those are pixel-only for now.
+    if (order && paymentStatus === "paid" && session.metadata?.payment_type !== "tip") {
+      try {
+        await sendCapiPurchase(env, {
+          eventId: session.id,
+          eventTime: Math.floor(event.created || Date.now() / 1000),
+          email: order.email,
+          amountTotalCents: order.amountTotal ?? session.amount_total ?? 0,
+          currency: order.currency || session.currency || "usd",
+          contentIds: order.items.map((i) => i.key),
+          contentName: order.items.map((i) => i.name).join(" + ") || "Radio Reach Vault",
+        });
+      } catch (err) {
+        console.error("[Meta CAPI] unexpected error", err);
+      }
     }
   }
 

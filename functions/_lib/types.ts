@@ -15,6 +15,10 @@ export interface Env {
   R2_BUCKET_NAME: string;
   ORDER_STORE: KVNamespace;
   APP_SECRET: string;
+  /** Meta Conversions API (optional — CAPI sending is skipped if unset). */
+  META_PIXEL_ID?: string;
+  META_CAPI_ACCESS_TOKEN?: string;
+  META_TEST_EVENT_CODE?: string;
 }
 
 declare global {
