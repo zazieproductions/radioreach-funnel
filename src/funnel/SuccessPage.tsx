@@ -67,12 +67,14 @@ export default function SuccessPage() {
         // Advanced Matching data. Deduplicated per Stripe session, so a page
         // refresh never double-counts. Non-blocking: tracking failures must
         // never break order delivery.
-        if (verification.order && typeof verification.order.amountTotal === "number" && verification.order.amountTotal > 0) {
-          const o = verification.order;
+        const orderSummary = verification.order;
+        const amountTotal = orderSummary?.amountTotal;
+        if (orderSummary && typeof amountTotal === "number" && amountTotal > 0) {
+          const o = orderSummary;
           trackVerifiedPurchase({
             sessionId,
             email: o.email || undefined,
-            value: o.amountTotal / 100, // cents → dollars
+            value: amountTotal / 100, // cents → dollars
             currency: o.currency || "USD",
             contentIds: o.productKeys,
             contentName: o.productNames.join(" + ") || "Radio Reach Vault",
