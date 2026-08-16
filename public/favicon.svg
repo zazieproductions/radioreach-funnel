@@ -1,5 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#090d09"/>
-  <circle cx="32" cy="32" r="23" fill="none" stroke="#b7ff00" stroke-width="4"/>
-  <path d="M21 45V18h13c9 0 14 5 14 13 0 6-3 10-8 12l9 13H38L30 44v12H21zm9-19v10h4c4 0 6-2 6-5s-2-5-6-5z" fill="#ff304f"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>RadioReach</title>
+  <circle cx="256" cy="256" r="256" fill="#000000"/>
+  
+  <path d="M318.0,218.6 A66,66 0 1 0 194.0,218.6" fill="none" stroke="#FFC20E" stroke-width="20"/>
+  <path d="M370.5,224.5 A118,118 0 1 0 141.5,224.5" fill="none" stroke="#FFC20E" stroke-width="20"/>
+  <path d="M107.0,110.0 A172,172 0 0 0 115.1,294.7" fill="none" stroke="#FFC20E" stroke-width="20"/>
+  <path d="M405.0,110.0 A172,172 0 0 1 396.9,294.7" fill="none" stroke="#FFC20E" stroke-width="20"/>
+  <circle cx="256" cy="196" r="26" fill="#FFC20E"/>
+  
+    <g fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke-width="30" d="M246.0,210 L170.0,418"/>
+      <path stroke-width="30" d="M266.0,210 L342.0,418"/>
+      <path stroke-width="26" d="M246.0,210 L285.0,262 L208.0,314 L323.0,366 L170.0,418"/>
+      <path stroke-width="26" d="M266.0,210 L227.0,262 L304.0,314 L189.0,366 L342.0,418"/>
+    </g>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke-width="16" d="M246.0,210 L170.0,418"/>
+      <path stroke-width="16" d="M266.0,210 L342.0,418"/>
+      <path stroke-width="11" d="M246.0,210 L285.0,262 L208.0,314 L323.0,366 L170.0,418"/>
+      <path stroke-width="11" d="M266.0,210 L227.0,262 L304.0,314 L189.0,366 L342.0,418"/>
+    </g>
 </svg>
