@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { createDownloadLinks, verifySession } from "../lib/api";
+import { espLogConversion, getPersistedMode } from "../esp";
+
+/* Keep purchase logging idempotent across re-verifies/re-mounts. */
+const purchaseLoggedFor = new Set<string>();
 
 type DownloadItem = {
   key: string;
@@ -65,6 +69,16 @@ export default function SuccessPage() {
         const delivery = await createDownloadLinks(verification.token);
 
         if (cancelled) return;
+
+        // ESP conversion event: attribute this purchase to the emotional
+        // mode the buyer was in on the sales page (client-side v1 log).
+        if (!purchaseLoggedFor.has(sessionId)) {
+          purchaseLoggedFor.add(sessionId);
+          espLogConversion("purchase_completed", {
+            orderId: delivery.orderId,
+            lastMode: getPersistedMode(),
+          });
+        }
 
         setState({
           kind: "ready",

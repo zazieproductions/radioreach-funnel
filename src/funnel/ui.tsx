@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 /* ─────────────────────────────────────────────
    COUNTDOWN
@@ -201,7 +201,16 @@ export function TopNav({ onCta }: { onCta: () => void }) {
    EXIT INTENT — desktop only, once, escapable
 ───────────────────────────────────────────── */
 
-export function ExitIntent({ onTake }: { onTake: () => void }) {
+export function ExitIntent({
+  onTake,
+  title,
+  body,
+}: {
+  onTake: () => void;
+  /** Adaptive copy (EmotiveText) — falls back to the defaults below. */
+  title?: ReactNode;
+  body?: ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const fired = useRef(false);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -256,10 +265,14 @@ export function ExitIntent({ onTake }: { onTake: () => void }) {
 
         <div className="p-6 sm:p-8">
           <h2 id="exit-title" className="font-display text-3xl leading-tight sm:text-4xl">
-            LEAVING MEANS PAYING <span className="text-blood line-through">$49</span> LATER
+            {title ?? (
+              <>
+                LEAVING MEANS PAYING <span className="text-blood line-through">$49</span> LATER
+              </>
+            )}
           </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-white/70">
-            You're one click from 18,000+ radio station contacts.
+            {body ?? "You're one click from 18,000+ radio station contacts."}
           </p>
 
           <div className="mt-5 flex justify-center">
@@ -288,7 +301,14 @@ export function ExitIntent({ onTake }: { onTake: () => void }) {
    STICKY CTA BAR
 ───────────────────────────────────────────── */
 
-export function StickyBar({ onCta, label = "Get Instant Access — $20" }: { onCta: () => void; label?: string }) {
+export function StickyBar({
+  onCta,
+  label = "Get Instant Access — $20",
+}: {
+  onCta: () => void;
+  /** String or adaptive copy (EmotiveText slot "stickyLabel"). */
+  label?: ReactNode;
+}) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
