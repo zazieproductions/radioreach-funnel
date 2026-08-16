@@ -167,6 +167,34 @@ video {
 }
 
 /* ─────────────────────────────────────────────
+   EMOTIONAL STATE PROXY — variant stacking & crossfade
+───────────────────────────────────────────── */
+
+/* All copy variants for a slot live in one grid cell. The cell is
+   sized by the largest variant, so swapping tones never shifts
+   the layout — the page only crossfades (300ms). */
+.esp-slot {
+  display: inline-grid;
+  vertical-align: top;
+  max-width: 100%;
+}
+
+.esp-slot > .esp-variant {
+  grid-area: 1 / 1;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  /* stay visible while fading out, then drop from the tree */
+  transition: opacity 300ms ease, visibility 0s linear 300ms;
+}
+
+.esp-slot > .esp-variant--active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 300ms ease;
+}
+
+/* ─────────────────────────────────────────────
    MOTION — subtle, short, and opt-out aware
 ───────────────────────────────────────────── */
 

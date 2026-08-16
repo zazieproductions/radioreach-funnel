@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Check,
   Cross,
@@ -17,6 +17,14 @@ import MomentumSequence from "./MomentumSequence";
 import { isMomentumSequenceEnabled } from "../config/features";
 
 import { TESTIMONIALS } from "./testimonials";
+
+import {
+  DebugPanel,
+  EmotiveText,
+  espLogConversion,
+  initEsp,
+  readEspFlag,
+} from "../esp";
 
 const FAQS = [
   [
@@ -47,20 +55,40 @@ const FAQS = [
 
 export default function SalesPage({ onCta }: { onCta: () => void }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [espDebug] = useState(() => readEspFlag().debug);
+
+  // Start the Emotional State Proxy. Behind the feature flag this is
+  // a no-op; cleanup fully detaches it when the funnel leaves this page.
+  useEffect(() => initEsp(), []);
+
+  // Every CTA in the page funnels through here, so each click can be
+  // logged as a conversion event tagged with the mode the visitor
+  // was in — the data we'll later use to see which states convert.
+  const handleCta = (label = "cta") => {
+    espLogConversion("cta_click", { label });
+    onCta();
+  };
 
   return (
     <div id="top" className="min-h-screen bg-ink pb-32">
-      <ExitIntent onTake={onCta} />
-      <StickyBar onCta={onCta} />
+      <ExitIntent
+        onTake={() => handleCta("exit_intent")}
+        title={<EmotiveText slot="exitTitle" />}
+        body={<EmotiveText slot="exitBody" />}
+      />
+      <StickyBar
+        onCta={() => handleCta("sticky")}
+        label={<EmotiveText slot="stickyLabel" />}
+      />
 
       {/* alert bar */}
       <div className="bg-blood">
         <p className="mx-auto max-w-5xl px-4 py-2 text-center text-[11px] font-black uppercase tracking-[0.16em]">
-          Founder pricing ends when the timer hits zero
+          <EmotiveText slot="alertBar" />
         </p>
       </div>
 
-      <TopNav onCta={onCta} />
+      <TopNav onCta={() => handleCta("topnav")} />
       <Ticker />
 
       {/* HERO */}
@@ -82,32 +110,37 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/70 via-ink/85 to-ink" />
         <div className="relative mx-auto max-w-4xl px-4 pt-8 pb-12 text-center sm:pt-10 sm:pb-14">
           <p className="mx-auto mb-5 inline-block border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">
-            For unsigned artists, producers &amp; podcasters who are done being ignored
+            <EmotiveText slot="heroEyebrow" />
           </p>
 
           <h1 className="font-display text-4xl leading-[0.95] sm:text-6xl md:text-7xl">
             RADIO STATION CONTACTS <span className="text-blood">FOR MUSICIANS</span>
             <span className="mt-2 block text-[0.58em]">"WHO DO I EVEN SEND IT TO?"</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl font-serif text-lg leading-relaxed text-white/80 sm:text-2xl">
-            You finished the record. You mixed it, mastered it, bled on it — and then it died in a{" "}
-            <span className="font-semibold text-white">generic submission form</span>. Here are{" "}
-            <span className="text-acid font-bold">18,000+ radio station contacts</span> organized by station, location, role, phone, and email to skip the form entirely.
-          </p>
+          <EmotiveText
+            slot="heroSub"
+            as="p"
+            className="mx-auto mt-5 max-w-2xl font-serif text-lg leading-relaxed text-white/80 sm:text-2xl"
+          />
 
           {/* CTA box */}
-          <div className="mt-8 mx-auto max-w-md rounded-xl border-2 border-acid/50 bg-black/60 p-5 text-left backdrop-blur">
+          <div
+            data-esp-zone="pricing"
+            className="mt-8 mx-auto max-w-md rounded-xl border-2 border-acid/50 bg-black/60 p-5 text-left backdrop-blur"
+          >
             <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blood">
-              Founder price locks in for:
+              <EmotiveText slot="ctaLabel" />
             </p>
-            <div className="mt-2 flex justify-center">
-              <FlipClock seconds={897} />
-            </div>
-            <div className="mt-4">
-              <StockBar />
+            <div data-esp-zone="scarcity" className="mt-2">
+              <div className="flex justify-center">
+                <FlipClock seconds={897} />
+              </div>
+              <div className="mt-4">
+                <StockBar />
+              </div>
             </div>
             <button
-              onClick={onCta}
+              onClick={() => handleCta("hero")}
               className="cta mt-5 w-full rounded-lg bg-acid px-5 py-4 font-display text-xl uppercase leading-tight tracking-wide text-ink"
             >
               Yes — Give Me The Contacts
@@ -119,7 +152,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
               🔒 Secure checkout via Stripe · Instant digital access · No account required
             </div>
             <p className="mt-1 text-center text-[10px] text-white/30">
-              30-day refund guarantee · One-time payment
+              <EmotiveText slot="ctaTrust" />
             </p>
           </div>
 
@@ -128,7 +161,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             <p className="mb-3 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-white/60">
               ↓ live sample — 7 of 18,020 entries
             </p>
-            <TerminalPreview onCta={onCta} />
+            <TerminalPreview onCta={() => handleCta("terminal")} />
           </div>
 
           <div className="mt-7 flex flex-col items-center gap-2">
@@ -143,16 +176,16 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       {/* THE PROBLEM — agitation */}
       <section className="border-y border-white/10 bg-panel">
         <div className="mx-auto max-w-3xl px-4 py-12 sm:py-14">
-          <SectionLabel>Let's be honest about what's happening</SectionLabel>
+          <SectionLabel>
+            <EmotiveText slot="problemLabel" />
+          </SectionLabel>
           <h2 className="font-display text-3xl leading-tight sm:text-5xl">
             THE GAP ISN'T TALENT. <br />
-            <span className="text-blood">IT'S THE CONTACT LIST.</span>
+            <EmotiveText slot="problemHeadline" className="text-blood" />
           </h2>
           <div className="mt-6 space-y-4 font-serif text-lg leading-relaxed text-white/75">
             <p>
-              Somewhere tonight, an artist with half your ability is getting spun on a station in a city
-              they've never visited. Not because their song is better. Because someone{" "}
-              <span className="hl font-semibold text-white">handed them a phone number.</span>
+              <EmotiveText slot="problemP1" />
             </p>
             <p>
               Meanwhile you're on page 6 of Google at 2am, copying station names into a spreadsheet,
@@ -160,8 +193,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
               inboxes that a 19-year-old intern clears every Friday without opening.
             </p>
             <p className="text-white/90">
-              That's not a marketing problem. That's an <b>access</b> problem. And access is the one thing
-              that can be handed to you.
+              <EmotiveText slot="problemP3" />
             </p>
           </div>
 
@@ -191,7 +223,9 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       </section>
 
       {/* MOMENTUM + OWNERSHIP — runtime feature flagged */}
-      {isMomentumSequenceEnabled() && <MomentumSequence onCta={onCta} />}
+      {isMomentumSequenceEnabled() && (
+        <MomentumSequence onCta={() => handleCta("momentum")} />
+      )}
 
       {/* MECHANISM */}
       <section className="mx-auto max-w-4xl px-4 py-16">
@@ -228,7 +262,10 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
               RADIO CONTACT LIST FOR INDEPENDENT ARTISTS
             </span>
           </h2>
-          <div className="mt-8 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-black/40">
+          <div
+            data-esp-zone="pricing"
+            className="mt-8 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-black/40"
+          >
             {[
               ["18,000+ radio station entries", "Program directors, music directors, decision-makers.", "$297"],
               ["Detailed contact information", "Organized by station, location, role, phone, and email.", "$149"],
@@ -258,32 +295,33 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           </div>
 
           <div className="mt-6 rounded-lg border border-white/10 bg-black/40 p-5 text-[15px] leading-relaxed text-white/70">
-            <b className="text-white">The math nobody wants you to do:</b> professional radio databases from
-            enterprise data providers run <span className="text-blood font-bold">$300–$500/year</span> and are
-            built for corporate marketing departments. This is the same caliber of data — 18,000+ contacts,
-            10K+ verified emails — for <span className="text-acid font-bold">$20</span>. That's{" "}
-            <b className="text-white">0.11¢ per contact.</b> Priced for someone currently deciding between a
-            mastering session and groceries. I know, because I was.
+            <EmotiveText slot="mathBox" />
           </div>
 
           <button
-            onClick={onCta}
+            onClick={() => handleCta("stack")}
             className="cta mt-7 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
           >
             Claim The Radio Reach Vault For $20 →
           </button>
           <p className="mt-2 text-center text-[12px] text-white/40">
-            73% off · price returns to $49 when the timer expires · instant download
+            <EmotiveText slot="stackNote" />
           </p>
         </div>
       </section>
 
       {/* TESTIMONIALS */}
-      <section id="proof" className="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+      <section
+        id="proof"
+        data-esp-zone="proof"
+        className="mx-auto max-w-5xl px-4 py-12 sm:py-16"
+      >
         <SectionLabel>Receipts</SectionLabel>
-        <h2 className="font-display text-3xl leading-tight sm:text-5xl">
-          ARTISTS WHO STOPPED WAITING
-        </h2>
+        <EmotiveText
+          slot="proofHeadline"
+          as="h2"
+          className="font-display text-3xl leading-tight sm:text-5xl"
+        />
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {TESTIMONIALS.map((t) => (
             <figure key={t.name} className="rounded-xl border border-white/10 bg-panel p-6">
@@ -345,15 +383,16 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
       {/* GUARANTEE */}
       <section className="mx-auto max-w-3xl px-4 py-16">
-        <div className="rounded-2xl border-2 border-acid/40 bg-gradient-to-b from-acid/10 to-transparent p-8 text-center">
+        <div
+          data-esp-zone="safety"
+          className="rounded-2xl border-2 border-acid/40 bg-gradient-to-b from-acid/10 to-transparent p-8 text-center"
+        >
           <div className="mx-auto grid h-20 w-20 place-items-center rounded-full border-4 border-acid font-display text-2xl text-acid">
             30
           </div>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl">THE "I'LL EAT THE COST" GUARANTEE</h2>
           <p className="mt-3 font-serif text-lg text-white/75">
-            Download it. Open it. Check the emails against your own research. If you decide it wasn't worth
-            $20, email me inside 30 days and I'll refund you — and you can keep the file. I'm an independent
-            artist too. I'd rather you make it than hold your money hostage.
+            <EmotiveText slot="guaranteePara" />
           </p>
         </div>
       </section>
@@ -453,7 +492,10 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       </section>
 
       {/* FINAL CTA */}
-      <section className="border-t border-white/10 bg-gradient-to-b from-blood/20 to-ink">
+      <section
+        data-esp-zone="cta"
+        className="border-t border-white/10 bg-gradient-to-b from-blood/20 to-ink"
+      >
         <div className="mx-auto max-w-3xl px-4 py-16 text-center">
           <h2 className="font-display text-4xl leading-[0.95] sm:text-6xl">
             TWO ROADS. <span className="text-acid">PICK ONE.</span>
@@ -462,15 +504,13 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             <div className="rounded-lg border border-white/10 bg-black/40 p-5">
               <p className="font-display text-xl text-white/50">ROAD A</p>
               <p className="mt-2 text-[15px] text-white/55">
-                Close this tab. Go back to Google. Spend the next six months building a worse list by hand
-                while your release gets colder. Pay $49 if you come back.
+                <EmotiveText slot="roadA" />
               </p>
             </div>
             <div className="rounded-lg border-2 border-acid bg-acid/10 p-5">
               <p className="font-display text-xl text-acid">ROAD B</p>
               <p className="mt-2 text-[15px] text-white/80">
-                Pay $20 — less than a streaming subscription. Open the file in 90 seconds. Email 20
-                real music directors in your city tonight. Wake up to replies.
+                <EmotiveText slot="roadB" />
               </p>
             </div>
           </div>
@@ -479,7 +519,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             <FlipClock seconds={897} />
           </div>
           <button
-            onClick={onCta}
+            onClick={() => handleCta("final")}
             className="cta mt-6 w-full rounded-lg bg-acid px-6 py-5 font-display text-2xl uppercase tracking-wide text-ink sm:text-3xl"
           >
             Give Me Instant Access — $20
@@ -535,6 +575,9 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
         </p>
         <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
       </footer>
+
+      {/* Dev-only overlay — visible only with ?esp=debug */}
+      {espDebug && <DebugPanel />}
     </div>
   );
 }
