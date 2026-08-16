@@ -7,6 +7,7 @@
 declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;
+    dataLayer?: Array<Record<string, unknown>>;
   }
 }
 
@@ -69,6 +70,22 @@ export function track(
 }
 
 /**
+ * Fire a behavioral event through every client-side analytics hook we support.
+ * Meta receives a custom event; GTM/GA listeners can consume dataLayer; and
+ * first-party analytics can listen for the `radioreach:analytics` DOM event.
+ */
+export function trackCustom(event: string, params: Record<string, unknown> = {}) {
+  if (typeof window === "undefined") return;
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event, ...params });
+  window.dispatchEvent(
+    new CustomEvent("radioreach:analytics", { detail: { event, ...params } })
+  );
+  window.fbq?.("trackCustom", event, params);
+}
+
+/**
  * Track a completed tip when Stripe redirects back with
  * ?tip=thanks&tip_amount=<cents>&tip_session=<cs_...>.
  * Deduplicated per tip session via localStorage + eventID.
@@ -124,6 +141,7 @@ export async function trackVerifiedPurchase(opts: {
   currency: string;
   contentIds: string[];
   contentName: string;
+  attribution?: Record<string, string>;
 }) {
   const guardKey = `rr_fbq_purchase:${opts.sessionId}`;
   try {
@@ -143,6 +161,7 @@ export async function trackVerifiedPurchase(opts: {
       content_name: opts.contentName,
       content_type: "product",
       num_items: opts.contentIds.length,
+      ...opts.attribution,
     },
     opts.sessionId
   );

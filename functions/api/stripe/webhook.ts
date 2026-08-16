@@ -73,6 +73,14 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
           utm_term: session.metadata?.utm_term || "",
           utm_content: session.metadata?.utm_content || "",
         },
+        momentum: {
+          sequence_variant: session.metadata?.sequence_variant || "control",
+          sequence_status: session.metadata?.sequence_status || "not_seen",
+          sequence_steps: session.metadata?.sequence_steps || "0",
+          sequence_target: session.metadata?.sequence_target || "",
+          sequence_frustration: session.metadata?.sequence_frustration || "",
+          sequence_done_with: session.metadata?.sequence_done_with || "",
+        },
         items: selected,
         createdAt: new Date().toISOString(),
       };
@@ -100,6 +108,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
           currency: order.currency || session.currency || "usd",
           contentIds: order.items.map((i) => i.key),
           contentName: order.items.map((i) => i.name).join(" + ") || "Radio Reach Vault",
+          attribution: order.momentum,
         });
       } catch (err) {
         console.error("[Meta CAPI] unexpected error", err);

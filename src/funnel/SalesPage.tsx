@@ -13,6 +13,8 @@ import {
   TopNav,
 } from "./ui";
 import TerminalPreview from "./TerminalPreview";
+import MomentumSequence from "./MomentumSequence";
+import { isMomentumSequenceEnabled } from "../config/features";
 
 import { TESTIMONIALS } from "./testimonials";
 
@@ -187,6 +189,9 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           </div>
         </div>
       </section>
+
+      {/* MOMENTUM + OWNERSHIP — runtime feature flagged */}
+      {isMomentumSequenceEnabled() && <MomentumSequence onCta={onCta} />}
 
       {/* MECHANISM */}
       <section className="mx-auto max-w-4xl px-4 py-16">
