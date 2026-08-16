@@ -47,6 +47,36 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage, routeSuccess]);
 
+  // Only the sales screen is a public, indexable page. Checkout, the upsell
+  // path and the post-purchase screens live at the same URL, so flip the
+  // robots directive (and the document title) as the funnel advances to keep
+  // transactional states out of the index and out of the SERP snippet.
+  useEffect(() => {
+    const isPublic = !routeSuccess && stage === "sales";
+
+    let tag = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
+    if (!tag) {
+      tag = document.createElement("meta");
+      tag.name = "robots";
+      document.head.appendChild(tag);
+    }
+    tag.content = isPublic
+      ? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+      : "noindex,nofollow";
+
+    const TITLES: Record<string, string> = {
+      sales: "Radio Station Contacts for Musicians | RadioReach",
+      checkout: "Checkout | RadioReach",
+      oto1: "Special Offer | RadioReach",
+      oto2: "Special Offer | RadioReach",
+      downsell: "Special Offer | RadioReach",
+      thanks: "Thank You | RadioReach",
+    };
+    document.title = routeSuccess
+      ? "Your Download | RadioReach"
+      : TITLES[stage] ?? TITLES.sales;
+  }, [stage, routeSuccess]);
+
   // Track completed tips (Stripe redirects back with ?tip=thanks&…).
   useEffect(() => {
     trackTipFromReturnUrl();

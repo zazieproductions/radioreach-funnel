@@ -397,16 +397,17 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="mx-auto max-w-3xl px-4 pb-12 sm:pb-16">
-        {/* SEO / RESOURCE CLUSTER */}
-        <section className="mx-auto max-w-4xl px-4 py-12">
+      {/* SEO / RESOURCE CLUSTER */}
+      <section aria-labelledby="resources-heading" className="mx-auto max-w-4xl px-4 py-12">
           <div className="rounded-xl border border-white/10 bg-black/30 p-6 sm:p-8">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-acid">
               Free Radio Promotion Guides
             </p>
 
-            <h2 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">
+            <h2
+              id="resources-heading"
+              className="mt-3 font-display text-3xl leading-tight sm:text-4xl"
+            >
               DO THE RESEARCH BEFORE YOU HIT SEND
             </h2>
 
@@ -454,10 +455,18 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
               </a>
             </div>
           </div>
-        </section>
+      </section>
 
+      {/* FAQ */}
+      <section
+        id="faq"
+        aria-labelledby="faq-heading"
+        className="mx-auto max-w-3xl px-4 pb-12 sm:pb-16"
+      >
         <SectionLabel>Objections, handled</SectionLabel>
-        <h2 className="font-display text-3xl sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
+        <h2 id="faq-heading" className="font-display text-3xl sm:text-4xl">
+          QUESTIONS YOU'RE ABOUT TO ASK
+        </h2>
         <div className="mt-6 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-panel">
           {FAQS.map(([q, a], i) => {
             const isOpen = openFaq === i;
@@ -573,6 +582,51 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           This product is a contact database intended for targeted, relevant, human outreach.
           Do not use this data for automated spam.
         </p>
+
+        <nav aria-label="Footer" className="mt-4">
+          <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[12px]">
+            <li>
+              <a className="text-white/50 underline hover:text-white/80" href="/">
+                Radio Reach Vault
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-white/50 underline hover:text-white/80"
+                href="/resources/college-radio-submissions/"
+              >
+                College Radio Submissions
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-white/50 underline hover:text-white/80"
+                href="/resources/radio-stations-accepting-music/"
+              >
+                Stations Accepting Music
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-white/50 underline hover:text-white/80"
+                href="/resources/radio-promotion-independent-artists/"
+              >
+                Radio Promotion Guide
+              </a>
+            </li>
+            <li>
+              <a className="text-white/50 underline hover:text-white/80" href="/privacy-policy/">
+                Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a className="text-white/50 underline hover:text-white/80" href="/terms/">
+                Terms of Service
+              </a>
+            </li>
+          </ul>
+        </nav>
+
         <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
       </footer>
 

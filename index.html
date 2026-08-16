@@ -1,36 +1,17 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <link rel="preconnect" href="https://js.stripe.com">
-    <link rel="preconnect" href="https://m.stripe.network">
-    <link rel="dns-prefetch" href="https://js.stripe.com">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#08080a" />
     <meta name="color-scheme" content="dark" />
-    <meta name="referrer" content="no-referrer" />
-    <!-- Runtime kill switch: set momentumOwnershipSequence to false to hide the sequence. -->
-    <script>window.__RADIOREACH_FLAGS__={momentumOwnershipSequence:true};</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.pexels.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Domine:wght@400;700&family=Inter:wght@400;600;800&display=optional"
-      rel="preload"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Anton&family=Domine:wght@400;700&family=Inter:wght@400;600;800&display=optional"
-        rel="stylesheet"
-      />
-    </noscript>
+    <!-- strict-origin-when-cross-origin keeps referrer data for our own
+         analytics/attribution while still not leaking full URLs cross-site.
+         `no-referrer` broke referral reporting in Search Console/GA. -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
 
     <title>Radio Station Contacts for Musicians | RadioReach</title>
-  
+
     <!-- RADIOREACH SEO START -->
 
     <meta
@@ -45,19 +26,12 @@
 
     <link rel="canonical" href="https://radioreach.us/" />
 
-    <link
-      rel="alternate"
-      hreflang="en-US"
-      href="https://radioreach.us/"
-    />
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href="https://radioreach.us/"
-    />
+    <link rel="alternate" hreflang="en-US" href="https://radioreach.us/" />
+    <link rel="alternate" hreflang="x-default" href="https://radioreach.us/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="product" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="RadioReach" />
     <meta property="og:title" content="Radio Station Contacts for Musicians | RadioReach" />
     <meta
@@ -65,30 +39,30 @@
       content="Radio station contacts for independent musicians and artists. Reach college, community, commercial and online radio."
     />
     <meta property="og:url" content="https://radioreach.us/" />
+    <meta property="og:image" content="https://radioreach.us/images/radioreach-share-v2.jpg" />
+    <meta property="og:image:secure_url" content="https://radioreach.us/images/radioreach-share-v2.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="800" />
     <meta
-      property="og:image"
-      content="https://radioreach.us/images/radioreach-share-v2.png"
+      property="og:image:alt"
+      content="RadioReach — radio station contact database for independent musicians"
     />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1536" />
-    <meta property="og:image:height" content="1024" />
 
     <meta property="product:price:amount" content="20.00" />
     <meta property="product:price:currency" content="USD" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Radio Station Contacts for Musicians | RadioReach"
-    />
+    <meta name="twitter:title" content="Radio Station Contacts for Musicians | RadioReach" />
     <meta
       name="twitter:description"
       content="Radio station contacts for independent musicians and artists."
     />
+    <meta name="twitter:image" content="https://radioreach.us/images/radioreach-share-v2.jpg" />
     <meta
-      name="twitter:image"
-      content="https://radioreach.us/images/radioreach-share-v2.png"
+      name="twitter:image:alt"
+      content="RadioReach — radio station contact database for independent musicians"
     />
 
     <!-- Structured data -->
@@ -100,16 +74,32 @@
           "@type": "Organization",
           "@id": "https://radioreach.us/#organization",
           "name": "RadioReach",
-          "url": "https://radioreach.us/"
+          "url": "https://radioreach.us/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://radioreach.us/images/radioreach-share-v2.jpg",
+            "width": 1200,
+            "height": 800
+          }
         },
         {
           "@type": "WebSite",
           "@id": "https://radioreach.us/#website",
           "url": "https://radioreach.us/",
           "name": "RadioReach",
-          "publisher": {
-            "@id": "https://radioreach.us/#organization"
-          }
+          "inLanguage": "en-US",
+          "publisher": { "@id": "https://radioreach.us/#organization" }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://radioreach.us/#webpage",
+          "url": "https://radioreach.us/",
+          "name": "Radio Station Contacts for Musicians | RadioReach",
+          "description": "Get radio station contacts for independent musicians and artists, including college, community, commercial and online radio contacts in the RadioReach Vault.",
+          "inLanguage": "en-US",
+          "isPartOf": { "@id": "https://radioreach.us/#website" },
+          "primaryImageOfPage": "https://radioreach.us/images/studio-1280.jpg",
+          "about": { "@id": "https://radioreach.us/#radio-reach-vault" }
         },
         {
           "@type": "Product",
@@ -117,9 +107,7 @@
           "name": "Radio Reach Vault",
           "description": "A downloadable radio contact resource for independent musicians and artists.",
           "category": "Music promotion resources",
-          "brand": {
-            "@id": "https://radioreach.us/#organization"
-          },
+          "brand": { "@id": "https://radioreach.us/#organization" },
           "url": "https://radioreach.us/",
           "image": "https://radioreach.us/images/studio-1280.jpg",
           "offers": {
@@ -127,12 +115,66 @@
             "url": "https://radioreach.us/",
             "priceCurrency": "USD",
             "price": "20.00",
+            "priceValidUntil": "2027-12-31",
             "availability": "https://schema.org/InStock",
             "itemCondition": "https://schema.org/NewCondition",
-            "seller": {
-              "@id": "https://radioreach.us/#organization"
-            }
+            "hasMerchantReturnPolicy": {
+              "@type": "MerchantReturnPolicy",
+              "applicableCountry": "US",
+              "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+              "merchantReturnDays": 30,
+              "returnMethod": "https://schema.org/ReturnByMail",
+              "returnFees": "https://schema.org/FreeReturn"
+            },
+            "seller": { "@id": "https://radioreach.us/#organization" }
           }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://radioreach.us/#faq",
+          "isPartOf": { "@id": "https://radioreach.us/#webpage" },
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I submit music to radio stations?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Start by finding stations that actually fit your genre, location, or audience. Identify the music director, program director, DJ, or submission contact when possible, then send a short personalized pitch with a streaming link and the information the station requests."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are these radio station contacts scraped from Google?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The verified emails are individually checked deliverable addresses tied to a real person — program directors, music directors, and station decision-makers. The remaining entries include station lines and city data."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What format is the radio station contact list delivered in?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Instant download: an organized PDF plus city-sorted contact tables. Works on any device. No software, no subscription, no monthly fee."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Will contacting radio stations guarantee airplay?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The database helps you reach the right people; your music and your pitch determine the outcome. It is intended for targeted, relevant, human outreach — not spam."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does RadioReach have a refund policy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes — 30 days. Email us, tell us it did not help, and we will refund the purchase."
+              }
+            }
+          ]
         }
       ]
     }
@@ -140,7 +182,30 @@
 
     <!-- RADIOREACH SEO END -->
 
+    <!-- Runtime kill switch: set momentumOwnershipSequence to false to hide the sequence. -->
+    <script>window.__RADIOREACH_FLAGS__={momentumOwnershipSequence:true};</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://js.stripe.com" />
+    <link rel="dns-prefetch" href="https://js.stripe.com" />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://images.pexels.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Domine:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      rel="preload"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
       <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Domine:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <link
       rel="preload"
       as="image"
       href="/images/studio-640.jpg"
@@ -148,18 +213,34 @@
       imagesizes="100vw"
       fetchpriority="high"
     />
-      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1615271090014015');
-fbq('init', '2551277695315034');
-fbq('track', 'PageView');
-</script>
-</head>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Meta Pixel — deferred until after first paint so it never blocks LCP. -->
+    <script>
+      window.fbq = window.fbq || function () { (window.fbq.queue = window.fbq.queue || []).push(arguments); };
+      function __rrLoadPixel() {
+        if (window.__rrPixelLoaded) return;
+        window.__rrPixelLoaded = true;
+        !function(f,b,e,v,n,t,s){if(f.fbq&&f.fbq.loaded)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=(window.fbq&&window.fbq.queue)||[];
+        t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}
+        (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1615271090014015');
+        fbq('init', '2551277695315034');
+        fbq('track', 'PageView');
+      }
+      if (document.readyState === 'complete') {
+        setTimeout(__rrLoadPixel, 0);
+      } else {
+        window.addEventListener('load', function () { setTimeout(__rrLoadPixel, 0); }, { once: true });
+      }
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function (evt) {
+        window.addEventListener(evt, __rrLoadPixel, { once: true, passive: true });
+      });
+    </script>
+  </head>
   <body>
     <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"

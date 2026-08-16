@@ -1,19 +1,35 @@
 # RadioReach
 
-> Radio promotion resources for independent musicians and artists.
+> Radio station contacts and radio promotion resources for independent
+> musicians and artists.
 
-RadioReach provides downloadable resources intended to help independent
-artists research and contact radio stations.
+RadioReach publishes the Radio Reach Vault, a downloadable database of radio
+station contact information, alongside free guides that explain how to research
+stations and pitch them without spamming. RadioReach does not sell airplay and
+does not guarantee placement; it reduces the time artists spend locating and
+organizing prospective radio contacts.
 
-## Main page
+## Pages
 
-- https://radioreach.us/
+- [Radio Reach Vault (home)](https://radioreach.us/): Radio station contacts for
+  independent musicians — college, community, commercial and online radio. $20 USD,
+  instant download, 30-day refund policy.
+- [Resources hub](https://radioreach.us/resources/): Index of the free radio
+  promotion guides.
+- [How to Find Radio Stations Accepting Music Submissions](https://radioreach.us/resources/radio-stations-accepting-music/):
+  Narrowing stations by genre, geography, format and programming; which station
+  contacts matter; what a submission email should contain.
+- [College Radio Submissions for Independent Artists](https://radioreach.us/resources/college-radio-submissions/):
+  Who to contact at a college station, how to submit, and whether college stations
+  accept independent music.
+- [Radio Promotion for Independent Artists](https://radioreach.us/resources/radio-promotion-independent-artists/):
+  Building a relevant contact list, pitching programmers, and using geography
+  strategically.
 
-## Primary resource
+## Legal
 
-- Radio Reach Vault
-- Radio station contact resource for independent musicians
-- Includes multiple radio formats and station types
+- [Privacy Policy](https://radioreach.us/privacy-policy/)
+- [Terms of Service](https://radioreach.us/terms/)
 
 ## Canonical domain
 

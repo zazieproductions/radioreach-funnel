@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /*?tip=
+Disallow: /*?session_id=
+Disallow: /*?esp=
 
 Sitemap: https://radioreach.us/sitemap.xml

@@ -1,33 +1,56 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,follow">
-  <title>Page Not Found | RadioReach</title>
-<!-- Meta Pixel Code -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex,follow">
+<title>Page Not Found | RadioReach</title>
+<meta name="description" content="That RadioReach page does not exist. Browse the Radio Reach Vault or the free radio promotion guides instead.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<style>
+body{margin:0;background:#0a0a0a;color:#eee;font-family:Inter,Arial,sans-serif;line-height:1.7}
+main{max-width:720px;margin:auto;padding:80px 22px}
+a{color:#c7ff4a}
+h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;margin:0 0 16px}
+p,li{font-size:1.05rem;color:#d0d0d0}
+ul{padding-left:1.1rem}
+li{margin:.4rem 0}
+</style>
+
+<!-- Meta Pixel — deferred so it never blocks first paint. -->
 <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
+window.fbq=window.fbq||function(){(window.fbq.queue=window.fbq.queue||[]).push(arguments)};
+function __rrLoadPixel(){if(window.__rrPixelLoaded)return;window.__rrPixelLoaded=!0;
+!function(f,b,e,v,n,t,s){if(f.fbq&&f.fbq.loaded)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=(window.fbq&&window.fbq.queue)||[];
+t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2551277695315034');
-fbq('track', 'PageView');
+fbq('init','2551277695315034');fbq('track','PageView');}
+if(document.readyState==='complete'){setTimeout(__rrLoadPixel,0)}
+else{window.addEventListener('load',function(){setTimeout(__rrLoadPixel,0)},{once:true})}
+['pointerdown','keydown','touchstart'].forEach(function(e){
+window.addEventListener(e,__rrLoadPixel,{once:true,passive:true})});
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=2551277695315034&amp;ev=PageView&amp;noscript=1"></noscript>
 </head>
 <body>
-  <main>
-    <h1>Page not found</h1>
-    <p>That RadioReach page doesn't exist.</p>
-    <p><a href="/">Return to RadioReach</a></p>
-  </main>
+<main>
+<h1>Page not found</h1>
+<p>That RadioReach page doesn&rsquo;t exist. Try one of these instead:</p>
+<ul>
+<li><a href="/">Radio Reach Vault &mdash; radio station contacts for musicians</a></li>
+<li><a href="/resources/">Free radio promotion guides</a></li>
+<li><a href="/resources/radio-stations-accepting-music/">How to find radio stations accepting music submissions</a></li>
+<li><a href="/resources/college-radio-submissions/">College radio submissions for independent artists</a></li>
+<li><a href="/resources/radio-promotion-independent-artists/">Radio promotion for independent artists</a></li>
+</ul>
+</main>
 </body>
 </html>
