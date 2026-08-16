@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import SalesPage from "./funnel/SalesPage";
 import type { Addons } from "./funnel/Checkout";
 import type { Stage } from "./funnel/FunnelNav";
+import { trackTipFromReturnUrl } from "./lib/metaPixel";
 
 const Checkout = lazy(() => import("./funnel/Checkout"));
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
@@ -45,6 +46,11 @@ export default function App() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage, routeSuccess]);
+
+  // Track completed tips (Stripe redirects back with ?tip=thanks&…).
+  useEffect(() => {
+    trackTipFromReturnUrl();
+  }, []);
 
   if (routeSuccess) {
     return (

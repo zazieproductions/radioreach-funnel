@@ -69,6 +69,49 @@ export function track(
 }
 
 /**
+ * Track a completed tip when Stripe redirects back with
+ * ?tip=thanks&tip_amount=<cents>&tip_session=<cs_...>.
+ * Deduplicated per tip session via localStorage + eventID.
+ */
+export function trackTipFromReturnUrl() {
+  if (typeof window === "undefined") return;
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("tip") !== "thanks") return;
+
+  const sessionId = params.get("tip_session") || "";
+  const cents = Number(params.get("tip_amount"));
+  // Only the amounts the tip endpoint actually allows.
+  if (!sessionId || ![300, 500, 1000, 2000].includes(cents)) return;
+
+  const guardKey = `rr_fbq_tip:${sessionId}`;
+  try {
+    if (localStorage.getItem(guardKey)) return;
+  } catch {
+    // localStorage unavailable — fire anyway.
+  }
+
+  track(
+    "Purchase",
+    {
+      value: cents / 100,
+      currency: "USD",
+      content_ids: ["tip"],
+      content_name: "RadioReach Tip",
+      content_type: "product",
+      num_items: 1,
+    },
+    sessionId
+  );
+
+  try {
+    localStorage.setItem(guardKey, "1");
+  } catch {
+    // Best effort only.
+  }
+}
+
+/**
  * Fire Purchase exactly once per verified Stripe Checkout session.
  * - Guarded via localStorage so refreshing the success page can't double-count.
  * - eventID = Stripe session id, so a future Conversions API integration can
