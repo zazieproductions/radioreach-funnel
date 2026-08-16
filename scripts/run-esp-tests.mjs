@@ -25,6 +25,10 @@ const run = async (entry, env, label) => {
     format: "esm",
     outfile: out,
     external: ["jsdom"],
+    // Vite provides import.meta.env in the browser build; provide an
+    // empty object here so env-flag modules behave like production
+    // defaults under the node test bundle.
+    define: { "import.meta.env": "{}" },
     logLevel: "silent",
   });
   console.log(`\n── ${label} ──`);

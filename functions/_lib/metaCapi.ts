@@ -36,6 +36,7 @@ export type CapiPurchase = {
   currency: string;
   contentIds: string[];
   contentName: string;
+  attribution?: Record<string, string>;
   eventSourceUrl?: string;
 };
 
@@ -68,6 +69,7 @@ export async function sendCapiPurchase(env: Env, purchase: CapiPurchase): Promis
           content_name: purchase.contentName,
           content_type: "product",
           num_items: purchase.contentIds.length,
+          ...purchase.attribution,
         },
       },
     ],

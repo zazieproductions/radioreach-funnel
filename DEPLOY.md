@@ -68,3 +68,20 @@ wrangler pages deploy dist --project-name=radio-reach-vault
 Cloudflare Pages → your project → **Custom domains → Set up a domain**.
 If the domain is already on Cloudflare, DNS is configured automatically and
 SSL is issued within a minute.
+
+## Momentum sequence feature flag
+
+The mid-page Momentum + Ownership sequence has two kill switches:
+
+1. **Runtime (fastest):** set `window.__RADIOREACH_FLAGS__.momentumOwnershipSequence`
+   to `false` in `index.html`. The section is omitted entirely on the next page load.
+2. **Build-time (hard off):** set `VITE_MOMENTUM_SEQUENCE_ENABLED=false` in the
+   Cloudflare Pages environment and redeploy.
+
+The runtime flag cannot turn the feature back on when the build-time flag is off.
+Answers are stored under `radioreach:momentum-ownership:v1` in localStorage and
+are also attached as low-cardinality `sequence_*` Stripe metadata. Client events
+are sent to Meta as custom events, pushed to `dataLayer`, and dispatched as a
+`radioreach:analytics` browser event. The tracked lifecycle is viewed, started,
+each step completed, finished, and sequence CTA clicked. InitiateCheckout and
+Purchase include the same `sequence_*` attribution for conversion analysis.

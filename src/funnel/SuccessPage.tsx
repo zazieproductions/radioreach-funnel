@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createDownloadLinks, verifySession } from "../lib/api";
 import { trackVerifiedPurchase } from "../lib/metaPixel";
+import { TARGET_LABELS, TARGET_STARTING_MOVES } from "../lib/momentumSequence";
 import { espLogConversion, getPersistedMode } from "../esp";
 
 /* Keep purchase logging idempotent across re-verifies/re-mounts. */
@@ -27,6 +28,7 @@ type DeliveryState =
       orderId: string;
       items: DownloadItem[];
       errors: DownloadError[];
+      momentum?: Record<string, string>;
     };
 
 function getSessionIdFromHash() {
@@ -42,6 +44,25 @@ function formatExpiry(value: string) {
   } catch {
     return value;
   }
+}
+
+function PersonalizedStartingMove({ momentum }: { momentum?: Record<string, string> }) {
+  const target = momentum?.sequence_target as keyof typeof TARGET_LABELS | undefined;
+  if (!target || !TARGET_LABELS[target]) return null;
+
+  return (
+    <div className="mb-6 rounded-2xl border border-acid/30 bg-acid/[0.06] p-5">
+      <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-acid">
+        Your {TARGET_LABELS[target]} starting move
+      </p>
+      <p className="mt-2 text-sm leading-6 text-white/75">
+        {TARGET_STARTING_MOVES[target]}
+      </p>
+      <p className="mt-3 text-[11px] uppercase tracking-[0.16em] text-white/35">
+        Carried through from your access plan
+      </p>
+    </div>
+  );
 }
 
 export default function SuccessPage() {
@@ -82,6 +103,7 @@ export default function SuccessPage() {
             currency: o.currency || "USD",
             contentIds: o.productKeys,
             contentName: o.productNames.join(" + ") || "Radio Reach Vault",
+            attribution: o.momentum || undefined,
           }).catch(() => {});
         }
 
@@ -105,6 +127,7 @@ export default function SuccessPage() {
           orderId: delivery.orderId,
           items: delivery.items || [],
           errors: delivery.errors || [],
+          momentum: orderSummary?.momentum || undefined,
         });
       } catch (err) {
         if (cancelled) return;
@@ -263,6 +286,8 @@ export default function SuccessPage() {
             {state.kind === "ready" && (
               <div className="grid gap-0 lg:grid-cols-[1.25fr_0.75fr]">
                 <div className="border-b border-white/10 px-6 py-8 sm:px-8 lg:border-b-0 lg:border-r">
+                  <PersonalizedStartingMove momentum={state.momentum} />
+
                   <div className="mb-6 grid gap-4 sm:grid-cols-2">
                     <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
                       <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-white/45">

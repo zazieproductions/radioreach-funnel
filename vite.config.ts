@@ -10,9 +10,13 @@ const __dirname = path.dirname(__filename);
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  // Allow any host header so the app can be served behind preview
-  // proxies / tunnels (static site — no host-dependent behavior).
-  server: { allowedHosts: true },
+  // Bind all interfaces and accept any host header so the app can be
+  // served behind preview proxies / tunnels (static site — no
+  // host-dependent behavior).
+  server: {
+    host: "0.0.0.0",
+    allowedHosts: true,
+  },
   preview: { allowedHosts: true },
   resolve: {
     alias: {

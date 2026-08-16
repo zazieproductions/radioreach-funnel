@@ -35,6 +35,7 @@ define("Element", dom.window.Element);
 define("Node", dom.window.Node);
 define("MouseEvent", dom.window.MouseEvent);
 define("PointerEvent", dom.window.PointerEvent);
+define("CustomEvent", dom.window.CustomEvent);
 define("Event", dom.window.Event);
 define("sessionStorage", dom.window.sessionStorage);
 define("localStorage", dom.window.localStorage);
@@ -104,6 +105,19 @@ w.window.IntersectionObserver = FakeIO;
 // The ESP references IntersectionObserver as a bare global.
 define("IntersectionObserver", FakeIO);
 
+/* Other app features (e.g. the momentum sequence) create their own
+   IntersectionObservers; find the ESP engine's — the one observing
+   elements carrying data-esp-zone. */
+function espObserver(): FakeIO {
+  const io = FakeIO.instances.find((instance) =>
+    Array.from(instance.targets.keys()).some(
+      (el) => (el as HTMLElement).dataset.espZone
+    )
+  );
+  if (!io) throw new Error("ESP IntersectionObserver not found");
+  return io;
+}
+
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 let failures = 0;
@@ -150,7 +164,7 @@ if (SCENARIO === "A") {
   check("starts on default copy", activeText("heroSub").includes("You finished the record"), activeText("heroSub").slice(0, 60));
   check("body not yet tagged", !document.body.dataset.espMode);
 
-  const io = FakeIO.instances[0];
+  const io = espObserver();
   const pricing = document.querySelectorAll('[data-esp-zone="pricing"]');
   const scarcity = document.querySelectorAll('[data-esp-zone="scarcity"]');
   check("zones registered", pricing.length === 2 && scarcity.length === 1, `pricing=${pricing.length} scarcity=${scarcity.length}`);

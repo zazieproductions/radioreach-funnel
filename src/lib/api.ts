@@ -1,9 +1,11 @@
 import type { ProductKey } from "../config/storefront";
+import type { MomentumAttribution } from "./momentumSequence";
 
 export type CheckoutSelection = {
   items: ProductKey[];
   bundleId: string;
   utm: Record<string, string>;
+  momentum: MomentumAttribution;
 };
 
 export type CreateSessionResponse =
@@ -30,6 +32,7 @@ export type VerifiedOrderSummary = {
   email: string | null;
   productKeys: string[];
   productNames: string[];
+  momentum?: Record<string, string> | null;
 };
 
 export async function verifySession(sessionId: string) {
