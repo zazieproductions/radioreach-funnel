@@ -34,6 +34,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
             email: order.email || session.customer_details?.email || null,
             productKeys: order.items.map((i) => i.key),
             productNames: order.items.map((i) => i.name),
+            momentum: order.momentum || null,
           }
         : null,
   });

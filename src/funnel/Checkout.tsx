@@ -3,6 +3,7 @@ import { FlipClock, LiveViewers, Stars, StockBar } from "./ui";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
 import { PRODUCTS } from "../config/storefront";
 import { setAdvancedMatching, track } from "../lib/metaPixel";
+import { getMomentumAttribution } from "../lib/momentumSequence";
 
 export type Addons = { contracts: boolean; au: boolean };
 
@@ -17,6 +18,7 @@ export default function Checkout({ onComplete }: Props) {
   const [au, setAu] = useState(true);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
   const total = BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0);
   const saved = 29 + (contracts ? 16 : 0) + (au ? 17 : 0);
@@ -41,6 +43,7 @@ export default function Checkout({ onComplete }: Props) {
       content_ids: items,
       content_type: "product",
       num_items: items.length,
+      ...momentumAttribution,
     });
     // Intentionally mount-only: cart tweaks shouldn't re-fire the event.
     // eslint-disable-next-line react-hooks/exhaustive-deps

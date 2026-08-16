@@ -9,6 +9,8 @@
     <meta name="theme-color" content="#08080a" />
     <meta name="color-scheme" content="dark" />
     <meta name="referrer" content="no-referrer" />
+    <!-- Runtime kill switch: set momentumOwnershipSequence to false to hide the sequence. -->
+    <script>window.__RADIOREACH_FLAGS__={momentumOwnershipSequence:true};</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.pexels.com" crossorigin />
@@ -157,11 +159,12 @@ fbq('init', '1615271090014015');
 fbq('init', '2551277695315034');
 fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
-/></noscript>
 </head>
   <body>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
+      alt=""
+    /></noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

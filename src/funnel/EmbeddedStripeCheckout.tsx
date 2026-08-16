@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { STORE_COPY } from "../config/storefront";
 import { collectUtm, createEmbeddedCheckoutSession } from "../lib/api";
 import type { ProductKey } from "../config/storefront";
+import { getMomentumAttribution } from "../lib/momentumSequence";
 
 const STRIPE_PUB_KEY =
   import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "";
@@ -47,6 +48,7 @@ export default function EmbeddedStripeCheckout({
               items,
               bundleId,
               utm: collectUtm(),
+              momentum: getMomentumAttribution(),
             });
 
           checkoutSessionIdRef.current = checkoutSessionId;
