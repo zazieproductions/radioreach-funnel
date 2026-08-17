@@ -103,22 +103,22 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
       </div>
 
       {/* unlock gate — in flow, so it can never overlap content */}
-      <div className="border-t border-white/10 bg-[#0b0f0b] px-4 py-5 text-center">
+      <div className="border-t border-white/10 bg-[#0b0f0b] px-3 py-4 text-center sm:px-4 sm:py-5">
         <p className="tnum font-mono text-[11px] tracking-wide text-green-400/60">
           <span className="text-white/30">showing</span> 7 / 18,020
           <span className="ml-2 text-acid">+18,013 locked</span>
         </p>
 
-        <p className="mt-3 font-display text-xl uppercase sm:text-2xl">
+        <p className="mt-3 font-display text-[1.15rem] uppercase leading-tight sm:text-2xl">
           Unlock the remaining <span className="text-acid">18,000+ contacts</span>
         </p>
-        <p className="mt-1 font-mono text-[12px] text-white/50">
+        <p className="mt-1 font-mono text-[11px] leading-snug text-white/50 sm:text-[12px]">
           Organized by station, location, role, phone, and email
         </p>
 
         <button
           onClick={onCta}
-          className="cta mt-4 w-full rounded-lg bg-acid px-7 py-4 font-display text-lg uppercase tracking-wide text-ink sm:w-auto"
+          className="cta mt-4 w-full rounded-lg bg-acid px-5 py-3.5 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-7 sm:py-4 sm:text-lg"
         >
           Get full access — $20
         </button>

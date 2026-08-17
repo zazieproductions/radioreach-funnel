@@ -10,7 +10,7 @@ export function TCard({ t, compact }: { t: Testimonial; compact?: boolean }) {
       <p className={`mt-2 font-serif leading-relaxed text-white/80 ${compact ? "text-[14px]" : "text-[16px]"}`}>
         “{t.text}”
       </p>
-      <div className="mt-3 flex items-center gap-3 border-t border-white/10 pt-3">
+      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-white/10 pt-3">
         <img
           src={t.photo}
           alt=""
@@ -21,11 +21,11 @@ export function TCard({ t, compact }: { t: Testimonial; compact?: boolean }) {
           decoding="async"
           className="h-10 w-10 shrink-0 rounded-full bg-white/5 object-cover ring-2 ring-acid/40"
         />
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p className="truncate text-[13px] font-bold">{t.name}</p>
           <p className="truncate text-[11px] text-white/45">{t.role}</p>
         </div>
-        <span className="ml-auto shrink-0 rounded-full bg-acid/15 px-2.5 py-1 text-[10px] font-bold text-acid">
+        <span className="rounded-full bg-acid/15 px-2.5 py-1 text-[10px] font-bold text-acid">
           {t.stat}
         </span>
       </div>
@@ -46,7 +46,7 @@ function OtoShell({ kicker, children }: { kicker: string; children: React.ReactN
       <p className="bg-blood py-1.5 text-center text-[11px] font-black uppercase tracking-[0.16em]">
         {kicker}
       </p>
-      <div className="mx-auto max-w-3xl px-4 py-8 sm:py-9">{children}</div>
+      <div className="mx-auto max-w-3xl px-4 py-6 sm:py-9">{children}</div>
     </div>
   );
 }
@@ -76,11 +76,11 @@ export function Upsell1({
           <div className="h-1.5 flex-1 rounded-full bg-white/15" />
         </div>
 
-        <h1 className="mt-7 text-center font-display text-4xl leading-[0.95] sm:text-6xl">
-          YOU HAVE THE LIST. <br />
+        <h1 className="mt-6 text-center font-display text-[1.85rem] leading-[1.06] sm:mt-7 sm:text-6xl sm:leading-[0.95]">
+          YOU HAVE THE LIST.{" "}
           <span className="text-blood">NOW WHO WRITES THE PITCH?</span>
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-lg text-white/75">
+        <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-[1.05rem] leading-[1.62] text-white/75 sm:text-lg">
           18,020 contacts are worthless if your email gets deleted in 1.4 seconds. Add the{" "}
           <span className="hl font-semibold">AIRPLAY ACCELERATOR</span> — the scripts, the
           campaign calendar, the follow-ups, and 4,800 bonus curator contacts.
@@ -90,8 +90,8 @@ export function Upsell1({
           <FlipClock seconds={299} />
         </div>
 
-        <div className="mt-8 rounded-xl border-2 border-acid/50 bg-panel p-6">
-          <p className="font-display text-2xl">WHAT GETS ADDED TO YOUR ORDER RIGHT NOW:</p>
+        <div className="mt-7 rounded-xl border-2 border-acid/50 bg-panel p-4 sm:mt-8 sm:p-6">
+          <p className="font-display text-xl leading-tight sm:text-2xl">WHAT GETS ADDED TO YOUR ORDER RIGHT NOW:</p>
           <ul className="mt-5 space-y-3 text-[15px]">
             <Check><b>4,812 bonus curator contacts</b> — Spotify playlist curators, music blogs, college radio hosts, podcast bookers. <span className="text-white/50">($297 value)</span></Check>
             <Check><b>The 6-Week Airplay Campaign Calendar</b> — exactly who to email on which day, pre-release to add-date follow-up. <span className="text-white/50">($149 value)</span></Check>
@@ -113,7 +113,7 @@ export function Upsell1({
 
           <button
             onClick={() => onAccept(37)}
-            className="cta mt-6 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase leading-tight tracking-wide text-ink sm:text-2xl"
+            className="cta mt-6 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.1rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:py-5 sm:text-2xl"
           >
             YES — ADD THE ACCELERATOR TO MY ORDER
             <span className="mt-1 block text-[11px] font-sans font-bold tracking-normal">
@@ -267,12 +267,12 @@ export function Upsell2({
           </span>
         </div>
 
-        <h1 className="mt-4 text-center font-display text-4xl leading-[0.95] sm:text-6xl">
-          YOU GOT THE CONTACTS.<br />
+        <h1 className="mt-4 text-center font-display text-[1.85rem] leading-[1.06] sm:text-6xl sm:leading-[0.95]">
+          YOU GOT THE CONTACTS.{" "}
           <span className="text-acid">NOW GET THE CLIENTS.</span>
         </h1>
 
-        <p className="mx-auto mt-5 max-w-2xl text-center font-serif text-lg text-white/75">
+        <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-[1.05rem] leading-[1.62] text-white/75 sm:mt-5 sm:text-lg">
           Radio airplay is your credibility. Your <b className="text-white">income</b> comes from
           clients — sync deals, scoring, beat licensing, podcast music, game audio, mixing,
           mastering. This is the complete{" "}
@@ -616,7 +616,7 @@ export function Downsell({
           <FlipClock seconds={179} />
         </div>
 
-        <div className="mt-7 rounded-xl border-2 border-acid/50 bg-panel p-6">
+        <div className="mt-7 rounded-xl border-2 border-acid/50 bg-panel p-4 sm:p-6">
           <ul className="space-y-3 text-[15px]">
             <Check>The 11 subject lines with real open rates</Check>
             <Check>9 pitch email templates (copy, paste, personalize)</Check>

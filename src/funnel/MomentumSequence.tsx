@@ -293,25 +293,25 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
         className="pointer-events-none absolute inset-0 -z-10 opacity-70 [background-image:radial-gradient(circle_at_50%_0%,rgba(255,230,0,0.11),transparent_38%),linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:auto,42px_42px,42px_42px]"
       />
 
-      <div className="mx-auto max-w-4xl px-4 py-14 sm:py-18">
+      <div className="mx-auto max-w-4xl px-4 py-10 sm:py-18">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-[11px] font-black uppercase tracking-[0.28em] text-acid">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-acid sm:text-[11px] sm:tracking-[0.28em]">
             Build your starting plan
           </p>
           <h2
             id="momentum-title"
-            className="mt-3 font-display text-3xl leading-[0.98] sm:text-5xl"
+            className="mt-3 font-display text-[1.7rem] leading-[1.08] sm:text-5xl sm:leading-[0.98]"
           >
             STOP SEARCHING BLIND.<br />
             <span className="text-white/55">SET YOUR FIRST MOVE.</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-xl font-serif text-base leading-relaxed text-white/65 sm:text-lg">
+          <p className="mx-auto mt-3 max-w-xl font-serif text-[0.98rem] leading-[1.6] text-white/65 sm:mt-4 sm:text-lg sm:leading-relaxed">
             Three quick calls. No email. No fluff. We’ll turn what you tell us into a clean place to start.
           </p>
         </div>
 
-        <div className="relative mx-auto mt-8 max-w-2xl overflow-hidden rounded-[24px] border border-white/15 bg-panel shadow-[0_28px_90px_rgba(0,0,0,0.45),0_0_70px_rgba(255,230,0,0.04)]">
-          <div className="border-b border-white/10 bg-black/25 px-5 py-4 sm:px-7">
+        <div className="relative mx-auto mt-6 max-w-2xl overflow-hidden rounded-2xl border border-white/15 bg-panel shadow-[0_28px_90px_rgba(0,0,0,0.45),0_0_70px_rgba(255,230,0,0.04)] sm:mt-8 sm:rounded-[24px]">
+          <div className="border-b border-white/10 bg-black/25 px-4 py-3.5 sm:px-7 sm:py-4">
             <div className="flex items-center justify-between gap-4">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-acid sm:text-[11px]">
                 {complete
@@ -337,16 +337,16 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
             </div>
           </div>
 
-          <div className="min-h-[510px] px-5 py-6 sm:min-h-[480px] sm:px-7 sm:py-7">
+          <div className="px-4 py-5 sm:min-h-[480px] sm:px-7 sm:py-7">
             {complete ? (
-              <div className="fade-up flex min-h-[430px] flex-col justify-center" key="complete">
+              <div className="fade-up flex flex-col justify-center sm:min-h-[430px]" key="complete">
                 <div className="grid h-12 w-12 place-items-center rounded-full border border-acid/40 bg-acid/10 text-xl text-acid">
                   ✓
                 </div>
                 <p className="mt-5 text-[11px] font-black uppercase tracking-[0.25em] text-acid">
                   Your answers are locked in
                 </p>
-                <h3 className="mt-2 font-display text-3xl leading-tight sm:text-4xl">
+                <h3 className="mt-2 font-display text-[1.65rem] leading-tight sm:text-4xl">
                   YOUR {answers.target ? TARGET_LABELS[answers.target].toUpperCase() : "RADIO"} PLAN IS SET.
                 </h3>
                 <p className="mt-4 font-serif text-base leading-relaxed text-white/70 sm:text-lg">
@@ -370,7 +370,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                 <button
                   type="button"
                   onClick={finishUnlocking}
-                  className="cta mt-5 w-full rounded-xl bg-acid px-5 py-4 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
+                  className="cta mt-5 w-full rounded-xl bg-acid px-4 py-4 font-display text-[1.1rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-2xl"
                 >
                   Finish Unlocking My Contacts — $20 →
                   <span className="mt-1 block font-sans text-[10px] font-bold normal-case tracking-normal opacity-65 sm:text-[11px]">
@@ -390,7 +390,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                 <p className="text-[11px] font-black uppercase tracking-[0.23em] text-blood">
                   {step.eyebrow}
                 </p>
-                <h3 className="mt-2 font-display text-2xl leading-tight sm:text-3xl">
+                <h3 className="mt-2 font-display text-[1.4rem] leading-tight sm:text-3xl">
                   {step.question}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/50">{step.support}</p>
@@ -430,7 +430,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                   })}
                 </div>
 
-                <div className="mt-5 min-h-[96px]" aria-live="polite" aria-atomic="true">
+                <div className="mt-4 min-h-[72px] sm:mt-5 sm:min-h-[96px]" aria-live="polite" aria-atomic="true">
                   {acknowledgment ? (
                     <div className="fade-in rounded-xl border border-acid/30 bg-acid/[0.07] p-4">
                       <p className="flex gap-3 text-sm leading-relaxed text-white/78">
