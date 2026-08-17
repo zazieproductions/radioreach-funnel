@@ -69,8 +69,8 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
       <>
         You finished the record. You mixed it, mastered it, bled on it — and then it died in a{" "}
         <span className="font-semibold text-white">generic submission form</span>. Here are{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by
-        station, location, role, phone, and email to skip the form entirely.
+        <span className="font-bold text-acid">18,000+ unique radio contact emails</span> filterable
+        by genre, location, station type, and contact role to skip the form entirely.
       </>
     ),
     calm: (
@@ -78,8 +78,8 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         You finished the record. You mixed it, mastered it, bled on it — and then it died in a{" "}
         <span className="font-semibold text-white">generic submission form</span>. No platforms.
         No monthly bills. No noise. Just{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by
-        station, location, role, phone, and email — one file that skips the form entirely.
+        <span className="font-bold text-acid">18,000+ unique radio contact emails</span> filterable
+        by genre, location, station type, and contact role — one file that skips the form entirely.
       </>
     ),
     aspire: (
@@ -87,8 +87,8 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         You didn't finish this record to disappear into a{" "}
         <span className="font-semibold text-white">generic submission form</span>. The artists in
         rotation all have one thing in common — they reached the right people directly. Here are{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by
-        station, location, role, phone, and email. The people who decide what gets played.
+        <span className="font-bold text-acid">18,000+ unique radio contact emails</span> filterable
+        by genre, location, station type, and contact role. The people who decide what gets played.
       </>
     ),
     urgency: (
@@ -96,8 +96,8 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         Every week the record sits, the release gets colder — and someone else's song takes the
         slot you were building toward. It's already dying in a{" "}
         <span className="font-semibold text-white">generic submission form</span> while{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> sit organized
-        by station, location, role, phone, and email — and the founder price is still $20.
+        <span className="font-bold text-acid">18,000+ unique radio contact emails</span> sit
+        filterable by genre, location, station type, and role — and the founder price is still $20.
       </>
     ),
   },

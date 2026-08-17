@@ -365,7 +365,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                   </div>
                 </div>
                 <p className="mt-5 text-[15px] leading-relaxed text-white/60">
-                  The Vault is already organized by station, location, role, phone, and email. The only step left is unlocking <b className="text-white">your contacts</b>.
+                  The Vault is already filterable by genre, location, station type, and contact role — with 200 priority routes queued up first. The only step left is unlocking <b className="text-white">your contacts</b>.
                 </p>
                 <button
                   type="button"
