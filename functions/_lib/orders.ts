@@ -10,7 +10,7 @@ export type OrderRecord = {
   bundleId?: string | null;
   utm?: Record<string, string>;
   momentum?: Record<string, string>;
-  items: Array<{ key: string; name: string; bundleKey: string; priceId?: string }>;
+  items: Array<{ key: string; name: string; bundleKey: string; downloadFilename?: string; priceId?: string }>;
   createdAt: string;
   fulfilledAt?: string;
 };

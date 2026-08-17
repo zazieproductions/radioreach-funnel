@@ -37,7 +37,7 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     price: 20,
     compareAt: 49,
     stripePriceIdEnv: "STRIPE_PRICE_VAULT_CORE",
-    r2BundleKey: "vault/radio-reach-vault.zip",
+    r2BundleKey: "vault/radio-reach-vault.pdf",
     description: "18,000+ radio station contacts organized by station, location, role, phone, and email.",
     includes: ["18,000+ contacts", "Organized by station, location, role, phone, and email", "Instant digital delivery"],
   },

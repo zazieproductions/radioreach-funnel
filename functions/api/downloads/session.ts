@@ -1,6 +1,7 @@
 import { json } from "../../_lib/json";
 import { getOrder, putOrder } from "../../_lib/orders";
 import { createPrivateDownloadUrl } from "../../_lib/r2";
+import { resolveBundleKey, resolveDownloadFilename } from "../../_lib/config";
 import { verifyToken } from "../../_lib/token";
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
@@ -23,7 +24,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   for (const item of order.items) {
     try {
-      const url = await createPrivateDownloadUrl(env, item.bundleKey, DOWNLOAD_LINK_LIFETIME);
+      // Orders recorded before a bundle was re-keyed still carry the old
+      // object key, so resolve it forward before signing.
+      const bundleKey = resolveBundleKey(item.bundleKey);
+      const filename = item.downloadFilename || resolveDownloadFilename(item.bundleKey);
+      const url = await createPrivateDownloadUrl(env, bundleKey, DOWNLOAD_LINK_LIFETIME, filename);
       items.push({
         key: item.key,
         name: item.name,

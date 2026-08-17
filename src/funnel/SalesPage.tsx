@@ -37,7 +37,7 @@ const FAQS = [
   ],
   [
     "What format is the radio station contact list delivered in?",
-    "Instant download: a 400+ page organized PDF plus the city-sorted contact tables. Works on any device. No software, no subscription, no monthly fee that quietly renews.",
+    "Instant download: a fully organized PDF with the city-sorted contact tables built in. Works on any device. No software, no subscription, no monthly fee that quietly renews.",
   ],
   [
     "Will contacting radio stations guarantee airplay?",

@@ -53,6 +53,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         key,
         name: ALLOWED_PRODUCTS[key]?.name || key,
         bundleKey: ALLOWED_PRODUCTS[key]?.bundleKey || "",
+        downloadFilename: ALLOWED_PRODUCTS[key]?.downloadFilename,
         priceId: allowed[key]?.priceId,
       }));
 

@@ -12,9 +12,31 @@ export function getR2Client(env: Env) {
   });
 }
 
-export async function createPrivateDownloadUrl(env: Env, key: string, expiresIn = 900) {
+const CONTENT_TYPES: Record<string, string> = {
+  pdf: "application/pdf",
+  zip: "application/zip",
+  csv: "text/csv",
+  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+};
+
+function contentTypeFor(key: string) {
+  const ext = key.split(".").pop()?.toLowerCase() || "";
+  return CONTENT_TYPES[ext] || "application/octet-stream";
+}
+
+/** Content-Disposition is a quoted string; strip characters that would break it. */
+function sanitizeFilename(name: string) {
+  return name.replace(/[\r\n"\\]/g, "").trim() || "download";
+}
+
+export async function createPrivateDownloadUrl(
+  env: Env,
+  key: string,
+  expiresIn = 900,
+  filename?: string
+) {
   const s3 = getR2Client(env);
-  
+
   // Verify object exists before signing URL
   try {
     await s3.send(new HeadObjectCommand({ Bucket: env.R2_BUCKET_NAME, Key: key }));
@@ -23,12 +45,15 @@ export async function createPrivateDownloadUrl(env: Env, key: string, expiresIn 
     throw new Error(`File not available: ${key}`);
   }
 
+  const downloadName = sanitizeFilename(filename || key.split("/").pop() || "download");
+
   return getSignedUrl(
     s3,
     new GetObjectCommand({
       Bucket: env.R2_BUCKET_NAME,
       Key: key,
-      ResponseContentDisposition: `attachment; filename="${key.split("/").pop() || "download.zip"}"`,
+      ResponseContentType: contentTypeFor(key),
+      ResponseContentDisposition: `attachment; filename="${downloadName}"`,
     }),
     { expiresIn }
   );

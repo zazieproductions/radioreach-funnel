@@ -108,12 +108,37 @@ Upload ZIP files to the exact keys mapped in:
 
 Example keys:
 
-- `vault/radio-reach-vault.zip`
-- `addons/indie-music-contract-bundle.zip`
+- `vault/radio-reach-vault.pdf`
+- `products/contract-bundle/indie-music-contract-kit.zip`
 - `addons/australian-radio-contact-list.zip`
 - `upsells/airplay-accelerator.zip`
 - `upsells/advanced-upwork-proposals-course.zip`
-- `upsells/arcane-type-vault.zip`
+
+### Replacing the Radio Reach Vault contact list
+
+The vault ships as a **single PDF**, not a ZIP. Its object key deliberately
+contains no version or year, so refreshing the contact list is a re-upload
+only — no code change and no redeploy:
+
+```bash
+./scripts/replace-vault-file.sh "path/to/18,000 Radio Station Contacts (2026 Version).pdf"
+```
+
+The script validates the `%PDF` header, uploads to `vault/radio-reach-vault.pdf`
+with `Content-Type: application/pdf`, and reads the object back to confirm it
+landed. Pass `--delete-legacy-zip` to also remove the retired
+`vault/radio-reach-vault.zip`.
+
+Buyers always receive the file named
+`RadioReach Vault - 18,000+ Radio Station Contacts.pdf`, regardless of what the
+source file on your machine is called. That display name lives in
+`downloadFilename` in `functions/_lib/config.ts`.
+
+**Old orders keep working.** Orders already recorded in KV still reference
+`vault/radio-reach-vault.zip`. `LEGACY_BUNDLE_KEYS` in `functions/_lib/config.ts`
+remaps retired keys forward at download time, so a customer who revisits their
+success page gets the current PDF instead of a dead link. Any time you re-key a
+bundle, add the old key to that map before deleting the old object.
 
 ## Admin guide — add a new product
 
