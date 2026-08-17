@@ -66,11 +66,11 @@ export default function Checkout({ onComplete }: Props) {
         Secure checkout — payment handled by Stripe inside this page
       </p>
 
-      <div className="mx-auto max-w-6xl px-4 py-8">
+      <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
         <div className="mb-6 flex flex-col items-center gap-3 text-center">
-          <p className="font-display text-3xl sm:text-4xl">ALMOST YOURS — SECURE CHECKOUT</p>
-          <div className="flex items-center gap-4">
-            <span className="text-[12px] font-bold uppercase tracking-widest text-blood">Founder pricing ends in</span>
+          <p className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">ALMOST YOURS — SECURE CHECKOUT</p>
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-blood sm:text-[12px] sm:tracking-widest">Founder pricing ends in</span>
             <FlipClock seconds={597} />
           </div>
           <LiveViewers />
@@ -79,14 +79,14 @@ export default function Checkout({ onComplete }: Props) {
         <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
           {/* left column — selector + summary */}
           <aside className="space-y-4">
-            <section className="rounded-xl border border-white/10 bg-panel p-5 sm:p-6">
+            <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <p className="font-display text-2xl">YOUR ORDER</p>
               <p className="mt-1 text-sm text-white/55">
                 Select the bundles you want. Checkout updates instantly and stays on-page.
               </p>
 
               <div className="mt-5 grid gap-3">
-                <label className="flex items-start gap-3 rounded-xl border border-acid/40 bg-acid/8 p-4">
+                <label className="flex items-start gap-3 rounded-xl border border-acid/40 bg-acid/8 p-3.5 sm:p-4">
                   <input type="checkbox" checked readOnly className="mt-1 h-5 w-5 accent-yellow-400" />
                   <span className="space-y-1">
                     <span className="block font-display text-lg uppercase">{PRODUCTS.vault_core.shortName}</span>
@@ -195,11 +195,11 @@ export default function Checkout({ onComplete }: Props) {
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <div>
                   <label htmlFor="co-name" className="mb-1 block text-[12px] font-semibold text-white/60">Name (optional)</label>
-                  <input id="co-name" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="w-full rounded-lg border border-white/15 bg-black/60 px-4 py-3 outline-none placeholder:text-white/30 focus:border-acid" />
+                  <input id="co-name" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="w-full rounded-lg border border-white/15 bg-black/60 px-4 py-3 text-base outline-none placeholder:text-white/30 focus:border-acid" />
                 </div>
                 <div>
                   <label htmlFor="co-email" className="mb-1 block text-[12px] font-semibold text-white/60">Receipt email (optional)</label>
-                  <input id="co-email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" inputMode="email" className="w-full rounded-lg border border-white/15 bg-black/60 px-4 py-3 outline-none placeholder:text-white/30 focus:border-acid" />
+                  <input id="co-email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" inputMode="email" className="w-full rounded-lg border border-white/15 bg-black/60 px-4 py-3 text-base outline-none placeholder:text-white/30 focus:border-acid" />
                 </div>
               </div>
               <p className="mt-3 text-[12px] text-white/45">
