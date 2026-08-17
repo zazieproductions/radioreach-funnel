@@ -37,7 +37,11 @@ const FAQS = [
   ],
   [
     "What format is the radio station contact list delivered in?",
-    "Instant download: a 400+ page organized PDF plus the city-sorted contact tables. Works on any device. No software, no subscription, no monthly fee that quietly renews.",
+    "Instant download: a filterable premium spreadsheet plus a 600+ page searchable, color-coded PDF directory. Search by genre, location, station type, contact role, and more — on any device. No software, no subscription, no monthly fee that quietly renews.",
+  ],
+  [
+    "Can I filter the radio contact list by genre or location?",
+    "Yes. Find stations by city, state, country, station, format, and genre. Find people by role — music directors, DJs, programmers, station staff, and submission routes. It covers college radio, community stations, FM/AM, internet radio, independent outlets, and international markets. And instead of staring at 18,000 rows wondering where to begin, you start with 200 selected priority music-submission and artist-outreach routes.",
   ],
   [
     "Will contacting radio stations guarantee airplay?",
@@ -211,10 +215,10 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             <div className="rounded-lg border border-acid/50 bg-acid/5 p-5">
               <p className="mb-3 font-display text-xl text-acid">WITH THE VAULT</p>
               <ul className="space-y-2.5 text-[15px]">
-                <Check>18,000+ entries, ready in the next 90 seconds</Check>
-                <Check>Organized by station, location, role, phone, and email</Check>
-                <Check>Program &amp; music directors — the people who decide</Check>
-                <Check>Sorted city by city so you start where you're strongest</Check>
+                <Check>18,000+ unique contact emails, ready in the next 90 seconds</Check>
+                <Check>Filterable by genre, location, station type, and contact role</Check>
+                <Check>Music directors, DJs, programmers — the people who decide</Check>
+                <Check>200 priority submission routes, so you know exactly where to start</Check>
                 <Check>Named decision-makers, so your email starts with "Hi [name]"</Check>
               </ul>
             </div>
@@ -267,11 +271,12 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             className="mt-8 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-black/40"
           >
             {[
-              ["18,000+ radio station entries", "Program directors, music directors, decision-makers.", "$297"],
-              ["Detailed contact information", "Organized by station, location, role, phone, and email.", "$149"],
-              ["400+ page organized document", "Direct access to the gatekeepers, in one file.", "$97"],
-              ["City-by-city organization", "Start local, expand along your tour route.", "$79"],
-              ["Lifetime file access", "No subscription. No renewal. No monthly bleed.", "$120"],
+              ["18,000+ unique radio contact emails", "A massive, organized outreach directory built for independent artists.", "$297"],
+              ["Filterable premium spreadsheet", "Search by genre, location, station type, contact role, and more. Build a targeted list instead of blindly blasting everyone.", "$149"],
+              ["600+ page searchable PDF directory", "A clean, color-coded reference edition you can use on any device.", "$97"],
+              ["Contact details beyond the email", "Station names, locations, contacts, roles, phone numbers, format, genre, route type, and source links where available.", "$79"],
+              ["200 priority outreach routes", "Start with 200 selected music-submission and artist-outreach routes instead of staring at 18,000 rows wondering where to begin.", "$147"],
+              ["No subscription. No gatekeeping.", "Buy it once. Keep it. Use it for every release.", "$120"],
             ].map(([t, d, v]) => (
               <div key={t} className="flex items-start gap-4 p-4">
                 <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-acid text-[13px] font-black text-ink">
@@ -286,12 +291,44 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             ))}
             <div className="flex items-center justify-between bg-acid/10 p-4">
               <span className="font-display text-lg uppercase">Total real value</span>
-              <span className="font-display text-2xl text-white/50 line-through decoration-blood decoration-2">$742</span>
+              <span className="font-display text-2xl text-white/50 line-through decoration-blood decoration-2">$889</span>
             </div>
             <div className="flex items-center justify-between bg-acid p-4 text-ink">
               <span className="font-display text-lg uppercase">Your price right now</span>
               <span className="font-display text-3xl">$20</span>
             </div>
+          </div>
+
+          {/* TARGETING — how you find stations */}
+          <div className="mt-8 rounded-xl border border-white/10 bg-black/40 p-6">
+            <p className="text-[11px] font-black uppercase tracking-[0.24em] text-acid">
+              Stop guessing. Start filtering.
+            </p>
+            <h3 className="mt-2 font-display text-2xl leading-tight sm:text-3xl">
+              FIND STATIONS BY:
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-[15px]">
+              <Check>
+                <b className="text-white">City, state, country, station, format, and genre</b> — zero
+                in on the markets that actually fit your sound.
+              </Check>
+              <Check>
+                <b className="text-white">Music directors, DJs, programmers, station staff, and
+                submission routes</b> — pitch the human who decides, not a black-hole inbox.
+              </Check>
+              <Check>
+                <b className="text-white">College radio, community stations, FM/AM, internet radio,
+                independent outlets, and international markets</b> — every lane, one directory.
+              </Check>
+              <Check>
+                <b className="text-white">200 selected priority music-submission and artist-outreach
+                routes</b> — your shortlist for night one.
+              </Check>
+            </ul>
+            <p className="mt-5 border-l-2 border-acid pl-4 font-serif text-[16px] leading-relaxed text-white/75">
+              You get the exact kind of infrastructure that has traditionally been scattered behind
+              publicists, radio promoters, managers, and endless unpaid research.
+            </p>
           </div>
 
           <div className="mt-6 rounded-lg border border-white/10 bg-black/40 p-5 text-[15px] leading-relaxed text-white/70">

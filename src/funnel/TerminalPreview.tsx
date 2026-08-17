@@ -113,7 +113,7 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
           Unlock the remaining <span className="text-acid">18,000+ contacts</span>
         </p>
         <p className="mt-1 font-mono text-[12px] text-white/50">
-          Organized by station, location, role, phone, and email
+          Filterable by genre, location, station type, and contact role — plus 200 priority routes
         </p>
 
         <button

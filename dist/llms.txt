@@ -13,7 +13,14 @@ artists research and contact radio stations.
 
 - Radio Reach Vault
 - Radio station contact resource for independent musicians
-- Includes multiple radio formats and station types
+- 18,000+ unique radio contact emails in a filterable spreadsheet plus a
+  600+ page searchable PDF directory
+- Find stations by city, state, country, station, format, and genre
+- Contact roles include music directors, DJs, programmers, station staff,
+  and submission routes
+- Covers college radio, community stations, FM/AM, internet radio,
+  independent outlets, and international markets
+- Includes 200 selected priority music-submission and artist-outreach routes
 
 ## Canonical domain
 

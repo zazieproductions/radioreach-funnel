@@ -676,8 +676,8 @@ export function ThankYou({
   const [copied, setCopied] = useState(false);
 
   const downloads: [string, string, string][] = [
-    ["📁", "Radio Reach Vault — 18,000+ entries", "PDF + tables · 412 pages"],
-    ["✉️", "Detailed contact information", "Organized by station, location, role, phone, and email"],
+    ["📁", "Radio Reach Vault — 18,000+ unique contact emails", "Filterable spreadsheet + searchable PDF · 600+ pages"],
+    ["✉️", "Contact details beyond the email", "Stations, locations, roles, phones, format, genre, route type + 200 priority routes"],
     ...(hasContracts ? [["📄", "The Indie Music Contract Kit", "6 Agreement Templates + Plain-English Usage Guide"] as [string, string, string]] : []),
     ...(hasAu ? [["🇦🇺", "Australian Radio Contact List", "Major national and regional AU contacts"] as [string, string, string]] : []),
     ...(hasUpwork ? [["🎓", "Advanced Upwork Proposals — Full Course", `4 parts · ${TOTAL_LESSONS} lessons · lifetime access`] as [string, string, string]] : []),

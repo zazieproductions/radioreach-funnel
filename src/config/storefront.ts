@@ -38,8 +38,8 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     compareAt: 49,
     stripePriceIdEnv: "STRIPE_PRICE_VAULT_CORE",
     r2BundleKey: "vault/radio-reach-vault.zip",
-    description: "18,000+ radio station contacts organized by station, location, role, phone, and email.",
-    includes: ["18,000+ contacts", "Organized by station, location, role, phone, and email", "Instant digital delivery"],
+    description: "18,000+ unique radio contact emails in a filterable premium spreadsheet plus a 600+ page searchable PDF directory — filter by genre, location, station type, and contact role, and start with 200 priority outreach routes.",
+    includes: ["18,000+ unique radio contact emails", "Filterable premium spreadsheet + 600+ page searchable PDF", "200 priority music-submission and artist-outreach routes", "Instant digital delivery"],
   },
   contract_bundle: {
     key: "contract_bundle",
