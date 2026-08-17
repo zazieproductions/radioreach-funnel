@@ -143,9 +143,9 @@ export function Ticker() {
   ];
   return (
     <div className="border-y border-acid/25 bg-acid/10">
-      <ul className="mx-auto flex max-w-5xl flex-col items-center gap-1 px-4 py-2 text-center text-[11px] font-bold uppercase tracking-[0.14em] text-acid sm:flex-row sm:justify-center sm:gap-6">
-        {items.map((t) => (
-          <li key={t}>{t}</li>
+      <ul className="mx-auto flex min-h-9 max-w-5xl items-center justify-center px-4 py-1.5 text-center text-[10px] font-bold uppercase tracking-[0.12em] text-acid sm:min-h-0 sm:gap-6 sm:py-2 sm:text-[11px] sm:tracking-[0.14em]">
+        {items.map((t, index) => (
+          <li key={t} className={index === 0 ? "" : "hidden sm:list-item"}>{t}</li>
         ))}
       </ul>
     </div>
@@ -164,13 +164,13 @@ const LINKS = [
 
 export function TopNav({ onCta }: { onCta: () => void }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-ink/90 backdrop-blur supports-[backdrop-filter]:bg-ink/75">
+    <header className="mobile-solid sticky top-0 z-40 border-b border-white/10 bg-ink/95 backdrop-blur supports-[backdrop-filter]:bg-ink/80">
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-14 max-w-5xl items-center gap-4 px-4"
+        className="mx-auto flex h-14 max-w-5xl items-center gap-2 px-3 sm:gap-4 sm:px-4"
       >
-        <a href="#top" className="font-display text-base tracking-wide text-white sm:text-lg">
-          RADIO REACH <span className="text-acid">VAULT</span>
+        <a href="#top" className="tap-target justify-start whitespace-nowrap font-display text-sm tracking-wide text-white sm:text-lg">
+          RADIO REACH <span className="ml-1 text-acid">VAULT</span>
         </a>
 
         <ul className="ml-auto hidden items-center gap-1 md:flex">
@@ -187,10 +187,11 @@ export function TopNav({ onCta }: { onCta: () => void }) {
         </ul>
 
         <button
+          type="button"
           onClick={onCta}
-          className="cta ml-auto shrink-0 rounded-lg bg-acid px-4 py-2 text-[13px] font-black uppercase tracking-wide text-ink md:ml-0"
+          className="cta ml-auto shrink-0 rounded-lg bg-acid px-3 py-2 text-[12px] font-black uppercase tracking-wide text-ink sm:px-4 sm:text-[13px] md:ml-0"
         >
-          Get access <span className="hidden sm:inline">— $20</span>
+          Get access <span className="hidden min-[350px]:inline">— $20</span>
         </button>
       </nav>
     </header>
@@ -252,9 +253,10 @@ export function ExitIntent({
       >
         <button
           ref={closeRef}
+          type="button"
           onClick={() => setOpen(false)}
-          aria-label="Close"
-          className="pressable absolute right-2 top-2 grid h-10 w-10 place-items-center rounded-full text-xl text-white/50 hover:bg-white/10 hover:text-white"
+          aria-label="Close offer"
+          className="pressable absolute right-2 top-2 grid h-11 w-11 place-items-center rounded-full text-xl text-white/50 hover:bg-white/10 hover:text-white"
         >
           ×
         </button>
@@ -327,12 +329,12 @@ export function StickyBar({
 
   return (
     <div
-      className={`safe-b fixed inset-x-0 bottom-0 z-50 border-t border-acid/40 bg-ink/95 backdrop-blur transition-transform duration-200 ${
-        show ? "translate-y-0" : "translate-y-full"
+      className={`mobile-solid safe-b fixed inset-x-0 bottom-0 z-50 border-t border-acid/40 bg-ink/98 backdrop-blur transition-transform duration-200 ${
+        show ? "pointer-events-auto translate-y-0" : "pointer-events-none translate-y-full"
       }`}
       aria-hidden={!show}
     >
-      <div className="mx-auto flex max-w-5xl items-center gap-3 px-3 py-2.5">
+      <div className="mx-auto flex max-w-5xl items-center gap-3 px-3 py-2 sm:px-4 sm:py-2.5">
         <div className="hidden shrink-0 sm:block">
           <p className="text-[10px] font-bold uppercase tracking-widest text-blood">Founder price ends in</p>
           <FlipClock seconds={897} size="sm" />
@@ -341,12 +343,12 @@ export function StickyBar({
           <button
             onClick={onCta}
             tabIndex={show ? 0 : -1}
-            className="cta w-full rounded-lg bg-acid px-5 py-3.5 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-8 sm:text-lg"
+            className="cta w-full rounded-lg bg-acid px-5 py-3 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-8 sm:text-lg"
           >
             {label}
           </button>
-          <p className="mt-1 text-center text-[10px] text-white/45">
-            <span className="line-through">$49</span> · instant download · 30-day refund
+          <p className="mt-1 text-center text-[10px] leading-none text-white/50">
+            Secure · instant · 30-day refund
           </p>
         </div>
       </div>

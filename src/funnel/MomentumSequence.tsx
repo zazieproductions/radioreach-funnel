@@ -286,14 +286,14 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
       ref={sectionRef}
       id="your-access"
       aria-labelledby="momentum-title"
-      className="relative isolate overflow-hidden border-y border-white/10 bg-[#0b0b0e]"
+      className="defer-render relative isolate overflow-hidden border-y border-white/10 bg-[#0b0b0e]"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-70 [background-image:radial-gradient(circle_at_50%_0%,rgba(255,230,0,0.11),transparent_38%),linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:auto,42px_42px,42px_42px]"
       />
 
-      <div className="mx-auto max-w-4xl px-4 py-14 sm:py-18">
+      <div className="mx-auto max-w-4xl px-4 py-12 sm:py-18">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-[11px] font-black uppercase tracking-[0.28em] text-acid">
             Build your starting plan

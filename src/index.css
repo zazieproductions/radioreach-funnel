@@ -30,6 +30,23 @@ body {
   overflow-x: clip;
   /* never let a wide child blow out the viewport */
   max-width: 100vw;
+  min-width: 280px;
+  min-height: 100dvh;
+}
+
+button,
+a,
+input,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Every control is immediately responsive to a finger tap. */
+button,
+a,
+summary,
+label {
+  touch-action: manipulation;
 }
 
 /* Anchor targets clear the sticky header */
@@ -95,19 +112,44 @@ video {
   border: 0;
 }
 
-/* Guarantee comfortable touch targets on small screens */
-@media (pointer: coarse) {
-  button,
-  a[role="button"],
-  input[type="checkbox"],
-  summary {
-    min-height: 44px;
+/* WCAG-sized controls: never ship a button smaller than a 44 × 44px tap area. */
+button:not(.sr-only),
+a[role="button"],
+.tap-target,
+summary {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.tap-sm,
+.tap-target {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Prevent iOS from zooming the page when a checkout field receives focus. */
+@media (max-width: 639px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    min-height: 48px;
+    font-size: 16px;
   }
-  .tap-sm {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
+
+  /* Translucent surfaces are attractive but expensive on mobile GPUs.
+     These keep the same visual hierarchy with an opaque fallback. */
+  .mobile-solid {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
   }
+}
+
+/* Let the browser skip layout and paint work for long, off-screen sales
+   sections. The intrinsic size keeps the scrollbar stable until reveal. */
+.defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
 }
 
 /* ─────────────────────────────────────────────
@@ -131,14 +173,20 @@ video {
 
 .cta {
   transition: filter 120ms ease, transform 90ms ease, background-color 120ms ease;
-  touch-action: manipulation; /* kills 300ms tap delay */
-  will-change: transform;
+  touch-action: manipulation;
 }
-.cta:hover {
-  filter: brightness(1.08);
+@media (hover: hover) {
+  .cta:hover {
+    filter: brightness(1.08);
+  }
 }
 .cta:active {
   transform: translateY(1px) scale(0.995);
+}
+.cta:disabled {
+  cursor: wait;
+  filter: saturate(0.7);
+  opacity: 0.65;
 }
 
 .pressable {

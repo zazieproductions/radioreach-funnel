@@ -222,17 +222,17 @@ export default function SuccessPage() {
             </div>
           </div>
 
-          <section className="overflow-hidden rounded-[28px] border border-white/10 bg-panel/95 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur">
-            <div className="border-b border-white/10 px-6 py-8 sm:px-8 sm:py-10">
-              <div className="mb-5 flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-acid/40 bg-acid text-ink shadow-[0_0_30px_rgba(220,255,0,0.25)]">
+          <section className="mobile-solid overflow-hidden rounded-[20px] border border-white/10 bg-panel/95 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur sm:rounded-[28px]">
+            <div className="border-b border-white/10 px-5 py-7 sm:px-8 sm:py-10">
+              <div className="mb-5 flex items-start gap-3 sm:items-center sm:gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-acid/40 bg-acid text-ink shadow-[0_0_30px_rgba(220,255,0,0.25)] sm:h-14 sm:w-14 sm:rounded-2xl">
                   <span className="text-2xl">✓</span>
                 </div>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.28em] text-acid">
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-acid sm:text-xs sm:tracking-[0.28em]">
                     purchase confirmed
                   </p>
-                  <h1 className="font-display text-3xl uppercase tracking-tight text-white sm:text-4xl">
+                  <h1 className="font-display text-2xl uppercase leading-tight tracking-tight text-white sm:text-4xl">
                     Your files are unlocked
                   </h1>
                 </div>
@@ -402,7 +402,7 @@ export default function SuccessPage() {
                         Leave an optional tip to support future RadioReach resources.
                       </p>
 
-                      <div className="mt-4 grid grid-cols-4 gap-2">
+                      <div className="mt-4 grid grid-cols-2 gap-2 min-[400px]:grid-cols-4">
                         {[300, 500, 1000, 2000].map((amount) => (
                           <button
                             key={amount}
