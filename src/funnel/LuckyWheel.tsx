@@ -4,7 +4,6 @@ import {
   saveLuckyCoupon,
   type LuckyCoupon,
   formatRemainingMs,
-  getLuckyCouponRemainingMs,
 } from "../lib/luckyCoupon";
 
 // Rainbow segments — 8 slices
@@ -24,7 +23,7 @@ const SEGMENTS: Segment[] = [
   { label: "10% OFF", color: "#8b5cf6", textColor: "#fff" }, // purple
   { label: "FREE", sub: "GUIDE", color: "#06b6d4", textColor: "#fff" }, // cyan
   { label: "15% OFF", color: "#eab308", textColor: "#111" }, // yellow
-  { label: "★ JACKPOT ★", sub: "50 DJs $5!", color: "#22c55e", textColor: "#fff", isJackpot: true }, // jackpot green/gold
+  { label: "★ JACKPOT ★", sub: "BOTH FOR $21", color: "#22c55e", textColor: "#fff", isJackpot: true }, // jackpot green — pre-selected upsells
 ];
 
 const SEGMENT_COUNT = SEGMENTS.length;
@@ -36,7 +35,6 @@ function buildConicGradient() {
   SEGMENTS.forEach((seg, i) => {
     const start = i * SEGMENT_ANGLE;
     const end = (i + 1) * SEGMENT_ANGLE;
-    // add a subtle darker edge per segment
     stops += `${seg.color} ${start}deg ${end}deg${i < SEGMENTS.length - 1 ? ", " : ""}`;
   });
   return `conic-gradient(from 0deg, ${stops})`;
@@ -136,14 +134,12 @@ export function LuckyWheelModal({
     setSpinning(true);
     setHasSpun(true);
 
-    // rigged to jackpot
+    // rigged to jackpot — pre-selected upsells at discounted price
     const spins = 5 + Math.random() * 1.2; // 5-6.2 full spins
     const jackpotCenter = JACKPOT_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2; // 337.5
-    // add small jitter ±4deg so it doesn't look identical every time but still jackpot
     const jitter = (Math.random() - 0.5) * 8;
     const targetRotation = spins * 360 + (360 - jackpotCenter) + jitter;
 
-    // ensure transition plays
     requestAnimationFrame(() => {
       setRotation(targetRotation);
     });
@@ -155,7 +151,6 @@ export function LuckyWheelModal({
       setShowResult(true);
       setSpinning(false);
       onWin(c);
-      // haptic
       try {
         navigator.vibrate?.([30, 50, 30]);
       } catch {}
@@ -221,9 +216,9 @@ export function LuckyWheelModal({
               <p className="mx-auto mt-2 max-w-[36ch] text-[13px] leading-[1.5] text-white/70 sm:text-sm">
                 8 possibilities. 1 jackpot. Land on the green{" "}
                 <b className="text-acid">JACKPOT</b> and unlock{" "}
-                <b className="text-white">50 verified DJ contacts</b> for{" "}
-                <b className="text-acid">$5</b>{" "}
-                <span className="text-white/40 line-through">($8.99)</span>.
+                <b className="text-white">both checkout add-ons</b> at their founder price —{" "}
+                <b className="text-acid">$21</b>{" "}
+                <span className="text-white/40 line-through">($54)</span>.
               </p>
 
               <div className="mt-3 flex flex-wrap justify-center gap-1.5 text-[11px]">
@@ -235,7 +230,7 @@ export function LuckyWheelModal({
                   3 winners in last hour
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-white/50">
-                  draw #RR-{(Math.floor(Math.random()*9000)+1000)}
+                  draw #RR-{(Math.floor(Math.random() * 9000) + 1000)}
                 </span>
               </div>
             </div>
@@ -270,7 +265,7 @@ export function LuckyWheelModal({
                   <div className="absolute inset-[10px] rounded-full border border-white/25" />
                   <div className="absolute inset-[14px] rounded-full border border-black/10" />
 
-                  {/* segment dividers - thin white lines */}
+                  {/* segment dividers */}
                   <svg
                     viewBox="0 0 100 100"
                     className="absolute inset-0 h-full w-full rounded-full pointer-events-none"
@@ -298,7 +293,6 @@ export function LuckyWheelModal({
                   {/* labels */}
                   {SEGMENTS.map((seg, i) => {
                     const angle = i * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
-                    // distance from center for label
                     const isJack = seg.isJackpot;
                     return (
                       <div
@@ -313,19 +307,19 @@ export function LuckyWheelModal({
                           className="flex flex-col items-center text-center"
                           style={{
                             transform: `translate(-50%, -92px) rotate(90deg)`,
-                            width: isJack ? "92px" : "72px",
+                            width: isJack ? "96px" : "72px",
                           }}
                         >
                           <span
                             className={`font-black leading-none tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] ${
                               isJack
-                                ? "text-[11px] sm:text-xs"
+                                ? "text-[10px] sm:text-[11px]"
                                 : "text-[10px] sm:text-[11px]"
                             }`}
                             style={{
                               color: seg.textColor,
                               textShadow: "0 1px 3px rgba(0,0,0,0.6)",
-                              lineHeight: isJack ? "1.1" : "1.15",
+                              lineHeight: isJack ? "1.05" : "1.15",
                               whiteSpace: "pre-line",
                             }}
                           >
@@ -333,8 +327,8 @@ export function LuckyWheelModal({
                             {seg.sub ? `\n${seg.sub}` : ""}
                           </span>
                           {isJack && (
-                            <span className="mt-0.5 rounded-full bg-black/20 px-1.5 py-0.5 text-[8px] font-black uppercase tracking-[0.14em] text-white/90 border border-white/30">
-                              44% OFF
+                            <span className="mt-0.5 rounded-full bg-black/20 px-1.5 py-0.5 text-[7px] font-black uppercase tracking-[0.14em] text-white/90 border border-white/30">
+                              SAVE $33
                             </span>
                           )}
                         </div>
@@ -352,7 +346,6 @@ export function LuckyWheelModal({
                         to win
                       </div>
                     </div>
-                    {/* small dots around hub */}
                     <div className="absolute inset-0 rounded-full">
                       {Array.from({ length: 12 }).map((_, i) => (
                         <span
@@ -368,7 +361,6 @@ export function LuckyWheelModal({
                   </div>
                 </div>
 
-                {/* outer tick marks */}
                 <div className="pointer-events-none absolute inset-[-6px] rounded-full border border-white/10" />
               </div>
             </div>
@@ -421,7 +413,7 @@ export function LuckyWheelModal({
                   />
                   <div className="text-left leading-tight">
                     <p className="text-[12px] font-bold text-white">Maya K. just won</p>
-                    <p className="text-[11px] text-white/50">50 DJ contacts for $5 • 2m ago</p>
+                    <p className="text-[11px] text-white/50">Founder Bundle $21 • 2m ago</p>
                   </div>
                 </div>
                 <span className="rounded-full bg-green-500/15 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-green-400 border border-green-500/20">
@@ -442,9 +434,8 @@ export function LuckyWheelModal({
             </div>
           </>
         ) : (
-          // RESULT - JACKPOT WIN
+          // RESULT - JACKPOT WIN — pre-selected upsells at discounted price
           <div className="px-5 py-6 text-center sm:px-7 sm:py-7">
-            {/* burst */}
             <div className="mx-auto -mt-2 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-acid via-yellow-300 to-[#ff3b82] text-3xl shadow-[0_10px_30px_rgba(255,230,0,0.45)] ring-4 ring-white/15 animate-[pop_420ms_cubic-bezier(0.34,1.56,0.64,1)]">
               🎉
             </div>
@@ -470,32 +461,50 @@ export function LuckyWheelModal({
               </span>
             </p>
 
-            {/* coupon card */}
+            {/* coupon card — both add-ons */}
             <div className="relative mt-5 overflow-hidden rounded-2xl border-2 border-acid bg-gradient-to-b from-acid/15 via-white/[0.04] to-black/20 p-4 text-left shadow-[0_12px_40px_rgba(255,230,0,0.18)] sm:p-5">
               <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-acid/15 blur-2xl" />
               <div className="absolute -left-8 -bottom-8 h-24 w-24 rounded-full bg-[#7c5cff]/15 blur-2xl" />
 
-              <div className="relative flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-[11px] font-black uppercase tracking-[0.18em] text-acid">
-                    Your exclusive prize
-                  </p>
-                  <p className="mt-1 font-display text-xl leading-none sm:text-2xl">
-                    50 VERIFIED DJ CONTACTS
-                  </p>
-                  <p className="mt-1 text-[12px] leading-snug text-white/60 sm:text-[13px]">
-                    Direct emails for club + radio DJs — the add-on that usually costs{" "}
-                    <span className="line-through">$8.99</span>
-                  </p>
-                </div>
-                <div className="shrink-0 text-right">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-white/40 line-through">
-                    $8.99
-                  </p>
-                  <p className="font-display text-4xl leading-none text-acid">$5</p>
-                  <p className="text-[11px] font-black uppercase tracking-widest text-green-400">
-                    Save 44%
-                  </p>
+              <div className="relative">
+                <p className="text-[11px] font-black uppercase tracking-[0.18em] text-acid">
+                  Your exclusive prize — pre-selected at checkout
+                </p>
+                <p className="mt-1 font-display text-xl leading-none sm:text-2xl">
+                  FOUNDER'S BUNDLE UNLOCKED
+                </p>
+                <div className="mt-3 grid gap-2">
+                  <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2.5">
+                    <div>
+                      <p className="text-sm font-bold text-white">📄 Indie Contract Kit</p>
+                      <p className="text-[11px] text-white/50">6 templates + guide</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[11px] font-bold uppercase tracking-widest text-white/40 line-through">$25</p>
+                      <p className="font-display text-xl leading-none text-acid">$9</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2.5">
+                    <div>
+                      <p className="text-sm font-bold text-white">🇦🇺 AU Radio List</p>
+                      <p className="text-[11px] text-white/50">2,847 contacts • 1,612 emails</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[11px] font-bold uppercase tracking-widest text-white/40 line-through">$29</p>
+                      <p className="font-display text-xl leading-none text-acid">$12</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border-2 border-acid/50 bg-acid/10 px-3 py-2.5">
+                    <div>
+                      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-acid">Bundle total</p>
+                      <p className="text-xs text-white/60">Both add-ons together</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-bold uppercase tracking-widest text-white/40 line-through">$54</p>
+                      <p className="font-display text-2xl leading-none text-acid">$21</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-green-400">Save $33 • 61% OFF</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -504,7 +513,7 @@ export function LuckyWheelModal({
                   <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">
                     Coupon code
                   </p>
-                  <p className="mt-1 flex items-center gap-2 font-mono text-[14px] font-black tracking-[0.08em] text-white">
+                  <p className="mt-1 flex items-center gap-2 font-mono text-[13px] font-black tracking-[0.08em] text-white">
                     {coupon?.code}
                     <button
                       type="button"
@@ -520,7 +529,7 @@ export function LuckyWheelModal({
                 </div>
                 <div className="rounded-xl border border-acid/30 bg-acid/10 p-3 text-center">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-acid/70">
-                    Coupon expires in
+                    Prize expires in
                   </p>
                   <p className="mt-1 font-display text-2xl leading-none tracking-wide text-acid tabular-nums">
                     {formatRemainingMs(remainingMs)}
@@ -536,12 +545,10 @@ export function LuckyWheelModal({
                   ✓
                 </span>
                 <p className="text-[12px] leading-snug text-white/70">
-                  <b className="text-white">Pre-checked at checkout.</b> You can remove it, but
-                  you won't see this price again.
+                  <b className="text-white">Both boxes will be pre-ticked at checkout.</b> You can untick, but you won't see this celebration again.
                 </p>
               </div>
 
-              {/* urgency micro */}
               <div className="relative mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
                 <div
                   className="h-full bg-gradient-to-r from-acid via-[#ff6b9d] to-[#00d4ff] transition-all duration-1000"
@@ -565,9 +572,9 @@ export function LuckyWheelModal({
               onClick={onClaim}
               className="cta mt-5 w-full rounded-full bg-acid px-6 py-4 font-display text-[1.15rem] uppercase tracking-wide text-ink shadow-[0_10px_30px_rgba(255,230,0,0.45)] hover:brightness-[1.06] active:scale-[0.99] sm:text-xl"
             >
-              Claim My $5 DJ Pack →
+              Claim My Founder Bundle →
               <span className="mt-0.5 block text-[11px] font-sans font-bold normal-case tracking-normal opacity-70">
-                Adds to checkout • One click • Instant download
+                Takes you to checkout • Both add-ons pre-selected • $21
               </span>
             </button>
 
@@ -584,12 +591,11 @@ export function LuckyWheelModal({
               onClick={onClose}
               className="mx-auto mt-4 block text-[12px] text-white/40 underline underline-offset-4 hover:text-white/70"
             >
-              Keep shopping without coupon
+              Keep shopping without bonus
             </button>
 
             <p className="mx-auto mt-3 max-w-[40ch] text-center text-[10px] leading-snug text-white/25">
-              This is a digital product. Contacts are for targeted, relevant outreach only.
-              No resale. Coupon valid 15 min after spin — after that it returns to $8.99.
+              Founder pricing is reserved for this browser for 15 minutes — after that the checkout returns to standard.
             </p>
           </div>
         )}
@@ -612,7 +618,7 @@ export function LuckyUpsellInline({
   coupon: LuckyCoupon | null;
   onSpinClick: () => void;
 }) {
-  if (coupon && getLuckyCouponRemainingMs(coupon) > 0) {
+  if (coupon && coupon.expiresAt > Date.now()) {
     return (
       <div className="rounded-xl border-2 border-acid bg-gradient-to-br from-acid/15 via-acid/5 to-transparent p-4">
         <div className="flex items-start justify-between gap-3">
@@ -621,12 +627,11 @@ export function LuckyUpsellInline({
               🎉 Jackpot Unlocked
             </p>
             <p className="mt-2 font-display text-lg leading-none">
-              50 DJ CONTACTS FOR $5
+              FOUNDER BUNDLE $21
             </p>
             <p className="mt-1 text-[12px] text-white/60">
-              Code <b className="font-mono text-white">{coupon.code}</b> • 1 in 10,000 winner •
-              expires in{" "}
-              <b className="text-acid">{formatRemainingMs(getLuckyCouponRemainingMs(coupon))}</b>
+              Code <b className="font-mono text-white">{coupon.code}</b> • 1 in 10,000 • saves $33 •{" "}
+              <b className="text-acid">{formatRemainingMs(Math.max(0, coupon.expiresAt - Date.now()))}</b> left
             </p>
           </div>
           <span className="shrink-0 rounded-full bg-green-500 px-3 py-1 text-[11px] font-black uppercase tracking-widest text-white">
@@ -644,10 +649,9 @@ export function LuckyUpsellInline({
           🎡
         </span>
         <div className="flex-1">
-          <p className="font-black text-sm leading-none">Want 44% OFF a bonus pack?</p>
+          <p className="font-black text-sm leading-none">Want the founder price?</p>
           <p className="mt-1 text-[12px] leading-snug text-white/55">
-            Spin the rainbow wheel — <b className="text-white">only 1 in 10,000</b> wins 50 DJ
-            contacts for $5 <span className="line-through">($8.99)</span>
+            Spin the rainbow wheel — <b className="text-white">only 1 in 10,000</b> wins both add-ons for <b className="text-acid">$21</b> <span className="line-through">($54)</span>
           </p>
         </div>
       </div>

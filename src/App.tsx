@@ -3,7 +3,7 @@ import SalesPage from "./funnel/SalesPage";
 import type { Addons } from "./funnel/Checkout";
 import type { Stage } from "./funnel/FunnelNav";
 import { trackTipFromReturnUrl } from "./lib/metaPixel";
-import { loadLuckyCoupon, type LuckyCoupon } from "./lib/luckyCoupon";
+import { loadLuckyCoupon, type LuckyCoupon, clearLuckyCoupon } from "./lib/luckyCoupon";
 import { LuckyWheelModal } from "./funnel/LuckyWheel";
 
 const Checkout = lazy(() => import("./funnel/Checkout"));
@@ -45,7 +45,7 @@ export default function App() {
   });
   const [hasUpwork, setHasUpwork] = useState(false);
 
-  // Lucky wheel global state
+  // Lucky wheel global state — jackpot for pre-selected upsells
   const [luckyCoupon, setLuckyCoupon] = useState<LuckyCoupon | null>(() => {
     try {
       return loadLuckyCoupon();
@@ -54,7 +54,6 @@ export default function App() {
     }
   });
   const [isWheelOpen, setIsWheelOpen] = useState(false);
-  const [djAutoAdd, setDjAutoAdd] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -73,7 +72,6 @@ export default function App() {
         const prevCode = prev?.code;
         const curCode = cur?.code;
         if (prevCode !== curCode) return cur;
-        // also check expiry
         if (cur && Date.now() > cur.expiresAt) return null;
         if (prev && Date.now() > prev.expiresAt) return null;
         return prev;
@@ -92,7 +90,6 @@ export default function App() {
 
   const handleWheelWin = (c: LuckyCoupon) => {
     setLuckyCoupon(c);
-    setDjAutoAdd(true);
   };
 
   const handleWheelClaim = () => {
@@ -122,8 +119,6 @@ export default function App() {
             }}
             luckyCoupon={luckyCoupon}
             onOpenWheel={() => setIsWheelOpen(true)}
-            djAutoAdd={djAutoAdd}
-            onDjAutoAddConsumed={() => setDjAutoAdd(false)}
           />
         );
 
@@ -170,12 +165,8 @@ export default function App() {
             hasUpwork={hasUpwork}
             onRestart={() => {
               sessionStorage.clear();
-              // keep lucky coupon intentionally? clear for demo reset
-              try {
-                localStorage.removeItem("rr_lucky_dj_coupon_v1");
-              } catch {}
+              clearLuckyCoupon();
               setLuckyCoupon(null);
-              setDjAutoAdd(false);
               setTotal(41);
               setAddons({ contracts: true, au: true });
               setHasUpwork(false);

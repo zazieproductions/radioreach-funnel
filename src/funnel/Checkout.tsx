@@ -11,32 +11,25 @@ import {
 } from "../lib/luckyCoupon";
 import { LuckyWheelButton } from "./LuckyWheel";
 
-export type Addons = { contracts: boolean; au: boolean; dj?: boolean };
+export type Addons = { contracts: boolean; au: boolean };
 
 type Props = {
   onComplete: (total: number, addons: Addons) => void;
   luckyCoupon?: LuckyCoupon | null;
   onOpenWheel?: () => void;
-  djAutoAdd?: boolean;
-  onDjAutoAddConsumed?: () => void;
 };
 
 const BASE = PRODUCTS.vault_core.price;
 const CONTRACTS_PRICE = PRODUCTS.contract_bundle.price;
 const AU_PRICE = PRODUCTS.australia_addon.price;
-const DJ_PRICE = PRODUCTS.dj_pack_50.price;
-const DJ_COMPARE = PRODUCTS.dj_pack_50.compareAt || 8.99;
 
 export default function Checkout({
   onComplete,
   luckyCoupon,
   onOpenWheel,
-  djAutoAdd,
-  onDjAutoAddConsumed,
 }: Props) {
   const [contracts, setContracts] = useState(true);
   const [au, setAu] = useState(true);
-  const [dj, setDj] = useState(false);
   const [nowMs, setNowMs] = useState(() => Date.now());
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
@@ -44,14 +37,6 @@ export default function Checkout({
     !!luckyCoupon && getLuckyCouponRemainingMs(luckyCoupon) > 0;
   const isCouponExpired =
     !!luckyCoupon && !hasWinningCoupon && luckyCoupon.expiresAt > 0;
-
-  // auto-add DJ pack when they just won and land on checkout
-  useEffect(() => {
-    if (djAutoAdd && hasWinningCoupon && !dj) {
-      setDj(true);
-      onDjAutoAddConsumed?.();
-    }
-  }, [djAutoAdd, hasWinningCoupon, dj, onDjAutoAddConsumed]);
 
   // live countdown for coupon
   useEffect(() => {
@@ -65,24 +50,17 @@ export default function Checkout({
     : "";
 
   const total =
-    BASE +
-    (contracts ? CONTRACTS_PRICE : 0) +
-    (au ? AU_PRICE : 0) +
-    (dj && hasWinningCoupon ? DJ_PRICE : 0);
+    BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0);
   const saved =
-    29 +
-    (contracts ? 16 : 0) +
-    (au ? 17 : 0) +
-    (dj && hasWinningCoupon ? DJ_COMPARE - DJ_PRICE : 0);
+    29 + (contracts ? 16 : 0) + (au ? 17 : 0);
 
   const items = useMemo(
     () => [
       "vault_core" as const,
       ...(contracts ? (["contract_bundle"] as const) : []),
       ...(au ? (["australia_addon"] as const) : []),
-      ...(dj && hasWinningCoupon ? (["dj_pack_50"] as const) : []),
     ],
-    [contracts, au, dj, hasWinningCoupon]
+    [contracts, au]
   );
 
   const bundleId = useMemo(() => items.join("+"), [items]);
@@ -109,24 +87,37 @@ export default function Checkout({
         Secure checkout — payment handled by Stripe inside this page
       </p>
 
-      {/* jackpot banner on checkout */}
+      {/* jackpot banner on checkout — makes the pre-selected upsells feel like a win */}
       {hasWinningCoupon && luckyCoupon && (
-        <div className="bg-gradient-to-r from-acid via-yellow-200 to-acid px-3 py-2 text-center">
-          <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] text-ink sm:text-xs">
-            <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-[10px] tracking-[0.16em] text-acid">
+        <div className="bg-gradient-to-r from-acid via-yellow-200 to-acid px-3 py-2.5 text-center">
+          <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] text-ink sm:gap-3 sm:text-xs">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 text-[10px] tracking-[0.16em] text-acid">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
               🎉 1 in 10,000 WINNER
             </span>
-            <span>
-              Coupon <span className="font-mono">{luckyCoupon.code}</span> active
-            </span>
-            <span className="hidden sm:inline">•</span>
+            <span className="font-mono">{luckyCoupon.code}</span>
+            <span className="hidden sm:inline opacity-40">•</span>
+            <span>Founder Bundle $21 <span className="line-through opacity-50">$54</span></span>
             <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2.5 py-1 font-mono text-acid">
-              ⏳ {remainingStr} left
+              ⏳ {remainingStr}
             </span>
             <span className="hidden sm:inline text-[10px] tracking-[0.12em] opacity-60">
-              • auto-added below — remove anytime
+              • both add-ons pre-selected below
             </span>
           </p>
+        </div>
+      )}
+
+      {isCouponExpired && luckyCoupon && (
+        <div className="bg-blood px-3 py-2 text-center text-xs font-bold text-white">
+          Your jackpot <span className="font-mono">{luckyCoupon.code}</span> expired after 15 minutes.{" "}
+          <button
+            type="button"
+            onClick={() => onOpenWheel?.()}
+            className="ml-2 rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-widest text-blood hover:bg-acid"
+          >
+            Spin again — free
+          </button>
         </div>
       )}
 
@@ -143,6 +134,51 @@ export default function Checkout({
         <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
           {/* left column — selector + summary */}
           <aside className="space-y-4">
+            {/* winner celebration card */}
+            {hasWinningCoupon && luckyCoupon && (
+              <div className="overflow-hidden rounded-xl border-2 border-acid bg-gradient-to-br from-acid/15 via-acid/5 to-transparent p-4">
+                <div className="flex items-center gap-2">
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-acid to-yellow-300 text-ink">🎉</span>
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-acid">Jackpot active — you feel lucky for a reason</p>
+                    <p className="text-sm font-bold leading-none text-white">
+                      Only <b className="text-acid">1 in 10,000</b> get this celebration at checkout
+                    </p>
+                  </div>
+                  <span className="ml-auto hidden shrink-0 rounded-full bg-acid px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-ink sm:inline-flex">
+                    ⏳ {remainingStr}
+                  </span>
+                </div>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-acid/30 bg-acid/10 px-2.5 py-1 font-mono text-xs font-bold tracking-[0.08em] text-white">
+                    {luckyCoupon.code}
+                    <button
+                      type="button"
+                      onClick={() => navigator.clipboard?.writeText(luckyCoupon.code)}
+                      className="rounded bg-white px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-ink hover:bg-acid"
+                    >
+                      Copy
+                    </button>
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-xs font-bold text-acid border border-white/10 sm:hidden">
+                    ⏳ {remainingStr} left
+                  </span>
+                  <span className="text-xs text-white/60">
+                    Winner <b className="font-mono text-white">{luckyCoupon.winnerId}</b> • Save <b className="text-acid">$33</b> on bundle
+                  </span>
+                </div>
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full bg-gradient-to-r from-acid via-[#ff6b9d] to-[#00d4ff] transition-all duration-1000"
+                    style={{ width: `${Math.max(8, (Math.max(0, luckyCoupon.expiresAt - nowMs) / (15 * 60 * 1000)) * 100)}%` }}
+                  />
+                </div>
+                <p className="mt-2 text-center text-[11px] font-bold uppercase tracking-widest text-white/35">
+                  Both add-ons below are pre-ticked because you won — untick if you really want to
+                </p>
+              </div>
+            )}
+
             <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <p className="font-display text-2xl">YOUR ORDER</p>
               <p className="mt-1 text-sm text-white/55">
@@ -162,16 +198,39 @@ export default function Checkout({
                   </span>
                 </label>
 
-                <label className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${contracts ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"}`}>
+                {/* Contract Kit — jackpot styling when winner */}
+                <label
+                  className={`relative flex min-h-14 cursor-pointer items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
+                    hasWinningCoupon
+                      ? contracts
+                        ? "border-acid/60 bg-gradient-to-br from-acid/15 via-acid/8 to-transparent shadow-[0_0_20px_rgba(255,230,0,0.15)]"
+                        : "border-acid/30 bg-black/30"
+                      : contracts
+                        ? "border-acid/40 bg-acid/8"
+                        : "border-white/10 bg-black/30"
+                  }`}
+                >
+                  {hasWinningCoupon && (
+                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-gradient-to-r from-acid to-yellow-300 px-2 py-1 text-[9px] font-black uppercase tracking-widest text-ink">
+                      ★ JACKPOT PICK
+                    </span>
+                  )}
                   <input
                     type="checkbox"
                     checked={contracts}
                     onChange={(e) => setContracts(e.target.checked)}
                     className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
-                  <div className="space-y-1">
-                    <span className="block font-display text-lg uppercase">{PRODUCTS.contract_bundle.name}</span>
-                    <span className="block text-sm text-acid">6 agreement templates plus a plain-English usage guide</span>
+                  <div className="space-y-1 pr-2 w-full">
+                    <span className="flex flex-wrap items-center gap-2">
+                      <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_bundle.name}</span>
+                      {hasWinningCoupon && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-ink">
+                          1 in 10,000
+                        </span>
+                      )}
+                    </span>
+                    <span className="block text-sm font-bold text-acid">6 agreement templates plus a plain-English usage guide</span>
                     <ul className="mt-1 hidden gap-1 text-[13px] text-white/65 sm:grid">
                       {[
                         "Composer Agreement",
@@ -192,139 +251,94 @@ export default function Checkout({
                     </span>
                     <span className="block text-sm mt-2">
                       <span className="mr-2 text-white/35 line-through">${PRODUCTS.contract_bundle.compareAt}</span>
-                      <b className="text-acid">${PRODUCTS.contract_bundle.price.toFixed(2)}</b>
+                      <b className={hasWinningCoupon ? "text-acid" : "text-acid"}>${PRODUCTS.contract_bundle.price.toFixed(2)}</b>{" "}
+                      {hasWinningCoupon && (
+                        <span className="ml-1 rounded bg-green-500/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-green-400 border border-green-500/20">
+                          Save $16 • Pre-selected for winners
+                        </span>
+                      )}
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Saved me from a nightmare split deal." — Jordan Meacham</span>
+                    {hasWinningCoupon && (
+                      <span className="mt-1 block text-[11px] font-bold uppercase tracking-wide text-acid/70">
+                        🎉 Winner price — {luckyCoupon.code} • ⏳ {remainingStr}
+                      </span>
+                    )}
                   </div>
                 </label>
 
-                <label className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${au ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"}`}>
+                {/* AU addon — jackpot styling when winner */}
+                <label
+                  className={`relative flex min-h-14 cursor-pointer items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
+                    hasWinningCoupon
+                      ? au
+                        ? "border-acid/60 bg-gradient-to-br from-acid/15 via-acid/8 to-transparent shadow-[0_0_20px_rgba(255,230,0,0.15)]"
+                        : "border-acid/30 bg-black/30"
+                      : au
+                        ? "border-acid/40 bg-acid/8"
+                        : "border-white/10 bg-black/30"
+                  }`}
+                >
+                  {hasWinningCoupon && (
+                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-gradient-to-r from-[#7c5cff] to-[#00d4ff] px-2 py-1 text-[9px] font-black uppercase tracking-widest text-white">
+                      ★ JACKPOT PICK
+                    </span>
+                  )}
                   <input
                     type="checkbox"
                     checked={au}
                     onChange={(e) => setAu(e.target.checked)}
                     className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
-                  <span className="space-y-1">
-                    <span className="block font-display text-lg uppercase">{PRODUCTS.australia_addon.name}</span>
-                    <span className="block text-sm text-acid">2,847 AU station contacts · 1,612 verified emails</span>
+                  <span className="space-y-1 pr-2 w-full">
+                    <span className="flex flex-wrap items-center gap-2">
+                      <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.australia_addon.name}</span>
+                      {hasWinningCoupon && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-ink">
+                          1 in 10,000
+                        </span>
+                      )}
+                    </span>
+                    <span className="block text-sm font-bold text-acid">2,847 AU station contacts · 1,612 verified emails</span>
                     <span className="block text-sm text-white/65">{PRODUCTS.australia_addon.description}</span>
                     <span className="block text-sm">
                       <span className="mr-2 text-white/35 line-through">${PRODUCTS.australia_addon.compareAt}</span>
-                      <b className="text-acid">${PRODUCTS.australia_addon.price.toFixed(2)}</b>
+                      <b className="text-acid">${PRODUCTS.australia_addon.price.toFixed(2)}</b>{" "}
+                      {hasWinningCoupon && (
+                        <span className="ml-1 rounded bg-green-500/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-green-400 border border-green-500/20">
+                          Save $17 • Pre-selected for winners
+                        </span>
+                      )}
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." — Dee R.</span>
+                    {hasWinningCoupon && (
+                      <span className="mt-1 block text-[11px] font-bold uppercase tracking-wide text-acid/70">
+                        🎉 Winner price — {luckyCoupon.code} • ⏳ {remainingStr}
+                      </span>
+                    )}
                   </span>
                 </label>
 
-                {/* DJ PACK - Temu lucky wheel prize */}
-                {hasWinningCoupon && luckyCoupon ? (
-                  <label
-                    className={`relative flex min-h-14 cursor-pointer items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
-                      dj ? "border-acid/60 bg-gradient-to-br from-acid/15 via-acid/8 to-transparent shadow-[0_0_20px_rgba(255,230,0,0.18)]" : "border-acid/30 bg-black/30"
-                    }`}
-                  >
-                    {/* jackpot ribbon */}
-                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-gradient-to-r from-acid to-yellow-300 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-ink">
-                      44% OFF • 1 in 10,000
-                    </span>
-                    <input
-                      type="checkbox"
-                      checked={dj}
-                      onChange={(e) => setDj(e.target.checked)}
-                      className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
-                    />
-                    <div className="w-full space-y-1 pr-2">
-                      <span className="flex flex-wrap items-center gap-2">
-                        <span className="block font-display text-lg uppercase leading-none">🎧 50 Verified DJ Contacts</span>
-                        <span className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-ink">
-                          Jackpot
-                        </span>
-                      </span>
-                      <span className="block text-sm font-bold text-acid">Club + mix-show + radio DJs — direct emails • city & genre sorted</span>
-                      <span className="block text-[13px] leading-snug text-white/60">
-                        The add-on that usually costs <span className="line-through">${DJ_COMPARE.toFixed(2)}</span> — yours for{" "}
-                        <b className="text-acid">${DJ_PRICE.toFixed(2)}</b> with jackpot coupon.
-                      </span>
-                      {/* coupon code + timer */}
-                      <div className="mt-2 flex flex-wrap items-center gap-2">
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-acid/30 bg-acid/10 px-2.5 py-1 font-mono text-xs font-bold tracking-[0.08em] text-white">
-                          {luckyCoupon.code}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              navigator.clipboard?.writeText(luckyCoupon.code);
-                            }}
-                            className="rounded bg-white px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-ink hover:bg-acid"
-                          >
-                            Copy
-                          </button>
-                        </span>
-                        <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-xs font-bold tabular-nums text-acid border border-white/10">
-                          ⏳ {remainingStr} left
-                        </span>
-                      </div>
-                      <span className="block text-sm mt-2">
-                        <span className="mr-2 text-white/35 line-through">${DJ_COMPARE.toFixed(2)}</span>
-                        <b className="text-acid">${DJ_PRICE.toFixed(2)}</b>{" "}
-                        <span className="ml-1 rounded bg-green-500/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-green-400 border border-green-500/20">
-                          Save ${(DJ_COMPARE - DJ_PRICE).toFixed(2)}
-                        </span>
-                      </span>
-                      <span className="block text-[11px] leading-snug text-white/40">
-                        Winner ID: <b className="font-mono text-white/70">{luckyCoupon.winnerId}</b> • Verified live draw • Auto-applied at checkout • Digital delivery with Vault
-                      </span>
-                    </div>
-                  </label>
-                ) : isCouponExpired ? (
-                  <div className="rounded-xl border border-blood/30 bg-blood/5 p-4">
-                    <p className="font-display text-base uppercase text-blood">Your jackpot expired</p>
-                    <p className="mt-1 text-sm leading-snug text-white/60">
-                      Coupon <b className="font-mono text-white">{luckyCoupon?.code}</b> expired after 15 minutes. It returned to{" "}
-                      <span className="line-through">${DJ_COMPARE.toFixed(2)}</span>.
+                {/* not winner — spin teaser inside selector */}
+                {!hasWinningCoupon && !isCouponExpired && (
+                  <div className="rounded-xl border border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40 p-4">
+                    <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Feeling lucky?</p>
+                    <p className="mt-1 text-sm font-bold text-white">
+                      Spin the rainbow wheel — <b className="text-acid">1 in 10,000</b> get a jackpot celebration for this bundle
+                    </p>
+                    <p className="mt-1 text-xs text-white/50">
+                      Both add-ons are already <b className="text-white">$9 + $12</b> <span className="line-through">($25 + $29)</span> — winning just makes it feel <b className="text-white">really special</b> at checkout with your code, countdown & confetti.
                     </p>
                     <button
                       type="button"
                       onClick={() => onOpenWheel?.()}
-                      className="cta mt-3 w-full rounded-full bg-white px-4 py-2.5 text-xs font-black uppercase tracking-widest text-ink hover:bg-acid"
-                    >
-                      🎡 Spin again — free
-                    </button>
-                  </div>
-                ) : (
-                  <div className="rounded-xl border border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40 p-4">
-                    <div className="flex items-start gap-3">
-                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-lg">
-                        🎧
-                      </span>
-                      <div className="flex-1">
-                        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Locked — spin to unlock 44% OFF</p>
-                        <p className="mt-1 font-display text-[15px] leading-none">50 VERIFIED DJ CONTACTS — CLUB & RADIO</p>
-                        <p className="mt-1 text-[12px] leading-snug text-white/50">
-                          Direct emails for club, mix-show + radio DJs. City & genre sorted. Usually{" "}
-                          <span className="line-through">${DJ_COMPARE.toFixed(2)}</span> — <b className="text-white">try to win it for $5</b>
-                        </p>
-                        <p className="mt-2 inline-flex items-center gap-1 rounded-full border border-white/10 bg-black/30 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white/40">
-                          🔒 Only 1 in 10,000 wins this price
-                        </p>
-                      </div>
-                      <span className="hidden shrink-0 text-right sm:block">
-                        <span className="block text-xs text-white/30 line-through">${DJ_COMPARE.toFixed(2)}</span>
-                        <span className="block font-display text-xl leading-none text-white/60">$5</span>
-                      </span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => onOpenWheel?.()}
-                      className="cta mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-4 py-3 text-xs font-black uppercase tracking-widest text-white shadow-[0_6px_20px_rgba(124,92,255,0.35)]"
+                      className="cta mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-4 py-2.5 text-xs font-black uppercase tracking-widest text-white shadow-[0_6px_20px_rgba(124,92,255,0.35)]"
                     >
                       <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-ink text-sm">🎡</span>
                       Spin the wheel for a free discount
-                      <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px]">1 in 10,000</span>
                     </button>
                     <p className="mt-2 text-center text-[10px] uppercase tracking-widest text-white/25">
-                      Takes 5 seconds • No email needed • 342 spinning now
+                      342 spinning now • 3 jackpots / hr • 5 sec • no email
                     </p>
                   </div>
                 )}
@@ -342,7 +356,7 @@ export default function Checkout({
                 </span>
               </summary>
               <div className="border-t border-white/10 p-4">
-                <OrderSummaryRows contracts={contracts} au={au} dj={dj && hasWinningCoupon} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} />
+                <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
               </div>
             </details>
 
@@ -356,7 +370,7 @@ export default function Checkout({
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
               <p className="mb-4 font-display text-xl uppercase">Order summary</p>
-              <OrderSummaryRows contracts={contracts} au={au} dj={dj && hasWinningCoupon} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} />
+              <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
             </section>
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
@@ -367,16 +381,16 @@ export default function Checkout({
             {!hasWinningCoupon && !isCouponExpired && (
               <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
                 <LuckyWheelButton onClick={() => onOpenWheel?.()} className="w-full justify-center" small />
-                <p className="mt-2 text-center text-xs text-white/40">Only 1 in 10,000 wins the $5 DJ pack • 5 sec spin</p>
+                <p className="mt-2 text-center text-xs text-white/40">Only 1 in 10,000 wins the jackpot celebration — 5 sec spin</p>
               </section>
             )}
 
             <section className="hidden rounded-xl border border-acid/40 bg-acid/5 p-5 text-[13px] leading-relaxed text-white/70 lg:block">
               <p className="font-display text-lg text-acid">WHAT HAPPENS NEXT</p>
               Stripe processes the payment securely inside this page. After payment, your order is verified server-side and your private downloads unlock from protected storage.
-              {hasWinningCoupon && dj && (
-                <span className="mt-2 block rounded-lg border border-acid/30 bg-acid/10 px-3 py-2 text-acid">
-                  + Your jackpot DJ pack will be included as a separate download alongside the Vault.
+              {hasWinningCoupon && (
+                <span className="mt-2 block rounded-lg border border-acid/30 bg-acid/10 px-3 py-2 text-acid font-bold">
+                  🎉 Jackpot {luckyCoupon.code} — your two add-ons are highlighted as winner picks below. Keep them checked to claim the $33 savings celebration!
                 </span>
               )}
             </section>
@@ -398,10 +412,10 @@ export default function Checkout({
                 >
                   <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-acid">
                     <span className="grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white text-xs">🎡</span>
-                    Feeling lucky? Spin for 44% OFF
+                    Feeling lucky? Spin for a winner feeling
                   </p>
-                  <p className="mt-1 text-sm font-bold text-white">Try for 50 DJ contacts at $5 <span className="font-normal text-white/40 line-through">$8.99</span></p>
-                  <p className="mt-1 text-xs text-white/40">Only 1 in 10,000 wins • Tap to spin rainbow wheel</p>
+                  <p className="mt-1 text-sm font-bold text-white">Unlock the jackpot celebration for both add-ons</p>
+                  <p className="mt-1 text-xs text-white/40">Only 1 in 10,000 wins • Rainbow wheel • ⏳ 15 min</p>
                 </button>
               </div>
             )}
@@ -410,7 +424,7 @@ export default function Checkout({
       </div>
 
       {/* callback for demo flow compatibility */}
-      <button type="button" onClick={() => onComplete(total, { contracts, au, dj: dj && hasWinningCoupon })} className="sr-only">
+      <button type="button" onClick={() => onComplete(total, { contracts, au })} className="sr-only">
         sync
       </button>
     </div>
@@ -420,19 +434,19 @@ export default function Checkout({
 function OrderSummaryRows({
   contracts,
   au,
-  dj,
   saved,
   total,
   coupon,
   remainingStr,
+  hasWinningCoupon,
 }: {
   contracts: boolean;
   au: boolean;
-  dj: boolean;
   saved: number;
   total: number;
   coupon?: LuckyCoupon | null;
   remainingStr?: string;
+  hasWinningCoupon?: boolean;
 }) {
   return (
     <div className="space-y-3 text-[15px]">
@@ -446,7 +460,8 @@ function OrderSummaryRows({
           label={PRODUCTS.contract_bundle.shortName}
           was={`$${PRODUCTS.contract_bundle.compareAt}`}
           now={`$${PRODUCTS.contract_bundle.price.toFixed(2)}`}
-          accent
+          accent={hasWinningCoupon}
+          badge={hasWinningCoupon ? "★ JACKPOT" : undefined}
         />
       )}
       {au && (
@@ -454,21 +469,16 @@ function OrderSummaryRows({
           label={PRODUCTS.australia_addon.shortName}
           was={`$${PRODUCTS.australia_addon.compareAt}`}
           now={`$${PRODUCTS.australia_addon.price.toFixed(2)}`}
-          accent
+          accent={hasWinningCoupon}
+          badge={hasWinningCoupon ? "★ JACKPOT" : undefined}
         />
       )}
-      {dj && coupon && (
-        <div className="flex items-start justify-between gap-4 rounded-lg border border-acid/30 bg-acid/5 px-3 py-2 -mx-1">
-          <span className="text-acid flex flex-col">
-            <span className="flex items-center gap-1.5 font-bold">
-              50 DJ Pack <span className="rounded-full bg-acid px-1.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-ink">Jackpot</span>
-            </span>
-            <span className="text-[11px] font-mono text-white/50">{coupon.code} • ⏳ {remainingStr}</span>
-          </span>
-          <span className="shrink-0 whitespace-nowrap text-right">
-            <span className="mr-2 text-white/30 line-through">${DJ_COMPARE.toFixed(2)}</span>
-            <b className="text-acid">${DJ_PRICE.toFixed(2)}</b>
-          </span>
+      {hasWinningCoupon && coupon && (
+        <div className="rounded-lg border border-acid/30 bg-acid/5 px-3 py-2 text-center -mx-1">
+          <p className="text-xs font-black uppercase tracking-widest text-acid">
+            🎉 Jackpot {coupon.code} • ⏳ {remainingStr} • Save $33 on bundle
+          </p>
+          <p className="text-[11px] text-white/50">Both add-ons pre-selected because you won — 1 in 10,000</p>
         </div>
       )}
       <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
@@ -483,22 +493,25 @@ function OrderSummaryRows({
         <span className="font-display text-xl uppercase">Total</span>
         <span className="font-display text-3xl text-acid">${total.toFixed(2)}</span>
       </div>
-      {dj && (
-        <p className="text-center text-[11px] leading-snug text-white/30">
-          Jackpot add-on included • Digital delivery • One-time use
+      {hasWinningCoupon && (
+        <p className="text-center text-[11px] leading-snug text-acid/70 font-bold">
+          Winner celebration active — keep both boxes checked to claim the feeling 💛
         </p>
       )}
     </div>
   );
 }
 
-function SummaryRow({ label, was, now, accent }: { label: string; was?: string; now: string; accent?: boolean }) {
+function SummaryRow({ label, was, now, accent, badge }: { label: string; was?: string; now: string; accent?: boolean; badge?: string }) {
   return (
-    <div className="flex items-start justify-between gap-4">
-      <span className={accent ? "text-acid" : "text-white/75"}>{label}</span>
+    <div className={`flex items-start justify-between gap-4 ${accent ? "rounded-lg border border-acid/20 bg-acid/5 px-2 py-1 -mx-2" : ""}`}>
+      <span className={`${accent ? "text-acid font-bold" : "text-white/75"} flex items-center gap-1.5`}>
+        {label}
+        {badge && <span className="rounded-full bg-acid px-1.5 py-0.5 text-[8px] font-black uppercase tracking-widest text-ink">{badge}</span>}
+      </span>
       <span className="shrink-0 whitespace-nowrap">
         {was && <span className="mr-2 text-white/30 line-through">{was}</span>}
-        <b>{now}</b>
+        <b className={accent ? "text-acid" : ""}>{now}</b>
       </span>
     </div>
   );

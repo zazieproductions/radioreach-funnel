@@ -1,16 +1,18 @@
-export const LUCKY_COUPON_STORAGE_KEY = "rr_lucky_dj_coupon_v1";
+export const LUCKY_COUPON_STORAGE_KEY = "rr_lucky_jackpot_v2";
 export const LUCKY_COUPON_DURATION_MS = 15 * 60 * 1000; // 15 minutes urgency
 
+// Jackpot unlocks the two checkout add-ons at their preset discounted price:
+// Contract Kit ($25 → $9) + AU Radio List ($29 → $12) = $54 → $21
 export type LuckyCoupon = {
   code: string;
-  productKey: "dj_pack_50";
-  originalPrice: number;
-  discountedPrice: number;
-  discountPct: number;
   wonAt: number;
   expiresAt: number;
   winnerNumber: number; // 1-10000
   winnerId: string; // short unique id for feeling
+  // for display
+  originalPrice: number; // 54
+  discountedPrice: number; // 21
+  discountPct: number; // 61
 };
 
 function randomCode() {
@@ -28,25 +30,22 @@ function randomWinnerMeta() {
 export function generateLuckyCoupon(): LuckyCoupon {
   const now = Date.now();
   const winnerNumber = randomWinnerMeta();
-  // make winnerId like #00847
   const winnerId = `RR-${String(winnerNumber).padStart(5, "0")}-${Math.floor(Math.random() * 90 + 10)}`;
   return {
     code: randomCode(),
-    productKey: "dj_pack_50",
-    originalPrice: 8.99,
-    discountedPrice: 5,
-    discountPct: 44,
     wonAt: now,
     expiresAt: now + LUCKY_COUPON_DURATION_MS,
     winnerNumber,
     winnerId,
+    originalPrice: 54,
+    discountedPrice: 21,
+    discountPct: 61,
   };
 }
 
 export function saveLuckyCoupon(coupon: LuckyCoupon) {
   try {
     localStorage.setItem(LUCKY_COUPON_STORAGE_KEY, JSON.stringify(coupon));
-    // also session for cross-tab
     sessionStorage.setItem(LUCKY_COUPON_STORAGE_KEY, JSON.stringify(coupon));
   } catch {}
 }
@@ -54,11 +53,19 @@ export function saveLuckyCoupon(coupon: LuckyCoupon) {
 export function loadLuckyCoupon(): LuckyCoupon | null {
   try {
     const raw = localStorage.getItem(LUCKY_COUPON_STORAGE_KEY) || sessionStorage.getItem(LUCKY_COUPON_STORAGE_KEY);
-    if (!raw) return null;
+    if (!raw) {
+      // migrate old DJ key if present — clear it so it doesn't show stale prize
+      try {
+        if (localStorage.getItem("rr_lucky_dj_coupon_v1")) {
+          localStorage.removeItem("rr_lucky_dj_coupon_v1");
+          sessionStorage.removeItem("rr_lucky_dj_coupon_v1");
+        }
+      } catch {}
+      return null;
+    }
     const parsed = JSON.parse(raw) as LuckyCoupon;
     if (!parsed.code || !parsed.expiresAt) return null;
     if (Date.now() > parsed.expiresAt) {
-      // expired - clear
       clearLuckyCoupon();
       return null;
     }
@@ -72,6 +79,9 @@ export function clearLuckyCoupon() {
   try {
     localStorage.removeItem(LUCKY_COUPON_STORAGE_KEY);
     sessionStorage.removeItem(LUCKY_COUPON_STORAGE_KEY);
+    // also clear legacy key
+    localStorage.removeItem("rr_lucky_dj_coupon_v1");
+    sessionStorage.removeItem("rr_lucky_dj_coupon_v1");
   } catch {}
 }
 

@@ -115,7 +115,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         </p>
       </div>
 
-      {/* lucky winner top banner */}
+      {/* lucky winner top banner — founder bundle */}
       {hasWinningCoupon && luckyCoupon ? (
         <div className="bg-gradient-to-r from-acid via-yellow-300 to-[#7c5cff] px-3 py-2 text-center">
           <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.12em] text-ink sm:gap-3 sm:text-xs">
@@ -124,8 +124,8 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               JACKPOT UNLOCKED
             </span>
             <span>
-              1 in 10,000 — <span className="font-mono">{luckyCoupon.code}</span> • 50 DJs{" "}
-              <span className="line-through opacity-60">$8.99</span> → $5
+              1 in 10,000 — <span className="font-mono">{luckyCoupon.code}</span> • Founder Bundle{" "}
+              <span className="line-through opacity-60">$54</span> → $21
             </span>
             <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2 py-1 font-mono text-acid">
               ⏳ {remainingStr}
@@ -217,7 +217,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
           <div className="mt-5 flex flex-col items-center gap-2">
             <LiveViewers />
-            {/* Temu-style wheel CTA */}
+            {/* Temu-style wheel CTA — founder bundle */}
             <div className="mt-3 flex flex-col items-center gap-2">
               {hasWinningCoupon && luckyCoupon ? (
                 <div className="rounded-full border border-acid/40 bg-acid/10 px-4 py-2.5 text-center">
@@ -225,9 +225,10 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                     🎉 You won! Only 1 in 10,000 gets this
                   </p>
                   <p className="mt-1 text-[13px] font-bold text-white">
-                    {luckyCoupon.code} • 50 DJ contacts{" "}
-                    <span className="line-through opacity-50">$8.99</span> → <span className="text-acid">$5</span> • ⏳ {remainingStr}
+                    {luckyCoupon.code} • Founder Bundle{" "}
+                    <span className="line-through opacity-50">$54</span> → <span className="text-acid">$21</span> • ⏳ {remainingStr}
                   </p>
+                  <p className="text-[11px] text-white/50">Contract Kit + AU List • Save $33</p>
                   <button
                     type="button"
                     onClick={onClaimWheel}
@@ -412,28 +413,36 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             </div>
           </div>
 
-          {/* DJ pack teaser */}
+          {/* Founder bundle teaser — pre-selected upsells */}
           <div className={`mt-6 rounded-xl border-2 p-4 sm:p-5 ${hasWinningCoupon ? "border-acid bg-acid/10" : "border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40"}`}>
             <div className="flex items-start gap-3">
               <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-lg ${hasWinningCoupon ? "bg-acid text-ink" : "bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white"}`}>
-                {hasWinningCoupon ? "✓" : "🎧"}
+                {hasWinningCoupon ? "✓" : "🎁"}
               </span>
               <div className="flex-1">
                 <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">
-                  {hasWinningCoupon ? "Jackpot add-on unlocked — 1 in 10,000" : "Bonus add-on — spin to unlock"}
+                  {hasWinningCoupon ? "Jackpot unlocked — 1 in 10,000" : "Bonus — spin to unlock founder price"}
                 </p>
-                <p className="mt-1 font-display text-lg leading-none sm:text-xl">50 VERIFIED DJ CONTACTS — CLUB & RADIO</p>
-                <p className="mt-1.5 text-[13px] leading-snug text-white/60">
-                  Direct emails for club, mix-show + radio DJs. Sorted by city & genre. Usually{" "}
-                  <span className="line-through">$8.99</span>{" "}
+                <p className="mt-1 font-display text-lg leading-none sm:text-xl">FOUNDER'S BUNDLE — BOTH ADD-ONS</p>
+                <div className="mt-2 grid gap-2">
+                  <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2">
+                    <span className="text-[13px] font-bold text-white">📄 Indie Contract Kit <span className="font-normal text-white/50">— 6 templates + guide</span></span>
+                    <span className="text-right"><span className="block text-[11px] line-through text-white/30">$25</span><span className="block font-display text-sm leading-none text-acid">$9</span></span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2">
+                    <span className="text-[13px] font-bold text-white">🇦🇺 AU Radio List <span className="font-normal text-white/50">— 2,847 contacts</span></span>
+                    <span className="text-right"><span className="block text-[11px] line-through text-white/30">$29</span><span className="block font-display text-sm leading-none text-acid">$12</span></span>
+                  </div>
+                </div>
+                <p className="mt-2 text-[13px] leading-snug text-white/60">
+                  Normally <span className="line-through">$54</span> together —{" "}
                   {hasWinningCoupon ? (
                     <>
-                      — <b className="text-acid">yours for $5 (44% OFF)</b> with code{" "}
-                      <b className="font-mono text-white">{luckyCoupon.code}</b>
+                      <b className="text-acid">yours for $21 (save $33)</b> with code <b className="font-mono text-white">{luckyCoupon.code}</b> • pre-ticked at checkout
                     </>
                   ) : (
                     <>
-                      — <b className="text-white">spin the wheel to try for $5</b>
+                      <b className="text-white">spin to feel like a winner at checkout</b> — they'll be pre-selected for you at the discounted price
                     </>
                   )}
                 </p>
@@ -444,7 +453,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                       onClick={onClaimWheel}
                       className="cta rounded-full bg-acid px-4 py-2 text-xs font-black uppercase tracking-widest text-ink"
                     >
-                      Add for $5 at checkout →
+                      Go to checkout — $21 bundle →
                     </button>
                   ) : (
                     <button
@@ -463,13 +472,14 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               <div className="hidden shrink-0 text-right sm:block">
                 {hasWinningCoupon ? (
                   <>
-                    <p className="text-xs line-through text-white/30">$8.99</p>
-                    <p className="font-display text-2xl leading-none text-acid">$5</p>
+                    <p className="text-xs line-through text-white/30">$54</p>
+                    <p className="font-display text-xl leading-none text-acid">$21</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-green-400">Save $33</p>
                   </>
                 ) : (
                   <>
                     <p className="text-xs text-white/40">Locked</p>
-                    <p className="font-display text-xl leading-none text-white/60">$5 win</p>
+                    <p className="font-display text-xl leading-none text-white/60">$21 win</p>
                   </>
                 )}
               </div>
@@ -698,8 +708,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               </p>
             </div>
           </div>
-
-          {/* wheel CTA in final section */}
+          {/* wheel CTA in final section — founder bundle */}
           <div className="mx-auto mt-7 max-w-md">
             {hasWinningCoupon && luckyCoupon ? (
               <div className="rounded-xl border-2 border-acid bg-acid/10 p-4 text-left">
@@ -708,23 +717,25 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 </p>
                 <div className="mt-2 flex items-center justify-between gap-3">
                   <div>
-                    <p className="font-display text-lg leading-none">50 DJ CONTACTS</p>
+                    <p className="font-display text-lg leading-none">FOUNDER BUNDLE</p>
+                    <p className="text-[11px] text-white/50">Contract Kit + AU List • Save $33</p>
                     <p className="font-mono text-xs text-white/70">{luckyCoupon.code} • ⏳ {remainingStr}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs line-through text-white/40">$8.99</p>
-                    <p className="font-display text-2xl leading-none text-acid">$5</p>
+                    <p className="text-xs line-through text-white/40">$54</p>
+                    <p className="font-display text-2xl leading-none text-acid">$21</p>
                   </div>
                 </div>
-                <p className="mt-2 text-center text-xs text-white/60">Auto-added at checkout for the next {remainingStr}</p>
+                <p className="mt-2 text-center text-xs text-white/60">Pre-selected at checkout for the next {remainingStr}</p>
               </div>
             ) : (
               <div className="rounded-xl border border-white/10 bg-black/40 p-4">
-                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Psst — want a bonus?</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Psst — want to feel lucky?</p>
                 <p className="mt-1 text-[13px] font-bold text-white">
-                  Spin the rainbow wheel for a chance at 50 DJ contacts for <span className="text-acid">$5</span>{" "}
-                  <span className="line-through opacity-40">$8.99</span>
+                  Spin the rainbow wheel for a chance to unlock <span className="text-acid">both add-ons for $21</span>{" "}
+                  <span className="line-through opacity-40">$54</span>
                 </p>
+                <p className="text-xs text-white/50">Contract Kit + AU List — pre-selected if you win</p>
                 <button
                   type="button"
                   onClick={() => onOpenWheel?.()}

@@ -1,7 +1,6 @@
 import { json } from "../../_lib/json";
 import { resolveAllowedPrices, type AllowedProductKey } from "../../_lib/config";
 import { getStripe } from "../../_lib/stripe";
-import type Stripe from "stripe";
 
 type MomentumInput = Record<string, unknown>;
 
@@ -43,26 +42,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     if (!items.length) return json({ error: "No products selected." }, { status: 400 });
 
     const allowed = resolveAllowedPrices(env);
-    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+    const line_items = [];
     for (const key of items) {
       const item = allowed[key as AllowedProductKey];
-      // Graceful fallback for lucky DJ pack in demo / when price env not set:
-      // create an inline $5 price so the spin-to-win feature works without Stripe dashboard setup.
       if (!item || !item.priceId) {
-        if (key === "dj_pack_50") {
-          line_items.push({
-            quantity: 1,
-            price_data: {
-              currency: "usd",
-              unit_amount: 500,
-              product_data: {
-                name: "50 Verified DJ Contacts — Club & Radio",
-                description: "Lucky Wheel jackpot — 44% OFF (was $8.99)",
-              },
-            },
-          } as Stripe.Checkout.SessionCreateParams.LineItem);
-          continue;
-        }
         return json({ error: `Invalid or unconfigured product key: ${String(key)}` }, { status: 400 });
       }
       line_items.push({ price: item.priceId, quantity: 1 });
