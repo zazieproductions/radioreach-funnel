@@ -1,7 +1,9 @@
 {
-  "name": "react-vite-tailwind",
+  "name": "radioreach-funnel",
   "private": true,
   "version": "0.0.0",
+  "description": "Conversion-focused, edge-native storefront for RadioReach with adaptive React UX, Stripe Embedded Checkout, verified webhooks, Cloudflare KV, and private R2 fulfillment.",
+  "homepage": "https://radioreach.us",
   "type": "module",
   "scripts": {
     "dev": "vite",
