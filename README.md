@@ -315,7 +315,7 @@ Read the implementation notes in [`src/esp/README.md`](./src/esp/README.md).
 ### Momentum + Ownership sequence
 
 - **Build-time hard switch:** `VITE_MOMENTUM_SEQUENCE_ENABLED=false`
-- **Runtime kill switch:** set `window.__RADIOREACH_FLAGS__.momentumOwnershipSequence` to `false` before the application bundle runs.
+- **Runtime kill switch:** set `window.__RADIOREACH_FLAGS__.momentumOwnershipSequence` to `false` before the application bundle runs. **This is the current default**: the multi-step quiz costs taps between a cold ad click and the buy button, so it ships off. Flip it back to `true` in `index.html` to re-enable without a rebuild.
 
 The sequence stores answers under `radioreach:momentum-ownership:v1`, emits lifecycle analytics, and attaches normalized `sequence_*` attribution to checkout and purchase events.
 
@@ -384,6 +384,18 @@ This repository does not include an open-source license. Access to the source do
 
 RadioReach Funnel is engineered as a conversion-first commerce experience. Beyond the transactional stack, it ships a layered set of behavioral, psychological, and gamification systems—each designed, instrumented, and tested to move a skeptical visitor from discovery to purchase without manipulating the underlying offer. Every system below is feature-flagged, measurable, and degrades gracefully when disabled.
 
+> [!NOTE]
+> **Mobile-first conversion pass (2026-08).** The funnel was re-optimized end-to-end for cold traffic arriving from Meta ads on phones: one-handed, impatient, deciding in seconds. The live path was reduced to a single obvious decision—**$20, instant access, 30-day refund**—and everything competing with it was removed or demoted:
+>
+> - **Above the fold:** value bar → sticky nav → headline → two-line subheadline → price anchor → buy button → star rating + trust chips. No scrolling needed to understand the offer or buy.
+> - **Section order now follows buying psychology:** value proposition → social proof → product preview (live data sample) → benefits → what's included → FAQ → guarantee (risk reversal) → final CTA.
+> - **Removed from the live path:** the Lucky Wheel and all jackpot/winner banners (competing CTAs, popup friction, price confusion), the countdown timer, the decrementing stock bar, the live-viewer counter, the urgency ticker, and the multi-step Momentum quiz (off by default via the runtime kill switch).
+> - **No popups on mobile:** the exit-intent modal is pointer-fine/desktop-only and never fires on touch devices.
+> - **Checkout** is stripped to order selection + Stripe Embedded Checkout + a mobile-visible "what happens next" (pay → instant confirmation → download). Urgency framing is replaced by price anchoring ($49 list → $20 launch, one-time).
+> - **Performance:** hero imagery recompressed (~50% smaller), OG share image converted PNG→JPEG (1.9 MB → 260 KB), testimonial avatars at dpr=1 with a CDN preconnect, checkout chunk prefetched on first intent, Momentum/Upsells/Success code kept out of the initial bundle.
+>
+> The systems documented below remain in the codebase (and remain individually re-enable-able where flagged), but the default experience favors clarity and trust over pressure for first-time mobile visitors.
+
 ### Emotional State Proxy (ESP)
 
 ESP is a client-side behavioral state engine that interprets *how* a visitor reads the sales page and gently adapts the **tone** of the copy—never the price, the product facts, or the offer terms. Most visitors never notice it; they simply feel like the page "gets" them.
@@ -422,6 +434,8 @@ A feature-flagged, three-step interactive sequence that converts passive readers
 
 ### Gamified Discounting: The Lucky Wheel
 
+> **Status (2026-08): retired from the live funnel.** For cold mobile traffic, the wheel read as a distracting popup and a competing CTA, and its "jackpot" pricing ($21 bundle) did not match the real cart total—net friction and confusion. The component remains in `src/funnel/LuckyWheel.tsx` but is no longer mounted or reachable; add-ons are now presented honestly at checkout ($9 / $12, optional, uncheck anytime).
+
 A carnival-wheel mechanic that turns price sensitivity into a dopamine-driven, shareable moment—without discounting for everyone.
 
 **Psychology.** The wheel leverages *variable reward scheduling* (the same mechanism that makes slot machines compelling) and the *near-miss effect*. The wheel is engineered to appear as though it nearly lands on a modest discount (10% OFF) before snapping to the jackpot—a moment of perceived luck that dramatically increases the emotional weight of the "win." The result: winners feel chosen, not marketed to.
@@ -445,6 +459,8 @@ A pointer-fine, desktop-only modal that fires once when a visitor's cursor leave
 
 ### Scarcity & Urgency Architecture
 
+> **Status (2026-08): removed from the default mobile path.** Countdown timers, the decrementing stock bar, the live-viewer counter, and the urgency ticker were cut from the sales page and checkout for cold Meta-ad traffic. They read as pressure rather than proof to first-time visitors on a phone, and several were synthetic. `FlipClock` remains in `src/funnel/ui.tsx` for the OTO screens. The live path leans on genuine anchors instead: the $49→$20 price anchor, the 30-day guarantee, verified testimonials, and instant delivery.
+
 A multi-signal urgency system that communicates genuine scarcity without fabricating it.
 
 - **Countdown timers** (FlipClock) with session-persistent deadlines—reset only when the timer hits zero, so a returning visitor sees continuity, not a fresh 15 minutes.
@@ -455,6 +471,8 @@ A multi-signal urgency system that communicates genuine scarcity without fabrica
 Each signal is independently dismissible and degrades gracefully. None of them lie: the founder price *does* revert, the launch capacity *is* limited, and other artists *are* viewing the page.
 
 ### Post-Purchase Upsell Sequence (OTO Flow)
+
+> **Status (2026-08): dormant.** The OTO stage machine is not wired into the live route—buyers go straight from Stripe to the verified delivery screen (`#/success`), which keeps the post-purchase moment frictionless. The upsell screens remain in `src/funnel/Upsells.tsx`, ready to be re-wired behind the checkout if post-purchase AOV testing resumes.
 
 A modular, three-step one-time-offer flow that maximizes customer value while the buyer's payment context is active.
 
@@ -473,8 +491,8 @@ A modular, three-step one-time-offer flow that maximizes customer value while th
 
 Trust is built through specificity, not superlatives.
 
-- **Testimonials** with photos, roles, verified badges, and concrete stats ("Got Unearthed airplay in 6 weeks from Ohio").
-- **Winner announcements** in the wheel flow ("Alex P. won 2m ago")—real-time social proof that the jackpot is achievable.
+- **Testimonials** with photos, roles, verified badges, and concrete stats ("Got Unearthed airplay in 6 weeks from Ohio")—promoted to immediately below the hero, where cold traffic needs them most.
+- **Winner announcements** in the wheel flow ("Alex P. won 2m ago")—retired with the wheel (see above).
 - **Transparent pricing math** that shows exactly how the $20 price compares to enterprise alternatives ($300–$500/year) and computes the per-contact cost (0.11¢).
 - **Risk reversal** with a 30-day "I'll eat the cost" guarantee, framed as a respect for the buyer's judgment rather than a safety net.
 - **FTC-compliant disclaimer** that results are not guaranteed, contacts change over time, and the database is a research resource—not a live-updated service. Radical honesty as a trust signal.

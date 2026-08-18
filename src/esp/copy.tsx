@@ -50,10 +50,10 @@ type SlotVariants = { default: ReactNode } & Partial<Record<EmotionalMode, React
 export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   /* — top alert strip — */
   alertBar: {
-    default: "Founder pricing ends when the timer hits zero",
-    calm: "Founder pricing is still open — take your time",
+    default: "Launch price: $20 one-time · Instant download · 30-day refund",
+    calm: "Built by an indie artist — priced for indie artists",
     aspire: "Built by an indie artist — priced for indie artists",
-    urgency: "Founder pricing ends at zero — then it's $49",
+    urgency: "Launch price $20 today — steps to $49 after launch",
   },
 
   /* — hero eyebrow badge — */
@@ -63,51 +63,45 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
     aspire: "For unsigned artists, producers & podcasters serious about being heard",
   },
 
-  /* — hero subheadline — */
+  /* — hero subheadline — kept to two lines on mobile so the buy
+     button stays above the fold — */
   heroSub: {
     default: (
       <>
-        You finished the record. You mixed it, mastered it, bled on it — and then it died in a{" "}
-        <span className="font-semibold text-white">generic submission form</span>. Here are{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by
-        station, location, role, phone, and email to skip the form entirely.
+        Skip the submission forms:{" "}
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> — names,
+        roles, phones, emails — organized city by city. One download, start pitching today.
       </>
     ),
     calm: (
       <>
-        You finished the record. You mixed it, mastered it, bled on it — and then it died in a{" "}
-        <span className="font-semibold text-white">generic submission form</span>. No platforms.
-        No monthly bills. No noise. Just{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by
-        station, location, role, phone, and email — one file that skips the form entirely.
+        No platforms, no monthly fees.{" "}
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> — names,
+        roles, phones, emails — organized city by city in one file you keep forever.
       </>
     ),
     aspire: (
       <>
-        You didn't finish this record to disappear into a{" "}
-        <span className="font-semibold text-white">generic submission form</span>. The artists in
-        rotation all have one thing in common — they reached the right people directly. Here are{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by
-        station, location, role, phone, and email. The people who decide what gets played.
+        The artists getting played reached the right people directly. Here are{" "}
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> — the program
+        directors and music directors who decide what gets on air.
       </>
     ),
     urgency: (
       <>
-        Every week the record sits, the release gets colder — and someone else's song takes the
-        slot you were building toward. It's already dying in a{" "}
-        <span className="font-semibold text-white">generic submission form</span> while{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> sit organized
-        by station, location, role, phone, and email — and the founder price is still $20.
+        Every week a release sits, it gets colder.{" "}
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> — names,
+        roles, phones, emails, city by city — ready to download while the launch price holds.
       </>
     ),
   },
 
   /* — hero CTA box label — */
   ctaLabel: {
-    default: "Founder price locks in for:",
-    calm: "One-time price — no subscription, no fine print:",
-    aspire: "Founder price — what the first 1,940 artists paid:",
-    urgency: "Founder price expires in:",
+    default: "Launch price",
+    calm: "One-time price — no subscription",
+    aspire: "Founder price",
+    urgency: "Launch price — ends after launch",
   },
 
   /* — trust line under the hero CTA — */
@@ -232,20 +226,19 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
       <>
         <b className="text-white">The math nobody wants you to do:</b> professional databases run{" "}
         <span className="font-bold text-blood">$300–$500/year</span>. The same caliber of data is{" "}
-        <span className="font-bold text-acid">$20</span> right now — but only while the founder
-        slots hold. At $49 it's still a bargain. At $20 it's{" "}
-        <b className="text-white">0.11¢ per contact.</b> That number won't be here when the timer
-        ends.
+        <span className="font-bold text-acid">$20</span> right now — while launch pricing lasts.
+        At $49 it's still a bargain. At $20 it's{" "}
+        <b className="text-white">0.11¢ per contact.</b> Grab it before the price steps up.
       </>
     ),
   },
 
   /* — note under the stack CTA — */
   stackNote: {
-    default: "73% off · price returns to $49 when the timer expires · instant download",
+    default: "73% off the $49 list price · one-time payment · instant download",
     calm: "73% off · one-time payment · instant download — no subscription, ever",
     aspire: "73% off today · instant download · join 1,940+ artists inside",
-    urgency: "73% off · returns to $49 when the timer expires · founder slots are going",
+    urgency: "73% off while launch pricing lasts — then $49",
   },
 
   /* — testimonials headline — */

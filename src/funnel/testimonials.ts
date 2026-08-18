@@ -1,5 +1,7 @@
+// Rendered at 40–44 CSS px (≤88 device px). 160 px at dpr 1 is already
+// oversampled — roughly halves each avatar's transfer size vs dpr 2.
 const P = (id: number, w = 160) =>
-  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&dpr=2&fit=crop&w=${w}&h=${w}`;
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&w=${w}&h=${w}`;
 
 export type Testimonial = {
   name: string;

@@ -161,7 +161,7 @@ check("alertBar stacks all variants", variantCount("alertBar") >= 3, `got ${vari
 
 if (SCENARIO === "A") {
   /* ── default → urgency via repeated returns to pricing/scarcity ── */
-  check("starts on default copy", activeText("heroSub").includes("You finished the record"), activeText("heroSub").slice(0, 60));
+  check("starts on default copy", activeText("heroSub").includes("Skip the submission forms"), activeText("heroSub").slice(0, 60));
   check("body not yet tagged", !document.body.dataset.espMode);
 
   const io = espObserver();
@@ -180,11 +180,11 @@ if (SCENARIO === "A") {
 
   check("flipped to urgency", slotMode("heroSub") === "urgency", `got ${slotMode("heroSub")}`);
   check("body tagged urgency", document.body.dataset.espMode === "urgency");
-  check("urgency copy visible", activeText("heroSub").includes("Every week the record sits"), activeText("heroSub").slice(0, 60));
-  check("alert bar urgency copy", activeText("alertBar").includes("then it's $49"), activeText("alertBar"));
+  check("urgency copy visible", activeText("heroSub").includes("Every week a release sits"), activeText("heroSub").slice(0, 60));
+  check("alert bar urgency copy", activeText("alertBar").includes("steps to $49"), activeText("alertBar"));
   check("price facts untouched", activeText("heroSub").includes("18,000+ radio station contacts"));
   const heroCta = Array.from(document.querySelectorAll(".cta")).find((b) =>
-    b.textContent?.includes("Yes — Give Me The Contacts")
+    b.textContent?.includes("Get Instant Access — $20")
   );
   check("core CTA label untouched", !!heroCta);
 
@@ -195,7 +195,7 @@ if (SCENARIO === "A") {
 
 if (SCENARIO === "B") {
   /* ── default → calm via rage clicks + aggressive scrolling ── */
-  check("starts on default copy", activeText("heroSub").includes("You finished the record"));
+  check("starts on default copy", activeText("heroSub").includes("Skip the submission forms"));
 
   const cta = document.querySelector(".cta") as HTMLElement;
   for (let i = 0; i < 4; i++) {
@@ -216,7 +216,7 @@ if (SCENARIO === "B") {
   check("body tagged calm", document.body.dataset.espMode === "calm");
   check("calm copy visible", activeText("heroSub").includes("No platforms"), activeText("heroSub").slice(0, 60));
   check("calm CTA label", activeText("ctaLabel").includes("One-time price"), activeText("ctaLabel"));
-  check("calm alert bar", activeText("alertBar").includes("take your time"), activeText("alertBar"));
+  check("calm alert bar", activeText("alertBar").includes("priced for indie artists"), activeText("alertBar"));
 
   const events = JSON.parse(sessionStorage.getItem("esp.events.v1") ?? "[]");
   check("conversion logged with snapshot", events.some((e: { type: string; data?: { name?: string; snapshot?: object } }) => e.type === "conversion" && e.data?.name === "cta_click" && e.data?.snapshot && typeof (e.data.snapshot as { mode?: string }).mode === "string"));
@@ -264,7 +264,7 @@ if (SCENARIO === "C") {
   await sleep(700);
   const bodyMode = document.body.dataset.espMode ?? "default";
   check("?esp=off → default copy only", slotMode("heroSub") === "default" && bodyMode === "default", `mode=${slotMode("heroSub")} body=${bodyMode}`);
-  check("?esp=off → original hero text", activeText("heroSub").includes("You finished the record"));
+  check("?esp=off → original hero text", activeText("heroSub").includes("Skip the submission forms"));
   await act(async () => {
     offRoot.unmount();
   });

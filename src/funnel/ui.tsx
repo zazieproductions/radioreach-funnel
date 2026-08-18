@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 /* ─────────────────────────────────────────────
-   COUNTDOWN
+   COUNTDOWN — retained for the (lazy-loaded,
+   currently unreachable) post-purchase OTO pages.
+   No longer used on the sales page or checkout.
 ───────────────────────────────────────────── */
 
 export function useCountdown(seconds: number, key = "zp_deadline") {
@@ -68,91 +70,6 @@ export function FlipClock({ seconds = 897, size = "md" }: { seconds?: number; si
 }
 
 /* ─────────────────────────────────────────────
-   SCARCITY
-───────────────────────────────────────────── */
-
-export function useFakeStock(start = 37) {
-  const [n, setN] = useState(() => {
-    const saved = sessionStorage.getItem("zp_stock");
-    return saved ? Number(saved) : start;
-  });
-  useEffect(() => {
-    const t = setInterval(() => {
-      setN((v) => {
-        const next = v > 6 ? v - 1 : v;
-        sessionStorage.setItem("zp_stock", String(next));
-        return next;
-      });
-    }, 25000);
-    return () => clearInterval(t);
-  }, []);
-  return n;
-}
-
-export function StockBar() {
-  const n = useFakeStock();
-  const pct = Math.max(6, Math.round((n / 250) * 100));
-  return (
-    <div className="w-full">
-      <div className="mb-1.5 flex items-baseline justify-between gap-2 text-[10px] uppercase tracking-wider sm:gap-3 sm:text-[11px] sm:tracking-widest">
-        <span className="font-bold leading-snug text-blood">Licenses left at this price</span>
-        <span className="tnum shrink-0 font-bold text-white/70">{n} / 250</span>
-      </div>
-      <div
-        className="h-2.5 w-full overflow-hidden rounded-full border border-white/10 bg-white/10"
-        role="progressbar"
-        aria-valuenow={n}
-        aria-valuemin={0}
-        aria-valuemax={250}
-        aria-label="Remaining licenses at founder pricing"
-      >
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-blood via-orange-500 to-acid transition-[width] duration-500"
-          style={{ width: `${pct}%` }}
-        />
-      </div>
-    </div>
-  );
-}
-
-export function LiveViewers() {
-  const [n, setN] = useState(214);
-  useEffect(() => {
-    const t = setInterval(() => {
-      setN((v) => Math.min(268, Math.max(178, v + (Math.random() > 0.5 ? 1 : -1) * (1 + Math.floor(Math.random() * 3)))));
-    }, 6000);
-    return () => clearInterval(t);
-  }, []);
-  return (
-    <span className="inline-flex items-center gap-2 text-[11px] font-semibold text-white/65 sm:text-[12px]">
-      <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-green-400" />
-      <span className="tnum text-white">{n}</span> artists viewing this page
-    </span>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   STATIC URGENCY STRIP (no marquee, no overflow)
-───────────────────────────────────────────── */
-
-export function Ticker() {
-  const items = [
-    "18,000+ radio station contacts",
-    "1,940+ independent artists inside",
-    "Price returns to $49 when the timer ends",
-  ];
-  return (
-    <div className="border-y border-acid/25 bg-acid/10">
-      <ul className="mx-auto flex min-h-9 max-w-5xl items-center justify-center px-3 py-1.5 text-center text-[10px] font-bold uppercase leading-snug tracking-[0.1em] text-acid sm:min-h-0 sm:gap-6 sm:px-4 sm:py-2 sm:text-[11px] sm:tracking-[0.14em]">
-        {items.map((t, index) => (
-          <li key={t} className={index === 0 ? "" : "hidden sm:list-item"}>{t}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-/* ─────────────────────────────────────────────
    TOP NAV — anchor links, sticky, keyboard safe
 ───────────────────────────────────────────── */
 
@@ -199,7 +116,9 @@ export function TopNav({ onCta }: { onCta: () => void }) {
 }
 
 /* ─────────────────────────────────────────────
-   EXIT INTENT — desktop only, once, escapable
+   EXIT INTENT — desktop pointer only, once, escapable.
+   Never fires on touch devices, so mobile visitors
+   from Meta ads are never interrupted by a popup.
 ───────────────────────────────────────────── */
 
 export function ExitIntent({
@@ -262,7 +181,7 @@ export function ExitIntent({
         </button>
 
         <p className="bg-blood py-2 text-[12px] font-black uppercase tracking-[0.18em]">
-          Your founder price is still active
+          Wait — your launch price is still active
         </p>
 
         <div className="p-6 sm:p-8">
@@ -277,15 +196,17 @@ export function ExitIntent({
             {body ?? "You're one click from 18,000+ radio station contacts."}
           </p>
 
-          <div className="mt-5 flex justify-center">
-            <FlipClock seconds={897} size="sm" />
+          <div className="mx-auto mt-5 flex max-w-sm flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[12px] font-bold text-white/55">
+            <span>✓ Instant download</span>
+            <span>✓ 30-day refund</span>
+            <span>✓ Secure Stripe checkout</span>
           </div>
 
           <button
             onClick={onTake}
             className="cta mt-6 w-full rounded-lg bg-acid px-6 py-4 font-display text-xl uppercase tracking-wide text-ink"
           >
-            Hold my $20 spot
+            Hold my $20 price
           </button>
           <button
             onClick={() => setOpen(false)}
@@ -300,7 +221,9 @@ export function ExitIntent({
 }
 
 /* ─────────────────────────────────────────────
-   STICKY CTA BAR
+   STICKY CTA BAR — appears once the hero CTA has
+   scrolled away, so a buy button is always one
+   thumb-tap away. Price anchor instead of a timer.
 ───────────────────────────────────────────── */
 
 export function StickyBar({
@@ -317,7 +240,7 @@ export function StickyBar({
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
-      const threshold = window.matchMedia("(max-width: 639px)").matches ? 380 : 700;
+      const threshold = window.matchMedia("(max-width: 639px)").matches ? 420 : 700;
       raf = requestAnimationFrame(() => setShow(window.scrollY > threshold));
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -335,27 +258,23 @@ export function StickyBar({
       }`}
       aria-hidden={!show}
     >
-      <div className="mx-auto flex max-w-5xl items-center gap-2.5 px-3 py-2 sm:gap-3 sm:py-2.5">
-        <div className="hidden shrink-0 sm:block">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-blood">Founder price ends in</p>
-          <FlipClock seconds={897} size="sm" />
-        </div>
-        <div className="hidden shrink-0 flex-col justify-center min-[400px]:flex sm:hidden">
-          <p className="text-[9px] font-bold uppercase tracking-wider text-blood">Ends in</p>
-          <p className="tnum font-display text-sm leading-none text-acid">
-            <span className="line-through opacity-50">$49</span> $20
+      <div className="mx-auto flex max-w-5xl items-center gap-3 px-3 py-2 sm:gap-4 sm:py-2.5">
+        <div className="hidden shrink-0 flex-col justify-center min-[430px]:flex">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-white/45">Launch price</p>
+          <p className="tnum font-display text-base leading-tight text-acid sm:text-lg">
+            <span className="mr-1.5 text-white/35 line-through">$49</span>$20
           </p>
         </div>
-        <div className="min-w-0 flex-1 sm:ml-auto sm:flex-none">
+        <div className="min-w-0 flex-1 sm:ml-auto sm:max-w-md sm:flex-none">
           <button
             onClick={onCta}
             tabIndex={show ? 0 : -1}
-            className="cta w-full rounded-lg bg-acid px-4 py-3 font-display text-[0.98rem] uppercase leading-tight tracking-wide text-ink sm:w-auto sm:px-8 sm:py-3.5 sm:text-lg"
+            className="cta w-full rounded-lg bg-acid px-4 py-3 font-display text-[0.98rem] uppercase leading-tight tracking-wide text-ink sm:px-8 sm:py-3.5 sm:text-lg"
           >
             {label}
           </button>
           <p className="mt-1 text-center text-[10px] text-white/45">
-            <span className="line-through">$49</span> · instant download · 30-day refund
+            Instant download · 30-day refund · one-time payment
           </p>
         </div>
       </div>

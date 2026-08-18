@@ -1,26 +1,12 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import SalesPage from "./funnel/SalesPage";
-import type { Addons } from "./funnel/Checkout";
-import type { Stage } from "./funnel/FunnelNav";
 import { trackTipFromReturnUrl } from "./lib/metaPixel";
-import { loadLuckyCoupon, type LuckyCoupon, clearLuckyCoupon } from "./lib/luckyCoupon";
-import { LuckyWheelModal } from "./funnel/LuckyWheel";
+import { clearLuckyCoupon } from "./lib/luckyCoupon";
 
 const Checkout = lazy(() => import("./funnel/Checkout"));
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
 
-const Upsell1 = lazy(() =>
-  import("./funnel/Upsells").then((m) => ({ default: m.Upsell1 }))
-);
-const Upsell2 = lazy(() =>
-  import("./funnel/Upsells").then((m) => ({ default: m.Upsell2 }))
-);
-const Downsell = lazy(() =>
-  import("./funnel/Upsells").then((m) => ({ default: m.Downsell }))
-);
-const ThankYou = lazy(() =>
-  import("./funnel/Upsells").then((m) => ({ default: m.ThankYou }))
-);
+type Stage = "sales" | "checkout";
 
 function LoadingScreen() {
   return (
@@ -38,23 +24,6 @@ export default function App() {
   const routeSuccess = hash.startsWith("#/success");
 
   const [stage, setStage] = useState<Stage>("sales");
-  const [total, setTotal] = useState(41);
-  const [addons, setAddons] = useState<Addons>({
-    contracts: true,
-    au: true,
-  });
-  const [hasUpwork, setHasUpwork] = useState(false);
-
-  // Lucky wheel global state — jackpot for pre-selected upsells
-  const [luckyCoupon, setLuckyCoupon] = useState<LuckyCoupon | null>(() => {
-    try {
-      return loadLuckyCoupon();
-    } catch {
-      return null;
-    }
-  });
-  const [isWheelOpen, setIsWheelOpen] = useState(false);
-  const [wheelInitialMode, setWheelInitialMode] = useState<"first" | "second">("first");
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -63,22 +32,25 @@ export default function App() {
   // Track completed tips (Stripe redirects back with ?tip=thanks&…).
   useEffect(() => {
     trackTipFromReturnUrl();
+    // Clean out any stale jackpot coupons left by earlier funnel
+    // versions — the current flow never reads them.
+    clearLuckyCoupon();
   }, []);
 
-  // poll coupon validity every 5s (in case it expires while on checkout)
+  // Warm the checkout chunk at the first sign of intent (or after a
+  // short idle delay) so the sales → checkout switch is instant even
+  // on slow mobile networks.
   useEffect(() => {
-    const t = window.setInterval(() => {
-      const cur = loadLuckyCoupon();
-      setLuckyCoupon((prev) => {
-        const prevCode = prev?.code;
-        const curCode = cur?.code;
-        if (prevCode !== curCode) return cur;
-        if (cur && Date.now() > cur.expiresAt) return null;
-        if (prev && Date.now() > prev.expiresAt) return null;
-        return prev;
-      });
-    }, 5000);
-    return () => clearInterval(t);
+    const warm = () => {
+      import("./funnel/Checkout").catch(() => {});
+    };
+    const onIntent = () => warm();
+    window.addEventListener("pointerdown", onIntent, { once: true, passive: true });
+    const t = window.setTimeout(warm, 2500);
+    return () => {
+      window.removeEventListener("pointerdown", onIntent);
+      window.clearTimeout(t);
+    };
   }, []);
 
   if (routeSuccess) {
@@ -89,101 +61,6 @@ export default function App() {
     );
   }
 
-  const handleWheelWin = (c: LuckyCoupon) => {
-    setLuckyCoupon(c);
-  };
-
-  const handleWheelClaim = () => {
-    setIsWheelOpen(false);
-    setStage("checkout");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const openWheel = (mode: "first" | "second" = "first") => {
-    setWheelInitialMode(mode);
-    setIsWheelOpen(true);
-  };
-
-  const screen = () => {
-    switch (stage) {
-      case "sales":
-        return (
-          <SalesPage
-            onCta={() => setStage("checkout")}
-            luckyCoupon={luckyCoupon}
-            onOpenWheel={() => openWheel("first")}
-            onClaimWheel={handleWheelClaim}
-          />
-        );
-
-      case "checkout":
-        return (
-          <Checkout
-            onComplete={(t, a) => {
-              setTotal(t);
-              setAddons(a);
-            }}
-            luckyCoupon={luckyCoupon}
-            onOpenWheel={() => openWheel("first")}
-            onOpenWheelForSecret={() => openWheel("second")}
-          />
-        );
-
-      case "oto1":
-        return (
-          <Upsell1
-            onAccept={(p) => {
-              setTotal((t) => t + p);
-              setStage("oto2");
-            }}
-            onDecline={() => setStage("oto2")}
-          />
-        );
-
-      case "oto2":
-        return (
-          <Upsell2
-            onAccept={(p) => {
-              setTotal((t) => t + p);
-              setHasUpwork(true);
-              setStage("thanks");
-            }}
-            onDecline={() => setStage("downsell")}
-          />
-        );
-
-      case "downsell":
-        return (
-          <Downsell
-            onAccept={(p) => {
-              setTotal((t) => t + p);
-              setStage("thanks");
-            }}
-            onDecline={() => setStage("thanks")}
-          />
-        );
-
-      default:
-        return (
-          <ThankYou
-            total={total}
-            hasContracts={addons.contracts}
-            hasAu={addons.au}
-            hasUpwork={hasUpwork}
-            onRestart={() => {
-              sessionStorage.clear();
-              clearLuckyCoupon();
-              setLuckyCoupon(null);
-              setTotal(41);
-              setAddons({ contracts: true, au: true });
-              setHasUpwork(false);
-              setStage("sales");
-            }}
-          />
-        );
-    }
-  };
-
   return (
     <>
       <a href="#main" className="skip-link">
@@ -191,17 +68,14 @@ export default function App() {
       </a>
 
       <main id="main">
-        <Suspense fallback={<LoadingScreen />}>{screen()}</Suspense>
+        <Suspense fallback={<LoadingScreen />}>
+          {stage === "sales" ? (
+            <SalesPage onCta={() => setStage("checkout")} />
+          ) : (
+            <Checkout />
+          )}
+        </Suspense>
       </main>
-
-      <LuckyWheelModal
-        isOpen={isWheelOpen}
-        onClose={() => setIsWheelOpen(false)}
-        onWin={handleWheelWin}
-        onClaim={handleWheelClaim}
-        existingCoupon={luckyCoupon}
-        initialMode={wheelInitialMode}
-      />
     </>
   );
 }

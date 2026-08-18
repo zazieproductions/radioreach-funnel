@@ -28,7 +28,7 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
       return;
     }
     if (typed >= VISIBLE) return;
-    const t = setTimeout(() => setTyped((v) => v + 1), typed === 0 ? 260 : 150);
+    const t = setTimeout(() => setTyped((v) => v + 1), typed === 0 ? 140 : 80);
     return () => clearTimeout(t);
   }, [typed]);
 
@@ -116,7 +116,7 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
           Unlock the remaining <span className="text-acid">18,000+ contacts</span>
         </p>
         <p className="mt-1 font-mono text-[11px] leading-snug text-white/50 sm:text-[12px]">
-          Organized by station, location, role, phone, and email
+          Names · roles · phones · emails — organized city by city
         </p>
 
         <button
@@ -124,8 +124,11 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
           onClick={onCta}
           className="cta mt-4 min-h-14 w-full rounded-lg bg-acid px-5 py-3.5 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-7 sm:py-4 sm:text-lg"
         >
-          Get full access — $20
+          Get Full Access — $20
         </button>
+        <p className="mt-2 text-[10px] font-bold uppercase tracking-wider text-white/35">
+          Instant download · 30-day refund
+        </p>
       </div>
     </div>
   );
