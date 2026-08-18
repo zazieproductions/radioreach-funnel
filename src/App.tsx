@@ -192,6 +192,7 @@ export default function App() {
         onClose={() => setIsWheelOpen(false)}
         onWin={handleWheelWin}
         onClaim={handleWheelClaim}
+        existingCoupon={luckyCoupon}
       />
     </>
   );
