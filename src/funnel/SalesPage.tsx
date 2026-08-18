@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   Check,
   Cross,
@@ -13,7 +13,9 @@ import {
   TopNav,
 } from "./ui";
 import TerminalPreview from "./TerminalPreview";
-import { isMomentumSequenceEnabled } from "../config/features";
+import { isLuckySpinEnabled, isMomentumSequenceEnabled } from "../config/features";
+import { LuckySpinLauncher, LuckySpinModal, useLuckySpinStatus } from "./LuckySpin";
+import { hasResolvedLuckySpin } from "../lib/luckySpin";
 
 // Keep the substantial below-the-fold interaction out of the initial mobile
 // bundle so it never competes with the hero for main-thread time.
@@ -59,6 +61,9 @@ const FAQS = [
 export default function SalesPage({ onCta }: { onCta: () => void }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [espDebug] = useState(() => readEspFlag().debug);
+  const [spinOpen, setSpinOpen] = useState(false);
+  const continueToCheckout = useRef(false);
+  const luckyStatus = useLuckySpinStatus();
 
   // Start the Emotional State Proxy. Behind the feature flag this is
   // a no-op; cleanup fully detaches it when the funnel leaves this page.
@@ -69,7 +74,20 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
   // was in — the data we'll later use to see which states convert.
   const handleCta = (label = "cta") => {
     espLogConversion("cta_click", { label });
+    if (isLuckySpinEnabled() && !hasResolvedLuckySpin()) {
+      continueToCheckout.current = true;
+      setSpinOpen(true);
+      return;
+    }
     onCta();
+  };
+
+  const finishSpinAndMaybeCheckout = () => {
+    setSpinOpen(false);
+    if (continueToCheckout.current) {
+      continueToCheckout.current = false;
+      onCta();
+    }
   };
 
   return (
@@ -82,6 +100,19 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       <StickyBar
         onCta={() => handleCta("sticky")}
         label={<EmotiveText slot="stickyLabel" />}
+      />
+      <LuckySpinLauncher
+        onOpen={() => {
+          continueToCheckout.current = false;
+          setSpinOpen(true);
+        }}
+        onWonCta={() => handleCta("lucky_spin_launcher")}
+      />
+      <LuckySpinModal
+        open={spinOpen}
+        context="sales"
+        onClaim={finishSpinAndMaybeCheckout}
+        onSkip={finishSpinAndMaybeCheckout}
       />
 
       {/* alert bar */}
@@ -149,7 +180,11 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             >
               Yes — Give Me The Contacts
               <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
-                Instant download · <span className="line-through opacity-60">$49</span> $20 today
+                {luckyStatus === "won" ? (
+                  <>Lucky bundle unlocked · <span className="line-through opacity-60">$49</span> $20 + prizes</>
+                ) : (
+                  <>Instant download · <span className="line-through opacity-60">$49</span> $20 today</>
+                )}
               </span>
             </button>
             <div className="mt-3 flex flex-col items-center gap-1 text-center">

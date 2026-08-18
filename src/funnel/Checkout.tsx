@@ -2,8 +2,17 @@ import { useEffect, useMemo, useState } from "react";
 import { FlipClock, LiveViewers, Stars, StockBar } from "./ui";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
 import { PRODUCTS } from "../config/storefront";
+import { isLuckySpinEnabled } from "../config/features";
 import { track } from "../lib/metaPixel";
 import { getMomentumAttribution } from "../lib/momentumSequence";
+import { getLuckySpinStatus } from "../lib/luckySpin";
+import {
+  LuckyPriceNote,
+  LuckyPrizeBadge,
+  LuckySpinBanner,
+  LuckySpinModal,
+  useLuckySpinStatus,
+} from "./LuckySpin";
 
 export type Addons = { contracts: boolean; au: boolean };
 
@@ -16,6 +25,10 @@ const AU_PRICE = PRODUCTS.australia_addon.price;
 export default function Checkout({ onComplete }: Props) {
   const [contracts, setContracts] = useState(true);
   const [au, setAu] = useState(true);
+  const luckyStatus = useLuckySpinStatus();
+  const [spinOpen, setSpinOpen] = useState(
+    () => isLuckySpinEnabled() && getLuckySpinStatus() === "idle"
+  );
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
   const total = BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0);
@@ -41,6 +54,7 @@ export default function Checkout({ onComplete }: Props) {
       content_ids: items,
       content_type: "product",
       num_items: items.length,
+      lucky_spin: getLuckySpinStatus(),
       ...momentumAttribution,
     });
     // Intentionally mount-only: cart tweaks shouldn't re-fire the event.
@@ -49,9 +63,16 @@ export default function Checkout({ onComplete }: Props) {
 
   return (
     <div className="min-h-screen bg-ink">
+      <LuckySpinModal
+        open={spinOpen}
+        context="checkout"
+        onClaim={() => setSpinOpen(false)}
+        onSkip={() => setSpinOpen(false)}
+      />
       <p className="bg-blood py-2 text-center text-[11px] font-black uppercase tracking-[0.16em]">
         Secure checkout — payment handled by Stripe inside this page
       </p>
+      <LuckySpinBanner />
 
       <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
         <div className="mb-5 flex flex-col items-center gap-3 text-center sm:mb-6">
@@ -69,7 +90,9 @@ export default function Checkout({ onComplete }: Props) {
             <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <p className="font-display text-2xl">YOUR ORDER</p>
               <p className="mt-1 text-sm text-white/55">
-                Select the bundles you want. Checkout updates instantly and stays on-page.
+                {luckyStatus === "won"
+                  ? "Your lucky-spin prizes are pre-checked at session prices. Uncheck anything you don’t want."
+                  : "Select the bundles you want. Checkout updates instantly and stays on-page."}
               </p>
 
               <div className="mt-5 grid gap-3">
@@ -85,7 +108,7 @@ export default function Checkout({ onComplete }: Props) {
                   </span>
                 </label>
 
-                <label className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${contracts ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"}`}>
+                <label className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${contracts ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"} ${luckyStatus === "won" && contracts ? "shadow-[0_0_0_1px_rgba(255,230,0,0.55)]" : ""}`}>
                   <input
                     type="checkbox"
                     checked={contracts}
@@ -93,7 +116,10 @@ export default function Checkout({ onComplete }: Props) {
                     className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <div className="space-y-1">
-                    <span className="block font-display text-lg uppercase">{PRODUCTS.contract_bundle.name}</span>
+                    <span className="flex flex-wrap items-center gap-2">
+                      <span className="font-display text-lg uppercase">{PRODUCTS.contract_bundle.name}</span>
+                      <LuckyPrizeBadge />
+                    </span>
                     <span className="block text-sm text-acid">6 agreement templates plus a plain-English usage guide</span>
                     <ul className="mt-1 hidden gap-1 text-[13px] text-white/65 sm:grid">
                       {[
@@ -116,12 +142,13 @@ export default function Checkout({ onComplete }: Props) {
                     <span className="block text-sm mt-2">
                       <span className="mr-2 text-white/35 line-through">${PRODUCTS.contract_bundle.compareAt}</span>
                       <b className="text-acid">${PRODUCTS.contract_bundle.price.toFixed(2)}</b>
+                      <LuckyPriceNote />
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Saved me from a nightmare split deal." — Jordan Meacham</span>
                   </div>
                 </label>
 
-                <label className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${au ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"}`}>
+                <label className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${au ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"} ${luckyStatus === "won" && au ? "shadow-[0_0_0_1px_rgba(255,230,0,0.55)]" : ""}`}>
                   <input
                     type="checkbox"
                     checked={au}
@@ -129,12 +156,16 @@ export default function Checkout({ onComplete }: Props) {
                     className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <span className="space-y-1">
-                    <span className="block font-display text-lg uppercase">{PRODUCTS.australia_addon.name}</span>
+                    <span className="flex flex-wrap items-center gap-2">
+                      <span className="font-display text-lg uppercase">{PRODUCTS.australia_addon.name}</span>
+                      <LuckyPrizeBadge />
+                    </span>
                     <span className="block text-sm text-acid">2,847 AU station contacts · 1,612 verified emails</span>
                     <span className="block text-sm text-white/65">{PRODUCTS.australia_addon.description}</span>
                     <span className="block text-sm">
                       <span className="mr-2 text-white/35 line-through">${PRODUCTS.australia_addon.compareAt}</span>
                       <b className="text-acid">${PRODUCTS.australia_addon.price.toFixed(2)}</b>
+                      <LuckyPriceNote />
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." — Dee R.</span>
                   </span>
@@ -153,7 +184,7 @@ export default function Checkout({ onComplete }: Props) {
                 </span>
               </summary>
               <div className="border-t border-white/10 p-4">
-                <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} />
+                <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} won={luckyStatus === "won"} />
               </div>
             </details>
 
@@ -167,7 +198,7 @@ export default function Checkout({ onComplete }: Props) {
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
               <p className="mb-4 font-display text-xl uppercase">Order summary</p>
-              <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} />
+              <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} won={luckyStatus === "won"} />
             </section>
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
@@ -203,11 +234,13 @@ function OrderSummaryRows({
   au,
   saved,
   total,
+  won,
 }: {
   contracts: boolean;
   au: boolean;
   saved: number;
   total: number;
+  won?: boolean;
 }) {
   return (
     <div className="space-y-3 text-[15px]">
@@ -218,7 +251,7 @@ function OrderSummaryRows({
       />
       {contracts && (
         <SummaryRow
-          label={PRODUCTS.contract_bundle.shortName}
+          label={won ? `${PRODUCTS.contract_bundle.shortName} · prize` : PRODUCTS.contract_bundle.shortName}
           was={`$${PRODUCTS.contract_bundle.compareAt}`}
           now={`$${PRODUCTS.contract_bundle.price.toFixed(2)}`}
           accent
@@ -226,14 +259,14 @@ function OrderSummaryRows({
       )}
       {au && (
         <SummaryRow
-          label={PRODUCTS.australia_addon.shortName}
+          label={won ? `${PRODUCTS.australia_addon.shortName} · prize` : PRODUCTS.australia_addon.shortName}
           was={`$${PRODUCTS.australia_addon.compareAt}`}
           now={`$${PRODUCTS.australia_addon.price.toFixed(2)}`}
           accent
         />
       )}
       <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
-        <span>You save</span>
+        <span>{won ? "You save (incl. lucky spin)" : "You save"}</span>
         <span className="font-bold text-acid">${saved.toFixed(2)}</span>
       </div>
       <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
