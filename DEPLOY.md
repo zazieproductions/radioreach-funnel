@@ -16,11 +16,29 @@ Output lands in `dist/`:
 dist/
 ├── index.html        ← entire app, inlined (~92 kB gzipped)
 ├── _headers          ← security + cache rules
-├── _redirects        ← SPA fallback
+├── 404.html          ← real 404s for unknown URLs (no SPA catch-all:
+│                       the app uses hash routing, so a /* /index.html
+│                       fallback would only create soft-404s)
+├── resources/        ← SEO guide library + hub (generated, see below)
+├── sitemap.xml
 └── images/
-    ├── studio.jpg
-    └── mockup.png
+    └── ...
 ```
+
+## Resource pages (SEO library)
+
+The guide pages under `/resources/` are **generated** — do not edit the HTML in
+`public/resources/` directly. Content lives in `scripts/resources/content-*.mjs`;
+run:
+
+```bash
+npm run build:resources
+```
+
+That regenerates every guide page, the `/resources/` hub, and `public/sitemap.xml`
+with consistent metadata, structured data, breadcrumbs, and internal links
+(the build fails if a page is thin, a link is dead, or metadata is missing).
+`npm run build` runs it automatically before Vite.
 
 ## Option A — Drag & Drop (fastest)
 
@@ -51,11 +69,10 @@ wrangler pages deploy dist --project-name=radio-reach-vault
 
 ## What's already configured
 
-- **`public/_redirects`** — `/* /index.html 200` so every route serves the app
 - **`public/_headers`** — long-lived immutable caching on `/images/*`,
-  `must-revalidate` on `index.html`, plus `X-Content-Type-Options`,
-  `Referrer-Policy`, `X-Frame-Options` and a `Permissions-Policy` that
-  disables FLoC/geolocation/mic/camera
+  `must-revalidate` on all HTML, plus `X-Content-Type-Options`,
+  `Referrer-Policy`, `X-Frame-Options`, `Strict-Transport-Security` and a
+  `Permissions-Policy` that disables FLoC/geolocation/mic/camera
 - **Single-file bundle** — one HTTP request for the whole app; no chunk
   waterfall, no CORS surprises, works from any subpath
 - **Relative asset paths** — deploys correctly on `*.pages.dev`, a custom

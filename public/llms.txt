@@ -1,20 +1,49 @@
 # RadioReach
 
-> Radio promotion resources for independent musicians and artists.
+> Radio promotion resources and radio station contacts for independent
+> musicians and artists. RadioReach publishes free, practical guides on
+> radio promotion and sells the Radio Reach Vault, a downloadable directory
+> of 18,000+ radio station contacts organized by station, location, and role.
 
-RadioReach provides downloadable resources intended to help independent
-artists research and contact radio stations.
+## Product
 
-## Main page
+- [Radio Reach Vault](https://radioreach.us/): 18,000+ radio station contacts
+  for independent artists — college, community, commercial, and online radio,
+  organized by station, location, role, phone, and email.
 
-- https://radioreach.us/
+## Free guides — start here
 
-## Primary resource
+- [How to Get Your Song on the Radio](https://radioreach.us/resources/how-to-get-your-song-on-the-radio/): the complete eight-step path from station research to confirmed spins.
+- [Radio Stations Accepting Music Submissions](https://radioreach.us/resources/radio-stations-accepting-music/): how to recognize stations open to independent music and pitch them.
+- [College Radio Submissions](https://radioreach.us/resources/college-radio-submissions/): finding music directors, timing sends, and charting on college radio.
+- [Radio Promotion for Independent Artists](https://radioreach.us/resources/radio-promotion-independent-artists/): the full campaign playbook with an eight-week timeline.
 
-- Radio Reach Vault
-- Radio station contact resource for independent musicians
-- Includes multiple radio formats and station types
+## Templates and press kits
+
+- [Radio Pitch Email Templates](https://radioreach.us/resources/radio-pitch-email-templates/): six outreach templates, subject lines, and a personalization checklist.
+- [Electronic Press Kit (EPK) for Radio](https://radioreach.us/resources/electronic-press-kit-radio/): building the EPK and one-sheet radio programmers expect.
+
+## Genre playbooks
+
+- [Hip-Hop Radio Promotion](https://radioreach.us/resources/hip-hop-radio-promotion/): mixshows, college hip-hop directors, DJ pools, and clean edits.
+- [Electronic Music Radio Promotion](https://radioreach.us/resources/electronic-music-radio-promotion/): pitching shows, radio edits, remixes, and guest mixes.
+- [Country and Americana Radio Promotion](https://radioreach.us/resources/country-radio-promotion/): the Americana, Triple A, and regional radio paths for indie country.
+
+## Strategy and reference
+
+- [DIY Radio Promotion vs. Hiring a Radio Promoter](https://radioreach.us/resources/diy-radio-promotion-vs-radio-promoter/): costs, control, reporting, and red flags compared honestly.
+- [Radio Promotion FAQ](https://radioreach.us/resources/radio-promotion-faq/): straight answers on submissions, costs, timelines, royalties, and etiquette.
+- [Radio Promotion Glossary](https://radioreach.us/resources/radio-promotion-glossary/): 40+ radio industry terms explained in plain English.
+
+## Policies
+
+- [Privacy Policy](https://radioreach.us/privacy-policy/)
+- [Terms of Service](https://radioreach.us/terms/)
 
 ## Canonical domain
 
 https://radioreach.us/
+
+## Sitemap
+
+https://radioreach.us/sitemap.xml

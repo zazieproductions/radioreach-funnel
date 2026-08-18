@@ -644,6 +644,55 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                   Build a focused outreach campaign instead of a giant email blast.
                 </span>
               </a>
+
+              <a
+                href="/resources/radio-pitch-email-templates/"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  Radio Pitch Email Templates
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Six tested outreach templates plus subject lines that get opened.
+                </span>
+              </a>
+
+              <a
+                href="/resources/how-to-get-your-song-on-the-radio/"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  Get Your Song on the Radio
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  The full eight-step path, from station research to confirmed spins.
+                </span>
+              </a>
+
+              <a
+                href="/resources/radio-promotion-glossary/"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  Radio Promotion Glossary
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  40+ radio terms in plain English — adds, spins, rotation, NACC.
+                </span>
+              </a>
+
+              <a
+                href="/resources/"
+                className="min-h-[44px] rounded-lg border border-acid/30 bg-acid/5 p-4 transition hover:border-acid/60 hover:bg-acid/10"
+              >
+                <strong className="block text-acid">
+                  All Free Guides →
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Genre playbooks, EPK building, comparisons, and answers — the
+                  complete resource library.
+                </span>
+              </a>
             </div>
           </div>
         </section>
@@ -806,6 +855,20 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           This product is a contact database intended for targeted, relevant, human outreach.
           Do not use this data for automated spam.
         </p>
+        <nav
+          aria-label="Site"
+          className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
+        >
+          <a href="/resources/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Free radio promotion guides
+          </a>
+          <a href="/privacy-policy/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Privacy policy
+          </a>
+          <a href="/terms/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Terms of service
+          </a>
+        </nav>
         <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
       </footer>
 

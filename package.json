@@ -7,7 +7,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build-resources.mjs && vite build",
+    "build:resources": "node scripts/build-resources.mjs",
     "preview": "vite preview",
     "test:esp": "node scripts/run-esp-tests.mjs"
   },
