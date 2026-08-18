@@ -16,8 +16,19 @@ import { act } from "react";
 import { createRoot } from "react-dom/client";
 
 const SCENARIO = process.env.SCENARIO ?? "A";
-const QUERY: Record<string, string> = { A: "", B: "", C: "?esp=calm" };
-const OFF_QUERY = "?esp=off";
+
+/* The offer A/B test (config/offer.ts) assigns a random variant per visitor.
+   These scenarios assert on ESP copy behaviour, not on the offer, so every
+   URL pins `offer=v1` — otherwise the suite would flip between arms at
+   random and fail roughly half the time. Offer v2 has its own suite in
+   scripts/offer-smoke.tsx. */
+const PIN_CONTROL = "offer=v1";
+const QUERY: Record<string, string> = {
+  A: `?${PIN_CONTROL}`,
+  B: `?${PIN_CONTROL}`,
+  C: `?esp=calm&${PIN_CONTROL}`,
+};
+const OFF_QUERY = `?esp=off&${PIN_CONTROL}`;
 
 const dom = new JSDOM("<!doctype html><html><body></body></html>", {
   url: `https://radioreach.test/${QUERY[SCENARIO]}`,

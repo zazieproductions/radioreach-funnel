@@ -15,6 +15,21 @@ import {
 import TerminalPreview from "./TerminalPreview";
 import MomentumSequence from "./MomentumSequence";
 import { isMomentumSequenceEnabled } from "../config/features";
+import {
+  getOfferAttribution,
+  isOfferFlagEnabled,
+} from "../config/offer";
+import {
+  BonusStackBlock,
+  CtaChips,
+  DreamOutcomeBlock,
+  GuaranteeV2Block,
+  OfferSlot,
+  ProofStackBlock,
+  SpeedStackBlock,
+} from "./OfferV2";
+import { OFFER_FACTS, RISK_LINE } from "./offerContent";
+import { trackCustom } from "../lib/metaPixel";
 
 import { TESTIMONIALS } from "./testimonials";
 
@@ -49,7 +64,11 @@ const FAQS = [
   ],
   [
     "Does RadioReach have a refund policy?",
-    "You get 30 days. Email me, tell me it didn't help, and I'll refund you. I'd rather have your respect than your $20.",
+    "You get 30 days. If you don't find the Vault significantly more useful than the generic submission forms you've been using, email us inside 30 days and we'll refund the full $20 — no survey, no retention call, no explanation required. You keep the files and the bonuses either way. I'd rather have your respect than your $20.",
+  ],
+  [
+    "Do I need to create an account to download it?",
+    "No. You pay through Stripe on this page and the download link appears on screen immediately — no account, no password, no app, no waiting on an activation email. It's a file. It's yours, offline, forever, and you can re-download it from your receipt link if your laptop dies.",
   ],
 ];
 
@@ -57,15 +76,34 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [espDebug] = useState(() => readEspFlag().debug);
 
+  // Offer v2 flags — resolved once per mount so the variant can never
+  // flip mid-scroll. Each block is independently killable at runtime.
+  const [offer] = useState(() => ({
+    v2: isOfferFlagEnabled("offerV2"),
+    dreamOutcome: isOfferFlagEnabled("dreamOutcome"),
+    proofStack: isOfferFlagEnabled("proofStack"),
+    speedStack: isOfferFlagEnabled("speedStack"),
+    bonusStack: isOfferFlagEnabled("bonusStack"),
+    guaranteeV2: isOfferFlagEnabled("guaranteeV2"),
+    ctaV2: isOfferFlagEnabled("ctaV2"),
+    attribution: getOfferAttribution(),
+  }));
+
   // Start the Emotional State Proxy. Behind the feature flag this is
   // a no-op; cleanup fully detaches it when the funnel leaves this page.
   useEffect(() => initEsp(), []);
+
+  // Report which arm of the offer test this visitor landed in, once,
+  // so CTA and Purchase events can be split by variant later.
+  useEffect(() => {
+    trackCustom("OfferVariantAssigned", offer.attribution);
+  }, [offer.attribution]);
 
   // Every CTA in the page funnels through here, so each click can be
   // logged as a conversion event tagged with the mode the visitor
   // was in — the data we'll later use to see which states convert.
   const handleCta = (label = "cta") => {
-    espLogConversion("cta_click", { label });
+    espLogConversion("cta_click", { label, ...offer.attribution });
     onCta();
   };
 
@@ -139,25 +177,58 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                 <StockBar />
               </div>
             </div>
+            {offer.ctaV2 && (
+              <ul className="mt-4 space-y-2 border-t border-white/10 pt-4 text-[13px] leading-snug">
+                <Check>
+                  <b className="text-white">{OFFER_FACTS.verifiedEmails} verified emails</b> tied to
+                  named music &amp; program directors
+                </Check>
+                <Check>
+                  Sorted by city and role — <b className="text-white">pitch your hometown tonight</b>
+                </Check>
+                <Check>
+                  Instant download, no account, {OFFER_FACTS.refundDays}-day refund
+                </Check>
+              </ul>
+            )}
             <button
               onClick={() => handleCta("hero")}
               className="cta mt-5 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
             >
-              Yes — Give Me The Contacts
+              {offer.ctaV2 ? "Yes — Send Me The Contacts" : "Yes — Give Me The Contacts"}
               <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
-                Instant download · <span className="line-through opacity-60">$49</span> $20 today
+                {offer.ctaV2 ? (
+                  <>
+                    Download in 30 seconds ·{" "}
+                    <span className="line-through opacity-60">{OFFER_FACTS.anchorLabel}</span>{" "}
+                    {OFFER_FACTS.priceLabel} today
+                  </>
+                ) : (
+                  <>
+                    Instant download · <span className="line-through opacity-60">$49</span> $20 today
+                  </>
+                )}
               </span>
             </button>
             <div className="mt-3 flex flex-col items-center gap-1 text-center">
               <p className="text-[12px] text-white/55">
                 <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
               </p>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/45">
-                🔒 Stripe checkout · Instant access · No account
-              </div>
-              <p className="text-[10px] text-white/30">
-                <EmotiveText slot="ctaTrust" />
-              </p>
+              {offer.ctaV2 ? (
+                <>
+                  <CtaChips className="mt-1" />
+                  <p className="mt-1 text-[10px] leading-snug text-white/35">{RISK_LINE}</p>
+                </>
+              ) : (
+                <>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-white/45">
+                    🔒 Stripe checkout · Instant access · No account
+                  </div>
+                  <p className="text-[10px] text-white/30">
+                    <EmotiveText slot="ctaTrust" />
+                  </p>
+                </>
+              )}
             </div>
           </div>
 
@@ -224,10 +295,20 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
         </div>
       </section>
 
+      {/* DREAM OUTCOME — offer v2, feature flagged */}
+      <OfferSlot enabled={offer.dreamOutcome}>
+        <DreamOutcomeBlock onCta={() => handleCta("dream_outcome")} />
+      </OfferSlot>
+
       {/* MOMENTUM + OWNERSHIP — runtime feature flagged */}
       {isMomentumSequenceEnabled() && (
         <MomentumSequence onCta={() => handleCta("momentum")} />
       )}
+
+      {/* PERCEIVED LIKELIHOOD — offer v2, feature flagged */}
+      <OfferSlot enabled={offer.proofStack}>
+        <ProofStackBlock />
+      </OfferSlot>
 
       {/* MECHANISM */}
       <section className="mx-auto max-w-4xl px-4 py-12 sm:py-16">
@@ -253,6 +334,11 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           ))}
         </div>
       </section>
+
+      {/* TIME DELAY × EFFORT — offer v2, feature flagged */}
+      <OfferSlot enabled={offer.speedStack}>
+        <SpeedStackBlock />
+      </OfferSlot>
 
       {/* WHAT'S INSIDE / STACK */}
       <section id="inside" className="border-y border-white/10 bg-panel">
@@ -286,9 +372,27 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                 <span className="shrink-0 font-display text-base text-white/45 line-through decoration-blood sm:text-lg">{v}</span>
               </div>
             ))}
+            {offer.bonusStack && (
+              <div className="flex items-start gap-3 bg-blood/10 p-3.5 sm:gap-4 sm:p-4">
+                <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-blood text-[13px] font-black text-white">
+                  +
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold leading-snug">3 founder bonuses (expiring)</p>
+                  <p className="mt-0.5 text-[13px] leading-snug text-white/55 sm:text-[14px]">
+                    Swipe pack, follow-up system, station-fit filter &amp; tracker.
+                  </p>
+                </div>
+                <span className="shrink-0 font-display text-base text-white/45 line-through decoration-blood sm:text-lg">
+                  {OFFER_FACTS.bonusValueLabel}
+                </span>
+              </div>
+            )}
             <div className="flex items-center justify-between gap-3 bg-acid/10 p-3.5 sm:p-4">
               <span className="font-display text-base uppercase leading-tight sm:text-lg">Total real value</span>
-              <span className="font-display text-xl text-white/50 line-through decoration-blood decoration-2 sm:text-2xl">$742</span>
+              <span className="font-display text-xl text-white/50 line-through decoration-blood decoration-2 sm:text-2xl">
+                {offer.bonusStack ? OFFER_FACTS.totalValueLabel : "$742"}
+              </span>
             </div>
             <div className="flex items-center justify-between gap-3 bg-acid p-3.5 text-ink sm:p-4">
               <span className="font-display text-base uppercase leading-tight sm:text-lg">Your price right now</span>
@@ -309,8 +413,14 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           <p className="mt-2 text-center text-[12px] text-white/40">
             <EmotiveText slot="stackNote" />
           </p>
+          {offer.ctaV2 && <CtaChips className="mt-3" />}
         </div>
       </section>
+
+      {/* BONUS STACK — offer v2, feature flagged, dies with the timer */}
+      <OfferSlot enabled={offer.bonusStack}>
+        <BonusStackBlock onCta={() => handleCta("bonus_stack")} />
+      </OfferSlot>
 
       {/* TESTIMONIALS */}
       <section
@@ -383,21 +493,25 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
         </div>
       </section>
 
-      {/* GUARANTEE */}
-      <section className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
-        <div
-          data-esp-zone="safety"
-          className="rounded-2xl border-2 border-acid/40 bg-gradient-to-b from-acid/10 to-transparent p-5 text-center sm:p-8"
-        >
-          <div className="mx-auto grid h-16 w-16 place-items-center rounded-full border-4 border-acid font-display text-xl text-acid sm:h-20 sm:w-20 sm:text-2xl">
-            30
+      {/* GUARANTEE — v2 risk reversal, or the original behind the flag */}
+      {offer.guaranteeV2 ? (
+        <GuaranteeV2Block />
+      ) : (
+        <section className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
+          <div
+            data-esp-zone="safety"
+            className="rounded-2xl border-2 border-acid/40 bg-gradient-to-b from-acid/10 to-transparent p-5 text-center sm:p-8"
+          >
+            <div className="mx-auto grid h-16 w-16 place-items-center rounded-full border-4 border-acid font-display text-xl text-acid sm:h-20 sm:w-20 sm:text-2xl">
+              30
+            </div>
+            <h2 className="mt-4 font-display text-[1.7rem] leading-[1.1] sm:text-4xl">THE "I'LL EAT THE COST" GUARANTEE</h2>
+            <p className="mt-3 font-serif text-[1.05rem] leading-[1.65] text-white/75 sm:text-lg">
+              <EmotiveText slot="guaranteePara" />
+            </p>
           </div>
-          <h2 className="mt-4 font-display text-[1.7rem] leading-[1.1] sm:text-4xl">THE "I'LL EAT THE COST" GUARANTEE</h2>
-          <p className="mt-3 font-serif text-[1.05rem] leading-[1.65] text-white/75 sm:text-lg">
-            <EmotiveText slot="guaranteePara" />
-          </p>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* FAQ */}
       <section id="faq" className="mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
@@ -524,11 +638,31 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             onClick={() => handleCta("final")}
             className="cta mt-5 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-6 sm:px-6 sm:py-5 sm:text-3xl"
           >
-            Give Me Instant Access — $20
+            {offer.ctaV2 ? (
+              <>
+                Give Me Instant Access — {OFFER_FACTS.priceLabel}
+                <span className="mt-1 block text-[11px] font-sans font-bold tracking-normal sm:text-[13px]">
+                  {offer.bonusStack
+                    ? "Vault + all 3 founder bonuses · download in 30 seconds"
+                    : "Download in 30 seconds · no account needed"}
+                </span>
+              </>
+            ) : (
+              <>Give Me Instant Access — $20</>
+            )}
           </button>
-          <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
-            Secure checkout · Instant download · 30-day refund · No subscription, ever
-          </p>
+          {offer.ctaV2 ? (
+            <>
+              <CtaChips className="mt-4" />
+              <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
+                {RISK_LINE}
+              </p>
+            </>
+          ) : (
+            <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
+              Secure checkout · Instant download · 30-day refund · No subscription, ever
+            </p>
+          )}
         </div>
       </section>
 

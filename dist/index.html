@@ -9,8 +9,16 @@
     <meta name="theme-color" content="#08080a" />
     <meta name="color-scheme" content="dark" />
     <meta name="referrer" content="no-referrer" />
-    <!-- Runtime kill switch: set momentumOwnershipSequence to false to hide the sequence. -->
-    <script>window.__RADIOREACH_FLAGS__={momentumOwnershipSequence:true};</script>
+    <!--
+      Runtime kill switches. Read by src/config/flags.ts before first paint.
+        momentumOwnershipSequence: false  → hides the question sequence
+        offer.offerV2:             false  → sends 100% of traffic to the control offer
+        offer.<block>:             false  → disables one v2 block (dreamOutcome,
+                                            proofStack, speedStack, bonusStack,
+                                            guaranteeV2, ctaV2)
+      QA: ?offer=v2 | ?offer=v1 | ?offer.bonusStack=off
+    -->
+    <script>window.__RADIOREACH_FLAGS__={momentumOwnershipSequence:true,offer:{offerV2:true}};</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.pexels.com" crossorigin />
@@ -149,10 +157,10 @@
       fetchpriority="high"
     />
       <link rel="icon" href="/favicon.ico" sizes="32x32" />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-<link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
   <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -163,8 +171,8 @@ fbq('init', '1615271090014015');
 fbq('init', '2551277695315034');
 fbq('track', 'PageView');
 </script>
-  <script type="module" crossorigin src="/assets/index-B9n1ekJn.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-NIFe_IGd.css">
+  <script type="module" crossorigin src="/assets/index-clcLnNz5.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DIb-7Buc.css">
 </head>
   <body>
     <noscript><img height="1" width="1" style="display:none"

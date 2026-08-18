@@ -9,8 +9,16 @@
     <meta name="theme-color" content="#08080a" />
     <meta name="color-scheme" content="dark" />
     <meta name="referrer" content="no-referrer" />
-    <!-- Runtime kill switch: set momentumOwnershipSequence to false to hide the sequence. -->
-    <script>window.__RADIOREACH_FLAGS__={momentumOwnershipSequence:true};</script>
+    <!--
+      Runtime kill switches. Read by src/config/flags.ts before first paint.
+        momentumOwnershipSequence: false  → hides the question sequence
+        offer.offerV2:             false  → sends 100% of traffic to the control offer
+        offer.<block>:             false  → disables one v2 block (dreamOutcome,
+                                            proofStack, speedStack, bonusStack,
+                                            guaranteeV2, ctaV2)
+      QA: ?offer=v2 | ?offer=v1 | ?offer.bonusStack=off
+    -->
+    <script>window.__RADIOREACH_FLAGS__={momentumOwnershipSequence:true,offer:{offerV2:true}};</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.pexels.com" crossorigin />

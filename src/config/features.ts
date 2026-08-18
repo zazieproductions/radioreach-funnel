@@ -1,11 +1,4 @@
-declare global {
-  interface Window {
-    /** Runtime kill switches. Set before the app bundle executes. */
-    __RADIOREACH_FLAGS__?: {
-      momentumOwnershipSequence?: boolean;
-    };
-  }
-}
+import { readRuntimeFlags } from "./flags";
 
 const buildAllowsMomentumSequence =
   import.meta.env.VITE_MOMENTUM_SEQUENCE_ENABLED !== "false";
@@ -17,5 +10,7 @@ const buildAllowsMomentumSequence =
 export function isMomentumSequenceEnabled() {
   if (!buildAllowsMomentumSequence) return false;
   if (typeof window === "undefined") return buildAllowsMomentumSequence;
-  return window.__RADIOREACH_FLAGS__?.momentumOwnershipSequence !== false;
+  return readRuntimeFlags().momentumOwnershipSequence !== false;
 }
+
+export type { OfferFlagKey, RadioReachFlags } from "./flags";
