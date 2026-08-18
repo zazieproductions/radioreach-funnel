@@ -20,4 +20,9 @@ export const PRICE = {
   downsellTotal: 18,
   downsellPerLabel: "$6",
   downsellTotalLabel: "$18",
+
+  djList: 5,
+  djListLabel: "$5",
+  djListAnchor: 8.99,
+  djListAnchorLabel: "$8.99",
 };

@@ -392,6 +392,252 @@ video {
   }
 }
 
+/* ─────────────────────────────────────────────
+   SPIN WHEEL — Temu-style prize disc
+───────────────────────────────────────────── */
+
+@keyframes rainbow-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes rainbow-text {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes lamp-a {
+  0%,
+  49% {
+    fill: #ffe600;
+  }
+  50%,
+  100% {
+    fill: #fff8c4;
+    opacity: 0.35;
+  }
+}
+
+@keyframes lamp-b {
+  0%,
+  49% {
+    fill: #fff8c4;
+    opacity: 0.35;
+  }
+  50%,
+  100% {
+    fill: #ffe600;
+  }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translate3d(0, -12px, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(18px, 420px, 0) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+@keyframes prize-pop {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes coupon-shine {
+  0% {
+    background-position: -60% 0;
+  }
+  100% {
+    background-position: 160% 0;
+  }
+}
+
+.spin-btn-rainbow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.85rem 1.1rem;
+  border: 0;
+  border-radius: 0.7rem;
+  color: #08080a;
+  font-family: "Anton", system-ui, sans-serif;
+  font-size: 1.02rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    90deg,
+    #ff1744,
+    #ff9100,
+    #ffea00,
+    #00e676,
+    #00b0ff,
+    #d500f9,
+    #ff1744
+  );
+  background-size: 200% 100%;
+  animation: rainbow-pan 2.4s linear infinite;
+  box-shadow: 0 8px 24px rgba(255, 23, 68, 0.22);
+  touch-action: manipulation;
+  transition: filter 120ms ease, transform 90ms ease;
+}
+.spin-btn-rainbow:hover {
+  filter: brightness(1.08);
+}
+.spin-btn-rainbow:active {
+  transform: translateY(1px) scale(0.995);
+}
+
+.rainbow-text {
+  background: linear-gradient(
+    90deg,
+    #ff1744,
+    #ff9100,
+    #ffea00,
+    #00e676,
+    #00b0ff,
+    #d500f9
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow-pan 2.8s linear infinite;
+}
+
+.spin-modal-banner {
+  background: linear-gradient(
+    90deg,
+    #ff1744,
+    #ff9100,
+    #ffea00,
+    #00e676,
+    #00b0ff,
+    #d500f9,
+    #ff1744
+  );
+  background-size: 200% 100%;
+  animation: rainbow-pan 3s linear infinite;
+}
+
+.spin-wheel-stage {
+  position: relative;
+  aspect-ratio: 1;
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.45));
+}
+
+.spin-wheel-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.spin-wheel-rotor {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.spin-lamp-a {
+  animation: lamp-a 0.55s steps(1) infinite;
+}
+
+.spin-lamp-b {
+  animation: lamp-b 0.55s steps(1) infinite;
+}
+
+.spin-hub-hit {
+  position: absolute;
+  inset: 38%;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.spin-confetti {
+  position: absolute;
+  top: -8px;
+  height: 12px;
+  border-radius: 1px;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+.prize-pop {
+  animation: prize-pop 320ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.coupon-ticket {
+  border-radius: 0.7rem;
+  border: 2px dashed rgba(8, 8, 10, 0.25);
+  background:
+    linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%),
+    repeating-linear-gradient(
+      90deg,
+      #ffe600 0 12px,
+      #fff3a0 12px 24px
+    );
+  background-size: 220% 100%, auto;
+  animation: coupon-shine 2.4s linear infinite;
+  padding: 0.85rem 0.75rem;
+  text-align: center;
+}
+
+.spin-float {
+  position: fixed;
+  left: 0.75rem;
+  bottom: calc(6.75rem + env(safe-area-inset-bottom, 0px));
+  z-index: 45;
+  display: flex;
+  max-width: 11.5rem;
+  align-items: center;
+  gap: 0.45rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.55rem 0.8rem 0.55rem 0.6rem;
+  color: #08080a;
+  background: linear-gradient(
+    90deg,
+    #ff1744,
+    #ff9100,
+    #ffea00,
+    #00e676,
+    #00b0ff,
+    #d500f9,
+    #ff1744
+  );
+  background-size: 200% 100%;
+  animation: rainbow-pan 2.4s linear infinite;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .spin-float {
+    bottom: calc(6.25rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 /* Extra-tight phones (iPhone SE / 320–390) */
 @media (max-width: 389.98px) {
   h1.font-display {

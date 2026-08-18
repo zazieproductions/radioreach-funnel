@@ -6,6 +6,7 @@ export type CheckoutSelection = {
   bundleId: string;
   utm: Record<string, string>;
   momentum: MomentumAttribution;
+  wheelCoupon?: string;
 };
 
 export type CreateSessionResponse =

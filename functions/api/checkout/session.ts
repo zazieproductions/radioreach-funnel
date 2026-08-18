@@ -36,6 +36,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       bundleId?: string;
       utm?: Record<string, string>;
       momentum?: MomentumInput;
+      wheelCoupon?: string;
     };
 
     const items = Array.isArray(body.items) ? body.items : [];
@@ -54,6 +55,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const stripe = getStripe(env);
     const origin = new URL(request.url).origin || env.PUBLIC_APP_URL;
     const momentum = normalizeMomentum(body.momentum);
+    const wheelCoupon = String(body.wheelCoupon || "").trim();
     const metadata = {
       bundle_id: body.bundleId || items.join("+"),
       product_keys: items.join(","),
@@ -62,6 +64,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       utm_campaign: body.utm?.utm_campaign || "",
       utm_term: body.utm?.utm_term || "",
       utm_content: body.utm?.utm_content || "",
+      wheel_coupon: /^DJ5-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(wheelCoupon) ? wheelCoupon : "",
       ...momentum,
     };
     const session = await stripe.checkout.sessions.create({

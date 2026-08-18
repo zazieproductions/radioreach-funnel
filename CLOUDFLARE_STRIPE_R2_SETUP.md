@@ -114,6 +114,19 @@ Example keys:
 - `upsells/airplay-accelerator.zip`
 - `upsells/advanced-upwork-proposals-course.zip`
 - `upsells/arcane-type-vault.zip`
+- `addons/50-djs-contact-list.zip`
+
+## Wheel coupon add-on (50 DJs Contact List)
+
+The sales-page prize wheel unlocks a checkout add-on:
+
+- Product key: `dj_contacts`
+- Regular / compare-at price: `$8.99`
+- Wheel deal price charged at checkout: `$5.00`
+- Stripe env var: `STRIPE_PRICE_DJ_CONTACTS` (create a **$5.00** one-time Price)
+- R2 object: `addons/50-djs-contact-list.zip`
+
+Create the live and test Price IDs, then set `STRIPE_PRICE_DJ_CONTACTS` in Cloudflare Pages. Without that env var, adding the wheel prize to checkout will be rejected by the product allowlist.
 
 ## Admin guide — add a new product
 

@@ -14,7 +14,9 @@ import {
 } from "./ui";
 import TerminalPreview from "./TerminalPreview";
 import MomentumSequence from "./MomentumSequence";
-import { isMomentumSequenceEnabled } from "../config/features";
+import { SpinDiscountButton, SpinWheelProvider, WheelCouponChip } from "./SpinWheel";
+import { isMomentumSequenceEnabled, isSpinWheelEnabled } from "../config/features";
+import { readWheelCoupon } from "../lib/wheelCoupon";
 
 import { TESTIMONIALS } from "./testimonials";
 
@@ -56,6 +58,7 @@ const FAQS = [
 export default function SalesPage({ onCta }: { onCta: () => void }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [espDebug] = useState(() => readEspFlag().debug);
+  const [wheelCoupon, setWheelCoupon] = useState(() => readWheelCoupon());
 
   // Start the Emotional State Proxy. Behind the feature flag this is
   // a no-op; cleanup fully detaches it when the funnel leaves this page.
@@ -70,6 +73,10 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
   };
 
   return (
+    <SpinWheelProvider
+      onClaim={() => handleCta("wheel")}
+      onWin={(coupon) => setWheelCoupon(coupon)}
+    >
     <div id="top" className="min-h-screen bg-ink pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))]">
       <ExitIntent
         onTake={() => handleCta("exit_intent")}
@@ -148,6 +155,8 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                 Instant download · <span className="line-through opacity-60">$49</span> $20 today
               </span>
             </button>
+            {isSpinWheelEnabled() && <SpinDiscountButton variant="hero" />}
+            {wheelCoupon && <WheelCouponChip coupon={wheelCoupon} />}
             <div className="mt-3 flex flex-col items-center gap-1 text-center">
               <p className="text-[12px] text-white/55">
                 <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
@@ -526,6 +535,12 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           >
             Give Me Instant Access — $20
           </button>
+          {isSpinWheelEnabled() && (
+            <div className="mx-auto mt-3 max-w-md">
+              <SpinDiscountButton variant="inline" />
+              {wheelCoupon && <WheelCouponChip coupon={wheelCoupon} />}
+            </div>
+          )}
           <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
             Secure checkout · Instant download · 30-day refund · No subscription, ever
           </p>
@@ -580,6 +595,8 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
       {/* Dev-only overlay — visible only with ?esp=debug */}
       {espDebug && <DebugPanel />}
+      {isSpinWheelEnabled() && <SpinDiscountButton variant="floating" />}
     </div>
+    </SpinWheelProvider>
   );
 }

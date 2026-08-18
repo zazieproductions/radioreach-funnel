@@ -2,33 +2,41 @@ import { useEffect, useMemo, useState } from "react";
 import { FlipClock, LiveViewers, Stars, StockBar } from "./ui";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
 import { PRODUCTS } from "../config/storefront";
+import { isSpinWheelEnabled } from "../config/features";
 import { setAdvancedMatching, track } from "../lib/metaPixel";
 import { getMomentumAttribution } from "../lib/momentumSequence";
+import { DJ_CONTACTS_DEAL, DJ_CONTACTS_REGULAR, readWheelCoupon } from "../lib/wheelCoupon";
+import { SpinDiscountButton, SpinWheelProvider } from "./SpinWheel";
 
-export type Addons = { contracts: boolean; au: boolean };
+export type Addons = { contracts: boolean; au: boolean; djContacts: boolean };
 
 type Props = { onComplete: (total: number, addons: Addons) => void };
 
 const BASE = PRODUCTS.vault_core.price;
 const CONTRACTS_PRICE = PRODUCTS.contract_bundle.price;
 const AU_PRICE = PRODUCTS.australia_addon.price;
+const DJ_PRICE = PRODUCTS.dj_contacts.price;
 
 export default function Checkout({ onComplete }: Props) {
   const [contracts, setContracts] = useState(true);
   const [au, setAu] = useState(true);
+  const [coupon, setCoupon] = useState(() => readWheelCoupon());
+  const [djContacts, setDjContacts] = useState(() => Boolean(readWheelCoupon()));
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
-  const total = BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0);
-  const saved = 29 + (contracts ? 16 : 0) + (au ? 17 : 0);
+  const addDj = Boolean(coupon && djContacts);
+  const total = BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0) + (addDj ? DJ_PRICE : 0);
+  const saved = 29 + (contracts ? 16 : 0) + (au ? 17 : 0) + (addDj ? DJ_CONTACTS_REGULAR - DJ_CONTACTS_DEAL : 0);
   const items = useMemo(
     () => [
       "vault_core" as const,
       ...(contracts ? (["contract_bundle"] as const) : []),
       ...(au ? (["australia_addon"] as const) : []),
+      ...(addDj ? (["dj_contacts"] as const) : []),
     ],
-    [contracts, au]
+    [contracts, au, addDj]
   );
 
   const bundleId = useMemo(() => items.join("+"), [items]);
@@ -61,6 +69,12 @@ export default function Checkout({ onComplete }: Props) {
   }, [email]);
 
   return (
+    <SpinWheelProvider
+      onWin={(next) => {
+        setCoupon(next);
+        setDjContacts(true);
+      }}
+    >
     <div className="min-h-screen bg-ink">
       <p className="bg-blood py-2 text-center text-[11px] font-black uppercase tracking-[0.16em]">
         Secure checkout — payment handled by Stripe inside this page
@@ -154,6 +168,45 @@ export default function Checkout({ onComplete }: Props) {
                     <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." — Dee R.</span>
                   </span>
                 </label>
+
+                {isSpinWheelEnabled() && coupon && (
+                  <label className={`relative flex items-start gap-3 overflow-hidden rounded-xl border p-4 ${djContacts ? "border-acid/50 bg-acid/8" : "border-white/10 bg-black/30"}`}>
+                    <span className="spin-modal-banner absolute inset-x-0 top-0 h-1.5" aria-hidden />
+                    <input
+                      type="checkbox"
+                      checked={djContacts}
+                      onChange={(e) => setDjContacts(e.target.checked)}
+                      className="mt-2 h-5 w-5 accent-yellow-400"
+                    />
+                    <span className="space-y-1 pt-1">
+                      <span className="flex flex-wrap items-center gap-2">
+                        <span className="block font-display text-lg uppercase">{PRODUCTS.dj_contacts.name}</span>
+                        <span className="rounded-full bg-acid px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-ink">
+                          Wheel win
+                        </span>
+                      </span>
+                      <span className="block text-sm text-acid">50 DJ names, emails, and station affiliations</span>
+                      <span className="block text-sm text-white/65">{PRODUCTS.dj_contacts.description}</span>
+                      <span className="block text-sm">
+                        <span className="mr-2 text-white/35 line-through">${DJ_CONTACTS_REGULAR.toFixed(2)}</span>
+                        <b className="text-acid">${DJ_CONTACTS_DEAL.toFixed(2)}</b>
+                        <span className="ml-2 text-[12px] text-white/45">coupon {coupon.code}</span>
+                      </span>
+                    </span>
+                  </label>
+                )}
+
+                {isSpinWheelEnabled() && !coupon && (
+                  <div className="rounded-xl border border-dashed border-white/15 bg-black/30 p-4">
+                    <p className="font-display text-lg uppercase">Unlock a $5 add-on</p>
+                    <p className="mt-1 text-sm text-white/60">
+                      Spin the rainbow wheel for a coupon on the 50 DJs Contact List — usually ${DJ_CONTACTS_REGULAR.toFixed(2)}, yours for ${DJ_CONTACTS_DEAL.toFixed(2)}.
+                    </p>
+                    <div className="mt-3">
+                      <SpinDiscountButton variant="checkout" />
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
 
@@ -163,6 +216,14 @@ export default function Checkout({ onComplete }: Props) {
                 <SummaryRow label={PRODUCTS.vault_core.name} was={`$${PRODUCTS.vault_core.compareAt}`} now={`$${PRODUCTS.vault_core.price.toFixed(2)}`} />
                 {contracts && <SummaryRow label={PRODUCTS.contract_bundle.shortName} was={`$${PRODUCTS.contract_bundle.compareAt}`} now={`$${PRODUCTS.contract_bundle.price.toFixed(2)}`} accent />}
                 {au && <SummaryRow label={PRODUCTS.australia_addon.shortName} was={`$${PRODUCTS.australia_addon.compareAt}`} now={`$${PRODUCTS.australia_addon.price.toFixed(2)}`} accent />}
+                {addDj && coupon && (
+                  <SummaryRow
+                    label={`${PRODUCTS.dj_contacts.shortName} · ${coupon.code}`}
+                    was={`$${DJ_CONTACTS_REGULAR.toFixed(2)}`}
+                    now={`$${DJ_CONTACTS_DEAL.toFixed(2)}`}
+                    accent
+                  />
+                )}
                 <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
                   <span>You save</span>
                   <span className="font-bold text-acid">${saved.toFixed(2)}</span>
@@ -213,10 +274,11 @@ export default function Checkout({ onComplete }: Props) {
       </div>
 
       {/* callback for demo flow compatibility */}
-      <button type="button" onClick={() => onComplete(total, { contracts, au })} className="sr-only">
+      <button type="button" onClick={() => onComplete(total, { contracts, au, djContacts: addDj })} className="sr-only">
         sync
       </button>
     </div>
+    </SpinWheelProvider>
   );
 }
 
