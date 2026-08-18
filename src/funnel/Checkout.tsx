@@ -25,7 +25,8 @@ function SecretSecondSpinCard({ onOpenWheel }: { onOpenWheel?: () => void }) {
   }, []);
   if (revealed) {
     return (
-      <div className="overflow-hidden rounded-xl border-2 border-cyan-400 bg-gradient-to-br from-cyan-500/10 via-[#7c5cff]/10 to-black/40 p-4">
+      <div className="overflow-hidden rounded-xl border-transparent bg-[linear-gradient(135deg,#FACC15,#FB923C,#F472B6,#A78BFA,#22D3EE,#34D399)] p-[1px]">
+      <div className="overflow-hidden rounded-[11px] bg-[#0F0F12] p-4">
         <div className="flex items-center gap-2">
           <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-[#7c5cff] text-white">🤫</span>
           <div>
@@ -51,15 +52,17 @@ function SecretSecondSpinCard({ onOpenWheel }: { onOpenWheel?: () => void }) {
         </div>
         <p className="mt-2 text-center text-[11px] text-white/50">Use at <a href="https://playlistpush.com/" target="_blank" rel="noreferrer" className="font-bold text-cyan-300 underline">PlaylistPush.com</a> checkout — genuine promo code from your second spin</p>
       </div>
+      </div>
     );
   }
   return (
-    <div className="overflow-hidden rounded-xl border-2 border-cyan-400 bg-gradient-to-br from-cyan-500/15 via-[#7c5cff]/10 to-[#ff3b82]/10 p-4 shadow-[0_8px_24px_rgba(6,182,212,0.18)]">
+    <div className="overflow-hidden rounded-xl border-transparent bg-[linear-gradient(135deg,#FACC15,#FB923C,#F472B6,#A78BFA,#22D3EE,#34D399)] p-[1px] shadow-[0_8px_24px_rgba(6,182,212,0.18)]">
+    <div className="overflow-hidden rounded-[11px] bg-[#0F0F12] p-4">
       <div className="flex items-center gap-3">
         <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-[#7c5cff] text-white shadow-[0_4px_14px_rgba(6,182,212,0.4)] animate-pulse">🤫</span>
         <div className="flex-1">
           <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-300 animate-pulse">ONE MORE SPIN — SECRET INSIDE</p>
-          <p className="text-sm font-black leading-none text-white">You have one more chance!</p>
+          <p className="text-sm font-black leading-none text-white">You have one more spin!</p>
           <p className="text-xs leading-none text-white/60">Hidden industry code — spin to reveal</p>
         </div>
         <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-cyan-600">1 spin left</span>
@@ -79,6 +82,7 @@ function SecretSecondSpinCard({ onOpenWheel }: { onOpenWheel?: () => void }) {
         Spin Again — Reveal Secret Code →
       </button>
       <p className="mt-2 text-center text-[10px] font-bold uppercase tracking-widest text-white/30">Mystery prize inside • Are you feeling lucky?</p>
+    </div>
     </div>
   );
 }
@@ -167,7 +171,7 @@ export default function Checkout({
           <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] text-ink sm:gap-3 sm:text-xs">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 text-[10px] tracking-[0.16em] text-acid">
               <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
-              🎉 1 in 10,000 WINNER
+              🎉 JACKPOT WINNER
             </span>
             <span className="font-mono">{luckyCoupon.code}</span>
             <span className="hidden sm:inline opacity-40">•</span>
@@ -176,7 +180,7 @@ export default function Checkout({
               ⏳ {remainingStr}
             </span>
             <span className="hidden sm:inline text-[10px] tracking-[0.12em] opacity-60">
-              • both add-ons pre-selected below
+              • both add-ons waiting below
             </span>
           </p>
         </div>
@@ -210,13 +214,14 @@ export default function Checkout({
           <aside className="space-y-4">
             {/* winner celebration card */}
             {hasWinningCoupon && luckyCoupon && (
-              <div className="overflow-hidden rounded-xl border-2 border-acid bg-gradient-to-br from-acid/15 via-acid/5 to-transparent p-4">
+              <div className="overflow-hidden rounded-xl border-transparent bg-[linear-gradient(135deg,#FACC15,#FB923C,#F472B6,#A78BFA,#22D3EE,#34D399)] p-[1px]">
+              <div className="overflow-hidden rounded-[11px] bg-[#0F0F12] p-4">
                 <div className="flex items-center gap-2">
                   <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-acid to-yellow-300 text-ink">🎉</span>
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.16em] text-acid">Jackpot active — you feel lucky for a reason</p>
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-acid">Jackpot active</p>
                     <p className="text-sm font-bold leading-none text-white">
-                      Only <b className="text-acid">1 in 10,000</b> get this celebration at checkout
+                      Your celebration is live at checkout
                     </p>
                   </div>
                   <span className="ml-auto hidden shrink-0 rounded-full bg-acid px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-ink sm:inline-flex">
@@ -243,13 +248,14 @@ export default function Checkout({
                 </div>
                 <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
                   <div
-                    className="h-full bg-gradient-to-r from-acid via-[#ff6b9d] to-[#00d4ff] transition-all duration-1000"
+                    className="h-full bg-gradient-to-r from-amber-400 via-orange-400 via-pink-400 to-cyan-400 transition-all duration-1000"
                     style={{ width: `${Math.max(8, (Math.max(0, luckyCoupon.expiresAt - nowMs) / (15 * 60 * 1000)) * 100)}%` }}
                   />
                 </div>
                 <p className="mt-2 text-center text-[11px] font-bold uppercase tracking-widest text-white/35">
-                  Both add-ons below are pre-ticked because you won — untick if you really want to
+                  Both add-ons below are ready for you — untick if you really want to
                 </p>
+              </div>
               </div>
             )}
 
@@ -290,7 +296,7 @@ export default function Checkout({
                   }`}
                 >
                   {hasWinningCoupon && (
-                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-emerald-500 px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-white">
+                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-[linear-gradient(90deg,#FACC15,#FB923C,#F472B6,#A78BFA)] px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-zinc-900 shadow-[0_4px_12px_rgba(244,114,182,0.35)]">
                       YOU WON THIS ✓
                     </span>
                   )}
@@ -326,7 +332,7 @@ export default function Checkout({
                       <b className={hasWinningCoupon ? "text-acid" : "text-acid"}>${PRODUCTS.contract_bundle.price.toFixed(2)}</b>{" "}
                       {hasWinningCoupon && (
                         <span className="ml-1 rounded bg-green-500/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-green-400 border border-green-500/20">
-                          Save $16 • Pre-selected for winners
+                          Save $16 • Winner pick
                         </span>
                       )}
                     </span>
@@ -352,7 +358,7 @@ export default function Checkout({
                   }`}
                 >
                   {hasWinningCoupon && (
-                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-emerald-500 px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-white">
+                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-[linear-gradient(90deg,#FACC15,#FB923C,#F472B6,#A78BFA)] px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-zinc-900 shadow-[0_4px_12px_rgba(244,114,182,0.35)]">
                       YOU WON THIS ✓
                     </span>
                   )}
@@ -371,7 +377,7 @@ export default function Checkout({
                       <b className="text-acid">${PRODUCTS.australia_addon.price.toFixed(2)}</b>{" "}
                       {hasWinningCoupon && (
                         <span className="ml-1 rounded bg-green-500/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-green-400 border border-green-500/20">
-                          Save $17 • Pre-selected for winners
+                          Save $17 • Winner pick
                         </span>
                       )}
                     </span>
@@ -389,10 +395,10 @@ export default function Checkout({
                   <div className="rounded-xl border border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40 p-4">
                     <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Feeling lucky?</p>
                     <p className="mt-1 text-sm font-bold text-white">
-                      Spin the rainbow wheel — <b className="text-acid">1 in 10,000</b> get a jackpot celebration for this bundle
+                      Spin the rainbow wheel for a jackpot celebration on this bundle
                     </p>
                     <p className="mt-1 text-xs text-white/50">
-                      Both add-ons are already <b className="text-white">$9 + $12</b> <span className="line-through">($25 + $29)</span> — winning just makes it feel <b className="text-white">really special</b> at checkout with your code, countdown & confetti.
+                      Both add-ons are <b className="text-white">$9 + $12</b> <span className="line-through">($25 + $29)</span> — spin for your code, countdown & confetti.
                     </p>
                     <button
                       type="button"
@@ -403,7 +409,7 @@ export default function Checkout({
                       Spin the wheel for a free discount
                     </button>
                     <p className="mt-2 text-center text-[10px] uppercase tracking-widest text-white/25">
-                      342 spinning now • 3 jackpots / hr • 5 sec • no email
+                      342 spinning now • 5 sec • no email
                     </p>
                   </div>
                 )}
@@ -446,7 +452,7 @@ export default function Checkout({
             {!hasWinningCoupon && !isCouponExpired && (
               <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
                 <LuckyWheelButton onClick={() => onOpenWheel?.()} className="w-full justify-center" small />
-                <p className="mt-2 text-center text-xs text-white/40">Only 1 in 10,000 wins the jackpot celebration — 5 sec spin</p>
+                <p className="mt-2 text-center text-xs text-white/40">Free 5 sec spin — no email needed</p>
               </section>
             )}
 
@@ -477,10 +483,10 @@ export default function Checkout({
                 >
                   <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-acid">
                     <span className="grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white text-xs">🎡</span>
-                    Feeling lucky? Spin for a winner feeling
+                    Feeling lucky? Take a free spin
                   </p>
                   <p className="mt-1 text-sm font-bold text-white">Unlock the jackpot celebration for both add-ons</p>
-                  <p className="mt-1 text-xs text-white/40">Only 1 in 10,000 wins • Rainbow wheel • ⏳ 15 min</p>
+                  <p className="mt-1 text-xs text-white/40">Rainbow wheel • Free spin • ⏳ 15 min</p>
                 </button>
               </div>
             )}
@@ -539,11 +545,13 @@ function OrderSummaryRows({
         />
       )}
       {hasWinningCoupon && coupon && (
-        <div className="rounded-lg border border-acid/30 bg-acid/5 px-3 py-2 text-center -mx-1">
+        <div className="rounded-lg border-transparent bg-[linear-gradient(90deg,#FACC15,#FB923C,#F472B6,#A78BFA)] p-[1px] text-center -mx-1">
+        <div className="rounded-[7px] bg-[#0F0F12] px-3 py-2">
           <p className="text-xs font-black uppercase tracking-widest text-acid">
             🎉 Jackpot {coupon.code} • ⏳ {remainingStr} • Save $33 on bundle
           </p>
-          <p className="text-[11px] text-white/50">Both add-ons pre-selected because you won — 1 in 10,000</p>
+          <p className="text-[11px] text-white/50">Both add-ons ready because you won</p>
+        </div>
         </div>
       )}
       <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
@@ -560,7 +568,7 @@ function OrderSummaryRows({
       </div>
       {hasWinningCoupon && (
         <p className="text-center text-[11px] leading-snug text-acid/70 font-bold">
-          Winner celebration active — keep both boxes checked to claim the feeling 💛
+          Winner celebration active — keep both boxes checked to claim your bundle
         </p>
       )}
     </div>
@@ -572,7 +580,7 @@ function SummaryRow({ label, was, now, accent, badge }: { label: string; was?: s
     <div className={`flex items-start justify-between gap-4 ${accent ? "rounded-lg border border-acid/20 bg-acid/5 px-2 py-1 -mx-2" : ""}`}>
       <span className={`${accent ? "text-acid font-bold" : "text-white/75"} flex items-center gap-1.5`}>
         {label}
-        {badge && <span className="rounded-full bg-emerald-500/15 border border-emerald-500/20 px-1.5 py-0.5 text-[8px] font-black tracking-[0.08em] text-emerald-300">{badge}</span>}
+        {badge && <span className="rounded-full bg-[linear-gradient(90deg,#FACC15,#FB923C,#F472B6,#A78BFA)] px-1.5 py-0.5 text-[8px] font-black tracking-[0.08em] text-zinc-900 shadow-[0_2px_8px_rgba(244,114,182,0.35)]">{badge}</span>}
       </span>
       <span className="shrink-0 whitespace-nowrap">
         {was && <span className="mr-2 text-white/30 line-through">{was}</span>}

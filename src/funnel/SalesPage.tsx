@@ -124,7 +124,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               JACKPOT UNLOCKED
             </span>
             <span>
-              1 in 10,000 — <span className="font-mono">{luckyCoupon.code}</span> • Founder Bundle{" "}
+              <span className="font-mono">{luckyCoupon.code}</span> • Founder Bundle{" "}
               <span className="line-through opacity-60">$54</span> → $21
             </span>
             <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2 py-1 font-mono text-acid">
@@ -222,7 +222,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               {hasWinningCoupon && luckyCoupon ? (
                 <div className="rounded-full border border-acid/40 bg-acid/10 px-4 py-2.5 text-center">
                   <p className="text-xs font-black uppercase tracking-[0.14em] text-acid">
-                    🎉 You won! Only 1 in 10,000 gets this
+                    🎉 You won the jackpot
                   </p>
                   <p className="mt-1 text-[13px] font-bold text-white">
                     {luckyCoupon.code} • Founder Bundle{" "}
@@ -241,8 +241,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 <>
                   <LuckyWheelButton onClick={() => onOpenWheel?.()} />
                   <p className="max-w-[32ch] text-center text-[11px] leading-snug text-white/40">
-                    No email needed • 5 sec spin •{" "}
-                    <span className="font-bold text-white/60">Only 3 jackpots / hour</span> • 342 spinning now
+                    No email needed • 5 sec spin • 342 spinning now
                   </p>
                 </>
               )}
@@ -265,7 +264,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3 px-4 py-3 text-center text-[12px] sm:gap-6 sm:py-3.5">
             <span className="inline-flex items-center gap-1.5 font-bold text-white">
               <span className="grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br from-acid to-yellow-400 text-ink">🎡</span>
-              Spin the rainbow wheel — will you be the 1 in 10,000?
+              Spin the rainbow wheel — take a free spin
             </span>
             <span className="hidden items-center gap-2 text-white/60 sm:inline-flex">
               <span className="h-1 w-1 rounded-full bg-white/30" />
@@ -421,7 +420,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               </span>
               <div className="flex-1">
                 <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">
-                  {hasWinningCoupon ? "Jackpot unlocked — 1 in 10,000" : "Bonus — spin to unlock founder price"}
+                  {hasWinningCoupon ? "Jackpot unlocked" : "Bonus — spin to unlock founder price"}
                 </p>
                 <p className="mt-1 font-display text-lg leading-none sm:text-xl">FOUNDER'S BUNDLE — BOTH ADD-ONS</p>
                 <div className="mt-2 grid gap-2">
@@ -438,11 +437,11 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                   Normally <span className="line-through">$54</span> together —{" "}
                   {hasWinningCoupon ? (
                     <>
-                      <b className="text-acid">yours for $21 (save $33)</b> with code <b className="font-mono text-white">{luckyCoupon.code}</b> • pre-ticked at checkout
+                      <b className="text-acid">yours for $21 (save $33)</b> with code <b className="font-mono text-white">{luckyCoupon.code}</b> • waiting at checkout
                     </>
                   ) : (
                     <>
-                      <b className="text-white">spin to feel like a winner at checkout</b> — they'll be pre-selected for you at the discounted price
+                      <b className="text-white">spin to unlock both add-ons</b> at the founder price
                     </>
                   )}
                 </p>
@@ -465,7 +464,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                     </button>
                   )}
                   <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white/50">
-                    {hasWinningCoupon ? `⏳ ${remainingStr} left` : "Only 1 in 10,000 wins"}
+                    {hasWinningCoupon ? `⏳ ${remainingStr} left` : "Free spin"}
                   </span>
                 </div>
               </div>
@@ -726,16 +725,16 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                     <p className="font-display text-2xl leading-none text-acid">$21</p>
                   </div>
                 </div>
-                <p className="mt-2 text-center text-xs text-white/60">Pre-selected at checkout for the next {remainingStr}</p>
+                <p className="mt-2 text-center text-xs text-white/60">Waiting at checkout for the next {remainingStr}</p>
               </div>
             ) : (
               <div className="rounded-xl border border-white/10 bg-black/40 p-4">
                 <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Psst — want to feel lucky?</p>
                 <p className="mt-1 text-[13px] font-bold text-white">
-                  Spin the rainbow wheel for a chance to unlock <span className="text-acid">both add-ons for $21</span>{" "}
+                  Spin the rainbow wheel to unlock <span className="text-acid">both add-ons for $21</span>{" "}
                   <span className="line-through opacity-40">$54</span>
                 </p>
-                <p className="text-xs text-white/50">Contract Kit + AU List — pre-selected if you win</p>
+                <p className="text-xs text-white/50">Contract Kit + AU List — yours if you win</p>
                 <button
                   type="button"
                   onClick={() => onOpenWheel?.()}
@@ -743,7 +742,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 >
                   🎡 Spin the wheel for a free discount
                 </button>
-                <p className="mt-1.5 text-center text-[10px] uppercase tracking-widest text-white/30">Only 1 in 10,000 wins • instant</p>
+                <p className="mt-1.5 text-center text-[10px] uppercase tracking-widest text-white/30">Free spin • instant</p>
               </div>
             )}
           </div>
