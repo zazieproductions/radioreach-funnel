@@ -10,7 +10,8 @@
     "build": "node scripts/build-resources.mjs && vite build",
     "build:resources": "node scripts/build-resources.mjs",
     "preview": "vite preview",
-    "test:esp": "node scripts/run-esp-tests.mjs"
+    "test:esp": "node scripts/run-esp-tests.mjs",
+    "test:lab": "node scripts/run-lab-tests.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1101.0",

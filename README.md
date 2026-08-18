@@ -47,6 +47,7 @@ The frontend is a React and TypeScript application deployed on Cloudflare Pages.
 | --- | --- |
 | **Conversion-led experience** | Responsive long-form sales page, interactive proof, offer stacking, exit intent, sticky CTAs, checkout add-ons, modular upsell screens, and a focused post-purchase journey. |
 | **Adaptive copy system** | The Emotional State Proxy (ESP) interprets passive behavioral signals and gently adjusts tone—never price, offer terms, or product facts. |
+| **Conversion experiment lab** | A behavioral-science shelf of 19 flag-gated experiment prototypes (variable rewards, goal gradients, streaks, anchoring, decoys, endowment framing…) with hypothesis cards, deterministic visitor bucketing, attribution snapshots, and a full test suite — reviewed at `#/lab`. |
 | **First-party intent capture** | A feature-flagged Momentum + Ownership sequence records low-cardinality intent and carries it into Stripe metadata, fulfillment, and analytics. |
 | **Embedded payments** | Stripe Embedded Checkout keeps delivery and payment details inside the branded experience while Stripe handles sensitive card data. |
 | **Verified fulfillment** | Signed Stripe webhooks, idempotent KV order records, HMAC fulfillment tokens, and server-generated R2 URLs ensure files unlock only for paid items. |
@@ -139,8 +140,9 @@ radioreach-funnel/
 │   ├── config/                  # Storefront catalog and feature controls
 │   ├── esp/                     # Emotional State Proxy engine and adaptive copy
 │   ├── funnel/                  # Sales, checkout, upsell, and success experiences
+│   ├── lab/                     # Conversion Lab: experiment catalog + 14 prototypes (#/lab)
 │   ├── lib/                     # API, attribution, and analytics clients
-│   └── App.tsx                  # Funnel orchestration and success routing
+│   └── App.tsx                  # Funnel orchestration, success routing, lab route
 ├── CLOUDFLARE_STRIPE_R2_SETUP.md
 ├── DEPLOY.md
 ├── vite.config.ts
@@ -327,12 +329,14 @@ The sequence stores answers under `radioreach:momentum-ownership:v1`, emits life
 | `npm run build` | Create the optimized production build in `dist/` |
 | `npm run preview` | Preview the production build locally |
 | `npm run test:esp` | Run ESP decision-logic and jsdom integration scenarios |
+| `npm run test:lab` | Run Conversion Lab mechanics (bucketing, schedules, streaks) + gallery scenarios |
 | `npx tsc --noEmit` | Run the strict frontend TypeScript check |
 
 Before opening a pull request, run:
 
 ```bash
 npm run test:esp
+npm run test:lab
 npx tsc --noEmit
 npm run build
 ```

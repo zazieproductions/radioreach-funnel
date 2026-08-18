@@ -273,6 +273,29 @@ summary {
   animation: fadeIn 180ms ease both;
 }
 
+/* Conversion-lab accents — attention budget treatments. Slow enough
+   (≤ ~2.2s cycle) to stay far from strobe territory, and killed by
+   the reduced-motion rule below like everything else. */
+@keyframes labShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  60%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes labSlideRight {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
 /* Honour the OS setting: kill all motion, keep all content */
 @media (prefers-reduced-motion: reduce) {
   html {
