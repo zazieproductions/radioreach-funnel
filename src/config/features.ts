@@ -3,6 +3,7 @@ declare global {
     /** Runtime kill switches. Set before the app bundle executes. */
     __RADIOREACH_FLAGS__?: {
       momentumOwnershipSequence?: boolean;
+      decisionFocus?: boolean;
     };
   }
 }
@@ -18,4 +19,17 @@ export function isMomentumSequenceEnabled() {
   if (!buildAllowsMomentumSequence) return false;
   if (typeof window === "undefined") return buildAllowsMomentumSequence;
   return window.__RADIOREACH_FLAGS__?.momentumOwnershipSequence !== false;
+}
+
+const buildAllowsDecisionFocus =
+  import.meta.env.VITE_DECISION_FOCUS_ENABLED !== "false";
+
+/**
+ * Soft spotlight around the buy CTA at the moment of choice.
+ * Build flag is the hard switch; runtime flag is the fast kill.
+ */
+export function isDecisionFocusEnabled() {
+  if (!buildAllowsDecisionFocus) return false;
+  if (typeof window === "undefined") return buildAllowsDecisionFocus;
+  return window.__RADIOREACH_FLAGS__?.decisionFocus !== false;
 }

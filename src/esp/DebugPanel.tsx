@@ -11,7 +11,8 @@ import { espStore } from "./store";
 import { getBrainState } from "./brain";
 import { getMemoryLog, getStoredEvents, getSessionId } from "./log";
 import { killEsp } from "./flag";
-import type { EmotionalMode } from "./types";
+import { FOCUS_CLUSTERS, focusStore, killFocus } from "./focus";
+import type { EmotionalMode, FocusClusterId } from "./types";
 
 const MODE_DOTS: Record<EmotionalMode, string> = {
   default: "bg-white/40",
@@ -26,6 +27,7 @@ function fmt(n: number) {
 
 export function DebugPanel() {
   const [mode, setMode] = useState<EmotionalMode>(espStore.getMode());
+  const [focus, setFocus] = useState<FocusClusterId | null>(focusStore.getTarget());
   const [open, setOpen] = useState(false);
   const [, forceRender] = useState(0);
 
@@ -33,9 +35,13 @@ export function DebugPanel() {
     const unsub = espStore.subscribe(() => {
       setMode(espStore.getMode());
     });
+    const unsubFocus = focusStore.subscribe(() => {
+      setFocus(focusStore.getTarget());
+    });
     const iv = window.setInterval(() => forceRender((n) => n + 1), 500);
     return () => {
       unsub();
+      unsubFocus();
       window.clearInterval(iv);
     };
   }, []);
@@ -44,6 +50,8 @@ export function DebugPanel() {
   const signals = getMemoryLog();
   const events = getStoredEvents();
   const forced = espStore.getForced();
+  const focusForced = focusStore.getForced();
+  const focusReason = focusStore.getReason();
 
   const force = (m: EmotionalMode | null) => {
     espStore.setForced(m);
@@ -85,6 +93,32 @@ export function DebugPanel() {
           </div>
 
           <p className="mb-1 text-white/45">
+            focus: <span className="text-acid">{focus ?? "off"}</span>
+            {focusReason ? ` · ${focusReason}` : ""}
+          </p>
+          <div className="mb-2 flex flex-wrap gap-1">
+            <button
+              onClick={() => focusStore.setForced(null)}
+              className={`pressable rounded px-2 py-1 font-bold uppercase tracking-wide ${
+                focusForced === null ? "bg-acid text-ink" : "bg-white/10 text-white/70 hover:bg-white/20"
+              }`}
+            >
+              auto
+            </button>
+            {FOCUS_CLUSTERS.map((id) => (
+              <button
+                key={id}
+                onClick={() => focusStore.setForced(id)}
+                className={`pressable rounded px-2 py-1 font-bold uppercase tracking-wide ${
+                  focusForced === id ? "bg-acid text-ink" : "bg-white/10 text-white/70 hover:bg-white/20"
+                }`}
+              >
+                {id}
+              </button>
+            ))}
+          </div>
+
+          <p className="mb-1 text-white/45">
             signals (live):{" "}
             {signals.length === 0
               ? "—"
@@ -96,13 +130,16 @@ export function DebugPanel() {
           <p className="mb-2 text-white/45">
             logged events: {events.length} · mode changes:{" "}
             {events.filter((e) => e.type === "mode_change").length} · conversions:{" "}
-            {events.filter((e) => e.type === "conversion").length}
+            {events.filter((e) => e.type === "conversion").length} · focus:{" "}
+            {events.filter((e) => e.type === "focus").length}
           </p>
           <button
             onClick={() => {
               killEsp();
+              killFocus();
               force(null);
               espStore.setMode("default");
+              focusStore.reset();
             }}
             className="pressable rounded bg-blood/20 px-2 py-1 font-bold uppercase tracking-wide text-blood hover:bg-blood/40"
           >
@@ -119,6 +156,7 @@ export function DebugPanel() {
         <span className={`h-2 w-2 rounded-full ${MODE_DOTS[mode]}`} />
         <span>esp</span>
         <span className="text-acid">{forced ? `${mode} (forced)` : mode}</span>
+        {focus ? <span className="text-white/40">· {focus}</span> : null}
       </button>
     </div>
   );

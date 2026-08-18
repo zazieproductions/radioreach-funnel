@@ -73,6 +73,35 @@ a `conversion` event (`cta_click`) with a snapshot: current mode, scores,
 signal counts, session id. `SuccessPage` logs `purchase_completed` with the
 last persisted mode. Correlate in `sessionStorage["esp.events.v1"]`.
 
+## Decision-Point Focus Mode
+
+When a visitor is actually at the moment of choice — cursor on/near a
+primary yellow CTA, lingering on a mid-page buy block, returning to one
+after reading, or sitting in high-intent (`urgency`) — the page:
+
+1. Soft-dims everything else with a spotlight hole around that cluster
+2. Crossfades micro-copy on or under the button (mode-aware, prices untouched)
+3. Gives the yellow CTA a slow glow pulse (killed by `prefers-reduced-motion`)
+
+The hero offer never auto-focuses on first paint. Landing is not a
+decision; coming back to the button is. The veil is `pointer-events: none`
+and the page never auto-scrolls — this is not a modal.
+
+Primary clusters: `hero`, `stack`, `final`, `momentum` (eager, after the
+sequence completes). Nav / sticky / terminal teaser are left alone so
+they don't compete for the stage.
+
+Kill / QA:
+
+- `?focus=off` — disable
+- `?focus=hero|stack|final|momentum` — force a cluster
+- `localStorage.setItem("focus.disabled","1")`
+- `VITE_DECISION_FOCUS_ENABLED=false`
+- `window.__RADIOREACH_FLAGS__.decisionFocus = false`
+
+Logged as `esp` events of type `focus`. Conversion snapshots include the
+active cluster (`snapshot.focus`).
+
 ## Extending
 
 - **New signal** — add a `SignalKind`, a detector block in `signals.ts`, a

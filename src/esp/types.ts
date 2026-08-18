@@ -13,6 +13,21 @@ export type EmotionalMode = "default" | "calm" | "aspire" | "urgency";
 /** Page regions the signal layer watches for dwell + revisits. */
 export type ZoneId = "pricing" | "scarcity" | "cta" | "proof" | "safety";
 
+/** Primary buy-clusters that can take Decision-Point Focus. */
+export type FocusClusterId = "hero" | "stack" | "final" | "momentum";
+
+/** Why the page entered (or left) decision-point focus. */
+export type FocusReason =
+  | "hover"
+  | "keyboard"
+  | "near"
+  | "linger"
+  | "revisit"
+  | "urgency"
+  | "intent"
+  | "forced"
+  | null;
+
 /** Normalized, low-level behavioral signals. The brain never sees
  *  raw events — only these. Add new kinds here to extend. */
 export type SignalKind =
@@ -35,7 +50,7 @@ export interface EspSignal {
 /** Persisted / consumable event log entry. */
 export interface EspEvent {
   at: number;
-  type: "session" | "mode_change" | "conversion" | "signal";
+  type: "session" | "mode_change" | "conversion" | "signal" | "focus";
   mode: EmotionalMode;
   data?: Record<string, unknown>;
 }
@@ -48,6 +63,8 @@ export interface EspSnapshot {
   forced: boolean;
   scores: Partial<Record<EmotionalMode, number>>;
   signalCounts: Partial<Record<SignalKind, number>>;
+  /** Active decision-point cluster, if the page is in focus mode. */
+  focus: FocusClusterId | null;
 }
 
 /** Parsed feature-flag state. */

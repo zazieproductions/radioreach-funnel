@@ -43,7 +43,13 @@ export type SlotKey =
   | "roadB"
   | "stickyLabel"
   | "exitTitle"
-  | "exitBody";
+  | "exitBody"
+  | "ctaLabelFocus"
+  | "heroCtaSubFocus"
+  | "heroFocusHint"
+  | "stackFocusHint"
+  | "finalFocusHint"
+  | "momentumFocusHint";
 
 type SlotVariants = { default: ReactNode } & Partial<Record<EmotionalMode, ReactNode>>;
 
@@ -319,6 +325,58 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
     calm: "No pressure. But the founder price steps up to $49 when the launch window closes.",
     aspire: "You're one click from the same list the artists in rotation used.",
     urgency: "You're one click from 18,000+ radio station contacts — and the $20 founder price.",
+  },
+
+  /* — decision-point: hero card label (replaces ctaLabel) — */
+  ctaLabelFocus: {
+    default: "This is the decision — $20 unlocks the file:",
+    calm: "Whenever you're ready — $20, one time:",
+    aspire: "Your move — the same first step they took:",
+    urgency: "The $20 door is still open:",
+  },
+
+  /* — decision-point: line ON the hero button — */
+  heroCtaSubFocus: {
+    default: (
+      <>
+        This is the one · <span className="line-through opacity-60">$49</span> $20 · start tonight
+      </>
+    ),
+    calm: <>Whenever you're ready · $20 · instant download</>,
+    aspire: <>The same first step · $20 · then you send</>,
+    urgency: <>Lock $20 now · before it returns to $49</>,
+  },
+
+  /* — decision-point: line UNDER the hero button — */
+  heroFocusHint: {
+    default: "This is the decision · $20 · 30-day reverse",
+    calm: "No pressure · $20 unlocks the file · 30-day refund",
+    aspire: "One click · then you're in the room with them",
+    urgency: "Founder price is still yours · take it before $49",
+  },
+
+  /* — decision-point: under the value-stack CTA — */
+  stackFocusHint: {
+    default: "This is the click · instant download · 30 days to reverse",
+    calm: "One-time $20 · no subscription · take it when ready",
+    aspire: "Join 1,940+ artists · instant download · start tonight",
+    urgency: "73% off holds until the timer dies · then it's $49",
+  },
+
+  /* — decision-point: under the final CTA — */
+  finalFocusHint: {
+    default: "You already know the road · $20 · instant access",
+    calm: "Simple checkout · instant file · 30-day refund",
+    aspire: "Open the file in 90 seconds · email 20 directors tonight",
+    urgency: "Two roads. Pick B before the $20 door closes.",
+  },
+
+  /* — decision-point: on the momentum unlock button — */
+  momentumFocusHint: {
+    default: "Your plan is set · $20 unlocks the contacts",
+    calm: "One-time payment · instant access · no lock-in",
+    aspire: "Your first move is ready · unlock it for $20",
+    urgency: "Plan is set · lock $20 before it returns to $49",
   },
 };
 

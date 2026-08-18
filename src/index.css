@@ -195,6 +195,63 @@ video {
 }
 
 /* ─────────────────────────────────────────────
+   DECISION-POINT FOCUS — spotlight + CTA pulse
+   ───────────────────────────────────────────── */
+
+.decision-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 54;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+.decision-veil--on {
+  opacity: 1;
+}
+.decision-veil__hole {
+  position: absolute;
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 1px rgba(255, 230, 0, 0.22),
+    0 0 56px rgba(255, 230, 0, 0.08),
+    0 0 0 999vmax rgba(6, 6, 8, 0.46);
+}
+
+.decision-focus {
+  position: relative;
+  transition: box-shadow 380ms ease;
+}
+.decision-focus--active {
+  border-radius: 16px;
+  z-index: 55;
+}
+
+@keyframes decisionPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(255, 230, 0, 0),
+      0 8px 22px rgba(255, 230, 0, 0.18);
+  }
+  50% {
+    box-shadow:
+      0 0 0 8px rgba(255, 230, 0, 0.16),
+      0 10px 30px rgba(255, 230, 0, 0.32);
+  }
+}
+
+.decision-focus--active .cta {
+  animation: decisionPulse 1.85s ease-in-out infinite;
+}
+
+@media print {
+  .decision-veil {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────
    MOTION — subtle, short, and opt-out aware
 ───────────────────────────────────────────── */
 

@@ -43,6 +43,7 @@ try {
   await run("esp-integration.tsx", { SCENARIO: "A" }, "Sales page — default → urgency (zone revisits)");
   await run("esp-integration.tsx", { SCENARIO: "B" }, "Sales page — default → calm (rage clicks + fast scroll)");
   await run("esp-integration.tsx", { SCENARIO: "C" }, "Sales page — flag: forced modes + esp=off");
+  await run("esp-integration.tsx", { SCENARIO: "D" }, "Sales page — decision-point focus mode");
   console.log("\n✔ All ESP tests passed.");
 } finally {
   rmSync(tmp, { recursive: true, force: true });

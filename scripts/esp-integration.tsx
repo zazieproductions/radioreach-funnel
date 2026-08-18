@@ -9,6 +9,7 @@
      SCENARIO=A  default → urgency   (zone revisits)
      SCENARIO=B  default → calm      (rage clicks + fast scroll)
      SCENARIO=C  flag: forced modes + esp=off kill switch
+     SCENARIO=D  decision-point focus (quiet on load, force cluster)
 ───────────────────────────────────────────────────────────── */
 
 import { JSDOM } from "jsdom";
@@ -16,8 +17,9 @@ import { act } from "react";
 import { createRoot } from "react-dom/client";
 
 const SCENARIO = process.env.SCENARIO ?? "A";
-const QUERY: Record<string, string> = { A: "", B: "", C: "?esp=calm" };
+const QUERY: Record<string, string> = { A: "", B: "", C: "?esp=calm", D: "" };
 const OFF_QUERY = "?esp=off";
+const FOCUS_OFF_QUERY = "?focus=off";
 
 const dom = new JSDOM("<!doctype html><html><body></body></html>", {
   url: `https://radioreach.test/${QUERY[SCENARIO]}`,
@@ -83,8 +85,12 @@ class FakeIO {
   }
   observe(el: Element) {
     if (this.targets.has(el)) return;
-    this.targets.set(el, true);
-    this.cb([this.entry(el, true)], this);
+    // ESP zones start visible (tests drive revisits from there).
+    // Focus clusters must NOT all start intersecting — in a real
+    // browser hero/stack/final are never on screen at once.
+    const auto = !!(el as HTMLElement).dataset.espZone;
+    this.targets.set(el, auto);
+    if (auto) this.cb([this.entry(el, true)], this);
   }
   disconnect() {
     this.targets.clear();
@@ -104,6 +110,14 @@ class FakeIO {
 w.window.IntersectionObserver = FakeIO;
 // The ESP references IntersectionObserver as a bare global.
 define("IntersectionObserver", FakeIO);
+
+class FakeRO {
+  observe() {}
+  disconnect() {}
+  unobserve() {}
+}
+w.window.ResizeObserver = FakeRO;
+define("ResizeObserver", FakeRO);
 
 /* Other app features (e.g. the momentum sequence) create their own
    IntersectionObservers; find the ESP engine's — the one observing
@@ -187,6 +201,7 @@ if (SCENARIO === "A") {
     b.textContent?.includes("Yes — Give Me The Contacts")
   );
   check("core CTA label untouched", !!heroCta);
+  check("focus stays off without decision intent", !document.body.dataset.decisionFocus);
 
   const events = JSON.parse(sessionStorage.getItem("esp.events.v1") ?? "[]");
   check("mode change logged", events.some((e: { type: string; data?: { to?: string } }) => e.type === "mode_change" && e.data?.to === "urgency"));
@@ -245,6 +260,41 @@ if (SCENARIO === "C") {
   check("override cleared → default", slotMode("heroSub") === "default", `got ${slotMode("heroSub")}`);
 }
 
+if (SCENARIO === "D") {
+  /* ── decision-point focus: quiet on load, force via store ── */
+  const { focusStore } = await import("../src/esp/focus");
+  check("clusters mounted", document.querySelectorAll("[data-focus-cluster]").length >= 3);
+  check("no cluster active on load", document.querySelectorAll('[data-focus-active="true"]').length === 0);
+  check("body not tagged on load", !document.body.dataset.decisionFocus);
+  check("veil off on load", !document.querySelector(".decision-veil--on"));
+  check("idle hero subtitle visible", !!Array.from(document.querySelectorAll(".cta")).find((b) =>
+    b.textContent?.includes("Instant download")
+  ));
+  check("hero cluster present", !!document.querySelector('[data-focus-cluster="hero"]'));
+
+  await act(async () => {
+    focusStore.setForced("hero");
+    await sleep(400);
+  });
+
+  const hero = document.querySelector('[data-focus-cluster="hero"]') as HTMLElement;
+  check("forced hero is active", hero?.getAttribute("data-focus-active") === "true", `got ${hero?.getAttribute("data-focus-active")}`);
+  check("body tagged hero", document.body.dataset.decisionFocus === "hero");
+  check("cluster has focus class", !!hero?.className.includes("decision-focus--active"));
+  check("focus hint slot stacked", (hero?.querySelectorAll(".focus-copy .esp-variant").length ?? 0) >= 2);
+
+  const events = JSON.parse(sessionStorage.getItem("esp.events.v1") ?? "[]");
+  check(
+    "focus enter logged",
+    events.some((e: { type: string; data?: { cluster?: string } }) => e.type === "focus" && e.data?.cluster === "hero")
+  );
+
+  await act(async () => {
+    focusStore.setForced(null);
+    focusStore.reset();
+  });
+}
+
 /* ── kill switch: a fresh page with ?esp=off must be stock ── */
 {
   await act(async () => {
@@ -267,6 +317,26 @@ if (SCENARIO === "C") {
   check("?esp=off → original hero text", activeText("heroSub").includes("You finished the record"));
   await act(async () => {
     offRoot.unmount();
+  });
+}
+
+if (SCENARIO === "D") {
+  const { focusStore } = await import("../src/esp/focus");
+  focusStore.reset();
+  dom.window.history.replaceState(null, "", `https://radioreach.test/${FOCUS_OFF_QUERY}`);
+  const focusOffContainer = document.createElement("div");
+  document.body.appendChild(focusOffContainer);
+  const focusOffRoot = createRoot(focusOffContainer);
+  await act(async () => {
+    focusOffRoot.render(<SalesPage onCta={() => {}} />);
+  });
+  await act(async () => {
+    focusStore.setForced("hero");
+    await sleep(400);
+  });
+  check("?focus=off ignores force", document.querySelectorAll('[data-focus-active="true"]').length === 0);
+  await act(async () => {
+    focusOffRoot.unmount();
   });
 }
 

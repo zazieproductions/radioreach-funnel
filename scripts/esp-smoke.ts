@@ -8,6 +8,16 @@
 import { decideMode, ingest, tick, getBrainState } from "../src/esp/brain";
 import { espStore } from "../src/esp/store";
 import type { EmotionalMode } from "../src/esp/types";
+import {
+  FOCUS,
+  emptyHysteresis,
+  lingerThresholdFor,
+  pickFocus,
+  qualifyCluster,
+  stepFocus,
+  type ClusterSnapshot,
+  type FocusIntent,
+} from "../src/esp/focus";
 
 let failures = 0;
 function check(name: string, actual: unknown, expected: unknown) {
@@ -150,6 +160,103 @@ const SCORES = (calm: number, aspire: number, urgency: number) => ({
   ingest({ kind: "zone_dwell", zone: "proof", at: t });
   for (let i = 0; i < 4; i++) step(500);
   check("deliberate reader flips page to aspire", espStore.getMode() as EmotionalMode, "aspire");
+}
+
+/* ── 3. Decision-point focus ── */
+
+const quietIntent = (): FocusIntent => ({
+  espMode: "default",
+  urgencyScore: 0,
+  recentCtaHover: false,
+  pageEngaged: false,
+});
+
+const cluster = (partial: Partial<ClusterSnapshot> & Pick<ClusterSnapshot, "id">): ClusterSnapshot => ({
+  visibleRatio: 1,
+  hovered: false,
+  hoveredFor: 0,
+  focused: false,
+  near: false,
+  nearFor: 0,
+  revisits: 0,
+  visibleMs: 0,
+  eager: false,
+  scrolling: false,
+  lingerThreshold: lingerThresholdFor(partial.id, !!partial.eager, false),
+  ...partial,
+});
+
+{
+  check(
+    "hero first view never lingers",
+    qualifyCluster(cluster({ id: "hero", visibleMs: 20_000, lingerThreshold: 0 }), quietIntent()),
+    null
+  );
+  check(
+    "hero hover (armed) qualifies",
+    qualifyCluster(cluster({ id: "hero", hovered: true, hoveredFor: FOCUS.hoverArmMs }), quietIntent()),
+    "hover"
+  );
+  check(
+    "hero hover (too brief) ignored",
+    qualifyCluster(cluster({ id: "hero", hovered: true, hoveredFor: 80 }), quietIntent()),
+    null
+  );
+  check(
+    "hero revisit qualifies",
+    qualifyCluster(cluster({ id: "hero", revisits: 1 }), quietIntent()),
+    "revisit"
+  );
+  check(
+    "scrolling blocks linger",
+    qualifyCluster(
+      cluster({ id: "stack", visibleMs: 10_000, lingerThreshold: FOCUS.lingerMs, scrolling: true }),
+      quietIntent()
+    ),
+    null
+  );
+  check(
+    "stack linger after a pause",
+    qualifyCluster(
+      cluster({ id: "stack", visibleMs: FOCUS.lingerMs, lingerThreshold: FOCUS.lingerMs }),
+      quietIntent()
+    ),
+    "linger"
+  );
+  check(
+    "urgency + visible mid-page CTA",
+    qualifyCluster(cluster({ id: "final" }), { ...quietIntent(), espMode: "urgency", pageEngaged: true }),
+    "urgency"
+  );
+  check(
+    "urgency does not steal first-view hero",
+    qualifyCluster(cluster({ id: "hero" }), { ...quietIntent(), espMode: "urgency", pageEngaged: false }),
+    null
+  );
+}
+
+{
+  const hero = cluster({ id: "hero", hovered: true, hoveredFor: 400 });
+  const stack = cluster({ id: "stack", visibleMs: 10_000, lingerThreshold: FOCUS.lingerMs });
+  const picked = pickFocus([hero, stack], quietIntent(), null);
+  check("pointer wins over linger", picked.id, "hero");
+  check("pointer reason is hover", picked.reason, "hover");
+}
+
+{
+  let h = emptyHysteresis();
+  h = stepFocus("stack", "linger", h, 1000);
+  check("linger starts pending, not current", h.current, null);
+  h = stepFocus("stack", "linger", h, 1000 + FOCUS.enterConfirmMs);
+  check("linger confirms after hold", h.current, "stack");
+
+  h = stepFocus("hero", "hover", h, 2000);
+  check("hover enters instantly", h.current, "hero");
+
+  h = stepFocus(null, null, h, 2500);
+  check("exit waits (still hero)", h.current, "hero");
+  h = stepFocus(null, null, h, 2500 + FOCUS.exitConfirmMs);
+  check("exit confirms after hold", h.current, null);
 }
 
 console.log(failures === 0 ? "\nAll ESP smoke tests passed." : `\n${failures} test(s) FAILED.`);

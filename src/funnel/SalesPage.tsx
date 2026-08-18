@@ -20,7 +20,10 @@ import { TESTIMONIALS } from "./testimonials";
 
 import {
   DebugPanel,
+  DecisionCluster,
+  DecisionFocusProvider,
   EmotiveText,
+  FocusCopy,
   espLogConversion,
   initEsp,
   readEspFlag,
@@ -70,7 +73,8 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
   };
 
   return (
-    <div id="top" className="min-h-screen bg-ink pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))]">
+    <DecisionFocusProvider>
+      <div id="top" className="min-h-screen bg-ink pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))]">
       <ExitIntent
         onTake={() => handleCta("exit_intent")}
         title={<EmotiveText slot="exitTitle" />}
@@ -123,43 +127,57 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             className="mx-auto mt-4 max-w-2xl font-serif text-[1.05rem] leading-[1.6] text-white/80 sm:mt-5 sm:text-2xl sm:leading-relaxed"
           />
 
-          {/* CTA box */}
-          <div
-            data-esp-zone="pricing"
-            className="mt-8 mx-auto max-w-md rounded-xl border-2 border-acid/50 bg-black/60 p-5 text-left backdrop-blur"
-          >
-            <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blood">
-              <EmotiveText slot="ctaLabel" />
-            </p>
-            <div data-esp-zone="scarcity" className="mt-2">
-              <div className="flex justify-center">
-                <FlipClock seconds={897} />
-              </div>
-              <div className="mt-4">
-                <StockBar />
-              </div>
-            </div>
-            <button
-              onClick={() => handleCta("hero")}
-              className="cta mt-5 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
+          {/* CTA box — decision-point cluster */}
+          <DecisionCluster id="hero" className="mx-auto mt-8 max-w-md">
+            <div
+              data-esp-zone="pricing"
+              className="rounded-xl border-2 border-acid/50 bg-black/60 p-5 text-left backdrop-blur"
             >
-              Yes — Give Me The Contacts
-              <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
-                Instant download · <span className="line-through opacity-60">$49</span> $20 today
-              </span>
-            </button>
-            <div className="mt-3 flex flex-col items-center gap-1 text-center">
-              <p className="text-[12px] text-white/55">
-                <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
+              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blood">
+                <FocusCopy
+                  idle={<EmotiveText slot="ctaLabel" />}
+                  live={<EmotiveText slot="ctaLabelFocus" />}
+                />
               </p>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-white/45">
-                🔒 Stripe checkout · Instant access · No account
+              <div data-esp-zone="scarcity" className="mt-2">
+                <div className="flex justify-center">
+                  <FlipClock seconds={897} />
+                </div>
+                <div className="mt-4">
+                  <StockBar />
+                </div>
               </div>
-              <p className="text-[10px] text-white/30">
-                <EmotiveText slot="ctaTrust" />
-              </p>
+              <button
+                onClick={() => handleCta("hero")}
+                className="cta mt-5 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
+              >
+                Yes — Give Me The Contacts
+                <FocusCopy
+                  className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal"
+                  idle={
+                    <>
+                      Instant download · <span className="line-through opacity-60">$49</span> $20 today
+                    </>
+                  }
+                  live={<EmotiveText slot="heroCtaSubFocus" />}
+                />
+              </button>
+              <div className="mt-3 flex flex-col items-center gap-1 text-center">
+                <p className="text-[12px] text-white/55">
+                  <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
+                </p>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-white/45">
+                  🔒 Stripe checkout · Instant access · No account
+                </div>
+                <p className="text-[10px] text-white/30">
+                  <FocusCopy
+                    idle={<EmotiveText slot="ctaTrust" />}
+                    live={<EmotiveText slot="heroFocusHint" />}
+                  />
+                </p>
+              </div>
             </div>
-          </div>
+          </DecisionCluster>
 
           <div className="mt-5 flex flex-col items-center gap-1.5">
             <LiveViewers />
@@ -300,15 +318,20 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             <EmotiveText slot="mathBox" />
           </div>
 
-          <button
-            onClick={() => handleCta("stack")}
-            className="cta mt-7 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
-          >
-            Claim The Radio Reach Vault For $20 →
-          </button>
-          <p className="mt-2 text-center text-[12px] text-white/40">
-            <EmotiveText slot="stackNote" />
-          </p>
+          <DecisionCluster id="stack" className="mt-7">
+            <button
+              onClick={() => handleCta("stack")}
+              className="cta w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
+            >
+              Claim The Radio Reach Vault For $20 →
+            </button>
+            <p className="mt-2 text-center text-[12px] text-white/40">
+              <FocusCopy
+                idle={<EmotiveText slot="stackNote" />}
+                live={<EmotiveText slot="stackFocusHint" />}
+              />
+            </p>
+          </DecisionCluster>
         </div>
       </section>
 
@@ -517,18 +540,23 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             </div>
           </div>
 
-          <div className="mt-7 flex justify-center sm:mt-8">
-            <FlipClock seconds={897} />
-          </div>
-          <button
-            onClick={() => handleCta("final")}
-            className="cta mt-5 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-6 sm:px-6 sm:py-5 sm:text-3xl"
-          >
-            Give Me Instant Access — $20
-          </button>
-          <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
-            Secure checkout · Instant download · 30-day refund · No subscription, ever
-          </p>
+          <DecisionCluster id="final" className="mt-7 sm:mt-8">
+            <div className="flex justify-center">
+              <FlipClock seconds={897} />
+            </div>
+            <button
+              onClick={() => handleCta("final")}
+              className="cta mt-5 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-6 sm:px-6 sm:py-5 sm:text-3xl"
+            >
+              Give Me Instant Access — $20
+            </button>
+            <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
+              <FocusCopy
+                idle="Secure checkout · Instant download · 30-day refund · No subscription, ever"
+                live={<EmotiveText slot="finalFocusHint" />}
+              />
+            </p>
+          </DecisionCluster>
         </div>
       </section>
 
@@ -581,5 +609,6 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       {/* Dev-only overlay — visible only with ?esp=debug */}
       {espDebug && <DebugPanel />}
     </div>
+    </DecisionFocusProvider>
   );
 }

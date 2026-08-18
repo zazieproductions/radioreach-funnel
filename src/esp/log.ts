@@ -15,6 +15,7 @@
 
 import type { EmotionalMode, EspEvent, EspSnapshot } from "./types";
 import { espStore } from "./store";
+import { focusStore } from "./focus";
 
 const EVENTS_KEY = "esp.events.v1";
 const MODE_KEY = "esp.mode.v1";
@@ -123,6 +124,7 @@ export function getEspSnapshot(partial?: Partial<EspSnapshot>): EspSnapshot {
     forced: espStore.isForced(),
     scores: espStore.getScores(),
     signalCounts: espStore.getSignalCounts(),
+    focus: focusStore.getTarget(),
     ...partial,
   };
 }

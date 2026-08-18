@@ -31,6 +31,22 @@ export { useEspMode, EmotiveText } from "./EmotiveText";
 export { DebugPanel } from "./DebugPanel";
 export { killEsp, readEspFlag } from "./flag";
 export {
+  DecisionFocusProvider,
+  DecisionCluster,
+  FocusCopy,
+  useDecisionFocus,
+  useClusterActive,
+  useFocusTarget,
+} from "./DecisionFocus";
+export {
+  focusStore,
+  readFocusFlag,
+  killFocus,
+  qualifyCluster,
+  pickFocus,
+  stepFocus,
+} from "./focus";
+export {
   espLogConversion,
   getEspSnapshot,
   getPersistedMode,
@@ -38,7 +54,7 @@ export {
 } from "./log";
 export { espStore } from "./store";
 export { getBrainState } from "./brain";
-export type { EmotionalMode, EspSnapshot, SignalKind, ZoneId } from "./types";
+export type { EmotionalMode, EspSnapshot, FocusClusterId, FocusReason, SignalKind, ZoneId } from "./types";
 export { SLOT_COPY, copyFor, type SlotKey } from "./copy";
 
 const BRAIN_TICK_MS = 500;

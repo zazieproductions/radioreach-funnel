@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { DecisionCluster, EmotiveText, FocusCopy } from "../esp";
 import { trackCustom } from "../lib/metaPixel";
 import {
   getMomentumStepCount,
@@ -367,16 +368,20 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                 <p className="mt-5 text-[15px] leading-relaxed text-white/60">
                   The Vault is already organized by station, location, role, phone, and email. The only step left is unlocking <b className="text-white">your contacts</b>.
                 </p>
-                <button
-                  type="button"
-                  onClick={finishUnlocking}
-                  className="cta mt-5 w-full rounded-xl bg-acid px-4 py-4 font-display text-[1.1rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-2xl"
-                >
-                  Finish Unlocking My Contacts — $20 →
-                  <span className="mt-1 block font-sans text-[10px] font-bold normal-case tracking-normal opacity-65 sm:text-[11px]">
-                    One-time payment · instant access · 30-day guarantee
-                  </span>
-                </button>
+                <DecisionCluster id="momentum" eager className="mt-5">
+                  <button
+                    type="button"
+                    onClick={finishUnlocking}
+                    className="cta w-full rounded-xl bg-acid px-4 py-4 font-display text-[1.1rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-2xl"
+                  >
+                    Finish Unlocking My Contacts — $20 →
+                    <FocusCopy
+                      className="mt-1 block font-sans text-[10px] font-bold normal-case tracking-normal opacity-65 sm:text-[11px]"
+                      idle="One-time payment · instant access · 30-day guarantee"
+                      live={<EmotiveText slot="momentumFocusHint" />}
+                    />
+                  </button>
+                </DecisionCluster>
                 <button
                   type="button"
                   onClick={startOver}
