@@ -40,6 +40,7 @@ export default function App() {
   const [addons, setAddons] = useState<Addons>({
     contracts: true,
     au: true,
+    djContacts: false,
   });
   const [hasUpwork, setHasUpwork] = useState(false);
 
@@ -115,11 +116,12 @@ export default function App() {
             total={total}
             hasContracts={addons.contracts}
             hasAu={addons.au}
+            hasDjContacts={addons.djContacts}
             hasUpwork={hasUpwork}
             onRestart={() => {
               sessionStorage.clear();
               setTotal(41);
-              setAddons({ contracts: true, au: true });
+              setAddons({ contracts: true, au: true, djContacts: false });
               setHasUpwork(false);
               setStage("sales");
             }}

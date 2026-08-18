@@ -1,34 +1,42 @@
 import { useEffect, useMemo, useState } from "react";
 import { FlipClock, LiveViewers, Stars, StockBar } from "./ui";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
+import { LuckyWheel, DJ_LIST_DISCOUNTED_PRICE, calculateDiscountedPrice } from "./LuckyWheel";
 import { PRODUCTS } from "../config/storefront";
 import { setAdvancedMatching, track } from "../lib/metaPixel";
 import { getMomentumAttribution } from "../lib/momentumSequence";
 
-export type Addons = { contracts: boolean; au: boolean };
+export type Addons = { contracts: boolean; au: boolean; djContacts?: boolean };
 
 type Props = { onComplete: (total: number, addons: Addons) => void };
 
 const BASE = PRODUCTS.vault_core.price;
 const CONTRACTS_PRICE = PRODUCTS.contract_bundle.price;
 const AU_PRICE = PRODUCTS.australia_addon.price;
+const DJ_PRICE = PRODUCTS.dj_contacts_list.price;
 
 export default function Checkout({ onComplete }: Props) {
   const [contracts, setContracts] = useState(true);
   const [au, setAu] = useState(true);
+  const [djContacts, setDjContacts] = useState(false);
+  const [djDiscount, setDjDiscount] = useState(0);
+  const [djCouponCode, setDjCouponCode] = useState<string | null>(null);
+  const [showWheel, setShowWheel] = useState(true);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
-  const total = BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0);
-  const saved = 29 + (contracts ? 16 : 0) + (au ? 17 : 0);
+  const djPrice = djDiscount > 0 ? calculateDiscountedPrice(djDiscount) : DJ_PRICE;
+  const total = BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0) + (djContacts ? djPrice : 0);
+  const saved = 29 + (contracts ? 16 : 0) + (au ? 17 : 0) + (djContacts ? (DJ_PRICE - djPrice) : 0);
   const items = useMemo(
     () => [
       "vault_core" as const,
       ...(contracts ? (["contract_bundle"] as const) : []),
       ...(au ? (["australia_addon"] as const) : []),
+      ...(djContacts ? (["dj_contacts_list"] as const) : []),
     ],
-    [contracts, au]
+    [contracts, au, djContacts]
   );
 
   const bundleId = useMemo(() => items.join("+"), [items]);
@@ -154,8 +162,49 @@ export default function Checkout({ onComplete }: Props) {
                     <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." — Dee R.</span>
                   </span>
                 </label>
+
+                {/* DJ Contacts - from Lucky Wheel */}
+                <label className={`flex items-start gap-3 rounded-xl border p-4 ${djContacts ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"}`}>
+                  <input
+                    type="checkbox"
+                    checked={djContacts}
+                    onChange={(e) => setDjContacts(e.target.checked)}
+                    className="mt-1 h-5 w-5 accent-yellow-400"
+                  />
+                  <span className="space-y-1">
+                    <span className="flex items-center gap-2">
+                      <span className="block font-display text-lg uppercase">{PRODUCTS.dj_contacts_list.shortName}</span>
+                      {djDiscount > 0 && (
+                        <span className="rounded-full bg-acid px-2 py-0.5 text-[10px] font-bold text-ink">{djDiscount}% OFF</span>
+                      )}
+                    </span>
+                    <span className="block text-sm text-acid">50 DJ & curator contacts for playlist pitching</span>
+                    <span className="block text-sm text-white/65">{PRODUCTS.dj_contacts_list.description}</span>
+                    <span className="block text-sm">
+                      <span className="mr-2 text-white/35 line-through">${PRODUCTS.dj_contacts_list.compareAt}</span>
+                      <b className="text-acid">${djPrice.toFixed(2)}</b>
+                      {djCouponCode && (
+                        <span className="ml-2 text-[11px] text-white/50">Code: {djCouponCode}</span>
+                      )}
+                    </span>
+                  </span>
+                </label>
               </div>
             </section>
+
+            {/* Lucky Wheel Section */}
+            {showWheel && (
+              <section className="rounded-xl border-2 border-acid/50 bg-panel p-4 sm:p-5">
+                <LuckyWheel
+                  onWin={(discount, couponCode) => {
+                    setDjDiscount(discount);
+                    setDjCouponCode(couponCode);
+                    setDjContacts(true);
+                  }}
+                  onDecline={() => setShowWheel(false)}
+                />
+              </section>
+            )}
 
             <section className="rounded-xl border border-white/10 bg-panel p-5">
               <p className="mb-4 font-display text-xl uppercase">Order summary</p>
@@ -163,6 +212,14 @@ export default function Checkout({ onComplete }: Props) {
                 <SummaryRow label={PRODUCTS.vault_core.name} was={`$${PRODUCTS.vault_core.compareAt}`} now={`$${PRODUCTS.vault_core.price.toFixed(2)}`} />
                 {contracts && <SummaryRow label={PRODUCTS.contract_bundle.shortName} was={`$${PRODUCTS.contract_bundle.compareAt}`} now={`$${PRODUCTS.contract_bundle.price.toFixed(2)}`} accent />}
                 {au && <SummaryRow label={PRODUCTS.australia_addon.shortName} was={`$${PRODUCTS.australia_addon.compareAt}`} now={`$${PRODUCTS.australia_addon.price.toFixed(2)}`} accent />}
+                {djContacts && (
+                  <SummaryRow 
+                    label={PRODUCTS.dj_contacts_list.shortName} 
+                    was={`$${PRODUCTS.dj_contacts_list.compareAt}`} 
+                    now={`$${djPrice.toFixed(2)}`} 
+                    accent 
+                  />
+                )}
                 <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
                   <span>You save</span>
                   <span className="font-bold text-acid">${saved.toFixed(2)}</span>
@@ -213,7 +270,7 @@ export default function Checkout({ onComplete }: Props) {
       </div>
 
       {/* callback for demo flow compatibility */}
-      <button type="button" onClick={() => onComplete(total, { contracts, au })} className="sr-only">
+      <button type="button" onClick={() => onComplete(total, { contracts, au, djContacts })} className="sr-only">
         sync
       </button>
     </div>

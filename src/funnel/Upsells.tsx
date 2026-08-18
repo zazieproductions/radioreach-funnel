@@ -662,6 +662,7 @@ export function ThankYou({
   total,
   hasContracts,
   hasAu,
+  hasDjContacts,
   hasUpwork,
   // hasFonts,
   onRestart,
@@ -669,6 +670,7 @@ export function ThankYou({
   total: number;
   hasContracts?: boolean;
   hasAu?: boolean;
+  hasDjContacts?: boolean;
   hasUpwork?: boolean;
   // hasFonts?: boolean;
   onRestart: () => void;
@@ -680,6 +682,7 @@ export function ThankYou({
     ["✉️", "Detailed contact information", "Organized by station, location, role, phone, and email"],
     ...(hasContracts ? [["📄", "The Indie Music Contract Kit", "6 Agreement Templates + Plain-English Usage Guide"] as [string, string, string]] : []),
     ...(hasAu ? [["🇦🇺", "Australian Radio Contact List", "Major national and regional AU contacts"] as [string, string, string]] : []),
+    ...(hasDjContacts ? [["🎧", "50 DJs Contact Info", "DJ & curator contacts for playlist pitching"] as [string, string, string]] : []),
     ...(hasUpwork ? [["🎓", "Advanced Upwork Proposals — Full Course", `4 parts · ${TOTAL_LESSONS} lessons · lifetime access`] as [string, string, string]] : []),
     // ...(hasFonts ? [["🔤", "20,000 Fonts Mega Bundle — Arcane Type Vault", "A–Z folders · .OTF + .TTF · commercial license"] as [string, string, string]] : []),
   ];

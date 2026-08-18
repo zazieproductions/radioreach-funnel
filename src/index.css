@@ -244,6 +244,41 @@ video {
 }
 
 /* ─────────────────────────────────────────────
+   LUCKY WHEEL STYLES
+───────────────────────────────────────────── */
+
+@keyframes wheel-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 230, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 230, 0, 0.6);
+  }
+}
+
+.wheel-glow {
+  animation: wheel-glow 2s ease-in-out infinite;
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.wheel-bounce-in {
+  animation: bounce-in 0.4s ease-out forwards;
+}
+
+/* ─────────────────────────────────────────────
    MOBILE CRO — polish only, same visual identity
    Scoped to ≤639px. Desktop classes stay untouched.
 ───────────────────────────────────────────── */
