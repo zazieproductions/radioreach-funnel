@@ -126,7 +126,7 @@ export function LuckyWheelButton({
           <span className="grid h-full w-full place-items-center rounded-full bg-[#0F0F12] text-[13px]">🎡</span>
         </span>
         <span className="font-extrabold tracking-tight text-white">Spin the wheel for a free discount</span>
-        <span className="hidden sm:inline-flex items-center rounded-full bg-white px-2 py-0.5 text-[10px] font-black tracking-widest text-zinc-900">1 in 10,000</span>
+        <span className="hidden sm:inline-flex items-center rounded-full bg-white px-2 py-0.5 text-[10px] font-black tracking-widest text-zinc-900">FREE SPIN</span>
       </span>
     </button>
   );
@@ -390,10 +390,10 @@ export function LuckyWheelModal({
           />
           <span className="flex items-center gap-2 text-[11px] font-bold tracking-[0.14em] text-white/60">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
-            {phase === "secondWon" || phase === "secondWheel" ? "SECRET CODE" : "VERIFIED DRAW"}
+            {phase === "secondWon" || phase === "secondWheel" ? "SECRET CODE" : "CARNIVAL SPIN"}
           </span>
           <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-white/[0.06] px-2.5 py-1 font-mono text-[11px] tracking-wide text-white/50">
-            1 in 10,000
+            FREE
             <span className="h-1 w-1 rounded-full bg-white/40" />
             live
           </span>
@@ -420,7 +420,7 @@ export function LuckyWheelModal({
                 Spin for your <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">discount</span>
               </h2>
               <p className="mx-auto mt-2 max-w-[32ch] text-[13px] leading-relaxed text-white/55">
-                Novelty prizes inside — watch it <span className="font-semibold text-amber-300">near-miss 10% OFF</span> then snap to <span className="font-semibold text-emerald-400">JACKPOT</span>
+                Eight slices. One free spin. See what lands.
               </p>
             </div>
 
@@ -563,13 +563,13 @@ export function LuckyWheelModal({
               </div>
               <p className="mt-3 inline-flex items-center rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.14em] text-emerald-300">
                 <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                JACKPOT — 1 IN 10,000
+                JACKPOT UNLOCKED
               </p>
               <h3 className="mt-2 font-display text-[1.65rem] leading-none tracking-tight text-white">
                 You won <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">AU + KIT</span>
               </h3>
               <p className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">
-                Pre-selected at checkout for <span className="font-semibold text-white">$21</span> <span className="line-through opacity-40">$54</span> • <span className="font-mono text-white/70">{firstCoupon.code}</span>
+                Ready at checkout for <span className="font-semibold text-white">$21</span> <span className="line-through opacity-40">$54</span> • <span className="font-mono text-white/70">{firstCoupon.code}</span>
               </p>
             </div>
 
@@ -634,7 +634,7 @@ export function LuckyWheelModal({
 
             <div className="relative my-4 flex items-center gap-3">
               <span className="h-px flex-1 bg-white/10" />
-              <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-cyan-300">ONE MORE CHANCE</span>
+              <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-cyan-300">ONE MORE SPIN</span>
               <span className="h-px flex-1 bg-white/10" />
             </div>
 
@@ -646,7 +646,7 @@ export function LuckyWheelModal({
                   <p className="text-xs font-black tracking-[0.12em] text-cyan-300">SECOND SPIN UNLOCKED</p>
                   <p className="text-sm font-bold leading-none text-white">Reveal your secret code</p>
                 </div>
-                <span className="ml-auto hidden sm:inline-flex rounded-full bg-white px-2 py-1 text-[10px] font-black tracking-widest text-zinc-900">FR2AZEF</span>
+                <span className="ml-auto hidden sm:inline-flex rounded-full bg-white px-2 py-1 text-[10px] font-black tracking-widest text-zinc-900">LOCKED</span>
               </div>
               <div className="mt-3 flex items-center justify-between rounded-xl border border-dashed border-white/10 bg-black/20 px-3 py-2.5">
                 <span className="font-mono text-sm font-black tracking-[0.16em] text-white/20 blur-[3px]">FR2AZEF</span>
@@ -673,7 +673,7 @@ export function LuckyWheelModal({
             <div className="text-center">
               <p className="inline-flex items-center rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-cyan-300">🤫 SECOND SPIN</p>
               <h2 className="mt-2 font-display text-xl leading-none tracking-tight text-white">One more prize</h2>
-              <p className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">Hidden industry secret — <span className="font-semibold text-white">PlaylistPush code</span> inside.</p>
+              <p className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">A hidden prize is waiting on this spin.</p>
             </div>
 
             <div className="relative mx-auto mt-6 flex justify-center">
@@ -751,9 +751,7 @@ export function LuckyWheelModal({
                 {spinning ? "Spinning for secret..." : "Spin for secret code"}
               </span>
             </button>
-            <p className="mt-2 text-center text-[11px] text-white/35">
-              Affiliate promo for <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="underline decoration-cyan-400 underline-offset-2">PlaylistPush</a>
-            </p>
+            <p className="mt-2 text-center text-[11px] text-white/35">One more spin — prize stays hidden until it lands</p>
           </div>
         )}
 
@@ -802,7 +800,7 @@ export function LuckyWheelModal({
         )}
 
         <div className="border-t border-white/[0.06] bg-white/[0.02] px-4 py-3 text-center text-[10px] tracking-wide text-white/25">
-          {phase === "secondWon" ? <>Code {PLAYLIST_PUSH_CODE} for PlaylistPush.com • Bundle reserved for this browser</> : <>Verified • Novelty prizes for fun • Jackpot is pre-selected upsells</>}
+          {phase === "secondWon" ? <>Code {PLAYLIST_PUSH_CODE} for PlaylistPush.com • Bundle reserved for this browser</> : <>Free spin • Prize reserved for this browser</>}
         </div>
       </div>
     </div>
@@ -839,7 +837,7 @@ export function LuckyUpsellInline({
         <div>
           <p className="text-sm font-bold leading-none text-white">Want the founder price?</p>
           <p className="mt-1 text-xs leading-snug text-white/50">
-            Spin — <span className="font-semibold text-white">1 in 10,000</span> wins AU + Kit for <span className="font-semibold text-white">$21</span>
+            Spin to unlock AU + Kit for <span className="font-semibold text-white">$21</span>
           </p>
         </div>
       </div>

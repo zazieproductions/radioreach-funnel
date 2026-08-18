@@ -62,7 +62,7 @@ function SecretSecondSpinCard({ onOpenWheel }: { onOpenWheel?: () => void }) {
         <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-[#7c5cff] text-white shadow-[0_4px_14px_rgba(6,182,212,0.4)] animate-pulse">🤫</span>
         <div className="flex-1">
           <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-300 animate-pulse">ONE MORE SPIN — SECRET INSIDE</p>
-          <p className="text-sm font-black leading-none text-white">You have one more chance!</p>
+          <p className="text-sm font-black leading-none text-white">You have one more spin!</p>
           <p className="text-xs leading-none text-white/60">Hidden industry code — spin to reveal</p>
         </div>
         <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-cyan-600">1 spin left</span>
@@ -171,7 +171,7 @@ export default function Checkout({
           <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] text-ink sm:gap-3 sm:text-xs">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 text-[10px] tracking-[0.16em] text-acid">
               <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
-              🎉 1 in 10,000 WINNER
+              🎉 JACKPOT WINNER
             </span>
             <span className="font-mono">{luckyCoupon.code}</span>
             <span className="hidden sm:inline opacity-40">•</span>
@@ -180,7 +180,7 @@ export default function Checkout({
               ⏳ {remainingStr}
             </span>
             <span className="hidden sm:inline text-[10px] tracking-[0.12em] opacity-60">
-              • both add-ons pre-selected below
+              • both add-ons waiting below
             </span>
           </p>
         </div>
@@ -219,9 +219,9 @@ export default function Checkout({
                 <div className="flex items-center gap-2">
                   <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-acid to-yellow-300 text-ink">🎉</span>
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.16em] text-acid">Jackpot active — you feel lucky for a reason</p>
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-acid">Jackpot active</p>
                     <p className="text-sm font-bold leading-none text-white">
-                      Only <b className="text-acid">1 in 10,000</b> get this celebration at checkout
+                      Your celebration is live at checkout
                     </p>
                   </div>
                   <span className="ml-auto hidden shrink-0 rounded-full bg-acid px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-ink sm:inline-flex">
@@ -253,7 +253,7 @@ export default function Checkout({
                   />
                 </div>
                 <p className="mt-2 text-center text-[11px] font-bold uppercase tracking-widest text-white/35">
-                  Both add-ons below are pre-ticked because you won — untick if you really want to
+                  Both add-ons below are ready for you — untick if you really want to
                 </p>
               </div>
               </div>
@@ -332,7 +332,7 @@ export default function Checkout({
                       <b className={hasWinningCoupon ? "text-acid" : "text-acid"}>${PRODUCTS.contract_bundle.price.toFixed(2)}</b>{" "}
                       {hasWinningCoupon && (
                         <span className="ml-1 rounded bg-green-500/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-green-400 border border-green-500/20">
-                          Save $16 • Pre-selected for winners
+                          Save $16 • Winner pick
                         </span>
                       )}
                     </span>
@@ -377,7 +377,7 @@ export default function Checkout({
                       <b className="text-acid">${PRODUCTS.australia_addon.price.toFixed(2)}</b>{" "}
                       {hasWinningCoupon && (
                         <span className="ml-1 rounded bg-green-500/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-green-400 border border-green-500/20">
-                          Save $17 • Pre-selected for winners
+                          Save $17 • Winner pick
                         </span>
                       )}
                     </span>
@@ -395,10 +395,10 @@ export default function Checkout({
                   <div className="rounded-xl border border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40 p-4">
                     <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Feeling lucky?</p>
                     <p className="mt-1 text-sm font-bold text-white">
-                      Spin the rainbow wheel — <b className="text-acid">1 in 10,000</b> get a jackpot celebration for this bundle
+                      Spin the rainbow wheel for a jackpot celebration on this bundle
                     </p>
                     <p className="mt-1 text-xs text-white/50">
-                      Both add-ons are already <b className="text-white">$9 + $12</b> <span className="line-through">($25 + $29)</span> — winning just makes it feel <b className="text-white">really special</b> at checkout with your code, countdown & confetti.
+                      Both add-ons are <b className="text-white">$9 + $12</b> <span className="line-through">($25 + $29)</span> — spin for your code, countdown & confetti.
                     </p>
                     <button
                       type="button"
@@ -409,7 +409,7 @@ export default function Checkout({
                       Spin the wheel for a free discount
                     </button>
                     <p className="mt-2 text-center text-[10px] uppercase tracking-widest text-white/25">
-                      342 spinning now • 3 jackpots / hr • 5 sec • no email
+                      342 spinning now • 5 sec • no email
                     </p>
                   </div>
                 )}
@@ -452,7 +452,7 @@ export default function Checkout({
             {!hasWinningCoupon && !isCouponExpired && (
               <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
                 <LuckyWheelButton onClick={() => onOpenWheel?.()} className="w-full justify-center" small />
-                <p className="mt-2 text-center text-xs text-white/40">Only 1 in 10,000 wins the jackpot celebration — 5 sec spin</p>
+                <p className="mt-2 text-center text-xs text-white/40">Free 5 sec spin — no email needed</p>
               </section>
             )}
 
@@ -483,10 +483,10 @@ export default function Checkout({
                 >
                   <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-acid">
                     <span className="grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white text-xs">🎡</span>
-                    Feeling lucky? Spin for a winner feeling
+                    Feeling lucky? Take a free spin
                   </p>
                   <p className="mt-1 text-sm font-bold text-white">Unlock the jackpot celebration for both add-ons</p>
-                  <p className="mt-1 text-xs text-white/40">Only 1 in 10,000 wins • Rainbow wheel • ⏳ 15 min</p>
+                  <p className="mt-1 text-xs text-white/40">Rainbow wheel • Free spin • ⏳ 15 min</p>
                 </button>
               </div>
             )}
@@ -550,7 +550,7 @@ function OrderSummaryRows({
           <p className="text-xs font-black uppercase tracking-widest text-acid">
             🎉 Jackpot {coupon.code} • ⏳ {remainingStr} • Save $33 on bundle
           </p>
-          <p className="text-[11px] text-white/50">Both add-ons pre-selected because you won — 1 in 10,000</p>
+          <p className="text-[11px] text-white/50">Both add-ons ready because you won</p>
         </div>
         </div>
       )}
@@ -568,7 +568,7 @@ function OrderSummaryRows({
       </div>
       {hasWinningCoupon && (
         <p className="text-center text-[11px] leading-snug text-acid/70 font-bold">
-          Winner celebration active — keep both boxes checked to claim the feeling 💛
+          Winner celebration active — keep both boxes checked to claim your bundle
         </p>
       )}
     </div>
