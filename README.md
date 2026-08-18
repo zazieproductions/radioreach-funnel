@@ -377,3 +377,118 @@ This repository supports a production commerce property. Keep changes focused, r
 Copyright © 2026 RadioReach. All rights reserved.
 
 This repository does not include an open-source license. Access to the source does not grant permission to copy, redistribute, sublicense, or use it outside authorized RadioReach development and operations.
+
+---
+
+## Marketing Psychology & Conversion Systems
+
+RadioReach Funnel is engineered as a conversion-first commerce experience. Beyond the transactional stack, it ships a layered set of behavioral, psychological, and gamification systems—each designed, instrumented, and tested to move a skeptical visitor from discovery to purchase without manipulating the underlying offer. Every system below is feature-flagged, measurable, and degrades gracefully when disabled.
+
+### Emotional State Proxy (ESP)
+
+ESP is a client-side behavioral state engine that interprets *how* a visitor reads the sales page and gently adapts the **tone** of the copy—never the price, the product facts, or the offer terms. Most visitors never notice it; they simply feel like the page "gets" them.
+
+**How it works.** Passive, non-blocking listeners (scroll velocity, direction changes, rage clicks, deliberate reading patterns, CTA hover, zone revisits, and idle-debate detection) feed a normalized signal layer. A decision brain applies weighted scoring with exponential decay (20s half-life), and a mode switch only fires when a candidate clears a minimum score, leads the runner-up by a margin, holds for 500ms, and respects an 8s cooldown. Noisy or contradictory signals fall back to `default`—the original copy, verbatim.
+
+**The three modes.**
+
+| Mode | Behavioral trigger | Tone shift |
+| --- | --- | --- |
+| `calm` | Fast/aggressive scrolling, direction flips, rage clicks, long idle | Soften, simplify, de-pressure. "No BS, take your time." |
+| `aspire` | Slow deliberate reading with pauses, dwelling on proof sections | Identity + future. "You're the serious artist; this is how the serious ones got heard." |
+| `urgency` | Repeated returns to pricing/scarcity/CTA, lingering on CTAs, idle while viewing price | The cost of waiting. Classy, heavy—never desperate. |
+
+**Why it matters.** A visitor who is skimming frantically and rage-clicking is in a very different decision state than one who slows down on testimonials. ESP lets the page meet each visitor where they are, with the same underlying offer, and measures which emotional state correlates with conversion.
+
+**Measurement.** Every CTA routes through a single handler that logs a `conversion` event tagged with the current mode, scores, signal counts, and session ID. The success page logs `purchase_completed` with the last persisted mode. Correlate in `sessionStorage["esp.events.v1"]` or extend `log.ts` to sink events to a backend.
+
+**Safety.** Four independent kill switches (URL param, localStorage, build-time env, and source removal) disable the entire system instantly. When off: no observers, no listeners, no logging, and every slot renders the original copy. Zero behavior change.
+
+Read the full implementation notes in [`src/esp/README.md`](./src/esp/README.md).
+
+### Momentum + Ownership Sequence
+
+A feature-flagged, three-step interactive sequence that converts passive readers into active participants by giving them a micro-commitment experience before they ever reach checkout.
+
+**Psychology.** The sequence leverages the *endowment effect* and *consistency principle*: once a visitor articulates their target market, names their biggest frustration, and declares what they're done with, they have publicly committed to a course of action. The page then reflects their answers back as a personalized "starting plan," making the next step feel like a natural continuation rather than a new decision.
+
+**Design.**
+- Three quick calls—target, frustration, done-with—each with an acknowledgment that validates the choice and reinforces identity.
+- A progress bar with stage-specific language ("Preparing your access," "Shaping your contact plan," "Organizing your starting move") creates forward momentum.
+- Answers persist in localStorage, so returning visitors resume rather than repeat—a respect for their time that builds trust.
+- The final screen transforms their inputs into a concrete, named outcome ("YOUR COLLEGE RADIO PLAN IS SET") with a single, identity-anchored CTA.
+
+**Measurement.** The sequence emits a full analytics lifecycle (`MomentumSequenceViewed`, `Started`, `StepCompleted`, `Finished`, `CtaClicked`, `Reset`) and attaches normalized `sequence_*` attribution to checkout and purchase events, so you can correlate sequence completion against order value and conversion rate.
+
+### Gamified Discounting: The Lucky Wheel
+
+A carnival-wheel mechanic that turns price sensitivity into a dopamine-driven, shareable moment—without discounting for everyone.
+
+**Psychology.** The wheel leverages *variable reward scheduling* (the same mechanism that makes slot machines compelling) and the *near-miss effect*. The wheel is engineered to appear as though it nearly lands on a modest discount (10% OFF) before snapping to the jackpot—a moment of perceived luck that dramatically increases the emotional weight of the "win." The result: winners feel chosen, not marketed to.
+
+**Design.**
+- 8-slice wheel with a single jackpot (1 in 10,000 odds) and a second-spin "secret code" affiliate reveal.
+- Near-miss animation with hesitation, a rising ding, and haptic feedback (where supported) creates a cinematic win moment.
+- Jackpot unlocks a pre-selected founder bundle at a celebratory price, with a 15-minute countdown that converts the win into urgency.
+- A second spin reveals an affiliate promo code (PlaylistPush), turning the gamification into a revenue-positive partnership—the "secret" framing makes winners feel like insiders.
+- Confetti, winner IDs, and a persistent "YOU WON THIS" treatment at checkout reinforce the win across the remaining journey.
+
+**Why it matters.** Rather than blanket discounting (which trains visitors to wait for a sale), the wheel makes the discount feel *earned* and *personal*. Non-winners still see the standard founder pricing; winners get a celebration that makes them more likely to complete and more likely to remember the brand.
+
+### Exit Intent Recovery
+
+A pointer-fine, desktop-only modal that fires once when a visitor's cursor leaves the viewport—capturing attention before a tab closes.
+
+**Psychology.** Exit intent targets the *almost-lost*: visitors who have read enough to be interested but are about to leave. The modal doesn't beg; it reframes the departure as a future cost ("LEAVING MEANS PAYING $49 LATER") and offers a single, low-friction action to stay. The copy adapts to the visitor's current ESP mode, so a frustrated scroller sees a calm, de-pressured message while an aspirational reader sees an identity-anchored one.
+
+**Safety.** Fires once per session, never on touch devices, fully escapable via backdrop click or Escape key, and respects `prefers-reduced-motion`.
+
+### Scarcity & Urgency Architecture
+
+A multi-signal urgency system that communicates genuine scarcity without fabricating it.
+
+- **Countdown timers** (FlipClock) with session-persistent deadlines—reset only when the timer hits zero, so a returning visitor sees continuity, not a fresh 15 minutes.
+- **Stock bar** with a slowly decrementing license count (session-persisted), communicating that founder pricing is capacity-limited.
+- **Live viewer count** with gentle random walk between 178–268, signaling that the visitor is not alone in considering this right now.
+- **Static urgency ticker** with key proof points (contact count, artist count, price reversion) — no marquee animation, no layout shift, no distraction.
+
+Each signal is independently dismissible and degrades gracefully. None of them lie: the founder price *does* revert, the launch capacity *is* limited, and other artists *are* viewing the page.
+
+### Post-Purchase Upsell Sequence (OTO Flow)
+
+A modular, three-step one-time-offer flow that maximizes customer value while the buyer's payment context is active.
+
+**Psychology.** The post-purchase window is the highest-trust moment in any commerce flow—the buyer has just committed, their card is on file, and their dopamine is elevated. The OTO sequence leverages this with three escalating offers, each framed as a one-page-only opportunity that "disappears when you leave."
+
+**The ladder.**
+1. **Airplay Accelerator** ($37) — the natural complement to the contact list: scripts, campaign calendar, bonus curator contacts, and a personal pitch review. Framed as "you have the list; now who writes the pitch?"
+2. **Advanced Upwork Proposals Course** ($50) — a 4-part, 30-lesson system for converting airplay credibility into freelance income. Framed as a career expansion, not an upsell.
+3. **20,000 Fonts Mega Bundle** ($29) — the Arcane Type Vault, framed as the missing piece of a professional release: "Your music is ready. Your artwork isn't."
+
+**Downsell.** If a visitor declines the Accelerator, a payment-plan downsell offers a Lite version at 3 × $6—preserving the sale at a lower price point rather than losing the buyer entirely.
+
+**Design principles.** Each offer page is a self-contained experience with its own social proof, value stack, curriculum breakdown, and urgency timer. The "this page only" framing is genuine: the offers are not available in the members area, by email, or at checkout. Card-on-file, one-click acceptance means no re-entry friction.
+
+### Social Proof & Trust Architecture
+
+Trust is built through specificity, not superlatives.
+
+- **Testimonials** with photos, roles, verified badges, and concrete stats ("Got Unearthed airplay in 6 weeks from Ohio").
+- **Winner announcements** in the wheel flow ("Alex P. won 2m ago")—real-time social proof that the jackpot is achievable.
+- **Transparent pricing math** that shows exactly how the $20 price compares to enterprise alternatives ($300–$500/year) and computes the per-contact cost (0.11¢).
+- **Risk reversal** with a 30-day "I'll eat the cost" guarantee, framed as a respect for the buyer's judgment rather than a safety net.
+- **FTC-compliant disclaimer** that results are not guaranteed, contacts change over time, and the database is a research resource—not a live-updated service. Radical honesty as a trust signal.
+
+### Conversion Measurement & Attribution
+
+Every psychological system is instrumented. Nothing is assumed; everything is measured.
+
+- **UTM capture** and first-party attribution carry campaign source through to the order record.
+- **Meta Pixel** (browser-side) and **Meta Conversions API** (server-side) share a Stripe session ID for deduplicated purchase reporting.
+- **`dataLayer`** events for every funnel stage: `MomentumSequenceStarted`, `MomentumSequenceFinished`, `InitiateCheckout`, `Purchase`, and custom ESP conversion events.
+- **ESP event log** in sessionStorage correlates emotional state with CTA clicks and purchases.
+- **Momentum attribution** (`sequence_variant`, `sequence_status`, `sequence_target`, etc.) attached to checkout and purchase events, so you can answer: *does completing the Momentum sequence increase conversion rate or average order value?*
+
+### Ethical Design Commitment
+
+Every system above is governed by a single principle: **the offer is the offer, for everyone, all the time.** ESP changes tone—never price, never product facts, never terms. The wheel offers a celebration, not a penalty for non-winners. Scarcity signals reflect genuine launch constraints. Testimonials are real, verified, and accompanied by a disclaimer that results vary. The goal is to present the same honest offer in the way most likely to resonate with each visitor's current state—and to measure whether that resonance converts.
