@@ -15,17 +15,26 @@ type Segment = {
   isSecret?: boolean;
 };
 
-// 8-slice carnival — clean, premium, not cluttered
+// 8-slice carnival — vivid rainbow, not cluttered
 const SEGMENTS: Segment[] = [
-  { label: "10% OFF", color: "#F59E0B", textColor: "#111" }, // amber — near-miss
+  { label: "10% OFF", color: "#FACC15", textColor: "#111" }, // yellow — near-miss
   { label: "$100", sub: "GUITAR CENTER", color: "#FB923C", textColor: "#fff" },
-  { label: "TRY AGAIN", color: "#60A5FA", textColor: "#fff" },
+  { label: "TRY AGAIN", color: "#F87171", textColor: "#fff" },
   { label: "FREE MIX", color: "#F472B6", textColor: "#fff" },
   { label: "NO LUCK", color: "#A78BFA", textColor: "#fff" },
-  { label: "SECRET", sub: "CODE", color: "#06B6D4", textColor: "#fff", isSecret: true },
-  { label: "5% OFF", color: "#EF4444", textColor: "#fff" },
-  { label: "JACKPOT", sub: "AU + KIT", color: "#10B981", textColor: "#fff", isJackpot: true },
+  { label: "SECRET", sub: "CODE", color: "#22D3EE", textColor: "#fff", isSecret: true },
+  { label: "5% OFF", color: "#38BDF8", textColor: "#fff" },
+  { label: "JACKPOT", sub: "AU+KIT", color: "#34D399", textColor: "#fff", isJackpot: true },
 ];
+
+const RAINBOW_CONIC =
+  "conic-gradient(from 0deg,#EF4444,#FB923C,#FACC15,#34D399,#22D3EE,#60A5FA,#A78BFA,#F472B6,#EF4444)";
+const RAINBOW_LINEAR_90 =
+  "linear-gradient(90deg,#EF4444,#FB923C,#FACC15,#34D399,#22D3EE,#60A5FA,#A78BFA,#F472B6,#EF4444)";
+const RAINBOW_LINEAR_135 =
+  "linear-gradient(135deg,#FACC15,#FB923C,#F472B6,#A78BFA,#22D3EE,#34D399)";
+const RAINBOW_PROGRESS =
+  "linear-gradient(90deg,#FACC15,#FB923C,#F472B6,#22D3EE)";
 
 const SEGMENT_COUNT = SEGMENTS.length;
 const SECRET_INDEX = SEGMENTS.findIndex((s) => s.isSecret);
@@ -109,10 +118,13 @@ export function LuckyWheelButton({
     <button
       type="button"
       onClick={onClick}
-      className={`group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 p-[1.5px] shadow-[0_4px_16px_rgba(251,146,60,0.35)] transition hover:shadow-[0_6px_24px_rgba(251,146,60,0.45)] hover:scale-[1.015] active:scale-[0.985] ${className}`}
+      className={`group relative inline-flex items-center justify-center overflow-hidden rounded-full p-[1.5px] shadow-[0_4px_16px_rgba(251,146,60,0.35)] transition hover:shadow-[0_6px_24px_rgba(167,139,250,0.45)] hover:scale-[1.015] active:scale-[0.985] ${className}`}
+      style={{ background: RAINBOW_CONIC }}
     >
       <span className={`flex items-center gap-2.5 rounded-full bg-[#0F0F12] px-5 py-2.5 ${small ? "text-xs" : "text-sm"}`}>
-        <span className="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-[13px]">🎡</span>
+        <span className="grid h-7 w-7 place-items-center rounded-full p-[2px]" style={{ background: RAINBOW_CONIC }}>
+          <span className="grid h-full w-full place-items-center rounded-full bg-[#0F0F12] text-[13px]">🎡</span>
+        </span>
         <span className="font-extrabold tracking-tight text-white">Spin the wheel for a free discount</span>
         <span className="hidden sm:inline-flex items-center rounded-full bg-white px-2 py-0.5 text-[10px] font-black tracking-widest text-zinc-900">1 in 10,000</span>
       </span>
@@ -354,7 +366,7 @@ export function LuckyWheelModal({
                 left: `${3 + i * 2.6}%`,
                 width: `${5 + (i % 3) * 3}px`,
                 height: `${7 + (i % 2) * 5}px`,
-                background: ["#F59E0B", "#FB923C", "#06B6D4", "#10B981", "#A78BFA", "#F472B6", "#fff"][i % 7],
+                background: ["#FACC15", "#FB923C", "#F87171", "#F472B6", "#A78BFA", "#22D3EE", "#38BDF8", "#34D399"][i % 8],
                 animationDelay: `${i * 28}ms`,
                 transform: `rotate(${Math.random() * 360}deg)`,
                 opacity: 0.95,
@@ -369,8 +381,13 @@ export function LuckyWheelModal({
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-[520px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0F0F12] shadow-[0_24px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.06)] animate-[modalIn_0.32s_cubic-bezier(0.16,1,0.3,1)]"
       >
-        {/* top bar — minimal */}
-        <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5">
+        {/* top bar — rainbow wash */}
+        <div className="relative flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.18]"
+            style={{ background: RAINBOW_LINEAR_90 }}
+            aria-hidden
+          />
           <span className="flex items-center gap-2 text-[11px] font-bold tracking-[0.14em] text-white/60">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
             {phase === "secondWon" || phase === "secondWheel" ? "SECRET CODE" : "VERIFIED DRAW"}
@@ -394,11 +411,13 @@ export function LuckyWheelModal({
         {phase === "firstWheel" && (
           <div className="px-6 pt-6 pb-6 sm:px-7">
             <div className="text-center">
-              <p className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-amber-300">
-                <span className="text-[13px]">🎪</span> 8-SLICE CARNIVAL WHEEL
+              <p className="inline-flex items-center rounded-full p-[1px]" style={{ background: RAINBOW_LINEAR_90 }}>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0F0F12] px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-white">
+                  <span className="text-[13px]">🎪</span> 8-SLICE CARNIVAL WHEEL
+                </span>
               </p>
               <h2 id="wheel-title" className="mt-3 font-display text-[1.7rem] leading-none tracking-tight text-white sm:text-[1.9rem]">
-                Spin for your <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">discount</span>
+                Spin for your <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">discount</span>
               </h2>
               <p className="mx-auto mt-2 max-w-[32ch] text-[13px] leading-relaxed text-white/55">
                 Novelty prizes inside — watch it <span className="font-semibold text-amber-300">near-miss 10% OFF</span> then snap to <span className="font-semibold text-emerald-400">JACKPOT</span>
@@ -411,7 +430,10 @@ export function LuckyWheelModal({
               <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-[1px]">
                 <div className="relative">
                   <div className="h-0 w-0 border-l-[11px] border-r-[11px] border-t-[18px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_6px_12px_rgba(0,0,0,0.4)]" />
-                  <div className="absolute left-1/2 top-[-1px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border-[2px] border-white bg-amber-400 shadow-[0_0_10px_rgba(251,146,60,0.9)]" />
+                  <div
+                    className="absolute left-1/2 top-[-1px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border-[2px] border-white shadow-[0_0_10px_rgba(251,146,60,0.9)]"
+                    style={{ background: RAINBOW_CONIC }}
+                  />
                 </div>
               </div>
 
@@ -419,8 +441,11 @@ export function LuckyWheelModal({
               <div className="absolute left-1/2 top-1/2 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-amber-500/[0.07] via-orange-500/[0.07] to-cyan-500/[0.07] blur-[20px]" />
 
               <div className="relative h-[300px] w-[300px] sm:h-[330px] sm:w-[330px]">
-                {/* outer gold ring with subtle lights — minimal */}
-                <div className="absolute inset-[-7px] rounded-full bg-gradient-to-b from-white/15 to-white/5 p-[1px] shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
+                {/* outer rainbow ring with subtle lights */}
+                <div
+                  className="absolute inset-[-7px] rounded-full p-[1px] shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
+                  style={{ background: RAINBOW_CONIC }}
+                >
                   <div className="h-full w-full rounded-full bg-[#0F0F12] p-[6px]">
                     <div className="relative h-full w-full rounded-full bg-[#0F0F12] shadow-[inset_0_2px_12px_rgba(0,0,0,0.5)]">
                       {/* lights — very subtle, 16 dots, slow */}
@@ -488,9 +513,12 @@ export function LuckyWheelModal({
                         })}
                       </div>
 
-                      {/* center hub — premium */}
-                      <div className="absolute left-1/2 top-1/2 grid h-[84px] w-[84px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-gradient-to-b from-zinc-800 to-zinc-950 shadow-[0_8px_24px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] sm:h-[92px] sm:w-[92px]">
-                        <div className="grid h-[72px] w-[72px] place-items-center rounded-full border border-white/10 bg-gradient-to-b from-white/[0.08] to-transparent sm:h-[80px] sm:w-[80px]">
+                      {/* center hub — rainbow border */}
+                      <div
+                        className="absolute left-1/2 top-1/2 grid h-[84px] w-[84px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full p-[2px] shadow-[0_8px_24px_rgba(0,0,0,0.5)] sm:h-[92px] sm:w-[92px]"
+                        style={{ background: RAINBOW_CONIC }}
+                      >
+                        <div className="grid h-full w-full place-items-center rounded-full bg-gradient-to-b from-zinc-800 to-zinc-950">
                           <div className="text-center">
                             <div className="font-display text-[12px] tracking-[0.16em] text-white">SPIN</div>
                             <div className="text-[9px] font-bold tracking-[0.18em] text-white/45">TO WIN</div>
@@ -508,9 +536,10 @@ export function LuckyWheelModal({
                 type="button"
                 onClick={handleFirstSpin}
                 disabled={spinning}
-                className="group relative w-full overflow-hidden rounded-full bg-gradient-to-r from-amber-400 to-orange-500 px-6 py-[14px] font-black tracking-tight text-zinc-900 shadow-[0_8px_20px_rgba(251,146,60,0.35)] transition hover:shadow-[0_10px_28px_rgba(251,146,60,0.45)] hover:brightness-[1.03] active:scale-[0.985] disabled:cursor-wait disabled:opacity-60"
+                className="group relative w-full overflow-hidden rounded-full p-[2px] shadow-[0_8px_20px_rgba(251,146,60,0.35)] transition hover:shadow-[0_10px_28px_rgba(167,139,250,0.45)] hover:brightness-[1.03] active:scale-[0.985] disabled:cursor-wait disabled:opacity-60"
+                style={{ background: RAINBOW_CONIC }}
               >
-                <span className="flex items-center justify-center gap-2 text-[15px]">
+                <span className="relative flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-300 via-orange-400 to-pink-400 px-6 py-[12px] text-[15px] font-black tracking-tight text-zinc-900">
                   {spinning ? (
                     <>
                       <span className="h-4 w-4 animate-spin rounded-full border-2 border-zinc-900/20 border-t-zinc-900" />
@@ -520,7 +549,6 @@ export function LuckyWheelModal({
                     <>Tap to spin — free</>
                   )}
                 </span>
-                <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition duration-700" />
               </button>
               <p className="mt-2.5 text-center text-[11px] font-medium tracking-wide text-white/35">342 spinning now • No email • 5 seconds</p>
             </div>
@@ -530,22 +558,23 @@ export function LuckyWheelModal({
         {phase === "firstWon" && firstCoupon && (
           <div className="px-5 pb-6 pt-5 sm:px-6">
             <div className="text-center">
-              <div className="mx-auto grid h-[56px] w-[56px] place-items-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-xl shadow-[0_8px_20px_rgba(251,146,60,0.35)]">
-                ✓
+              <div className="mx-auto grid h-[56px] w-[56px] place-items-center rounded-full p-[2px] text-xl shadow-[0_8px_20px_rgba(251,146,60,0.35)]" style={{ background: RAINBOW_CONIC }}>
+                <span className="grid h-full w-full place-items-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-zinc-900">✓</span>
               </div>
               <p className="mt-3 inline-flex items-center rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.14em] text-emerald-300">
                 <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 JACKPOT — 1 IN 10,000
               </p>
               <h3 className="mt-2 font-display text-[1.65rem] leading-none tracking-tight text-white">
-                You won <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">AU + KIT</span>
+                You won <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">AU + KIT</span>
               </h3>
               <p className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">
                 Pre-selected at checkout for <span className="font-semibold text-white">$21</span> <span className="line-through opacity-40">$54</span> • <span className="font-mono text-white/70">{firstCoupon.code}</span>
               </p>
             </div>
 
-            <div className="mt-4 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.03]">
+            <div className="mt-4 overflow-hidden rounded-2xl border-transparent p-[1px]" style={{ background: RAINBOW_LINEAR_135 }}>
+              <div className="overflow-hidden rounded-[15px] bg-[#0F0F12]">
               <div className="grid gap-px bg-white/[0.06] p-px">
                 <div className="flex items-center justify-between bg-[#0F0F12] px-3.5 py-2.5">
                   <span className="text-sm font-semibold text-white">📄 Indie Contract Kit</span>
@@ -584,7 +613,14 @@ export function LuckyWheelModal({
                 </span>
               </div>
               <div className="h-1 bg-white/10">
-                <div className="h-full bg-gradient-to-r from-amber-400 to-emerald-400 transition-all duration-1000" style={{ width: `${Math.max(6, (remainingMs / (15 * 60 * 1000)) * 100)}%` }} />
+                <div
+                  className="h-full transition-all duration-1000"
+                  style={{
+                    width: `${Math.max(6, (remainingMs / (15 * 60 * 1000)) * 100)}%`,
+                    background: RAINBOW_PROGRESS,
+                  }}
+                />
+              </div>
               </div>
             </div>
 
@@ -602,7 +638,8 @@ export function LuckyWheelModal({
               <span className="h-px flex-1 bg-white/10" />
             </div>
 
-            <div className="rounded-2xl border border-cyan-500/15 bg-gradient-to-b from-cyan-500/[0.06] to-transparent p-4 text-left">
+            <div className="rounded-2xl border-transparent p-[1px] text-left" style={{ background: RAINBOW_LINEAR_135 }}>
+            <div className="rounded-[15px] bg-[#0F0F12] p-4">
               <div className="flex items-center gap-3">
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/20">🤫</span>
                 <div>
@@ -618,11 +655,15 @@ export function LuckyWheelModal({
               <button
                 type="button"
                 onClick={handleGoToSecondWheel}
-                className="mt-3 w-full rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-3 font-black tracking-tight text-white shadow-[0_8px_20px_rgba(6,182,212,0.3)] hover:brightness-[1.05] active:scale-[0.985]"
+                className="mt-3 w-full rounded-full p-[2px] font-black tracking-tight text-white shadow-[0_8px_20px_rgba(6,182,212,0.3)] hover:brightness-[1.05] active:scale-[0.985]"
+                style={{ background: RAINBOW_CONIC }}
               >
-                Spin again — reveal secret →
+                <span className="flex items-center justify-center rounded-full bg-[#0F0F12] px-5 py-3">
+                  Spin again — reveal secret →
+                </span>
               </button>
               <p className="mt-2 text-center text-[11px] font-medium text-white/35">Mystery prize awaits — spin to reveal</p>
+            </div>
             </div>
           </div>
         )}
@@ -640,7 +681,7 @@ export function LuckyWheelModal({
                 <div className="h-0 w-0 border-l-[11px] border-r-[11px] border-t-[18px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_6px_12px_rgba(0,0,0,0.4)]" />
               </div>
               <div className="relative h-[300px] w-[300px] sm:h-[330px] sm:w-[330px]">
-                <div className="absolute inset-[-7px] rounded-full bg-gradient-to-b from-white/15 to-white/5 p-[1px]">
+                <div className="absolute inset-[-7px] rounded-full p-[1px]" style={{ background: RAINBOW_CONIC }}>
                   <div className="h-full w-full rounded-full bg-[#0F0F12] p-[6px]">
                     <div className="relative h-full w-full rounded-full bg-[#0F0F12]">
                       <div className="pointer-events-none absolute inset-[-9px] rounded-full" aria-hidden>
@@ -682,8 +723,11 @@ export function LuckyWheelModal({
                           );
                         })}
                       </div>
-                      <div className="absolute left-1/2 top-1/2 grid h-[84px] w-[84px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-gradient-to-b from-zinc-800 to-zinc-950 shadow-[0_8px_24px_rgba(0,0,0,0.5)] sm:h-[92px] sm:w-[92px]">
-                        <div className="grid h-[72px] w-[72px] place-items-center rounded-full border border-white/10 bg-white/[0.06] sm:h-[80px] sm:w-[80px]">
+                      <div
+                        className="absolute left-1/2 top-1/2 grid h-[84px] w-[84px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full p-[2px] shadow-[0_8px_24px_rgba(0,0,0,0.5)] sm:h-[92px] sm:w-[92px]"
+                        style={{ background: RAINBOW_CONIC }}
+                      >
+                        <div className="grid h-full w-full place-items-center rounded-full bg-gradient-to-b from-zinc-800 to-zinc-950">
                           <div className="text-center">
                             <div className="font-display text-[12px] tracking-[0.16em] text-white">SPIN</div>
                             <div className="text-[9px] font-bold tracking-[0.18em] text-white/45">AGAIN</div>
@@ -700,9 +744,12 @@ export function LuckyWheelModal({
               type="button"
               onClick={handleSecondSpin}
               disabled={spinning}
-              className="mt-6 w-full rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 px-6 py-3.5 font-black tracking-tight text-white shadow-[0_8px_20px_rgba(6,182,212,0.3)] hover:brightness-[1.05] disabled:opacity-60"
+              className="mt-6 w-full rounded-full p-[2px] font-black tracking-tight text-white shadow-[0_8px_20px_rgba(6,182,212,0.3)] hover:brightness-[1.05] disabled:opacity-60"
+              style={{ background: RAINBOW_CONIC }}
             >
-              {spinning ? "Spinning for secret..." : "Spin for secret code"}
+              <span className="flex items-center justify-center rounded-full bg-[#0F0F12] px-6 py-3.5">
+                {spinning ? "Spinning for secret..." : "Spin for secret code"}
+              </span>
             </button>
             <p className="mt-2 text-center text-[11px] text-white/35">
               Affiliate promo for <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="underline decoration-cyan-400 underline-offset-2">PlaylistPush</a>
@@ -721,7 +768,8 @@ export function LuckyWheelModal({
               <p className="mx-auto mt-1.5 max-w-[32ch] text-[13px] leading-relaxed text-white/55">Don't tell anyone — insiders use this for PlaylistPush.</p>
             </div>
 
-            <div className="mt-4 overflow-hidden rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-cyan-500/[0.06] to-transparent">
+            <div className="mt-4 overflow-hidden rounded-2xl border-transparent p-[1px]" style={{ background: RAINBOW_LINEAR_135 }}>
+              <div className="overflow-hidden rounded-[15px] bg-[#0F0F12]">
               <div className="bg-cyan-500/10 px-4 py-2.5 text-center">
                 <p className="text-[11px] font-black tracking-[0.14em] text-cyan-300">PLAYLIST CAMPAIGN DISCOUNT</p>
               </div>
@@ -742,6 +790,7 @@ export function LuckyWheelModal({
                 <p className="mt-3 text-center text-xs text-white/50">
                   Use at <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="font-semibold text-cyan-300 underline">PlaylistPush.com</a> checkout • Founder bundle {firstCoupon.code} still active
                 </p>
+              </div>
               </div>
             </div>
 
@@ -784,7 +833,9 @@ export function LuckyUpsellInline({
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5">
       <div className="flex items-center gap-3">
-        <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-sm">🎡</span>
+        <span className="grid h-9 w-9 place-items-center rounded-full p-[2px] text-sm" style={{ background: RAINBOW_CONIC }}>
+          <span className="grid h-full w-full place-items-center rounded-full bg-[#0F0F12]">🎡</span>
+        </span>
         <div>
           <p className="text-sm font-bold leading-none text-white">Want the founder price?</p>
           <p className="mt-1 text-xs leading-snug text-white/50">
