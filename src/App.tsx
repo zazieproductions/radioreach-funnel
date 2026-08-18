@@ -8,6 +8,7 @@ import { LuckyWheelModal } from "./funnel/LuckyWheel";
 
 const Checkout = lazy(() => import("./funnel/Checkout"));
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
+const LabGallery = lazy(() => import("./lab/LabGallery"));
 
 const Upsell1 = lazy(() =>
   import("./funnel/Upsells").then((m) => ({ default: m.Upsell1 }))
@@ -36,6 +37,7 @@ function LoadingScreen() {
 export default function App() {
   const hash = window.location.hash || "";
   const routeSuccess = hash.startsWith("#/success");
+  const routeLab = hash.startsWith("#/lab");
 
   const [stage, setStage] = useState<Stage>("sales");
   const [total, setTotal] = useState(41);
@@ -85,6 +87,16 @@ export default function App() {
     return (
       <Suspense fallback={<LoadingScreen />}>
         <SuccessPage />
+      </Suspense>
+    );
+  }
+
+  // Conversion Lab — the experiment shelf. A review surface only:
+  // prototypes never mount on the production funnel from here.
+  if (routeLab) {
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        <LabGallery />
       </Suspense>
     );
   }
