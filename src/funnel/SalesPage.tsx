@@ -14,7 +14,11 @@ import {
 } from "./ui";
 import TerminalPreview from "./TerminalPreview";
 import MomentumSequence from "./MomentumSequence";
-import { isMomentumSequenceEnabled } from "../config/features";
+import VaultOffer from "./VaultOffer";
+import {
+  isMomentumSequenceEnabled,
+  isVaultOfferUpgradeEnabled,
+} from "../config/features";
 
 import { TESTIMONIALS } from "./testimonials";
 
@@ -148,6 +152,12 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                 Instant download · <span className="line-through opacity-60">$49</span> $20 today
               </span>
             </button>
+            {isVaultOfferUpgradeEnabled() && (
+              <p className="mt-3 rounded-lg border border-acid/30 bg-acid/10 px-3 py-2 text-[13px] font-semibold leading-snug text-white/85">
+                Email a <b className="text-acid">real music director</b> tonight — wake up to a reply, not
+                another “we'll be in touch” form message.
+              </p>
+            )}
             <div className="mt-3 flex flex-col items-center gap-1 text-center">
               <p className="text-[12px] text-white/55">
                 <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
@@ -155,6 +165,16 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
               <div className="text-[10px] font-bold uppercase tracking-wider text-white/45">
                 🔒 Stripe checkout · Instant access · No account
               </div>
+              {isVaultOfferUpgradeEnabled() && (
+                <>
+                  <p className="text-[11px] font-semibold leading-snug text-white/65">
+                    No software · Pre-sorted by role &amp; city · Copy, paste, send — ready in 90 seconds
+                  </p>
+                  <p className="mt-0.5 text-[11px] font-bold text-acid/90">
+                    🛡️ Zero risk — 30-day “beat-the-form” guarantee
+                  </p>
+                </>
+              )}
               <p className="text-[10px] text-white/30">
                 <EmotiveText slot="ctaTrust" />
               </p>
@@ -174,6 +194,11 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           </div>
         </div>
       </section>
+
+      {/* VAULT OFFER UPGRADE — Hormozi value equation. Runtime feature flagged. */}
+      {isVaultOfferUpgradeEnabled() && (
+        <VaultOffer onCta={() => handleCta("vault_offer")} />
+      )}
 
       {/* THE PROBLEM — agitation */}
       <section className="border-y border-white/10 bg-panel">
