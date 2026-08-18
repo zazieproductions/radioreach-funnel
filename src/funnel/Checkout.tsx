@@ -55,9 +55,9 @@ export default function Checkout({ onComplete }: Props) {
 
       <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
         <div className="mb-5 flex flex-col items-center gap-3 text-center sm:mb-6">
-          <p className="font-display text-3xl sm:text-4xl">ALMOST YOURS — SECURE CHECKOUT</p>
+          <p className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">ALMOST YOURS — SECURE CHECKOUT</p>
           <div className="flex flex-col items-center gap-2 min-[400px]:flex-row min-[400px]:gap-4">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-blood sm:text-[12px]">Founder pricing ends in</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-blood sm:text-[12px] sm:tracking-widest">Founder pricing ends in</span>
             <FlipClock seconds={597} />
           </div>
           <LiveViewers />

@@ -15,8 +15,8 @@ import {
 import TerminalPreview from "./TerminalPreview";
 import { isMomentumSequenceEnabled } from "../config/features";
 
-// This substantial, below-the-fold interaction should never compete with the
-// hero for main-thread time on a phone. React loads it in its own async chunk.
+// Keep the substantial below-the-fold interaction out of the initial mobile
+// bundle so it never competes with the hero for main-thread time.
 const MomentumSequence = lazy(() => import("./MomentumSequence"));
 
 import { TESTIMONIALS } from "./testimonials";
@@ -73,7 +73,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
   };
 
   return (
-    <div id="top" className="min-h-screen bg-ink pb-28 sm:pb-32">
+    <div id="top" className="min-h-screen bg-ink pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))]">
       <ExitIntent
         onTake={() => handleCta("exit_intent")}
         title={<EmotiveText slot="exitTitle" />}
@@ -86,7 +86,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
       {/* alert bar */}
       <div className="bg-blood">
-        <p className="mx-auto max-w-5xl px-4 py-2 text-center text-[11px] font-black uppercase tracking-[0.16em]">
+        <p className="mx-auto max-w-5xl px-3 py-2 text-center text-[10px] font-black uppercase leading-snug tracking-[0.1em] sm:px-4 sm:text-[11px] sm:tracking-[0.16em]">
           <EmotiveText slot="alertBar" />
         </p>
       </div>
@@ -111,19 +111,19 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
         />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/70 via-ink/85 to-ink" />
-        <div className="relative mx-auto max-w-4xl px-4 pb-10 pt-6 text-center sm:pb-14 sm:pt-10">
-          <p className="mx-auto mb-4 inline-block border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white/70 sm:mb-5 sm:text-[11px] sm:tracking-[0.2em]">
+        <div className="relative mx-auto max-w-4xl px-4 pt-6 pb-10 text-center sm:pt-10 sm:pb-14">
+          <p className="mx-auto mb-4 inline-block max-w-[22rem] border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-bold uppercase leading-snug tracking-[0.12em] text-white/70 sm:mb-5 sm:max-w-none sm:text-[11px] sm:tracking-[0.2em]">
             <EmotiveText slot="heroEyebrow" />
           </p>
 
-          <h1 className="font-display text-4xl leading-[0.95] sm:text-6xl md:text-7xl">
+          <h1 className="font-display text-[1.85rem] leading-[1.06] sm:text-6xl sm:leading-[0.95] md:text-7xl">
             RADIO STATION CONTACTS <span className="text-blood">FOR MUSICIANS</span>
-            <span className="mt-2 block text-[0.58em]">"WHO DO I EVEN SEND IT TO?"</span>
+            <span className="mt-2 block text-[0.58em] tracking-wide">"WHO DO I EVEN SEND IT TO?"</span>
           </h1>
           <EmotiveText
             slot="heroSub"
             as="p"
-            className="mx-auto mt-4 max-w-2xl font-serif text-base leading-7 text-white/80 sm:mt-5 sm:text-2xl sm:leading-relaxed"
+            className="mx-auto mt-4 max-w-2xl font-serif text-[1.05rem] leading-[1.6] text-white/80 sm:mt-5 sm:text-2xl sm:leading-relaxed"
           />
 
           {/* CTA box */}
@@ -145,51 +145,51 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             <button
               type="button"
               onClick={() => handleCta("hero")}
-              className="cta mt-5 min-h-14 w-full rounded-lg bg-acid px-4 py-3.5 font-display text-xl uppercase leading-tight tracking-wide text-ink sm:px-5 sm:py-4"
+              className="cta mt-5 min-h-14 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
             >
               Yes — Give Me The Contacts
               <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
                 Instant download · <span className="line-through opacity-60">$49</span> $20 today
               </span>
             </button>
-            <ul aria-label="Purchase assurances" className="mt-3 grid grid-cols-3 gap-1 text-center text-[10px] font-bold leading-tight text-white/55">
-              <li>🔒 Stripe secure</li>
-              <li>⚡ Instant access</li>
-              <li>↩ 30-day refund</li>
-            </ul>
-            <p className="mt-2 text-center text-[10px] leading-relaxed text-white/35">
-              <EmotiveText slot="ctaTrust" />
-            </p>
+            <div className="mt-3 flex flex-col items-center gap-1 text-center">
+              <p className="text-[12px] text-white/55">
+                <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
+              </p>
+              <div className="text-[10px] font-bold uppercase tracking-wider text-white/45">
+                🔒 Stripe checkout · Instant access · 30-day refund
+              </div>
+              <p className="text-[10px] text-white/30">
+                <EmotiveText slot="ctaTrust" />
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 flex flex-col items-center gap-1.5">
+            <LiveViewers />
           </div>
 
           {/* Terminal preview */}
           <div className="mt-8 w-full sm:mt-10">
-            <p className="mb-3 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-white/60">
+            <p className="mb-3 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/60 sm:text-[11px] sm:tracking-[0.2em]">
               ↓ live sample — 7 of 18,020 entries
             </p>
             <TerminalPreview onCta={() => handleCta("terminal")} />
-          </div>
-
-          <div className="mt-6 flex flex-col items-center gap-2 sm:mt-7">
-            <LiveViewers />
-            <p className="text-[12px] text-white/45">
-              <Stars /> 4.9 average from <b className="text-white/70">1,940+</b> independent artists
-            </p>
           </div>
         </div>
       </section>
 
       {/* THE PROBLEM — agitation */}
       <section className="defer-render border-y border-white/10 bg-panel">
-        <div className="mx-auto max-w-3xl px-4 py-11 sm:py-14">
+        <div className="mx-auto max-w-3xl px-4 py-10 sm:py-14">
           <SectionLabel>
             <EmotiveText slot="problemLabel" />
           </SectionLabel>
-          <h2 className="font-display text-3xl leading-tight sm:text-5xl">
-            THE GAP ISN'T TALENT. <br />
+          <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
+            THE GAP ISN'T TALENT.{" "}
             <EmotiveText slot="problemHeadline" className="text-blood" />
           </h2>
-          <div className="mt-6 space-y-4 font-serif text-lg leading-relaxed text-white/75">
+          <div className="mt-5 space-y-4 font-serif text-[1.05rem] leading-[1.65] text-white/75 sm:mt-6 sm:text-lg sm:leading-relaxed">
             <p>
               <EmotiveText slot="problemP1" />
             </p>
@@ -203,10 +203,10 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             </p>
           </div>
 
-          <div className="mt-9 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-lg border border-blood/40 bg-blood/5 p-5">
-              <p className="mb-3 font-display text-xl text-blood">WITHOUT THE VAULT</p>
-              <ul className="space-y-2.5 text-[15px]">
+          <div className="mt-8 grid gap-3 sm:mt-9 sm:grid-cols-2 sm:gap-4">
+            <div className="rounded-lg border border-blood/40 bg-blood/5 p-4 sm:p-5">
+              <p className="mb-3 font-display text-lg text-blood sm:text-xl">WITHOUT THE VAULT</p>
+              <ul className="space-y-2.5 text-[15px] leading-snug">
                 <Cross>6+ months of manual research per campaign</Cross>
                 <Cross>$29–$79/mo submission platforms that "forward" your track</Cross>
                 <Cross>Generic info@ inboxes, zero names, zero replies</Cross>
@@ -214,9 +214,9 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                 <Cross>Watching your release cycle die in 3 weeks</Cross>
               </ul>
             </div>
-            <div className="rounded-lg border border-acid/50 bg-acid/5 p-5">
-              <p className="mb-3 font-display text-xl text-acid">WITH THE VAULT</p>
-              <ul className="space-y-2.5 text-[15px]">
+            <div className="rounded-lg border border-acid/50 bg-acid/5 p-4 sm:p-5">
+              <p className="mb-3 font-display text-lg text-acid sm:text-xl">WITH THE VAULT</p>
+              <ul className="space-y-2.5 text-[15px] leading-snug">
                 <Check>18,000+ entries, ready in the next 90 seconds</Check>
                 <Check>Organized by station, location, role, phone, and email</Check>
                 <Check>Program &amp; music directors — the people who decide</Check>
@@ -232,7 +232,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       {isMomentumSequenceEnabled() && (
         <Suspense
           fallback={
-            <div className="min-h-[760px] border-y border-white/10 bg-[#0b0b0e]" aria-hidden="true" />
+            <div className="min-h-[680px] border-y border-white/10 bg-[#0b0b0e]" aria-hidden="true" />
           }
         >
           <MomentumSequence onCta={() => handleCta("momentum")} />
@@ -242,10 +242,10 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       {/* MECHANISM */}
       <section className="defer-render mx-auto max-w-4xl px-4 py-12 sm:py-16">
         <SectionLabel>The mechanism</SectionLabel>
-        <h2 className="font-display text-3xl leading-tight sm:text-5xl">
+        <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
           HOW TO <span className="hl">SUBMIT MUSIC TO RADIO STATIONS</span> CITY BY CITY
         </h2>
-        <p className="mt-4 max-w-2xl font-serif text-lg text-white/70">
+        <p className="mt-4 max-w-2xl font-serif text-[1.05rem] leading-[1.65] text-white/70 sm:text-lg">
           Major-market stations are drowning in label submissions. Local stations are actively looking for
           local talent to champion. Sorting the database by city turns a cold list into a warm ladder:
         </p>
@@ -255,9 +255,9 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             ["02", "PITCH YOUR ROUTE", "Email every station in a tour city 3 weeks before the date. Spins + interviews + ticket sales, stacked."],
             ["03", "STACK CREDITS", "Regional airplay is proof. Proof opens bigger markets. Bigger markets open doors labels pretend are locked."],
           ].map(([n, t, d]) => (
-            <div key={n} className="rounded-lg border border-white/10 bg-panel p-5">
-              <span className="font-display text-4xl text-acid/30">{n}</span>
-              <p className="mt-2 font-display text-xl">{t}</p>
+            <div key={n} className="rounded-lg border border-white/10 bg-panel p-4 sm:p-5">
+              <span className="font-display text-3xl text-acid/30 sm:text-4xl">{n}</span>
+              <p className="mt-1.5 font-display text-lg sm:mt-2 sm:text-xl">{t}</p>
               <p className="mt-2 text-[15px] leading-relaxed text-white/60">{d}</p>
             </div>
           ))}
@@ -266,9 +266,9 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
       {/* WHAT'S INSIDE / STACK */}
       <section id="inside" className="defer-render border-y border-white/10 bg-panel">
-        <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
+        <div className="mx-auto max-w-3xl px-4 py-10 sm:py-16">
           <SectionLabel>Everything you get today</SectionLabel>
-          <h2 className="font-display text-3xl leading-tight sm:text-5xl">
+          <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
             THE RADIO REACH VAULT
             <span className="mt-2 block text-[0.55em] text-white/60">
               RADIO CONTACT LIST FOR INDEPENDENT ARTISTS
@@ -285,23 +285,23 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
               ["City-by-city organization", "Start local, expand along your tour route.", "$79"],
               ["Lifetime file access", "No subscription. No renewal. No monthly bleed.", "$120"],
             ].map(([t, d, v]) => (
-              <div key={t} className="flex items-start gap-4 p-4">
+              <div key={t} className="flex items-start gap-3 p-3.5 sm:gap-4 sm:p-4">
                 <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-acid text-[13px] font-black text-ink">
                   ✓
                 </span>
-                <div className="flex-1">
-                  <p className="font-bold">{t}</p>
-                  <p className="text-[14px] text-white/55">{d}</p>
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold leading-snug">{t}</p>
+                  <p className="mt-0.5 text-[13px] leading-snug text-white/55 sm:text-[14px]">{d}</p>
                 </div>
-                <span className="shrink-0 font-display text-lg text-white/45 line-through decoration-blood">{v}</span>
+                <span className="shrink-0 font-display text-base text-white/45 line-through decoration-blood sm:text-lg">{v}</span>
               </div>
             ))}
-            <div className="flex items-center justify-between bg-acid/10 p-4">
-              <span className="font-display text-lg uppercase">Total real value</span>
-              <span className="font-display text-2xl text-white/50 line-through decoration-blood decoration-2">$742</span>
+            <div className="flex items-center justify-between gap-3 bg-acid/10 p-3.5 sm:p-4">
+              <span className="font-display text-base uppercase leading-tight sm:text-lg">Total real value</span>
+              <span className="font-display text-xl text-white/50 line-through decoration-blood decoration-2 sm:text-2xl">$742</span>
             </div>
-            <div className="flex items-center justify-between bg-acid p-4 text-ink">
-              <span className="font-display text-lg uppercase">Your price right now</span>
+            <div className="flex items-center justify-between gap-3 bg-acid p-3.5 text-ink sm:p-4">
+              <span className="font-display text-base uppercase leading-tight sm:text-lg">Your price right now</span>
               <span className="font-display text-3xl">$20</span>
             </div>
           </div>
@@ -313,7 +313,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           <button
             type="button"
             onClick={() => handleCta("stack")}
-            className="cta mt-7 min-h-14 w-full rounded-lg bg-acid px-5 py-4 font-display text-xl uppercase tracking-wide text-ink sm:py-5 sm:text-2xl"
+            className="cta mt-7 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
           >
             Claim The Radio Reach Vault For $20 →
           </button>
@@ -327,17 +327,17 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       <section
         id="proof"
         data-esp-zone="proof"
-        className="defer-render mx-auto max-w-5xl px-4 py-12 sm:py-16"
+        className="defer-render mx-auto max-w-5xl px-4 py-10 sm:py-16"
       >
         <SectionLabel>Receipts</SectionLabel>
         <EmotiveText
           slot="proofHeadline"
           as="h2"
-          className="font-display text-3xl leading-tight sm:text-5xl"
+          className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight"
         />
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4">
           {TESTIMONIALS.map((t) => (
-            <figure key={t.name} className="rounded-xl border border-white/10 bg-panel p-5 sm:p-6">
+            <figure key={t.name} className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <div className="flex items-center justify-between gap-3">
                 <Stars />
                 {t.verified && (
@@ -349,10 +349,10 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                   </span>
                 )}
               </div>
-              <blockquote className="mt-3 font-serif text-[16px] leading-relaxed text-white/80">
+              <blockquote className="mt-3 font-serif text-[15px] leading-[1.6] text-white/80 sm:text-[16px] sm:leading-relaxed">
                 “{t.text}”
               </blockquote>
-              <figcaption className="mt-4 flex items-center gap-3 border-t border-white/10 pt-4">
+              <figcaption className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-white/10 pt-3 sm:pt-4">
                 <img
                   src={t.photo}
                   alt=""
@@ -361,13 +361,13 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                   height={44}
                   loading="lazy"
                   decoding="async"
-                  className="h-11 w-11 shrink-0 rounded-full bg-white/5 object-cover ring-2 ring-acid/40"
+                  className="h-10 w-10 shrink-0 rounded-full bg-white/5 object-cover ring-2 ring-acid/40 sm:h-11 sm:w-11"
                 />
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="truncate text-[14px] font-bold">{t.name}</p>
                   <p className="truncate text-[12px] text-white/50">{t.role}</p>
                 </div>
-                <span className="ml-auto shrink-0 rounded-full bg-acid/15 px-3 py-1 text-[11px] font-bold text-acid">
+                <span className="rounded-full bg-acid/15 px-2.5 py-1 text-[10px] font-bold text-acid sm:px-3 sm:text-[11px]">
                   {t.stat}
                 </span>
               </figcaption>
@@ -378,9 +378,9 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
       {/* WHO IT'S FOR */}
       <section className="defer-render border-y border-white/10 bg-panel">
-        <div className="mx-auto max-w-3xl px-4 py-12 sm:py-14">
-          <h2 className="font-display text-3xl sm:text-4xl">THIS IS FOR YOU IF…</h2>
-          <ul className="mt-6 grid gap-3 text-[16px] sm:grid-cols-2">
+        <div className="mx-auto max-w-3xl px-4 py-10 sm:py-14">
+          <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">THIS IS FOR YOU IF…</h2>
+          <ul className="mt-5 grid gap-3 text-[15px] leading-snug sm:mt-6 sm:grid-cols-2 sm:text-[16px]">
             <Check>You're an independent musician with a release to pitch</Check>
             <Check>You're a podcaster chasing syndication or features</Check>
             <Check>You're sick of monthly platforms that deliver nothing</Check>
@@ -398,32 +398,32 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       <section className="defer-render mx-auto max-w-3xl px-4 py-12 sm:py-16">
         <div
           data-esp-zone="safety"
-          className="rounded-2xl border-2 border-acid/40 bg-gradient-to-b from-acid/10 to-transparent p-6 text-center sm:p-8"
+          className="rounded-2xl border-2 border-acid/40 bg-gradient-to-b from-acid/10 to-transparent p-5 text-center sm:p-8"
         >
-          <div className="mx-auto grid h-20 w-20 place-items-center rounded-full border-4 border-acid font-display text-2xl text-acid">
+          <div className="mx-auto grid h-16 w-16 place-items-center rounded-full border-4 border-acid font-display text-xl text-acid sm:h-20 sm:w-20 sm:text-2xl">
             30
           </div>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl">THE "I'LL EAT THE COST" GUARANTEE</h2>
-          <p className="mt-3 font-serif text-lg text-white/75">
+          <h2 className="mt-4 font-display text-[1.7rem] leading-[1.1] sm:text-4xl">THE "I'LL EAT THE COST" GUARANTEE</h2>
+          <p className="mt-3 font-serif text-[1.05rem] leading-[1.65] text-white/75 sm:text-lg">
             <EmotiveText slot="guaranteePara" />
           </p>
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="defer-render mx-auto max-w-3xl px-4 pb-12 sm:pb-16">
+      <section id="faq" className="defer-render mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
         {/* SEO / RESOURCE CLUSTER */}
-        <section className="mx-auto max-w-4xl py-10 sm:py-12">
-          <div className="rounded-xl border border-white/10 bg-black/30 p-5 sm:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-acid">
+        <section className="mx-auto max-w-4xl py-8 sm:py-12">
+          <div className="rounded-xl border border-white/10 bg-black/30 p-4 sm:p-8">
+            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-acid sm:text-xs sm:tracking-[0.18em]">
               Free Radio Promotion Guides
             </p>
 
-            <h2 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">
+            <h2 className="mt-3 font-display text-[1.55rem] leading-[1.1] sm:text-4xl sm:leading-tight">
               DO THE RESEARCH BEFORE YOU HIT SEND
             </h2>
 
-            <p className="mt-3 max-w-2xl font-serif text-base leading-relaxed text-white/70">
+            <p className="mt-3 max-w-2xl font-serif text-[0.98rem] leading-[1.62] text-white/70 sm:text-base sm:leading-relaxed">
               Not ready for the Vault yet? Start with the field guides: how to find
               stations that accept independent music, approach college radio, and
               build a targeted radio promotion campaign without spraying spam.
@@ -432,7 +432,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               <a
                 href="/resources/college-radio-submissions/"
-                className="rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
               >
                 <strong className="block text-white">
                   College Radio Submissions
@@ -444,7 +444,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
               <a
                 href="/resources/radio-stations-accepting-music/"
-                className="rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
               >
                 <strong className="block text-white">
                   Stations Accepting Music
@@ -456,7 +456,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
               <a
                 href="/resources/radio-promotion-independent-artists/"
-                className="rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
               >
                 <strong className="block text-white">
                   Independent Radio Promotion
@@ -470,8 +470,8 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
         </section>
 
         <SectionLabel>Objections, handled</SectionLabel>
-        <h2 className="font-display text-3xl sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
-        <div className="mt-6 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-panel">
+        <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
+        <div className="mt-5 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-panel sm:mt-6">
           {FAQS.map(([q, a], i) => {
             const isOpen = openFaq === i;
             return (
@@ -483,10 +483,10 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${i}`}
                     id={`faq-btn-${i}`}
-                    className="pressable flex min-h-14 w-full items-center justify-between gap-3 p-4 text-left hover:bg-white/5 sm:gap-4 sm:p-5"
+                    className="pressable flex w-full items-center justify-between gap-3 p-4 text-left hover:bg-white/5 sm:gap-4 sm:p-5"
                   >
-                    <span className="font-bold">{q}</span>
-                    <span aria-hidden className="shrink-0 font-display text-xl leading-none text-acid">
+                    <span className="font-bold leading-snug">{q}</span>
+                    <span aria-hidden className="grid h-8 w-8 shrink-0 place-items-center font-display text-xl leading-none text-acid">
                       {isOpen ? "−" : "+"}
                     </span>
                   </button>
@@ -497,7 +497,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                   aria-labelledby={`faq-btn-${i}`}
                   hidden={!isOpen}
                 >
-                  <p className="px-4 pb-5 text-[15px] leading-relaxed text-white/65 sm:px-5">{a}</p>
+                  <p className="px-4 pb-4 text-[14px] leading-[1.65] text-white/65 sm:px-5 sm:pb-5 sm:text-[15px] sm:leading-relaxed">{a}</p>
                 </div>
               </div>
             );
@@ -511,35 +511,35 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
         className="defer-render border-t border-white/10 bg-gradient-to-b from-blood/20 to-ink"
       >
         <div className="mx-auto max-w-3xl px-4 py-12 text-center sm:py-16">
-          <h2 className="font-display text-4xl leading-[0.95] sm:text-6xl">
+          <h2 className="font-display text-[2rem] leading-[1.05] sm:text-6xl sm:leading-[0.95]">
             TWO ROADS. <span className="text-acid">PICK ONE.</span>
           </h2>
-          <div className="mt-8 grid gap-4 text-left sm:grid-cols-2">
-            <div className="rounded-lg border border-white/10 bg-black/40 p-5">
-              <p className="font-display text-xl text-white/50">ROAD A</p>
-              <p className="mt-2 text-[15px] text-white/55">
+          <div className="mt-6 grid gap-3 text-left sm:mt-8 sm:grid-cols-2 sm:gap-4">
+            <div className="rounded-lg border border-white/10 bg-black/40 p-4 sm:p-5">
+              <p className="font-display text-lg text-white/50 sm:text-xl">ROAD A</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-white/55 sm:text-[15px]">
                 <EmotiveText slot="roadA" />
               </p>
             </div>
-            <div className="rounded-lg border-2 border-acid bg-acid/10 p-5">
-              <p className="font-display text-xl text-acid">ROAD B</p>
-              <p className="mt-2 text-[15px] text-white/80">
+            <div className="rounded-lg border-2 border-acid bg-acid/10 p-4 sm:p-5">
+              <p className="font-display text-lg text-acid sm:text-xl">ROAD B</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-white/80 sm:text-[15px]">
                 <EmotiveText slot="roadB" />
               </p>
             </div>
           </div>
 
-          <div className="mt-8 flex justify-center">
+          <div className="mt-7 flex justify-center sm:mt-8">
             <FlipClock seconds={897} />
           </div>
           <button
             type="button"
             onClick={() => handleCta("final")}
-            className="cta mt-6 min-h-14 w-full rounded-lg bg-acid px-5 py-4 font-display text-2xl uppercase tracking-wide text-ink sm:px-6 sm:py-5 sm:text-3xl"
+            className="cta mt-5 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-6 sm:px-6 sm:py-5 sm:text-3xl"
           >
             Give Me Instant Access — $20
           </button>
-          <p className="mt-3 text-[12px] text-white/40">
+          <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
             Secure checkout · Instant download · 30-day refund · No subscription, ever
           </p>
         </div>
@@ -547,7 +547,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
       {/* FTC DISCLAIMER */}
       <section className="defer-render border-t border-white/10 bg-black/60 px-4 py-8 sm:py-10">
-        <div className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-panel p-6 text-[12px] leading-relaxed text-white/40">
+        <div className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-panel p-4 text-[11px] leading-relaxed text-white/40 sm:p-6 sm:text-[12px]">
           <p className="mb-2 font-bold uppercase tracking-widest text-white/60">
             FTC Disclaimer &amp; Legal Notice
           </p>

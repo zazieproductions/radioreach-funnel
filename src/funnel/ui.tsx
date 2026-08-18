@@ -37,17 +37,17 @@ export function useCountdown(seconds: number, key = "zp_deadline") {
 /** Fixed-width, tabular digits — cannot cause layout shift as it ticks. */
 export function FlipClock({ seconds = 897, size = "md" }: { seconds?: number; size?: "sm" | "md" }) {
   const { h, m, s, pad } = useCountdown(seconds);
-  const digit = size === "sm" ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl";
+  const digit = size === "sm" ? "text-lg sm:text-2xl" : "text-[1.35rem] sm:text-3xl";
 
   const Unit = ({ v, l }: { v: string; l: string }) => (
     <div className="flex flex-col items-center">
       <div
-        className={`tnum rounded-md border border-white/10 bg-black px-2 py-1.5 font-display leading-none text-acid ${digit}`}
+        className={`tnum rounded-md border border-white/10 bg-black px-1.5 py-1 font-display leading-none text-acid sm:px-2 sm:py-1.5 ${digit}`}
         style={{ minWidth: "2.4ch", textAlign: "center" }}
       >
         {v}
       </div>
-      <span className="mt-1 text-[9px] uppercase tracking-[0.18em] text-white/45">{l}</span>
+      <span className="mt-1 text-[8px] uppercase tracking-[0.16em] text-white/45 sm:text-[9px] sm:tracking-[0.18em]">{l}</span>
     </div>
   );
 
@@ -94,9 +94,9 @@ export function StockBar() {
   const pct = Math.max(6, Math.round((n / 250) * 100));
   return (
     <div className="w-full">
-      <div className="mb-1.5 flex items-baseline justify-between gap-3 text-[11px] uppercase tracking-widest">
-        <span className="font-bold text-blood">Licenses left at this price</span>
-        <span className="tnum font-bold text-white/70">{n} / 250</span>
+      <div className="mb-1.5 flex items-baseline justify-between gap-2 text-[10px] uppercase tracking-wider sm:gap-3 sm:text-[11px] sm:tracking-widest">
+        <span className="font-bold leading-snug text-blood">Licenses left at this price</span>
+        <span className="tnum shrink-0 font-bold text-white/70">{n} / 250</span>
       </div>
       <div
         className="h-2.5 w-full overflow-hidden rounded-full border border-white/10 bg-white/10"
@@ -124,7 +124,7 @@ export function LiveViewers() {
     return () => clearInterval(t);
   }, []);
   return (
-    <span className="inline-flex items-center gap-2 text-[12px] font-semibold text-white/65">
+    <span className="inline-flex items-center gap-2 text-[11px] font-semibold text-white/65 sm:text-[12px]">
       <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-green-400" />
       <span className="tnum text-white">{n}</span> artists viewing this page
     </span>
@@ -143,7 +143,7 @@ export function Ticker() {
   ];
   return (
     <div className="border-y border-acid/25 bg-acid/10">
-      <ul className="mx-auto flex min-h-9 max-w-5xl items-center justify-center px-4 py-1.5 text-center text-[10px] font-bold uppercase tracking-[0.12em] text-acid sm:min-h-0 sm:gap-6 sm:py-2 sm:text-[11px] sm:tracking-[0.14em]">
+      <ul className="mx-auto flex min-h-9 max-w-5xl items-center justify-center px-3 py-1.5 text-center text-[10px] font-bold uppercase leading-snug tracking-[0.1em] text-acid sm:min-h-0 sm:gap-6 sm:px-4 sm:py-2 sm:text-[11px] sm:tracking-[0.14em]">
         {items.map((t, index) => (
           <li key={t} className={index === 0 ? "" : "hidden sm:list-item"}>{t}</li>
         ))}
@@ -167,9 +167,9 @@ export function TopNav({ onCta }: { onCta: () => void }) {
     <header className="mobile-solid sticky top-0 z-40 border-b border-white/10 bg-ink/95 backdrop-blur supports-[backdrop-filter]:bg-ink/80">
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-14 max-w-5xl items-center gap-2 px-3 sm:gap-4 sm:px-4"
+        className="mx-auto flex h-12 max-w-5xl items-center gap-3 px-3 sm:h-14 sm:gap-4 sm:px-4"
       >
-        <a href="#top" className="tap-target justify-start whitespace-nowrap font-display text-sm tracking-wide text-white sm:text-lg">
+        <a href="#top" className="tap-target min-w-0 justify-start truncate font-display text-[0.95rem] tracking-wide text-white sm:text-lg">
           RADIO REACH <span className="ml-1 text-acid">VAULT</span>
         </a>
 
@@ -191,7 +191,7 @@ export function TopNav({ onCta }: { onCta: () => void }) {
           onClick={onCta}
           className="cta ml-auto shrink-0 rounded-lg bg-acid px-3 py-2 text-[12px] font-black uppercase tracking-wide text-ink sm:px-4 sm:text-[13px] md:ml-0"
         >
-          Get access <span className="hidden min-[350px]:inline">— $20</span>
+          Get access <span className="hidden min-[380px]:inline">— $20</span>
         </button>
       </nav>
     </header>
@@ -317,7 +317,8 @@ export function StickyBar({
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => setShow(window.scrollY > 700));
+      const threshold = window.matchMedia("(max-width: 639px)").matches ? 380 : 700;
+      raf = requestAnimationFrame(() => setShow(window.scrollY > threshold));
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -334,21 +335,27 @@ export function StickyBar({
       }`}
       aria-hidden={!show}
     >
-      <div className="mx-auto flex max-w-5xl items-center gap-3 px-3 py-2 sm:px-4 sm:py-2.5">
+      <div className="mx-auto flex max-w-5xl items-center gap-2.5 px-3 py-2 sm:gap-3 sm:py-2.5">
         <div className="hidden shrink-0 sm:block">
           <p className="text-[10px] font-bold uppercase tracking-widest text-blood">Founder price ends in</p>
           <FlipClock seconds={897} size="sm" />
         </div>
-        <div className="min-w-0 flex-1 sm:flex-none sm:ml-auto">
+        <div className="hidden shrink-0 flex-col justify-center min-[400px]:flex sm:hidden">
+          <p className="text-[9px] font-bold uppercase tracking-wider text-blood">Ends in</p>
+          <p className="tnum font-display text-sm leading-none text-acid">
+            <span className="line-through opacity-50">$49</span> $20
+          </p>
+        </div>
+        <div className="min-w-0 flex-1 sm:ml-auto sm:flex-none">
           <button
             onClick={onCta}
             tabIndex={show ? 0 : -1}
-            className="cta w-full rounded-lg bg-acid px-5 py-3 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-8 sm:text-lg"
+            className="cta w-full rounded-lg bg-acid px-4 py-3 font-display text-[0.98rem] uppercase leading-tight tracking-wide text-ink sm:w-auto sm:px-8 sm:py-3.5 sm:text-lg"
           >
             {label}
           </button>
-          <p className="mt-1 text-center text-[10px] leading-none text-white/50">
-            Secure · instant · 30-day refund
+          <p className="mt-1 text-center text-[10px] text-white/45">
+            <span className="line-through">$49</span> · instant download · 30-day refund
           </p>
         </div>
       </div>
@@ -362,22 +369,22 @@ export function StickyBar({
 
 export function Check({ children }: { children: React.ReactNode }) {
   return (
-    <li className="flex gap-3">
+    <li className="flex gap-2.5 sm:gap-3">
       <span aria-hidden className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-acid text-[12px] font-black text-ink">
         ✓
       </span>
-      <span>{children}</span>
+      <span className="min-w-0 leading-snug">{children}</span>
     </li>
   );
 }
 
 export function Cross({ children }: { children: React.ReactNode }) {
   return (
-    <li className="flex gap-3 text-white/55">
+    <li className="flex gap-2.5 text-white/55 sm:gap-3">
       <span aria-hidden className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-blood/80 text-[12px] font-black text-white">
         ✕
       </span>
-      <span>{children}</span>
+      <span className="min-w-0 leading-snug">{children}</span>
     </li>
   );
 }
@@ -391,5 +398,5 @@ export function Stars({ n = 5 }: { n?: number }) {
 }
 
 export function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <p className="mb-3 text-[11px] font-black uppercase tracking-[0.24em] text-acid">{children}</p>;
+  return <p className="mb-2.5 text-[10px] font-black uppercase tracking-[0.18em] text-acid sm:mb-3 sm:text-[11px] sm:tracking-[0.24em]">{children}</p>;
 }
