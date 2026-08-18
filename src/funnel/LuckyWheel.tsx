@@ -643,21 +643,48 @@ export function LuckyWheelModal({
               <span className="mt-0.5 block text-[11px] font-sans font-bold normal-case tracking-normal opacity-70">Takes you to checkout • Both add-ons pre-selected • $21</span>
             </button>
 
-            <div className="relative my-4 flex items-center gap-2">
-              <span className="h-px flex-1 bg-white/10" />
-              <span className="text-[11px] font-black uppercase tracking-[0.16em] text-white/30">or spin again</span>
-              <span className="h-px flex-1 bg-white/10" />
+            <div className="relative my-5 flex items-center gap-3">
+              <span className="h-px flex-1 bg-gradient-to-r from-transparent to-white/15" />
+              <span className="rounded-full bg-gradient-to-r from-cyan-400 to-[#7c5cff] px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-white shadow-[0_2px_10px_rgba(6,182,212,0.4)] animate-pulse">ONE MORE CHANCE →</span>
+              <span className="h-px flex-1 bg-gradient-to-l from-transparent to-white/15" />
             </div>
 
-            <button
-              type="button"
-              onClick={handleGoToSecondWheel}
-              className="cta w-full rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-6 py-3.5 font-black uppercase tracking-widest text-white shadow-[0_8px_24px_rgba(124,92,255,0.4)] hover:brightness-[1.05] active:scale-[0.99]"
-            >
-              🎁 Spin Again for One More Prize →
-              <span className="mt-0.5 block text-[11px] font-bold normal-case tracking-normal opacity-80">Secret PlaylistPush code inside… shh 🤫</span>
-            </button>
-            <p className="mt-2 text-center text-[11px] text-white/30">One more spin — hidden industry secret code</p>
+            <div className="relative overflow-hidden rounded-2xl border-2 border-cyan-400 bg-gradient-to-br from-cyan-500/10 via-[#7c5cff]/10 to-[#ff3b82]/10 p-4 text-left shadow-[0_8px_30px_rgba(6,182,212,0.2)]">
+              <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-cyan-400/20 blur-xl animate-pulse" />
+              <div className="flex items-center gap-3">
+                <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-[#7c5cff] text-xl shadow-[0_4px_16px_rgba(6,182,212,0.4)] animate-[pulse_1.4s_ease-in-out_infinite]">🤫</span>
+                <div className="flex-1">
+                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-300">YOU UNLOCKED A SECOND SPIN!</p>
+                  <p className="text-sm font-black leading-none text-white">Hidden industry secret inside</p>
+                  <p className="text-[11px] leading-none text-white/60">Everyone gets one more chance — don't miss it</p>
+                </div>
+                <span className="hidden sm:grid h-8 w-8 place-items-center rounded-full bg-white text-ink font-black text-xs animate-bounce">!</span>
+              </div>
+              <div className="mt-3 rounded-xl border-2 border-dashed border-white/15 bg-black/40 p-3 backdrop-blur">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.14em] text-white/50">Locked secret code</p>
+                    <p className="font-mono text-lg font-black tracking-[0.18em] text-white/25 blur-[4px] select-none">FR2AZEF</p>
+                    <p className="text-[11px] font-bold text-cyan-300">PLAYLIST CAMPAIGN DISCOUNT</p>
+                  </div>
+                  <div className="text-right">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-cyan-400 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-ink">Tap to reveal</span>
+                    <p className="mt-1 text-[10px] font-bold uppercase tracking-widest text-white/30">Value hidden</p>
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleGoToSecondWheel}
+                className="cta mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-[#7c5cff] to-[#00d4ff] px-6 py-3.5 font-black uppercase tracking-[0.08em] text-white shadow-[0_10px_30px_rgba(6,182,212,0.45)] hover:brightness-[1.08] active:scale-[0.99] animate-[pulse_1.8s_ease-in-out_infinite]"
+              >
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-ink text-sm">🎡</span>
+                SPIN AGAIN — REVEAL SECRET CODE →
+              </button>
+              <p className="mt-2 text-center text-[11px] font-bold leading-snug text-cyan-200">
+                <span className="inline-flex items-center gap-1 rounded-full bg-black/30 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-white/70">SHHH... INDUSTRY SECRET</span> • Always lands on <b className="text-white">SECRET CODE</b>
+              </p>
+            </div>
 
             <button type="button" onClick={onClose} className="mx-auto mt-4 block text-[12px] text-white/40 underline underline-offset-4 hover:text-white/70">
               Keep shopping without bonus

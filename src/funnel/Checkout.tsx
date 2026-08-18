@@ -11,6 +11,78 @@ import {
 } from "../lib/luckyCoupon";
 import { LuckyWheelButton } from "./LuckyWheel";
 
+function SecretSecondSpinCard({ onOpenWheel }: { onOpenWheel?: () => void }) {
+  const [revealed, setRevealed] = useState(false);
+  const [codeCopied, setCodeCopied] = useState(false);
+  useEffect(() => {
+    try { setRevealed(localStorage.getItem("rr_secret_playlist_revealed") === "1"); } catch {}
+    const id = window.setInterval(() => {
+      try { if (localStorage.getItem("rr_secret_playlist_revealed") === "1") setRevealed(true); } catch {}
+    }, 900);
+    const onStorage = () => { try { setRevealed(localStorage.getItem("rr_secret_playlist_revealed") === "1"); } catch {} };
+    window.addEventListener("storage", onStorage);
+    return () => { clearInterval(id); window.removeEventListener("storage", onStorage); };
+  }, []);
+  if (revealed) {
+    return (
+      <div className="overflow-hidden rounded-xl border-2 border-cyan-400 bg-gradient-to-br from-cyan-500/10 via-[#7c5cff]/10 to-black/40 p-4">
+        <div className="flex items-center gap-2">
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-[#7c5cff] text-white">🤫</span>
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-300">SHHH... INDUSTRY SECRET UNLOCKED</p>
+            <p className="text-sm font-black text-white">Your second prize is ready</p>
+          </div>
+          <span className="ml-auto hidden rounded-full bg-cyan-400 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-ink sm:inline-flex">FR2AZEF</span>
+        </div>
+        <div className="mt-3 rounded-xl border-2 border-dashed border-cyan-400/40 bg-black/40 p-3">
+          <p className="text-center text-[10px] font-black uppercase tracking-[0.16em] text-white/40">PLAYLIST CAMPAIGN DISCOUNT — tap to copy</p>
+          <div className="mt-2 flex items-center justify-center gap-2">
+            <span className="font-mono text-2xl font-black tracking-[0.12em] text-white">FR2AZEF</span>
+            <button
+              type="button"
+              onClick={() => { navigator.clipboard?.writeText("FR2AZEF"); setCodeCopied(true); setTimeout(() => setCodeCopied(false), 1800); }}
+              className="rounded-full bg-cyan-400 px-3 py-1.5 text-xs font-black uppercase tracking-widest text-ink hover:bg-white"
+            >
+              {codeCopied ? "Copied ✓" : "Copy"}
+            </button>
+          </div>
+          <a href="https://playlistpush.com/" target="_blank" rel="noreferrer" className="mx-auto mt-3 flex w-fit items-center gap-1 rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-widest text-ink hover:bg-cyan-50">Open PlaylistPush.com →</a>
+          <p className="mt-2 text-center text-[11px] italic text-white/40">“Shh, don’t tell anyone I gave it to you…”</p>
+        </div>
+        <p className="mt-2 text-center text-[11px] text-white/50">Use at <a href="https://playlistpush.com/" target="_blank" rel="noreferrer" className="font-bold text-cyan-300 underline">PlaylistPush.com</a> checkout — genuine promo code from your second spin</p>
+      </div>
+    );
+  }
+  return (
+    <div className="overflow-hidden rounded-xl border-2 border-cyan-400 bg-gradient-to-br from-cyan-500/15 via-[#7c5cff]/10 to-[#ff3b82]/10 p-4 shadow-[0_8px_24px_rgba(6,182,212,0.18)]">
+      <div className="flex items-center gap-3">
+        <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-[#7c5cff] text-white shadow-[0_4px_14px_rgba(6,182,212,0.4)] animate-pulse">🤫</span>
+        <div className="flex-1">
+          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-300 animate-pulse">ONE MORE SPIN — SECRET INSIDE</p>
+          <p className="text-sm font-black leading-none text-white">You have one more chance!</p>
+          <p className="text-xs leading-none text-white/60">Hidden industry code — always wins on second spin</p>
+        </div>
+        <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-cyan-600">1 spin left</span>
+      </div>
+      <div className="mt-3 rounded-xl border-2 border-dashed border-white/15 bg-black/30 p-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-white/50">Locked</p>
+            <p className="font-mono text-lg font-black tracking-[0.16em] text-white/20 blur-[4px] select-none">FR2AZEF</p>
+          </div>
+          <span className="rounded-full bg-cyan-400 px-3 py-1.5 text-xs font-black uppercase tracking-widest text-ink">SHHH...</span>
+        </div>
+        <p className="mt-1 text-[11px] font-bold text-cyan-200">PLAYLIST CAMPAIGN DISCOUNT • Reveals on second spin</p>
+      </div>
+      <button type="button" onClick={() => onOpenWheel?.()} className="cta mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-[#7c5cff] to-[#00d4ff] px-4 py-3 text-xs font-black uppercase tracking-widest text-white shadow-[0_8px_24px_rgba(6,182,212,0.35)] hover:brightness-[1.08]">
+        <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-ink text-sm">🎡</span>
+        Spin Again — Reveal Secret Code →
+      </button>
+      <p className="mt-2 text-center text-[10px] font-bold uppercase tracking-widest text-white/30">Always lands on <span className="text-cyan-300">SHHH... INDUSTRY SECRET</span> • FR2AZEF</p>
+    </div>
+  );
+}
+
 export type Addons = { contracts: boolean; au: boolean };
 
 type Props = {
@@ -177,6 +249,11 @@ export default function Checkout({
                   Both add-ons below are pre-ticked because you won — untick if you really want to
                 </p>
               </div>
+            )}
+
+            {/* second spin — secret code nudge at checkout — always visible after jackpot */}
+            {hasWinningCoupon && luckyCoupon && (
+              <SecretSecondSpinCard onOpenWheel={onOpenWheel} />
             )}
 
             <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
