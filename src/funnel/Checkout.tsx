@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { FlipClock, LiveViewers, Stars, StockBar } from "./ui";
+import { FlipClock, Stars } from "./ui";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
 import { PRODUCTS } from "../config/storefront";
 import { track } from "../lib/metaPixel";
@@ -9,83 +9,6 @@ import {
   getLuckyCouponRemainingMs,
   type LuckyCoupon,
 } from "../lib/luckyCoupon";
-import { LuckyWheelButton } from "./LuckyWheel";
-
-function SecretSecondSpinCard({ onOpenWheel }: { onOpenWheel?: () => void }) {
-  const [revealed, setRevealed] = useState(false);
-  const [codeCopied, setCodeCopied] = useState(false);
-  useEffect(() => {
-    try { setRevealed(localStorage.getItem("rr_secret_playlist_revealed") === "1"); } catch {}
-    const id = window.setInterval(() => {
-      try { if (localStorage.getItem("rr_secret_playlist_revealed") === "1") setRevealed(true); } catch {}
-    }, 900);
-    const onStorage = () => { try { setRevealed(localStorage.getItem("rr_secret_playlist_revealed") === "1"); } catch {} };
-    window.addEventListener("storage", onStorage);
-    return () => { clearInterval(id); window.removeEventListener("storage", onStorage); };
-  }, []);
-  if (revealed) {
-    return (
-      <div className="overflow-hidden rounded-xl border-transparent bg-[linear-gradient(135deg,#FACC15,#FB923C,#F472B6,#A78BFA,#22D3EE,#34D399)] p-[1px]">
-      <div className="overflow-hidden rounded-[11px] bg-[#0F0F12] p-4">
-        <div className="flex items-center gap-2">
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-[#7c5cff] text-white">🤫</span>
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-300">SHHH... INDUSTRY SECRET UNLOCKED</p>
-            <p className="text-sm font-black text-white">Your second prize is ready</p>
-          </div>
-          <span className="ml-auto hidden rounded-full bg-cyan-400 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-ink sm:inline-flex">FR2AZEF</span>
-        </div>
-        <div className="mt-3 rounded-xl border-2 border-dashed border-cyan-400/40 bg-black/40 p-3">
-          <p className="text-center text-[10px] font-black uppercase tracking-[0.16em] text-white/40">PLAYLIST CAMPAIGN DISCOUNT — tap to copy</p>
-          <div className="mt-2 flex items-center justify-center gap-2">
-            <span className="font-mono text-2xl font-black tracking-[0.12em] text-white">FR2AZEF</span>
-            <button
-              type="button"
-              onClick={() => { navigator.clipboard?.writeText("FR2AZEF"); setCodeCopied(true); setTimeout(() => setCodeCopied(false), 1800); }}
-              className="rounded-full bg-cyan-400 px-3 py-1.5 text-xs font-black uppercase tracking-widest text-ink hover:bg-white"
-            >
-              {codeCopied ? "Copied ✓" : "Copy"}
-            </button>
-          </div>
-          <a href="https://playlistpush.com/" target="_blank" rel="noreferrer" className="mx-auto mt-3 flex w-fit items-center gap-1 rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-widest text-ink hover:bg-cyan-50">Open PlaylistPush.com →</a>
-          <p className="mt-2 text-center text-[11px] italic text-white/40">“Shh, don’t tell anyone I gave it to you…”</p>
-        </div>
-        <p className="mt-2 text-center text-[11px] text-white/50">Use at <a href="https://playlistpush.com/" target="_blank" rel="noreferrer" className="font-bold text-cyan-300 underline">PlaylistPush.com</a> checkout — genuine promo code from your second spin</p>
-      </div>
-      </div>
-    );
-  }
-  return (
-    <div className="overflow-hidden rounded-xl border-transparent bg-[linear-gradient(135deg,#FACC15,#FB923C,#F472B6,#A78BFA,#22D3EE,#34D399)] p-[1px] shadow-[0_8px_24px_rgba(6,182,212,0.18)]">
-    <div className="overflow-hidden rounded-[11px] bg-[#0F0F12] p-4">
-      <div className="flex items-center gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-[#7c5cff] text-white shadow-[0_4px_14px_rgba(6,182,212,0.4)] animate-pulse">🤫</span>
-        <div className="flex-1">
-          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-300 animate-pulse">ONE MORE SPIN — SECRET INSIDE</p>
-          <p className="text-sm font-black leading-none text-white">You have one more spin!</p>
-          <p className="text-xs leading-none text-white/60">Hidden industry code — spin to reveal</p>
-        </div>
-        <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-cyan-600">1 spin left</span>
-      </div>
-      <div className="mt-3 rounded-xl border-2 border-dashed border-white/15 bg-black/30 p-3">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-white/50">Locked</p>
-            <p className="font-mono text-lg font-black tracking-[0.16em] text-white/20 blur-[4px] select-none">FR2AZEF</p>
-          </div>
-          <span className="rounded-full bg-cyan-400 px-3 py-1.5 text-xs font-black uppercase tracking-widest text-ink">SHHH...</span>
-        </div>
-        <p className="mt-1 text-[11px] font-bold text-cyan-200">PLAYLIST CAMPAIGN DISCOUNT</p>
-      </div>
-      <button type="button" onClick={() => onOpenWheel?.()} className="cta mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-[#7c5cff] to-[#00d4ff] px-4 py-3 text-xs font-black uppercase tracking-widest text-white shadow-[0_8px_24px_rgba(6,182,212,0.35)] hover:brightness-[1.08]">
-        <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-ink text-sm">🎡</span>
-        Spin Again — Reveal Secret Code →
-      </button>
-      <p className="mt-2 text-center text-[10px] font-bold uppercase tracking-widest text-white/30">Mystery prize inside • Are you feeling lucky?</p>
-    </div>
-    </div>
-  );
-}
 
 export type Addons = { contracts: boolean; au: boolean };
 
@@ -93,7 +16,6 @@ type Props = {
   onComplete: (total: number, addons: Addons) => void;
   luckyCoupon?: LuckyCoupon | null;
   onOpenWheel?: () => void;
-  onOpenWheelForSecret?: () => void;
 };
 
 const BASE = PRODUCTS.vault_core.price;
@@ -104,7 +26,6 @@ export default function Checkout({
   onComplete,
   luckyCoupon,
   onOpenWheel,
-  onOpenWheelForSecret,
 }: Props) {
   const [contracts, setContracts] = useState(true);
   const [au, setAu] = useState(true);
@@ -206,64 +127,11 @@ export default function Checkout({
             <span className="text-[11px] font-bold uppercase tracking-wider text-blood sm:text-[12px] sm:tracking-widest">Founder pricing ends in</span>
             <FlipClock seconds={597} />
           </div>
-          <LiveViewers />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
           {/* left column — selector + summary */}
           <aside className="space-y-4">
-            {/* winner celebration card */}
-            {hasWinningCoupon && luckyCoupon && (
-              <div className="overflow-hidden rounded-xl border-transparent bg-[linear-gradient(135deg,#FACC15,#FB923C,#F472B6,#A78BFA,#22D3EE,#34D399)] p-[1px]">
-              <div className="overflow-hidden rounded-[11px] bg-[#0F0F12] p-4">
-                <div className="flex items-center gap-2">
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-acid to-yellow-300 text-ink">🎉</span>
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.16em] text-acid">Jackpot active</p>
-                    <p className="text-sm font-bold leading-none text-white">
-                      Your celebration is live at checkout
-                    </p>
-                  </div>
-                  <span className="ml-auto hidden shrink-0 rounded-full bg-acid px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-ink sm:inline-flex">
-                    ⏳ {remainingStr}
-                  </span>
-                </div>
-                <div className="mt-3 flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-acid/30 bg-acid/10 px-2.5 py-1 font-mono text-xs font-bold tracking-[0.08em] text-white">
-                    {luckyCoupon.code}
-                    <button
-                      type="button"
-                      onClick={() => navigator.clipboard?.writeText(luckyCoupon.code)}
-                      className="rounded bg-white px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-ink hover:bg-acid"
-                    >
-                      Copy
-                    </button>
-                  </span>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-xs font-bold text-acid border border-white/10 sm:hidden">
-                    ⏳ {remainingStr} left
-                  </span>
-                  <span className="text-xs text-white/60">
-                    Winner <b className="font-mono text-white">{luckyCoupon.winnerId}</b> • Save <b className="text-acid">$33</b> on bundle
-                  </span>
-                </div>
-                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
-                  <div
-                    className="h-full bg-gradient-to-r from-amber-400 via-orange-400 via-pink-400 to-cyan-400 transition-all duration-1000"
-                    style={{ width: `${Math.max(8, (Math.max(0, luckyCoupon.expiresAt - nowMs) / (15 * 60 * 1000)) * 100)}%` }}
-                  />
-                </div>
-                <p className="mt-2 text-center text-[11px] font-bold uppercase tracking-widest text-white/35">
-                  Both add-ons below are ready for you — untick if you really want to
-                </p>
-              </div>
-              </div>
-            )}
-
-            {/* second spin — secret code nudge at checkout — always visible after jackpot */}
-            {hasWinningCoupon && luckyCoupon && (
-              <SecretSecondSpinCard onOpenWheel={onOpenWheelForSecret ?? onOpenWheel} />
-            )}
-
             <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <p className="font-display text-2xl">YOUR ORDER</p>
               <p className="mt-1 text-sm text-white/55">
@@ -329,19 +197,9 @@ export default function Checkout({
                     </span>
                     <span className="block text-sm mt-2">
                       <span className="mr-2 text-white/35 line-through">${PRODUCTS.contract_bundle.compareAt}</span>
-                      <b className={hasWinningCoupon ? "text-acid" : "text-acid"}>${PRODUCTS.contract_bundle.price.toFixed(2)}</b>{" "}
-                      {hasWinningCoupon && (
-                        <span className="ml-1 rounded bg-green-500/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-green-400 border border-green-500/20">
-                          Save $16 • Winner pick
-                        </span>
-                      )}
+                      <b className="text-acid">${PRODUCTS.contract_bundle.price.toFixed(2)}</b>
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Saved me from a nightmare split deal." — Jordan Meacham</span>
-                    {hasWinningCoupon && (
-                      <span className="mt-1 block text-[11px] font-bold uppercase tracking-wide text-acid/70">
-                        🎉 Winner price — {luckyCoupon.code} • ⏳ {remainingStr}
-                      </span>
-                    )}
                   </div>
                 </label>
 
@@ -374,45 +232,12 @@ export default function Checkout({
                     <span className="block text-sm text-white/65">{PRODUCTS.australia_addon.description}</span>
                     <span className="block text-sm">
                       <span className="mr-2 text-white/35 line-through">${PRODUCTS.australia_addon.compareAt}</span>
-                      <b className="text-acid">${PRODUCTS.australia_addon.price.toFixed(2)}</b>{" "}
-                      {hasWinningCoupon && (
-                        <span className="ml-1 rounded bg-green-500/15 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-green-400 border border-green-500/20">
-                          Save $17 • Winner pick
-                        </span>
-                      )}
+                      <b className="text-acid">${PRODUCTS.australia_addon.price.toFixed(2)}</b>
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." — Dee R.</span>
-                    {hasWinningCoupon && (
-                      <span className="mt-1 block text-[11px] font-bold uppercase tracking-wide text-acid/70">
-                        🎉 Winner price — {luckyCoupon.code} • ⏳ {remainingStr}
-                      </span>
-                    )}
                   </span>
                 </label>
 
-                {/* not winner — spin teaser inside selector */}
-                {!hasWinningCoupon && !isCouponExpired && (
-                  <div className="rounded-xl border border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40 p-4">
-                    <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Feeling lucky?</p>
-                    <p className="mt-1 text-sm font-bold text-white">
-                      Spin the rainbow wheel for a jackpot celebration on this bundle
-                    </p>
-                    <p className="mt-1 text-xs text-white/50">
-                      Both add-ons are <b className="text-white">$9 + $12</b> <span className="line-through">($25 + $29)</span> — spin for your code, countdown & confetti.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => onOpenWheel?.()}
-                      className="cta mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-4 py-2.5 text-xs font-black uppercase tracking-widest text-white shadow-[0_6px_20px_rgba(124,92,255,0.35)]"
-                    >
-                      <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-ink text-sm">🎡</span>
-                      Spin the wheel for a free discount
-                    </button>
-                    <p className="mt-2 text-center text-[10px] uppercase tracking-widest text-white/25">
-                      342 spinning now • 5 sec • no email
-                    </p>
-                  </div>
-                )}
               </div>
             </section>
 
@@ -444,26 +269,9 @@ export default function Checkout({
               <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
             </section>
 
-            <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
-              <StockBar />
-            </section>
-
-            {/* wheel teaser if not won - desktop */}
-            {!hasWinningCoupon && !isCouponExpired && (
-              <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
-                <LuckyWheelButton onClick={() => onOpenWheel?.()} className="w-full justify-center" small />
-                <p className="mt-2 text-center text-xs text-white/40">Free 5 sec spin — no email needed</p>
-              </section>
-            )}
-
             <section className="hidden rounded-xl border border-acid/40 bg-acid/5 p-5 text-[13px] leading-relaxed text-white/70 lg:block">
               <p className="font-display text-lg text-acid">WHAT HAPPENS NEXT</p>
               Stripe processes the payment securely inside this page. After payment, your order is verified server-side and your private downloads unlock from protected storage.
-              {hasWinningCoupon && (
-                <span className="mt-2 block rounded-lg border border-acid/30 bg-acid/10 px-3 py-2 text-acid font-bold">
-                  🎉 Jackpot {luckyCoupon.code} — your two add-ons are highlighted as winner picks below. Keep them checked to claim the $33 savings celebration!
-                </span>
-              )}
             </section>
           </aside>
 
@@ -473,23 +281,6 @@ export default function Checkout({
               <b className="text-acid">Next:</b> enter your email and payment details securely with Stripe.
             </div>
             <EmbeddedStripeCheckout items={items} bundleId={bundleId} />
-            {/* mobile wheel button */}
-            {!hasWinningCoupon && !isCouponExpired && (
-              <div className="lg:hidden">
-                <button
-                  type="button"
-                  onClick={() => onOpenWheel?.()}
-                  className="w-full rounded-xl border border-white/10 bg-panel p-4 text-left"
-                >
-                  <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-acid">
-                    <span className="grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white text-xs">🎡</span>
-                    Feeling lucky? Take a free spin
-                  </p>
-                  <p className="mt-1 text-sm font-bold text-white">Unlock the jackpot celebration for both add-ons</p>
-                  <p className="mt-1 text-xs text-white/40">Rainbow wheel • Free spin • ⏳ 15 min</p>
-                </button>
-              </div>
-            )}
           </section>
         </div>
       </div>
@@ -566,11 +357,6 @@ function OrderSummaryRows({
         <span className="font-display text-xl uppercase">Total</span>
         <span className="font-display text-3xl text-acid">${total.toFixed(2)}</span>
       </div>
-      {hasWinningCoupon && (
-        <p className="text-center text-[11px] leading-snug text-acid/70 font-bold">
-          Winner celebration active — keep both boxes checked to claim your bundle
-        </p>
-      )}
     </div>
   );
 }

@@ -26,7 +26,6 @@ import type { ReactNode } from "react";
 import type { EmotionalMode } from "./types";
 
 export type SlotKey =
-  | "alertBar"
   | "heroEyebrow"
   | "heroSub"
   | "ctaLabel"
@@ -48,14 +47,6 @@ export type SlotKey =
 type SlotVariants = { default: ReactNode } & Partial<Record<EmotionalMode, ReactNode>>;
 
 export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
-  /* — top alert strip — */
-  alertBar: {
-    default: "Founder pricing ends when the timer hits zero",
-    calm: "Founder pricing is still open — take your time",
-    aspire: "Built by an indie artist — priced for indie artists",
-    urgency: "Founder pricing ends at zero — then it's $49",
-  },
-
   /* — hero eyebrow badge — */
   heroEyebrow: {
     default: "For unsigned artists, producers & podcasters who are done being ignored",
@@ -112,10 +103,10 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
 
   /* — trust line under the hero CTA — */
   ctaTrust: {
-    default: "30-day refund guarantee · One-time payment",
-    calm: "30-day refund guarantee · No pressure, no lock-in",
-    aspire: "30-day refund guarantee · Join 1,940+ artists",
-    urgency: "30-day refund guarantee · Price returns to $49",
+    default: "🔒 Stripe checkout · Instant download · 30-day refund",
+    calm: "🔒 Stripe checkout · Instant download · 30-day refund",
+    aspire: "🔒 Stripe checkout · Instant download · Join 1,940+ artists",
+    urgency: "🔒 Stripe checkout · Instant download · Price returns to $49",
   },
 
   /* — problem section label — */

@@ -81,9 +81,9 @@ export function Upsell1({
           <span className="text-blood">NOW WHO WRITES THE PITCH?</span>
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-[1.05rem] leading-[1.62] text-white/75 sm:text-lg">
-          18,020 contacts are worthless if your email gets deleted in 1.4 seconds. Add the{" "}
+          18,000+ contacts are worthless if your email gets deleted in 1.4 seconds. Add the{" "}
           <span className="hl font-semibold">AIRPLAY ACCELERATOR</span> — the scripts, the
-          campaign calendar, the follow-ups, and 4,800 bonus curator contacts.
+          campaign calendar, the follow-ups, and 4,812 bonus curator contacts.
         </p>
 
         <div className="mt-8 flex justify-center">
@@ -123,7 +123,7 @@ export function Upsell1({
 
           <button
             onClick={decline}
-            className="mt-5 block w-full text-[12px] leading-relaxed text-white/25 underline underline-offset-4 hover:text-white/45"
+            className="mt-5 block w-full text-[12px] leading-relaxed text-white/45 underline underline-offset-4 hover:text-white/75"
           >
             No thanks — I'll figure out what to write on my own and hope the program director doesn't delete it
           </button>
@@ -408,9 +408,9 @@ export function Upsell2({
 
         <button
           onClick={decline}
-          className="mt-5 block w-full text-[12px] leading-relaxed text-white/25 underline underline-offset-4 hover:text-white/45"
-        >
-          No thanks — I'll keep applying to Upwork jobs with a generic proposal and wondering why nobody replies
+            className="mt-5 block w-full text-[12px] leading-relaxed text-white/45 underline underline-offset-4 hover:text-white/75"
+          >
+            No thanks — I'll keep applying to Upwork jobs with a generic proposal and wondering why nobody replies
         </button>
 
         <p className="mt-6 text-center text-[11px] text-white/25">
@@ -475,7 +475,7 @@ export function Upsell3({
         </h1>
 
         <p className="mx-auto mt-5 max-w-2xl text-center font-serif text-lg text-white/75">
-          You're about to email 18,020 program directors. The first thing most of them do is{" "}
+          You're about to email 18,000+ program directors. The first thing most of them do is{" "}
           <b className="text-white">look at your cover art</b>. Amateur type is the fastest way to
           get filed under "bedroom project." Grab{" "}
           <span className="hl font-semibold">20,000 professional fonts</span> — one download,
@@ -571,9 +571,9 @@ export function Upsell3({
 
         <button
           onClick={decline}
-          className="mt-5 block w-full text-[12px] leading-relaxed text-white/25 underline underline-offset-4 hover:text-white/45"
-        >
-          No thanks — I'll keep making covers in the default font and hope nobody notices
+            className="mt-5 block w-full text-[12px] leading-relaxed text-white/45 underline underline-offset-4 hover:text-white/75"
+          >
+            No thanks — I'll keep making covers in the default font and hope nobody notices
         </button>
 
         <p className="mt-6 text-center text-[11px] text-white/25">
@@ -644,7 +644,7 @@ export function Downsell({
           </button>
           <button
             onClick={decline}
-            className="mt-5 block w-full text-[12px] text-white/25 underline underline-offset-4 hover:text-white/45"
+            className="mt-5 block w-full text-[12px] text-white/45 underline underline-offset-4 hover:text-white/75"
           >
             No — I'm certain I want to send cold emails with no template and no plan
           </button>
