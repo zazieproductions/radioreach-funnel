@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { FlipClock, LiveViewers, Stars, StockBar } from "./ui";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
+import LuckySpin, { SPIN_TOTAL_OFF } from "./LuckySpin";
 import { PRODUCTS } from "../config/storefront";
-import { track } from "../lib/metaPixel";
+import { track, trackCustom } from "../lib/metaPixel";
 import { getMomentumAttribution } from "../lib/momentumSequence";
 
 export type Addons = { contracts: boolean; au: boolean };
@@ -13,10 +14,42 @@ const BASE = PRODUCTS.vault_core.price;
 const CONTRACTS_PRICE = PRODUCTS.contract_bundle.price;
 const AU_PRICE = PRODUCTS.australia_addon.price;
 
+const SPIN_KEY = "rr_spin_claimed";
+
+function spinClaimedThisSession(): boolean {
+  try {
+    return sessionStorage.getItem(SPIN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
 export default function Checkout({ onComplete }: Props) {
   const [contracts, setContracts] = useState(true);
   const [au, setAu] = useState(true);
+  const [spinClaimed, setSpinClaimed] = useState(spinClaimedThisSession);
+  const [spinOpen, setSpinOpen] = useState(false);
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
+
+  // Temu-style: pop the lucky wheel shortly after checkout loads, once per
+  // session. The "prize" is the session discount on the add-ons — the wheel
+  // just makes it feel won. Prices and Stripe price IDs are untouched.
+  useEffect(() => {
+    if (spinClaimed) return;
+    const t = window.setTimeout(() => setSpinOpen(true), 1200);
+    return () => window.clearTimeout(t);
+  }, [spinClaimed]);
+
+  const claimSpin = () => {
+    try {
+      sessionStorage.setItem(SPIN_KEY, "1");
+    } catch {
+      // Private mode — prize stays visible for this render anyway.
+    }
+    setSpinClaimed(true);
+    setSpinOpen(false);
+    trackCustom("lucky_spin_claim", { value: SPIN_TOTAL_OFF });
+  };
 
   const total = BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0);
   const saved = 29 + (contracts ? 16 : 0) + (au ? 17 : 0);
@@ -61,6 +94,19 @@ export default function Checkout({ onComplete }: Props) {
             <FlipClock seconds={597} />
           </div>
           <LiveViewers />
+
+          <button
+            type="button"
+            onClick={() => setSpinOpen(true)}
+            className={`pressable mt-1 flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-black uppercase tracking-wider sm:text-[12px] ${
+              spinClaimed
+                ? "border border-white/15 bg-panel text-white/55 hover:text-acid"
+                : "border-2 border-acid/70 bg-acid/10 text-acid"
+            }`}
+          >
+            <span aria-hidden>🎁</span>
+            {spinClaimed ? "Spin prize applied — view your win" : "You've been selected — spin for your discount"}
+          </button>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
@@ -69,7 +115,9 @@ export default function Checkout({ onComplete }: Props) {
             <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <p className="font-display text-2xl">YOUR ORDER</p>
               <p className="mt-1 text-sm text-white/55">
-                Select the bundles you want. Checkout updates instantly and stays on-page.
+                {spinClaimed
+                  ? "Your lucky-spin prize is applied to the bundles below — keep them checked to keep it."
+                  : "Select the bundles you want. Checkout updates instantly and stays on-page."}
               </p>
 
               <div className="mt-5 grid gap-3">
@@ -116,6 +164,7 @@ export default function Checkout({ onComplete }: Props) {
                     <span className="block text-sm mt-2">
                       <span className="mr-2 text-white/35 line-through">${PRODUCTS.contract_bundle.compareAt}</span>
                       <b className="text-acid">${PRODUCTS.contract_bundle.price.toFixed(2)}</b>
+                      {spinClaimed && <span className="ml-2 rounded bg-acid/20 px-1.5 py-0.5 align-middle text-[9px] font-black uppercase tracking-wider text-acid">🎁 spin prize</span>}
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Saved me from a nightmare split deal." — Jordan Meacham</span>
                   </div>
@@ -135,11 +184,19 @@ export default function Checkout({ onComplete }: Props) {
                     <span className="block text-sm">
                       <span className="mr-2 text-white/35 line-through">${PRODUCTS.australia_addon.compareAt}</span>
                       <b className="text-acid">${PRODUCTS.australia_addon.price.toFixed(2)}</b>
+                      {spinClaimed && <span className="ml-2 rounded bg-acid/20 px-1.5 py-0.5 align-middle text-[9px] font-black uppercase tracking-wider text-acid">🎁 spin prize</span>}
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." — Dee R.</span>
                   </span>
                 </label>
               </div>
+
+              {spinClaimed && (!contracts || !au) && (
+                <p className="mt-3 rounded-lg border border-blood/40 bg-blood/10 px-3 py-2 text-[12px] leading-relaxed text-white/70">
+                  ⚠️ You're giving back part of your spin prize — the discount
+                  only stays in your order while the bundle is checked.
+                </p>
+              )}
             </section>
 
             <details className="group overflow-hidden rounded-xl border border-white/10 bg-panel lg:hidden">
@@ -153,7 +210,7 @@ export default function Checkout({ onComplete }: Props) {
                 </span>
               </summary>
               <div className="border-t border-white/10 p-4">
-                <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} />
+                <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} won={spinClaimed} />
               </div>
             </details>
 
@@ -167,7 +224,7 @@ export default function Checkout({ onComplete }: Props) {
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
               <p className="mb-4 font-display text-xl uppercase">Order summary</p>
-              <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} />
+              <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} won={spinClaimed} />
             </section>
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
@@ -194,6 +251,14 @@ export default function Checkout({ onComplete }: Props) {
       <button type="button" onClick={() => onComplete(total, { contracts, au })} className="sr-only">
         sync
       </button>
+
+      {spinOpen && (
+        <LuckySpin
+          alreadyWon={spinClaimed}
+          onClaim={claimSpin}
+          onClose={() => setSpinOpen(false)}
+        />
+      )}
     </div>
   );
 }
@@ -203,11 +268,14 @@ function OrderSummaryRows({
   au,
   saved,
   total,
+  won = false,
 }: {
   contracts: boolean;
   au: boolean;
   saved: number;
   total: number;
+  /** Lucky-spin prize claimed this session — tag the add-ons. */
+  won?: boolean;
 }) {
   return (
     <div className="space-y-3 text-[15px]">
@@ -222,6 +290,7 @@ function OrderSummaryRows({
           was={`$${PRODUCTS.contract_bundle.compareAt}`}
           now={`$${PRODUCTS.contract_bundle.price.toFixed(2)}`}
           accent
+          badge={won ? "🎁 spin" : undefined}
         />
       )}
       {au && (
@@ -230,6 +299,7 @@ function OrderSummaryRows({
           was={`$${PRODUCTS.australia_addon.compareAt}`}
           now={`$${PRODUCTS.australia_addon.price.toFixed(2)}`}
           accent
+          badge={won ? "🎁 spin" : undefined}
         />
       )}
       <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
@@ -248,13 +318,14 @@ function OrderSummaryRows({
   );
 }
 
-function SummaryRow({ label, was, now, accent }: { label: string; was?: string; now: string; accent?: boolean }) {
+function SummaryRow({ label, was, now, accent, badge }: { label: string; was?: string; now: string; accent?: boolean; badge?: string }) {
   return (
     <div className="flex items-start justify-between gap-4">
       <span className={accent ? "text-acid" : "text-white/75"}>{label}</span>
       <span className="shrink-0 whitespace-nowrap">
         {was && <span className="mr-2 text-white/30 line-through">{was}</span>}
         <b>{now}</b>
+        {badge && <span className="ml-1.5 rounded bg-acid/20 px-1 py-0.5 align-middle text-[9px] font-black uppercase text-acid">{badge}</span>}
       </span>
     </div>
   );
