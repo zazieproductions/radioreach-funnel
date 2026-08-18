@@ -60,7 +60,7 @@ function SecretSecondSpinCard({ onOpenWheel }: { onOpenWheel?: () => void }) {
         <div className="flex-1">
           <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-300 animate-pulse">ONE MORE SPIN — SECRET INSIDE</p>
           <p className="text-sm font-black leading-none text-white">You have one more chance!</p>
-          <p className="text-xs leading-none text-white/60">Hidden industry code — always wins on second spin</p>
+          <p className="text-xs leading-none text-white/60">Hidden industry code — spin to reveal</p>
         </div>
         <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-cyan-600">1 spin left</span>
       </div>
@@ -72,13 +72,13 @@ function SecretSecondSpinCard({ onOpenWheel }: { onOpenWheel?: () => void }) {
           </div>
           <span className="rounded-full bg-cyan-400 px-3 py-1.5 text-xs font-black uppercase tracking-widest text-ink">SHHH...</span>
         </div>
-        <p className="mt-1 text-[11px] font-bold text-cyan-200">PLAYLIST CAMPAIGN DISCOUNT • Reveals on second spin</p>
+        <p className="mt-1 text-[11px] font-bold text-cyan-200">PLAYLIST CAMPAIGN DISCOUNT</p>
       </div>
       <button type="button" onClick={() => onOpenWheel?.()} className="cta mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-[#7c5cff] to-[#00d4ff] px-4 py-3 text-xs font-black uppercase tracking-widest text-white shadow-[0_8px_24px_rgba(6,182,212,0.35)] hover:brightness-[1.08]">
         <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-ink text-sm">🎡</span>
         Spin Again — Reveal Secret Code →
       </button>
-      <p className="mt-2 text-center text-[10px] font-bold uppercase tracking-widest text-white/30">Always lands on <span className="text-cyan-300">SHHH... INDUSTRY SECRET</span> • FR2AZEF</p>
+      <p className="mt-2 text-center text-[10px] font-bold uppercase tracking-widest text-white/30">Mystery prize inside • Are you feeling lucky?</p>
     </div>
   );
 }
@@ -89,6 +89,7 @@ type Props = {
   onComplete: (total: number, addons: Addons) => void;
   luckyCoupon?: LuckyCoupon | null;
   onOpenWheel?: () => void;
+  onOpenWheelForSecret?: () => void;
 };
 
 const BASE = PRODUCTS.vault_core.price;
@@ -99,6 +100,7 @@ export default function Checkout({
   onComplete,
   luckyCoupon,
   onOpenWheel,
+  onOpenWheelForSecret,
 }: Props) {
   const [contracts, setContracts] = useState(true);
   const [au, setAu] = useState(true);
@@ -253,7 +255,7 @@ export default function Checkout({
 
             {/* second spin — secret code nudge at checkout — always visible after jackpot */}
             {hasWinningCoupon && luckyCoupon && (
-              <SecretSecondSpinCard onOpenWheel={onOpenWheel} />
+              <SecretSecondSpinCard onOpenWheel={onOpenWheelForSecret ?? onOpenWheel} />
             )}
 
             <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">

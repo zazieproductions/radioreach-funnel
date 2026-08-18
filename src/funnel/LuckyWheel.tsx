@@ -128,12 +128,14 @@ export function LuckyWheelModal({
   onWin,
   onClaim,
   existingCoupon,
+  initialMode,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onWin: (coupon: LuckyCoupon) => void;
   onClaim: () => void;
   existingCoupon?: LuckyCoupon | null;
+  initialMode?: "first" | "second";
 }) {
   const [phase, setPhase] = useState<Phase>("firstWheel");
   const [spinning, setSpinning] = useState(false);
@@ -152,7 +154,25 @@ export function LuckyWheelModal({
 
   useEffect(() => {
     if (isOpen) {
-      if (existingCoupon && existingCoupon.expiresAt > Date.now()) {
+      if (initialMode === "second" && existingCoupon && existingCoupon.expiresAt > Date.now()) {
+        try {
+          if (localStorage.getItem("rr_secret_playlist_revealed") === "1") {
+            setFirstCoupon(existingCoupon);
+            setPhase("secondWon");
+            setSpinning(false);
+            setRotation(0);
+            setWheelTransition("none");
+            setNowMs(Date.now());
+            return;
+          }
+        } catch {}
+        setFirstCoupon(existingCoupon);
+        setPhase("secondWheel");
+        setSpinning(false);
+        setRotation(0);
+        setWheelTransition("none");
+        setNowMs(Date.now());
+      } else if (existingCoupon && existingCoupon.expiresAt > Date.now()) {
         setFirstCoupon(existingCoupon);
         setPhase("firstWon");
         setSpinning(false);
@@ -170,7 +190,7 @@ export function LuckyWheelModal({
     } else {
       if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
     }
-  }, [isOpen, existingCoupon]);
+  }, [isOpen, existingCoupon, initialMode]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -602,7 +622,7 @@ export function LuckyWheelModal({
               >
                 Spin again — reveal secret →
               </button>
-              <p className="mt-2 text-center text-[11px] font-medium text-white/35">Always lands on <span className="font-bold text-cyan-300">SHHH... INDUSTRY SECRET</span></p>
+              <p className="mt-2 text-center text-[11px] font-medium text-white/35">Mystery prize awaits — spin to reveal</p>
             </div>
           </div>
         )}
