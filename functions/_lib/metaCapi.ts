@@ -38,6 +38,10 @@ export type CapiPurchase = {
   contentName: string;
   attribution?: Record<string, string>;
   eventSourceUrl?: string;
+  /** Meta click id (_fbc cookie / fb.1.<ts>.<fbclid>) captured at landing. */
+  fbc?: string | null;
+  /** Meta browser id (_fbp cookie) captured at landing. */
+  fbp?: string | null;
 };
 
 export async function sendCapiPurchase(env: Env, purchase: CapiPurchase): Promise<void> {
@@ -50,6 +54,11 @@ export async function sendCapiPurchase(env: Env, purchase: CapiPurchase): Promis
   if (purchase.email && purchase.email.includes("@")) {
     userData.em = [await sha256Hex(purchase.email.trim().toLowerCase())];
   }
+  // Click identifiers are the strongest signal Meta has for tying a
+  // conversion back to the ad that produced it. They are already opaque
+  // tokens, so they are sent as-is (never hashed) per Meta's spec.
+  if (purchase.fbc) userData.fbc = purchase.fbc;
+  if (purchase.fbp) userData.fbp = purchase.fbp;
   // Meta requires at least one user_data parameter.
   if (Object.keys(userData).length === 0) return;
 

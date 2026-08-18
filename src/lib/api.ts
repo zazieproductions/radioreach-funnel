@@ -1,11 +1,20 @@
 import type { ProductKey } from "../config/storefront";
 import type { MomentumAttribution } from "./momentumSequence";
+import { getMetaClickIds, getTrafficContext } from "./traffic";
+
+export type MetaAttribution = {
+  fbc: string;
+  fbp: string;
+  fbclid: string;
+  platform: string;
+};
 
 export type CheckoutSelection = {
   items: ProductKey[];
   bundleId: string;
   utm: Record<string, string>;
   momentum: MomentumAttribution;
+  meta?: MetaAttribution;
 };
 
 export type CreateSessionResponse =
@@ -56,6 +65,18 @@ export async function createDownloadLinks(token: string) {
     items: Array<{ key: string; name: string; downloadUrl: string; expiresAt: string }>;
     errors?: Array<{ name: string; error: string }>;
   };
+}
+
+/**
+ * Meta click identifiers, carried to Stripe metadata so the server-side
+ * Conversions API Purchase can be matched back to the ad click. Without
+ * fbc/fbp the CAPI event matches on hashed email alone, which measurably
+ * lowers Event Match Quality — and therefore delivery.
+ */
+export function collectMeta(): MetaAttribution {
+  const { fbc, fbp, fbclid } = getMetaClickIds();
+  const { platform } = getTrafficContext();
+  return { fbc, fbp, fbclid, platform };
 }
 
 export function collectUtm() {

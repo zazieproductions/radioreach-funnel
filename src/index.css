@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Anton", system-ui, sans-serif;
-  --font-serif: "Domine", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  /* Fallbacks are metric-sympathetic on purpose: Anton is a condensed
+     display face, so the fallback stack is condensed too. The headline
+     paints immediately and the swap to Anton barely moves anything. */
+  --font-display: "Anton", "Arial Narrow", "Haettenschweiler", "Impact", system-ui, sans-serif;
+  --font-serif: "Domine", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --color-ink: #08080a;
   --color-panel: #101014;
   --color-acid: #ffe600;
@@ -458,5 +461,151 @@ summary {
   .cta {
     font-size: 1.05rem;
     padding-inline: 0.9rem;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   MOBILE IMPULSE LAYER
+   One-handed, cold-traffic ergonomics. Same brand,
+   fewer obstacles between "what is this" and "bought".
+───────────────────────────────────────────── */
+
+/* Skeletons: structure appears instantly, content fills in.
+   A visitor who sees a shape waits; a visitor who sees a blank leaves. */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #16161c;
+  border-radius: 10px;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  animation: skeletonSweep 1.25s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+  }
+}
+@keyframes skeletonSweep {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Thumb-zone buy bar. The scrim stops content colliding with the bar
+   on scroll, so the primary action always reads as a separate layer. */
+.buy-bar {
+  box-shadow: 0 -18px 34px -20px rgba(0, 0, 0, 0.95);
+}
+.buy-bar::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 100% 0;
+  height: 26px;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(8, 8, 10, 0.92), rgba(8, 8, 10, 0));
+}
+
+/* Value chips under the hero — scannable in one pass, no reading required. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.3rem 0.6rem;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.78);
+  white-space: nowrap;
+}
+.chip--acid {
+  border-color: rgba(255, 230, 0, 0.35);
+  background: rgba(255, 230, 0, 0.08);
+  color: #ffe600;
+}
+
+/* Horizontal card rails (proof, add-ons) — swipe instead of scroll-for-days. */
+.rail {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+.rail > * {
+  scroll-snap-align: center;
+  flex: 0 0 86%;
+  max-width: 22rem;
+}
+@media (min-width: 640px) {
+  .rail {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    overflow: visible;
+  }
+  .rail > * {
+    flex: initial;
+    max-width: none;
+  }
+}
+
+/* Tap feedback on non-CTA surfaces: nothing should feel dead under a thumb. */
+@media (hover: none) {
+  .pressable:active,
+  label:active {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* The buy bar owns the bottom of the screen; keep the last section clear. */
+.pb-buybar {
+  padding-bottom: calc(7.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 1024px) {
+  .pb-buybar {
+    padding-bottom: 4rem;
+  }
+}
+
+/* Anything that animates in below the fold should never block the paint. */
+@media (max-width: 639.98px) {
+  /* One-handed reach: primary actions stay full-width and finger-sized. */
+  .cta {
+    min-height: 54px;
+  }
+
+  /* Section rhythm: cold traffic scrolls fast, so sections need to end
+     visibly rather than blur into one another. */
+  section + section {
+    scroll-margin-top: 4.5rem;
+  }
+
+  /* Kill sub-pixel jitter on the sticky layers during momentum scroll. */
+  header.sticky,
+  .buy-bar {
+    transform: translateZ(0);
+    will-change: transform;
   }
 }

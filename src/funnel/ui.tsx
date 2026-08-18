@@ -67,6 +67,27 @@ export function FlipClock({ seconds = 897, size = "md" }: { seconds?: number; si
   );
 }
 
+/** Single-line countdown for tight mobile rows. Same shared deadline. */
+export function InlineCountdown({
+  seconds = 897,
+  className = "",
+}: {
+  seconds?: number;
+  className?: string;
+}) {
+  const { h, m, s, pad } = useCountdown(seconds);
+  return (
+    <span
+      className={`tnum ${className}`}
+      role="timer"
+      aria-live="off"
+      aria-label={`${h} hours ${m} minutes ${s} seconds remaining`}
+    >
+      {pad(h)}:{pad(m)}:{pad(s)}
+    </span>
+  );
+}
+
 /* ─────────────────────────────────────────────
    STATIC URGENCY STRIP (no marquee, no overflow)
 ───────────────────────────────────────────── */
@@ -84,6 +105,42 @@ export function Ticker() {
           <li key={t} className={index === 0 ? "" : "hidden sm:list-item"}>{t}</li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   PAYMENT / TRUST BADGES
+   Cold traffic has never heard of this brand. Naming the rails
+   they already trust (Stripe, Apple Pay, the card networks) does
+   more for a $20 impulse buy than another paragraph of copy.
+───────────────────────────────────────────── */
+
+const CARD_BADGES = ["VISA", "MASTERCARD", "AMEX", "APPLE PAY", "GOOGLE PAY"];
+
+export function PaymentBadges({ className = "" }: { className?: string }) {
+  return (
+    <div className={`flex flex-wrap items-center justify-center gap-1.5 ${className}`}>
+      <span className="chip chip--acid" aria-label="Secured by Stripe">
+        <span aria-hidden>🔒</span> STRIPE
+      </span>
+      {CARD_BADGES.map((b) => (
+        <span key={b} className="chip">
+          {b}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/** The three facts that answer "what do I actually get" in one glance. */
+export function ValueChips({ className = "" }: { className?: string }) {
+  return (
+    <div className={`flex flex-wrap items-center justify-center gap-1.5 ${className}`}>
+      <span className="chip chip--acid">18,000+ contacts</span>
+      <span className="chip">Instant download</span>
+      <span className="chip">One-time $20</span>
+      <span className="chip">30-day refund</span>
     </div>
   );
 }
@@ -253,7 +310,10 @@ export function StickyBar({
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
-      const threshold = window.matchMedia("(max-width: 639px)").matches ? 380 : 700;
+      // Mobile: surface the buy control almost immediately. A cold visitor
+      // who decides in 15 seconds should never have to hunt for the button
+      // or scroll back up to it. Desktop keeps the later, calmer threshold.
+      const threshold = window.matchMedia("(max-width: 639px)").matches ? 120 : 700;
       raf = requestAnimationFrame(() => setShow(window.scrollY > threshold));
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -266,34 +326,45 @@ export function StickyBar({
 
   return (
     <div
-      className={`mobile-solid safe-b fixed inset-x-0 bottom-0 z-50 border-t border-acid/40 bg-ink/98 backdrop-blur transition-transform duration-200 ${
+      className={`buy-bar mobile-solid safe-b fixed inset-x-0 bottom-0 z-50 border-t border-acid/40 bg-ink/98 backdrop-blur transition-transform duration-200 ${
         show ? "pointer-events-auto translate-y-0" : "pointer-events-none translate-y-full"
       }`}
       aria-hidden={!show}
     >
-      <div className="mx-auto flex max-w-5xl items-center gap-2.5 px-3 py-2 sm:gap-3 sm:py-2.5">
-        <div className="hidden shrink-0 sm:block">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-blood">Founder price ends in</p>
-          <FlipClock seconds={897} size="sm" />
+      <div className="mx-auto max-w-5xl px-3 pt-2 sm:py-2.5">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Desktop: full clock. */}
+          <div className="hidden shrink-0 sm:block">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-blood">Founder price ends in</p>
+            <FlipClock seconds={897} size="sm" />
+          </div>
+
+          {/* Mobile: price first, timer second — the two numbers that decide it. */}
+          <div className="flex shrink-0 flex-col justify-center sm:hidden">
+            <p className="font-display text-[1.15rem] leading-none text-acid">
+              <span className="mr-1 align-middle text-[0.72em] text-white/35 line-through">$49</span>
+              $20
+            </p>
+            <p className="mt-1 flex items-center gap-1 text-[9.5px] font-bold uppercase tracking-wider text-blood">
+              <span aria-hidden>⏳</span>
+              <InlineCountdown seconds={897} className="text-white/70" />
+            </p>
+          </div>
+
+          <div className="min-w-0 flex-1 sm:ml-auto sm:flex-none">
+            <button
+              onClick={onCta}
+              tabIndex={show ? 0 : -1}
+              className="cta w-full rounded-lg bg-acid px-4 py-3 font-display text-[1.02rem] uppercase leading-tight tracking-wide text-ink sm:w-auto sm:px-8 sm:py-3.5 sm:text-lg"
+            >
+              {label}
+            </button>
+          </div>
         </div>
-        <div className="hidden shrink-0 flex-col justify-center min-[400px]:flex sm:hidden">
-          <p className="text-[9px] font-bold uppercase tracking-wider text-blood">Ends in</p>
-          <p className="tnum font-display text-sm leading-none text-acid">
-            <span className="line-through opacity-50">$49</span> $20
-          </p>
-        </div>
-        <div className="min-w-0 flex-1 sm:ml-auto sm:flex-none">
-          <button
-            onClick={onCta}
-            tabIndex={show ? 0 : -1}
-            className="cta w-full rounded-lg bg-acid px-4 py-3 font-display text-[0.98rem] uppercase leading-tight tracking-wide text-ink sm:w-auto sm:px-8 sm:py-3.5 sm:text-lg"
-          >
-            {label}
-          </button>
-          <p className="mt-1 text-center text-[10px] text-white/45">
-            <span className="line-through">$49</span> · instant download · 30-day refund
-          </p>
-        </div>
+
+        <p className="mt-1.5 pb-0.5 text-center text-[10px] leading-none text-white/45 sm:mt-1">
+          Instant download · 30-day refund · Secure Stripe checkout
+        </p>
       </div>
     </div>
   );

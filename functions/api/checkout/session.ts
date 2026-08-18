@@ -4,6 +4,13 @@ import { getStripe } from "../../_lib/stripe";
 
 type MomentumInput = Record<string, unknown>;
 
+/** Stripe caps metadata values at 500 characters. */
+function metaValue(input: unknown, max = 400) {
+  const value = typeof input === "string" ? input : "";
+  // Click ids are opaque tokens; keep them intact but never unbounded.
+  return value.replace(/[^\w.\-:%+@]/g, "").slice(0, max);
+}
+
 function normalizeMomentum(input?: MomentumInput) {
   const status = String(input?.sequence_status || "");
   const steps = String(input?.sequence_steps || "0");
@@ -36,6 +43,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       bundleId?: string;
       utm?: Record<string, string>;
       momentum?: MomentumInput;
+      meta?: Record<string, unknown>;
     };
 
     const items = Array.isArray(body.items) ? body.items : [];
@@ -62,6 +70,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       utm_campaign: body.utm?.utm_campaign || "",
       utm_term: body.utm?.utm_term || "",
       utm_content: body.utm?.utm_content || "",
+      // Meta click identifiers — replayed by the webhook into the
+      // Conversions API so the purchase matches back to the ad click.
+      fbc: metaValue(body.meta?.fbc),
+      fbp: metaValue(body.meta?.fbp),
+      fbclid: metaValue(body.meta?.fbclid, 255),
+      meta_platform: metaValue(body.meta?.platform, 24),
       ...momentum,
     };
     const session = await stripe.checkout.sessions.create({

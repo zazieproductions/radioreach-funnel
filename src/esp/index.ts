@@ -53,6 +53,19 @@ export function initEsp(): () => void {
   const flag = readEspFlag();
   if (!flag.enabled) return () => {};
 
+  // Copy adaptation is a nice-to-have; the offer is not. Any environment
+  // this fails in (exotic webviews, missing observers, blocked storage)
+  // must still render and sell, so failure is contained here.
+  try {
+    return startEsp(flag);
+  } catch (error) {
+    if (flag.debug) console.warn("[esp] disabled after init failure", error);
+    return () => {};
+  }
+}
+
+function startEsp(flag: ReturnType<typeof readEspFlag>): () => void {
+
   setDebugEnabled(flag.debug);
   espStore.setForced(flag.forced);
 

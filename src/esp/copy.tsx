@@ -28,6 +28,7 @@ import type { EmotionalMode } from "./types";
 export type SlotKey =
   | "heroEyebrow"
   | "heroSub"
+  | "heroSubShort"
   | "ctaLabel"
   | "ctaTrust"
   | "problemLabel"
@@ -89,6 +90,36 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         <span className="font-semibold text-white">generic submission form</span> while{" "}
         <span className="font-bold text-acid">18,000+ radio station contacts</span> sit organized
         by station, location, role, phone, and email — and the founder price is still $20.
+      </>
+    ),
+  },
+
+  /* — hero subheadline, mobile — the same promise in one breath.
+       Cold ad traffic reads roughly one line before deciding to scroll,
+       so the phone version states the offer, not the story. — */
+  heroSubShort: {
+    default: (
+      <>
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> — program
+        directors, music directors, emails, phones. Skip the submission form.
+      </>
+    ),
+    calm: (
+      <>
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> in one file.
+        No platform, no subscription, no monthly bill.
+      </>
+    ),
+    aspire: (
+      <>
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> — the people
+        who decide what actually gets played.
+      </>
+    ),
+    urgency: (
+      <>
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> for $20 while
+        the founder price holds. It returns to $49.
       </>
     ),
   },

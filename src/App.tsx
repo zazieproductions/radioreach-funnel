@@ -1,12 +1,19 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import SalesPage from "./funnel/SalesPage";
 import type { Addons } from "./funnel/Checkout";
 import type { Stage } from "./funnel/FunnelNav";
-import { trackTipFromReturnUrl } from "./lib/metaPixel";
+import { trackAddToCart, trackTipFromReturnUrl, trackViewContent } from "./lib/metaPixel";
+import { PRODUCTS } from "./config/storefront";
 import { loadLuckyCoupon, type LuckyCoupon, clearLuckyCoupon } from "./lib/luckyCoupon";
-import { LuckyWheelModal } from "./funnel/LuckyWheel";
 
-const Checkout = lazy(() => import("./funnel/Checkout"));
+// The wheel is an opt-in detour: load it only when someone asks for it.
+const LuckyWheelModal = lazy(() =>
+  import("./funnel/LuckyWheel").then((m) => ({ default: m.LuckyWheelModal }))
+);
+
+const importCheckout = () => import("./funnel/Checkout");
+
+const Checkout = lazy(importCheckout);
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
 
 const Upsell1 = lazy(() =>
@@ -22,12 +29,28 @@ const ThankYou = lazy(() =>
   import("./funnel/Upsells").then((m) => ({ default: m.ThankYou }))
 );
 
+/**
+ * Checkout-shaped skeleton instead of a spinner.
+ *
+ * The gap between "tapped buy" and "sees a payment form" is where impulse
+ * purchases die. Showing the layout immediately makes the wait feel like
+ * loading rather than breaking, and it matches where the real content lands.
+ */
 function LoadingScreen() {
   return (
-    <div className="min-h-screen grid place-items-center bg-ink text-white">
-      <div className="text-center">
-        <div className="mx-auto h-7 w-7 animate-spin rounded-full border-2 border-white/20 border-t-white" />
-        <p className="mt-3 text-sm text-white/60">Loading…</p>
+    <div className="min-h-screen bg-ink px-4 pt-6" role="status" aria-live="polite">
+      <span className="sr-only">Loading secure checkout…</span>
+      <div className="mx-auto max-w-6xl">
+        <div className="skeleton mx-auto h-6 w-56" />
+        <div className="skeleton mx-auto mt-3 h-4 w-40" />
+        <div className="mt-6 grid gap-4 lg:grid-cols-[0.92fr_1.08fr]">
+          <div className="space-y-3">
+            <div className="skeleton h-24 w-full" />
+            <div className="skeleton h-16 w-full" />
+            <div className="skeleton h-16 w-full" />
+          </div>
+          <div className="skeleton h-[420px] w-full" />
+        </div>
       </div>
     </div>
   );
@@ -54,10 +77,101 @@ export default function App() {
     }
   });
   const [isWheelOpen, setIsWheelOpen] = useState(false);
+  const prefetched = useRef(false);
+
+  /**
+   * Warm the checkout chunk (and, through it, Stripe.js) once the hero has
+   * had the network to itself. By the time a visitor taps "buy" the code is
+   * already parsed, so the payment form appears in one frame instead of two
+   * round trips.
+   */
+  useEffect(() => {
+    if (routeSuccess) return;
+    const warm = () => {
+      if (prefetched.current) return;
+      prefetched.current = true;
+      void importCheckout();
+    };
+    const idle =
+      typeof window.requestIdleCallback === "function"
+        ? window.requestIdleCallback.bind(window)
+        : undefined;
+    const handle = idle
+      ? idle(warm, { timeout: 3500 })
+      : window.setTimeout(warm, 2500);
+    return () => {
+      if (idle && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(handle as number);
+      } else {
+        window.clearTimeout(handle as number);
+      }
+    };
+  }, [routeSuccess]);
+
+  /**
+   * ViewContent for Meta. PageView alone tells the optimizer nothing about
+   * intent or value; this is the event that lets a cold-traffic campaign
+   * learn who is worth showing the ad to.
+   */
+  useEffect(() => {
+    if (routeSuccess) return;
+    trackViewContent({
+      value: PRODUCTS.vault_core.price,
+      contentIds: ["vault_core"],
+      contentName: PRODUCTS.vault_core.shortName,
+    });
+  }, [routeSuccess]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage, routeSuccess]);
+
+  /**
+   * Give the funnel real history entries.
+   *
+   * Inside the Facebook / Instagram webview the back gesture is how people
+   * navigate. Without this, one back swipe from checkout throws the visitor
+   * out of the site entirely instead of returning them to the offer.
+   */
+  useEffect(() => {
+    const onPop = (event: PopStateEvent) => {
+      if (window.location.hash.startsWith("#/success")) {
+        window.location.reload();
+        return;
+      }
+      const state = event.state as { rrStage?: Stage } | null;
+      setStage(state?.rrStage ?? "sales");
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  const goStage = useCallback((next: Stage) => {
+    setStage(next);
+    try {
+      if (next === "sales") {
+        window.history.pushState({ rrStage: "sales" }, "", "#top");
+      } else {
+        window.history.pushState({ rrStage: next }, "", `#${next}`);
+      }
+    } catch {
+      /* history unavailable — state navigation still works */
+    }
+  }, []);
+
+  /** Every path into checkout goes through here, so intent is measured once. */
+  const goCheckout = useCallback(
+    (label = "cta") => {
+      trackAddToCart({
+        value: PRODUCTS.vault_core.price,
+        contentIds: ["vault_core"],
+        contentName: PRODUCTS.vault_core.shortName,
+        ctaLabel: label,
+      });
+      goStage("checkout");
+    },
+    [goStage]
+  );
 
   // Track completed tips (Stripe redirects back with ?tip=thanks&…).
   useEffect(() => {
@@ -94,7 +208,7 @@ export default function App() {
 
   const handleWheelClaim = () => {
     setIsWheelOpen(false);
-    setStage("checkout");
+    goCheckout("lucky_wheel");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -107,7 +221,7 @@ export default function App() {
       case "sales":
         return (
           <SalesPage
-            onCta={() => setStage("checkout")}
+            onCta={(label) => goCheckout(label)}
             luckyCoupon={luckyCoupon}
             onOpenWheel={() => openWheel()}
             onClaimWheel={handleWheelClaim}
@@ -123,6 +237,7 @@ export default function App() {
             }}
             luckyCoupon={luckyCoupon}
             onOpenWheel={() => openWheel()}
+            onBack={() => goStage("sales")}
           />
         );
 
@@ -131,9 +246,9 @@ export default function App() {
           <Upsell1
             onAccept={(p) => {
               setTotal((t) => t + p);
-              setStage("oto2");
+              goStage("oto2");
             }}
-            onDecline={() => setStage("oto2")}
+            onDecline={() => goStage("oto2")}
           />
         );
 
@@ -143,9 +258,9 @@ export default function App() {
             onAccept={(p) => {
               setTotal((t) => t + p);
               setHasUpwork(true);
-              setStage("thanks");
+              goStage("thanks");
             }}
-            onDecline={() => setStage("downsell")}
+            onDecline={() => goStage("downsell")}
           />
         );
 
@@ -154,9 +269,9 @@ export default function App() {
           <Downsell
             onAccept={(p) => {
               setTotal((t) => t + p);
-              setStage("thanks");
+              goStage("thanks");
             }}
-            onDecline={() => setStage("thanks")}
+            onDecline={() => goStage("thanks")}
           />
         );
 
@@ -174,7 +289,7 @@ export default function App() {
               setTotal(41);
               setAddons({ contracts: true, au: true });
               setHasUpwork(false);
-              setStage("sales");
+              goStage("sales");
             }}
           />
         );
@@ -191,13 +306,17 @@ export default function App() {
         <Suspense fallback={<LoadingScreen />}>{screen()}</Suspense>
       </main>
 
-      <LuckyWheelModal
-        isOpen={isWheelOpen}
-        onClose={() => setIsWheelOpen(false)}
-        onWin={handleWheelWin}
-        onClaim={handleWheelClaim}
-        existingCoupon={luckyCoupon}
-      />
+      {(isWheelOpen || luckyCoupon) && (
+        <Suspense fallback={null}>
+          <LuckyWheelModal
+            isOpen={isWheelOpen}
+            onClose={() => setIsWheelOpen(false)}
+            onWin={handleWheelWin}
+            onClaim={handleWheelClaim}
+            existingCoupon={luckyCoupon}
+          />
+        </Suspense>
+      )}
     </>
   );
 }

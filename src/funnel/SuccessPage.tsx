@@ -3,6 +3,7 @@ import { createDownloadLinks, verifySession } from "../lib/api";
 import { trackVerifiedPurchase } from "../lib/metaPixel";
 import { TARGET_LABELS, TARGET_STARTING_MOVES } from "../lib/momentumSequence";
 import { espLogConversion, getPersistedMode } from "../esp";
+import { isInAppBrowser } from "../lib/traffic";
 
 /* Keep purchase logging idempotent across re-verifies/re-mounts. */
 const purchaseLoggedFor = new Set<string>();
@@ -44,6 +45,55 @@ function formatExpiry(value: string) {
   } catch {
     return value;
   }
+}
+
+/**
+ * Facebook and Instagram render pages in their own webview, where file
+ * downloads are unreliable (iOS in particular can silently drop them).
+ * Every buyer arriving from a Meta ad lands here inside that webview, so
+ * the escape hatch is spelled out before they conclude the product broke.
+ */
+function InAppBrowserNotice() {
+  const [inApp] = useState(() => {
+    try {
+      return isInAppBrowser();
+    } catch {
+      return false;
+    }
+  });
+  const [copied, setCopied] = useState(false);
+
+  if (!inApp) return null;
+
+  const copyPageLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2500);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div className="mb-5 rounded-2xl border border-acid/40 bg-acid/[0.08] p-4">
+      <p className="text-[11px] font-black uppercase tracking-[0.2em] text-acid">
+        Downloading inside the app?
+      </p>
+      <p className="mt-2 text-sm leading-6 text-white/80">
+        You opened this from Facebook or Instagram, and their built-in browser can block
+        file downloads. Tap the <b className="text-white">•••</b> menu (top right) and choose{" "}
+        <b className="text-white">Open in browser</b> — this page and your links keep working there.
+      </p>
+      <button
+        type="button"
+        onClick={copyPageLink}
+        className="cta mt-3 w-full rounded-full bg-white px-5 py-3 text-sm font-bold uppercase tracking-[0.16em] text-ink"
+      >
+        {copied ? "Link copied ✓" : "Copy this page's link"}
+      </button>
+    </div>
+  );
 }
 
 function PersonalizedStartingMove({ momentum }: { momentum?: Record<string, string> }) {
@@ -285,7 +335,8 @@ export default function SuccessPage() {
 
             {state.kind === "ready" && (
               <div className="grid gap-0 lg:grid-cols-[1.25fr_0.75fr]">
-                <div className="border-b border-white/10 px-6 py-8 sm:px-8 lg:border-b-0 lg:border-r">
+                <div className="border-b border-white/10 px-4 py-6 sm:px-8 sm:py-8 lg:border-b-0 lg:border-r">
+                  <InAppBrowserNotice />
                   <PersonalizedStartingMove momentum={state.momentum} />
 
                   <div className="mb-6 grid gap-4 sm:grid-cols-2">
@@ -341,7 +392,7 @@ export default function SuccessPage() {
 
                           <a
                             href={item.downloadUrl}
-                            className="inline-flex shrink-0 items-center justify-center rounded-full bg-acid px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-ink transition hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(220,255,0,0.18)]"
+                            className="cta inline-flex w-full shrink-0 items-center justify-center rounded-full bg-acid px-5 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-ink hover:shadow-[0_0_30px_rgba(220,255,0,0.18)] sm:w-auto sm:py-3"
                           >
                             Download
                           </a>

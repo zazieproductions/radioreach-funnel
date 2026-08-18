@@ -70,6 +70,69 @@ export function track(
 }
 
 /**
+ * Fire a standard event at most once per session.
+ *
+ * Cold ad traffic re-enters the funnel constantly (in-app browser back
+ * button, Stripe bounce-backs, hash routing). Meta's optimizer wants one
+ * ViewContent / AddToCart per visitor intent, not one per re-render.
+ */
+export function trackOnce(
+  key: string,
+  event: string,
+  params?: Record<string, unknown>
+) {
+  const guardKey = `rr_fbq_once:${key}`;
+  try {
+    if (sessionStorage.getItem(guardKey)) return;
+    sessionStorage.setItem(guardKey, "1");
+  } catch {
+    // sessionStorage unavailable — fire anyway rather than lose the signal.
+  }
+  track(event, params);
+}
+
+/**
+ * ViewContent — the signal Meta needs between PageView and Purchase to
+ * learn who actually engages with the offer. Fired once, on the landing
+ * view, with the core product's value so value-optimized campaigns work.
+ */
+export function trackViewContent(params: {
+  value: number;
+  contentIds: string[];
+  contentName: string;
+}) {
+  trackOnce("view_content", "ViewContent", {
+    value: params.value,
+    currency: "USD",
+    content_ids: params.contentIds,
+    content_name: params.contentName,
+    content_type: "product",
+  });
+}
+
+/**
+ * AddToCart — fired when the visitor taps any buy CTA (the moment intent
+ * becomes real). Gives Meta a mid-funnel event to optimize toward while
+ * Purchase volume is still thin.
+ */
+export function trackAddToCart(params: {
+  value: number;
+  contentIds: string[];
+  contentName: string;
+  ctaLabel?: string;
+}) {
+  trackOnce("add_to_cart", "AddToCart", {
+    value: params.value,
+    currency: "USD",
+    content_ids: params.contentIds,
+    content_name: params.contentName,
+    content_type: "product",
+    num_items: params.contentIds.length,
+    ...(params.ctaLabel ? { cta: params.ctaLabel } : {}),
+  });
+}
+
+/**
  * Fire a behavioral event through every client-side analytics hook we support.
  * Meta receives a custom event; GTM/GA listeners can consume dataLayer; and
  * first-party analytics can listen for the `radioreach:analytics` DOM event.

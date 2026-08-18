@@ -5,7 +5,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { STORE_COPY } from "../config/storefront";
-import { collectUtm, createEmbeddedCheckoutSession } from "../lib/api";
+import { collectMeta, collectUtm, createEmbeddedCheckoutSession } from "../lib/api";
 import type { ProductKey } from "../config/storefront";
 import { getMomentumAttribution } from "../lib/momentumSequence";
 
@@ -49,6 +49,7 @@ export default function EmbeddedStripeCheckout({
               bundleId,
               utm: collectUtm(),
               momentum: getMomentumAttribution(),
+              meta: collectMeta(),
             });
 
           checkoutSessionIdRef.current = checkoutSessionId;
@@ -93,8 +94,10 @@ export default function EmbeddedStripeCheckout({
   }
 
   return (
-    <div className="rounded-xl border border-white/10 bg-panel p-2.5 sm:p-4" aria-busy={isLoading}>
-      <div className="mb-2.5 rounded-lg border border-white/10 bg-black/30 px-3 py-3 sm:mb-3 sm:px-4">
+    <div className="rounded-xl border border-white/10 bg-panel p-2 sm:p-4" aria-busy={isLoading}>
+      {/* The mobile command strip already says "secure Stripe checkout", so
+          this header is desktop-only — one less thing between thumb and pay. */}
+      <div className="mb-3 hidden rounded-lg border border-white/10 bg-black/30 px-4 py-3 lg:block">
         <p className="font-display text-xl uppercase">
           {STORE_COPY.checkoutTitle}
         </p>
@@ -102,16 +105,6 @@ export default function EmbeddedStripeCheckout({
           {STORE_COPY.checkoutSubtitle}
         </p>
       </div>
-
-      {isLoading && (
-        <div
-          className="mb-3 rounded-lg border border-acid/30 bg-acid/5 px-4 py-3 text-sm text-acid"
-          role="status"
-          aria-live="polite"
-        >
-          Updating secure checkout…
-        </div>
-      )}
 
       {error && (
         <div
@@ -122,15 +115,39 @@ export default function EmbeddedStripeCheckout({
         </div>
       )}
 
-      <EmbeddedCheckoutProvider
-        key={bundleId}
-        stripe={stripePromise}
-        options={options}
-      >
-        <div className="min-h-[620px] overflow-hidden rounded-lg border border-white/10 bg-white">
+      <div className="relative min-h-[620px] overflow-hidden rounded-lg border border-white/10 bg-white">
+        {/* A form-shaped skeleton, not a spinner: the visitor sees where the
+            email and card fields will be before Stripe has answered. */}
+        {isLoading && (
+          <div
+            className="absolute inset-0 z-10 space-y-4 bg-white p-4"
+            role="status"
+            aria-live="polite"
+          >
+            <span className="sr-only">Loading secure payment form…</span>
+            <div className="h-3 w-24 rounded bg-zinc-200" />
+            <div className="h-11 w-full rounded-md bg-zinc-100" />
+            <div className="h-3 w-20 rounded bg-zinc-200" />
+            <div className="h-11 w-full rounded-md bg-zinc-100" />
+            <div className="flex gap-3">
+              <div className="h-11 flex-1 rounded-md bg-zinc-100" />
+              <div className="h-11 w-24 rounded-md bg-zinc-100" />
+            </div>
+            <div className="h-12 w-full rounded-md bg-zinc-200" />
+            <p className="pt-1 text-center text-[11px] font-medium text-zinc-400">
+              Connecting to Stripe…
+            </p>
+          </div>
+        )}
+
+        <EmbeddedCheckoutProvider
+          key={bundleId}
+          stripe={stripePromise}
+          options={options}
+        >
           <EmbeddedCheckout />
-        </div>
-      </EmbeddedCheckoutProvider>
+        </EmbeddedCheckoutProvider>
+      </div>
     </div>
   );
 }

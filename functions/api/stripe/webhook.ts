@@ -109,6 +109,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
           contentIds: order.items.map((i) => i.key),
           contentName: order.items.map((i) => i.name).join(" + ") || "Radio Reach Vault",
           attribution: order.momentum,
+          fbc: session.metadata?.fbc || null,
+          fbp: session.metadata?.fbp || null,
         });
       } catch (err) {
         console.error("[Meta CAPI] unexpected error", err);

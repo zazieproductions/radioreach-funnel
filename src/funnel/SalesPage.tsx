@@ -4,11 +4,14 @@ import {
   Cross,
   ExitIntent,
   FlipClock,
+  InlineCountdown,
+  PaymentBadges,
   SectionLabel,
   Stars,
   StickyBar,
   Ticker,
   TopNav,
+  ValueChips,
 } from "./ui";
 import TerminalPreview from "./TerminalPreview";
 import { isMomentumSequenceEnabled } from "../config/features";
@@ -18,7 +21,7 @@ import { isMomentumSequenceEnabled } from "../config/features";
 const MomentumSequence = lazy(() => import("./MomentumSequence"));
 
 import { TESTIMONIALS } from "./testimonials";
-import { LuckyWheelButton } from "./LuckyWheel";
+import { LuckyWheelButton } from "./LuckyWheelButton";
 import {
   formatRemainingMs,
   getLuckyCouponRemainingMs,
@@ -61,7 +64,7 @@ const FAQS = [
 ];
 
 type Props = {
-  onCta: () => void;
+  onCta: (label?: string) => void;
   luckyCoupon?: LuckyCoupon | null;
   onOpenWheel?: () => void;
   onClaimWheel?: () => void;
@@ -87,7 +90,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
   // was in — the data we'll later use to see which states convert.
   const handleCta = (label = "cta") => {
     espLogConversion("cta_click", { label });
-    onCta();
+    onCta(label);
   };
 
   const hasWinningCoupon =
@@ -95,7 +98,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
   const remainingStr = luckyCoupon ? formatRemainingMs(Math.max(0, luckyCoupon.expiresAt - nowMs)) : "";
 
   return (
-    <div id="top" className="min-h-screen bg-ink pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))]">
+    <div id="top" className="pb-buybar min-h-screen bg-ink">
       <ExitIntent
         onTake={() => handleCta("exit_intent")}
         title={<EmotiveText slot="exitTitle" />}
@@ -137,23 +140,30 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
-        <img
-          src="/images/studio-1280.jpg"
-          srcSet="/images/studio-640.jpg 640w, /images/studio-1280.jpg 1280w"
-          sizes="100vw"
-          alt=""
-          aria-hidden
-          width={1280}
-          height={853}
-          fetchPriority="high"
-          loading="eager"
-          decoding="async"
-          onError={(e) => (e.currentTarget.style.display = "none")}
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcSet="/images/studio-640.webp 640w, /images/studio-960.webp 960w, /images/studio-1280.webp 1280w"
+            sizes="100vw"
+          />
+          <img
+            src="/images/studio-1280.jpg"
+            srcSet="/images/studio-640.jpg 640w, /images/studio-1280.jpg 1280w"
+            sizes="100vw"
+            alt=""
+            aria-hidden
+            width={1280}
+            height={853}
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            onError={(e) => (e.currentTarget.style.display = "none")}
+            className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
+          />
+        </picture>
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/70 via-ink/85 to-ink" />
-        <div className="relative mx-auto max-w-4xl px-4 pt-6 pb-10 text-center sm:pt-10 sm:pb-14">
-          <p className="mx-auto mb-4 inline-block max-w-[22rem] border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-bold uppercase leading-snug tracking-[0.12em] text-white/70 sm:mb-5 sm:max-w-none sm:text-[11px] sm:tracking-[0.2em]">
+        <div className="relative mx-auto max-w-4xl px-4 pt-4 pb-8 text-center sm:pt-10 sm:pb-14">
+          <p className="mx-auto mb-3 inline-block max-w-[24rem] border border-white/15 bg-white/5 px-2.5 py-1 text-[9.5px] font-bold uppercase leading-snug tracking-[0.1em] text-white/70 sm:mb-5 sm:max-w-none sm:px-3 sm:py-1.5 sm:text-[11px] sm:tracking-[0.2em]">
             <EmotiveText slot="heroEyebrow" />
           </p>
 
@@ -161,59 +171,98 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             RADIO STATION CONTACTS <span className="text-blood">FOR MUSICIANS</span>
             <span className="mt-2 block text-[0.58em] tracking-wide">"WHO DO I EVEN SEND IT TO?"</span>
           </h1>
-          <EmotiveText
-            slot="heroSub"
-            as="p"
-            className="mx-auto mt-4 max-w-2xl font-serif text-[1.05rem] leading-[1.6] text-white/80 sm:mt-5 sm:text-2xl sm:leading-relaxed"
-          />
+
+          {/* Mobile gets the one-breath version of the promise; desktop keeps
+              the full adaptive paragraph. Same claim, a third of the reading.
+              The show/hide lives on a wrapper: `.esp-slot` is unlayered CSS
+              and would out-rank a Tailwind display utility on the slot itself. */}
+          <div className="sm:hidden">
+            <EmotiveText
+              slot="heroSubShort"
+              as="p"
+              className="mx-auto mt-3 max-w-[34ch] font-serif text-[1rem] leading-[1.5] text-white/80"
+            />
+          </div>
+          <div className="hidden sm:block">
+            <EmotiveText
+              slot="heroSub"
+              as="p"
+              className="mx-auto mt-4 max-w-2xl font-serif text-[1.05rem] leading-[1.6] text-white/80 sm:mt-5 sm:text-2xl sm:leading-relaxed"
+            />
+          </div>
+
+          <ValueChips className="mt-3.5 sm:mt-5" />
 
           {/* CTA box */}
           <div
+            id="buy"
             data-esp-zone="pricing"
-            className="mobile-solid mx-auto mt-6 max-w-md rounded-xl border-2 border-acid/50 bg-black/85 p-4 text-left backdrop-blur sm:mt-8 sm:bg-black/60 sm:p-5"
+            className="mobile-solid mx-auto mt-4 max-w-md rounded-xl border-2 border-acid/50 bg-black/85 p-3.5 text-left backdrop-blur sm:mt-8 sm:bg-black/60 sm:p-5"
           >
-            <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blood">
-              <EmotiveText slot="ctaLabel" />
-            </p>
-            <div data-esp-zone="scarcity" className="mt-2 flex justify-center">
+            <div className="flex items-center justify-between gap-3 sm:block">
+              <p className="text-[10.5px] font-black uppercase leading-tight tracking-[0.14em] text-blood sm:text-[11px] sm:tracking-[0.2em]">
+                <EmotiveText slot="ctaLabel" />
+              </p>
+              {/* Mobile: one compact line of urgency. Desktop: the flip clock. */}
+              <span className="flex shrink-0 items-center gap-1.5 rounded-md border border-white/10 bg-black px-2 py-1 font-display text-[1.05rem] leading-none text-acid sm:hidden">
+                <span aria-hidden className="text-[0.75em]">⏳</span>
+                <InlineCountdown seconds={897} />
+              </span>
+            </div>
+            <div data-esp-zone="scarcity" className="mt-2 hidden justify-center sm:flex">
               <FlipClock seconds={897} />
             </div>
+
+            {/* Price, stated once, unmissable. */}
+            <div className="mt-3 flex items-baseline justify-center gap-2 sm:mt-4">
+              <span className="font-display text-[2.6rem] leading-none text-white sm:text-5xl">$20</span>
+              <span className="font-display text-xl leading-none text-white/35 line-through decoration-blood decoration-2">
+                $49
+              </span>
+              <span className="rounded-full bg-blood px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-white">
+                Save 59%
+              </span>
+            </div>
+
             <button
               type="button"
               onClick={() => handleCta("hero")}
-              className="cta mt-5 min-h-14 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
+              className="cta mt-3 min-h-14 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:mt-4 sm:px-5 sm:text-xl"
             >
               Yes — Give Me The Contacts
               <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
-                Instant download · <span className="line-through opacity-60">$49</span> $20 today
+                Instant download · one-time payment
               </span>
             </button>
-            <div className="mt-3 flex flex-col items-center gap-1.5 text-center">
+
+            <div className="mt-2.5 flex flex-col items-center gap-1.5 text-center">
               <p className="text-[12px] text-white/55">
                 <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
               </p>
               <p className="text-[11px] text-white/50">
                 <EmotiveText slot="ctaTrust" />
               </p>
+              <PaymentBadges className="mt-1" />
             </div>
           </div>
 
+          {/* Proof of product comes straight after the price: the fastest way
+              to answer "is this real?" is to show seven rows of the actual file. */}
+          <div className="mt-6 w-full sm:mt-10">
+            <p className="mb-2.5 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/60 sm:mb-3 sm:text-[11px] sm:tracking-[0.2em]">
+              ↓ live sample — 7 of 18,000+ entries
+            </p>
+            <TerminalPreview onCta={() => handleCta("terminal")} />
+          </div>
+
           {!hasWinningCoupon && (
-            <div className="mt-5 flex flex-col items-center gap-2">
+            <div className="mt-6 flex flex-col items-center gap-2">
               <LuckyWheelButton onClick={() => onOpenWheel?.()} />
               <p className="max-w-[32ch] text-center text-[11px] leading-snug text-white/40">
                 Free spin · no email · unlock the founder bundle
               </p>
             </div>
           )}
-
-          {/* Terminal preview */}
-          <div className="mt-8 w-full sm:mt-10">
-            <p className="mb-3 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/60 sm:text-[11px] sm:tracking-[0.2em]">
-              ↓ live sample — 7 of 18,000+ entries
-            </p>
-            <TerminalPreview onCta={() => handleCta("terminal")} />
-          </div>
         </div>
       </section>
 
@@ -432,7 +481,12 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           as="h2"
           className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight"
         />
-        <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4">
+        <p className="mt-2 text-[11px] font-bold uppercase tracking-wider text-white/35 sm:hidden">
+          Swipe for more →
+        </p>
+        {/* Phones swipe through proof instead of scrolling past eight stacked
+            cards; tablets and up keep the two-column grid. */}
+        <div className="rail mt-4 sm:mt-8">
           {TESTIMONIALS.map((t) => (
             <figure key={t.name} className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <div className="flex items-center justify-between gap-3">
@@ -510,63 +564,6 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
       {/* FAQ */}
       <section id="faq" className="defer-render mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
-        {/* SEO / RESOURCE CLUSTER */}
-        <section className="mx-auto max-w-4xl py-8 sm:py-12">
-          <div className="rounded-xl border border-white/10 bg-black/30 p-4 sm:p-8">
-            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-acid sm:text-xs sm:tracking-[0.18em]">
-              Free Radio Promotion Guides
-            </p>
-
-            <h2 className="mt-3 font-display text-[1.55rem] leading-[1.1] sm:text-4xl sm:leading-tight">
-              DO THE RESEARCH BEFORE YOU HIT SEND
-            </h2>
-
-            <p className="mt-3 max-w-2xl font-serif text-[0.98rem] leading-[1.62] text-white/70 sm:text-base sm:leading-relaxed">
-              Not ready for the Vault yet? Start with the field guides: how to find
-              stations that accept independent music, approach college radio, and
-              build a targeted radio promotion campaign without spraying spam.
-            </p>
-
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              <a
-                href="/resources/college-radio-submissions/"
-                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
-              >
-                <strong className="block text-white">
-                  College Radio Submissions
-                </strong>
-                <span className="mt-1 block text-sm text-white/55">
-                  Find the right station contacts and pitch college radio.
-                </span>
-              </a>
-
-              <a
-                href="/resources/radio-stations-accepting-music/"
-                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
-              >
-                <strong className="block text-white">
-                  Stations Accepting Music
-                </strong>
-                <span className="mt-1 block text-sm text-white/55">
-                  Research stations, submission contacts, and programming fit.
-                </span>
-              </a>
-
-              <a
-                href="/resources/radio-promotion-independent-artists/"
-                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
-              >
-                <strong className="block text-white">
-                  Independent Radio Promotion
-                </strong>
-                <span className="mt-1 block text-sm text-white/55">
-                  Build a focused outreach campaign instead of a giant email blast.
-                </span>
-              </a>
-            </div>
-          </div>
-        </section>
-
         <SectionLabel>Objections, handled</SectionLabel>
         <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
         <div className="mt-5 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-panel sm:mt-6">
@@ -638,6 +635,64 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           </p>
         </div>
       </section>
+
+      {/* SEO / RESOURCE CLUSTER — kept for organic traffic, moved below the
+          final CTA so it can never intercept a buyer mid-decision. */}
+        <section className="defer-render mx-auto max-w-4xl px-4 py-8 sm:py-12">
+          <div className="rounded-xl border border-white/10 bg-black/30 p-4 sm:p-8">
+            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-acid sm:text-xs sm:tracking-[0.18em]">
+              Free Radio Promotion Guides
+            </p>
+
+            <h2 className="mt-3 font-display text-[1.55rem] leading-[1.1] sm:text-4xl sm:leading-tight">
+              DO THE RESEARCH BEFORE YOU HIT SEND
+            </h2>
+
+            <p className="mt-3 max-w-2xl font-serif text-[0.98rem] leading-[1.62] text-white/70 sm:text-base sm:leading-relaxed">
+              Not ready for the Vault yet? Start with the field guides: how to find
+              stations that accept independent music, approach college radio, and
+              build a targeted radio promotion campaign without spraying spam.
+            </p>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <a
+                href="/resources/college-radio-submissions/"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  College Radio Submissions
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Find the right station contacts and pitch college radio.
+                </span>
+              </a>
+
+              <a
+                href="/resources/radio-stations-accepting-music/"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  Stations Accepting Music
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Research stations, submission contacts, and programming fit.
+                </span>
+              </a>
+
+              <a
+                href="/resources/radio-promotion-independent-artists/"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  Independent Radio Promotion
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Build a focused outreach campaign instead of a giant email blast.
+                </span>
+              </a>
+            </div>
+          </div>
+        </section>
 
       {/* FTC DISCLAIMER */}
       <section className="defer-render border-t border-white/10 bg-black/60 px-4 py-8 sm:py-10">
