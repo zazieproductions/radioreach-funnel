@@ -3,7 +3,8 @@ export type ProductKey =
   | "contract_bundle"
   | "australia_addon"
   | "airplay_accelerator"
-  | "upwork_course";
+  | "upwork_course"
+  | "dj_pack_50";
   // | "font_vault";
 
 export type StorefrontProduct = {
@@ -84,6 +85,18 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     stripePriceIdEnv: "STRIPE_PRICE_UPWORK_COURSE",
     r2BundleKey: "upsells/advanced-upwork-proposals-course.zip",
     description: "4-part, 30-lesson series for any niche to 10× client responses faster.",
+  },
+  dj_pack_50: {
+    key: "dj_pack_50",
+    name: "50 Verified DJ Contacts — Club & Radio",
+    shortName: "50 DJ Pack",
+    price: 5,
+    compareAt: 8.99,
+    stripePriceIdEnv: "STRIPE_PRICE_DJ_PACK_50",
+    r2BundleKey: "addons/50-dj-contacts.zip",
+    description: "50 verified DJ contacts for clubs, mix shows, and radio — direct emails, cities, and genres. Add-on to the Vault.",
+    includes: ["50 verified DJ emails", "Club + mix-show + radio DJs", "City & genre sorted", "Instant digital delivery"],
+    checkoutBadge: "Lucky Wheel Winner — 44% OFF",
   },
 };
 

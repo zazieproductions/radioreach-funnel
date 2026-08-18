@@ -24,6 +24,11 @@ export const ALLOWED_PRODUCTS = {
     bundleKey: "upsells/advanced-upwork-proposals-course.zip",
     name: "Advanced Upwork Proposals — Full Course",
   },
+  dj_pack_50: {
+    envPriceVar: "STRIPE_PRICE_DJ_PACK_50",
+    bundleKey: "addons/50-dj-contacts.zip",
+    name: "50 Verified DJ Contacts — Club & Radio",
+  },
 
 } as const;
 
