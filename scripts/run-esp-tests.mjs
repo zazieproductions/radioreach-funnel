@@ -39,6 +39,7 @@ const run = async (entry, env, label) => {
 };
 
 try {
+  await run("test-wheel-geometry.ts", {}, "Lucky wheel — landing geometry");
   await run("esp-smoke.ts", {}, "Brain logic (pure + integration)");
   await run("esp-integration.tsx", { SCENARIO: "A" }, "Sales page — default → urgency (zone revisits)");
   await run("esp-integration.tsx", { SCENARIO: "B" }, "Sales page — default → calm (rage clicks + fast scroll)");

@@ -5,27 +5,15 @@ import {
   type LuckyCoupon,
   formatRemainingMs,
 } from "../lib/luckyCoupon";
-
-type Segment = {
-  label: string;
-  sub?: string;
-  color: string;
-  textColor: string;
-  isJackpot?: boolean;
-  isSecret?: boolean;
-};
-
-// 8-slice carnival — vivid rainbow, not cluttered
-const SEGMENTS: Segment[] = [
-  { label: "10% OFF", color: "#FACC15", textColor: "#111" }, // yellow — near-miss
-  { label: "$100", sub: "GUITAR CENTER", color: "#FB923C", textColor: "#fff" },
-  { label: "TRY AGAIN", color: "#F87171", textColor: "#fff" },
-  { label: "FREE MIX", color: "#F472B6", textColor: "#fff" },
-  { label: "NO LUCK", color: "#A78BFA", textColor: "#fff" },
-  { label: "SECRET", sub: "CODE", color: "#22D3EE", textColor: "#fff", isSecret: true },
-  { label: "5% OFF", color: "#38BDF8", textColor: "#fff" },
-  { label: "JACKPOT", sub: "AU+KIT", color: "#34D399", textColor: "#fff", isJackpot: true },
-];
+import {
+  SEGMENTS,
+  SEGMENT_ANGLE,
+  JACKPOT_INDEX,
+  SECRET_INDEX,
+  wheelFaceGradient,
+  rotationToLandOn,
+  clockwiseNudge,
+} from "../lib/wheel";
 
 const RAINBOW_CONIC =
   "conic-gradient(from 0deg,#EF4444,#FB923C,#FACC15,#34D399,#22D3EE,#60A5FA,#A78BFA,#F472B6,#EF4444)";
@@ -36,22 +24,8 @@ const RAINBOW_LINEAR_135 =
 const RAINBOW_PROGRESS =
   "linear-gradient(90deg,#FACC15,#FB923C,#F472B6,#22D3EE)";
 
-const SEGMENT_COUNT = SEGMENTS.length;
-const SECRET_INDEX = SEGMENTS.findIndex((s) => s.isSecret);
-const SEGMENT_ANGLE = 360 / SEGMENT_COUNT;
-
 const PLAYLIST_PUSH_CODE = "FR2AZEF";
 const PLAYLIST_PUSH_URL = "https://playlistpush.com/";
-
-function buildConicGradient() {
-  let stops = "";
-  SEGMENTS.forEach((seg, i) => {
-    const start = i * SEGMENT_ANGLE;
-    const end = (i + 1) * SEGMENT_ANGLE;
-    stops += `${seg.color} ${start}deg ${end}deg${i < SEGMENTS.length - 1 ? ", " : ""}`;
-  });
-  return `conic-gradient(from -11.25deg, ${stops})`;
-}
 
 // audio — soft, not harsh
 let _audioCtx: AudioContext | null = null;
@@ -220,11 +194,15 @@ export function LuckyWheelModal({
     setSpinning(true);
     getAudio();
     const NEAR_MISS_INDEX = 0; // 10% OFF
-    const spins = 5 + Math.random() * 0.6;
-    const nearMissCenter = NEAR_MISS_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
+    // Whole turns only — fractional turns would rotate the landing position
+    // away from the winning slice (see rotationToLandOn). Randomness comes
+    // from the 5-or-6 turn count and the jitter.
+    const spins = 5 + Math.round(Math.random());
     const jitter = (Math.random() - 0.5) * 2.5;
-    const targetNearMiss = spins * 360 + (360 - nearMissCenter) + jitter;
-    const targetJackpot = targetNearMiss + SEGMENT_ANGLE;
+    const targetNearMiss = rotationToLandOn(NEAR_MISS_INDEX, spins, jitter);
+    // One more notch clockwise from the near-miss lands on JACKPOT —
+    // it is the slice immediately counter-clockwise of the near-miss.
+    const targetJackpot = targetNearMiss + clockwiseNudge(NEAR_MISS_INDEX, JACKPOT_INDEX);
 
     const start = Date.now();
     const tickInterval = window.setInterval(() => {
@@ -282,10 +260,9 @@ export function LuckyWheelModal({
       // directly invoke second spin logic without requiring a second tap
       // we inline the spin to avoid stale closure on phase
       getAudio();
-      const spins = 5 + Math.random() * 0.7;
-      const secretCenter = SECRET_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
+      const spins = 5 + Math.round(Math.random());
       const jitter = (Math.random() - 0.5) * 3;
-      const targetRotation = spins * 360 + (360 - secretCenter) + jitter;
+      const targetRotation = rotationToLandOn(SECRET_INDEX, spins, jitter);
       setSpinning(true);
       setWheelTransition("transform 4200ms cubic-bezier(0.18, 0.82, 0.22, 1)");
       const sStart = Date.now();
@@ -315,10 +292,9 @@ export function LuckyWheelModal({
     if (spinning || phase !== "secondWheel") return;
     setSpinning(true);
     getAudio();
-    const spins = 5 + Math.random() * 0.7;
-    const secretCenter = SECRET_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
+    const spins = 5 + Math.round(Math.random());
     const jitter = (Math.random() - 0.5) * 3;
-    const targetRotation = spins * 360 + (360 - secretCenter) + jitter;
+    const targetRotation = rotationToLandOn(SECRET_INDEX, spins, jitter);
     setWheelTransition("transform 4200ms cubic-bezier(0.18, 0.82, 0.22, 1)");
     const sStart = Date.now();
     const sTick = window.setInterval(() => {
@@ -466,7 +442,7 @@ export function LuckyWheelModal({
                       <div
                         className="absolute inset-[7px] overflow-hidden rounded-full border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] will-change-transform"
                         style={{
-                          background: buildConicGradient(),
+                          background: wheelFaceGradient(),
                           transform: `rotate(${rotation}deg)`,
                           transition: wheelTransition,
                           backfaceVisibility: "hidden",
@@ -698,7 +674,7 @@ export function LuckyWheelModal({
                       </div>
                       <div
                         className="absolute inset-[7px] overflow-hidden rounded-full border border-white/10 will-change-transform"
-                        style={{ background: buildConicGradient(), transform: `rotate(${rotation}deg)`, transition: wheelTransition }}
+                        style={{ background: wheelFaceGradient(), transform: `rotate(${rotation}deg)`, transition: wheelTransition }}
                       >
                         <svg viewBox="0 0 100 100" className="pointer-events-none absolute inset-0 h-full w-full rounded-full" aria-hidden>
                           {SEGMENTS.map((_, i) => {
