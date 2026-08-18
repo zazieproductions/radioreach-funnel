@@ -21,7 +21,7 @@ const SEGMENTS: Segment[] = [
   { label: "$2 OFF", color: "#f97316", textColor: "#fff" }, // orange
   { label: "NO LUCK", color: "#ec4899", textColor: "#fff" }, // pink
   { label: "10% OFF", color: "#8b5cf6", textColor: "#fff" }, // purple
-  { label: "FREE", sub: "GUIDE", color: "#06b6d4", textColor: "#fff" }, // cyan
+  { label: "20% OFF", color: "#06b6d4", textColor: "#fff" }, // cyan
   { label: "15% OFF", color: "#eab308", textColor: "#111" }, // yellow
   { label: "★ JACKPOT ★", sub: "BOTH FOR $21", color: "#22c55e", textColor: "#fff", isJackpot: true }, // jackpot green — pre-selected upsells
 ];
