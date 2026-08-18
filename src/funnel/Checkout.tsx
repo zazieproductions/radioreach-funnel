@@ -280,7 +280,7 @@ export default function Checkout({
                   className={`relative flex min-h-14 cursor-pointer items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
                     hasWinningCoupon
                       ? contracts
-                        ? "border-acid/60 bg-gradient-to-br from-acid/15 via-acid/8 to-transparent shadow-[0_0_20px_rgba(255,230,0,0.15)]"
+                        ? "border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.06] via-emerald-500/[0.03] to-transparent shadow-[0_8px_24px_rgba(16,185,129,0.08)]"
                         : "border-acid/30 bg-black/30"
                       : contracts
                         ? "border-acid/40 bg-acid/8"
@@ -288,7 +288,7 @@ export default function Checkout({
                   }`}
                 >
                   {hasWinningCoupon && (
-                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-acid px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-ink animate-pulse">
+                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-emerald-500 px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-white">
                       YOU WON THIS ✓
                     </span>
                   )}
@@ -299,14 +299,7 @@ export default function Checkout({
                     className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <div className="space-y-1 pr-2 w-full">
-                    <span className="flex flex-wrap items-center gap-2">
-                      <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_bundle.name}</span>
-                      {hasWinningCoupon && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-ink animate-[pulse_1.2s_ease-in-out_infinite]">
-                          YOU WON THIS
-                        </span>
-                      )}
-                    </span>
+                    <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_bundle.name}</span>
                     <span className="block text-sm font-bold text-acid">6 agreement templates plus a plain-English usage guide</span>
                     <ul className="mt-1 hidden gap-1 text-[13px] text-white/65 sm:grid">
                       {[
@@ -349,7 +342,7 @@ export default function Checkout({
                   className={`relative flex min-h-14 cursor-pointer items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
                     hasWinningCoupon
                       ? au
-                        ? "border-acid/60 bg-gradient-to-br from-acid/15 via-acid/8 to-transparent shadow-[0_0_20px_rgba(255,230,0,0.15)]"
+                        ? "border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.06] via-emerald-500/[0.03] to-transparent shadow-[0_8px_24px_rgba(16,185,129,0.08)]"
                         : "border-acid/30 bg-black/30"
                       : au
                         ? "border-acid/40 bg-acid/8"
@@ -357,7 +350,7 @@ export default function Checkout({
                   }`}
                 >
                   {hasWinningCoupon && (
-                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-acid px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-ink animate-pulse">
+                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-emerald-500 px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-white">
                       YOU WON THIS ✓
                     </span>
                   )}
@@ -368,14 +361,7 @@ export default function Checkout({
                     className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <span className="space-y-1 pr-2 w-full">
-                    <span className="flex flex-wrap items-center gap-2">
-                      <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.australia_addon.name}</span>
-                      {hasWinningCoupon && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-ink animate-[pulse_1.2s_ease-in-out_infinite]">
-                          YOU WON THIS
-                        </span>
-                      )}
-                    </span>
+                    <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.australia_addon.name}</span>
                     <span className="block text-sm font-bold text-acid">2,847 AU station contacts · 1,612 verified emails</span>
                     <span className="block text-sm text-white/65">{PRODUCTS.australia_addon.description}</span>
                     <span className="block text-sm">
@@ -584,7 +570,7 @@ function SummaryRow({ label, was, now, accent, badge }: { label: string; was?: s
     <div className={`flex items-start justify-between gap-4 ${accent ? "rounded-lg border border-acid/20 bg-acid/5 px-2 py-1 -mx-2" : ""}`}>
       <span className={`${accent ? "text-acid font-bold" : "text-white/75"} flex items-center gap-1.5`}>
         {label}
-        {badge && <span className="rounded-full bg-acid px-2 py-0.5 text-[8px] font-black uppercase tracking-[0.08em] text-ink shadow-[0_0_8px_rgba(255,230,0,0.5)] animate-pulse">{badge}</span>}
+        {badge && <span className="rounded-full bg-emerald-500/15 border border-emerald-500/20 px-1.5 py-0.5 text-[8px] font-black tracking-[0.08em] text-emerald-300">{badge}</span>}
       </span>
       <span className="shrink-0 whitespace-nowrap">
         {was && <span className="mr-2 text-white/30 line-through">{was}</span>}

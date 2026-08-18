@@ -6,7 +6,6 @@ import {
   formatRemainingMs,
 } from "../lib/luckyCoupon";
 
-// Freecash-style novelty placeholders + real jackpots
 type Segment = {
   label: string;
   sub?: string;
@@ -16,19 +15,20 @@ type Segment = {
   isSecret?: boolean;
 };
 
+// 8-slice carnival — clean, premium, not cluttered
 const SEGMENTS: Segment[] = [
-  { label: "10% OFF", color: "#eab308", textColor: "#111" }, // yellow — near-miss (clockwise after jackpot)
-  { label: "$100", sub: "GUITAR CENTER", color: "#f97316", textColor: "#fff" }, // placeholder — Guitar Center $100
-  { label: "TRY", sub: "AGAIN", color: "#3b82f6", textColor: "#fff" }, // blue
-  { label: "FREE MIXING", sub: "$150 VALUE", color: "#ec4899", textColor: "#fff" }, // placeholder — other music prize
-  { label: "NO LUCK", color: "#8b5cf6", textColor: "#fff" }, // purple
-  { label: "SECRET CODE", sub: "PLAYLIST PUSH", color: "#06b6d4", textColor: "#fff", isSecret: true }, // second spin jackpot
-  { label: "5% OFF", color: "#ef4444", textColor: "#fff" }, // red
-  { label: "★ JACKPOT ★", sub: "AU + KIT", color: "#22c55e", textColor: "#fff", isJackpot: true }, // first spin jackpot — AU + KIT (carnival green)
+  { label: "10% OFF", color: "#F59E0B", textColor: "#111" }, // amber — near-miss
+  { label: "$100", sub: "GUITAR CENTER", color: "#FB923C", textColor: "#fff" },
+  { label: "TRY AGAIN", color: "#60A5FA", textColor: "#fff" },
+  { label: "FREE MIX", color: "#F472B6", textColor: "#fff" },
+  { label: "NO LUCK", color: "#A78BFA", textColor: "#fff" },
+  { label: "SECRET", sub: "CODE", color: "#06B6D4", textColor: "#fff", isSecret: true },
+  { label: "5% OFF", color: "#EF4444", textColor: "#fff" },
+  { label: "JACKPOT", sub: "AU + KIT", color: "#10B981", textColor: "#fff", isJackpot: true },
 ];
 
 const SEGMENT_COUNT = SEGMENTS.length;
-const SECRET_INDEX = SEGMENTS.findIndex((s) => s.isSecret); // 5
+const SECRET_INDEX = SEGMENTS.findIndex((s) => s.isSecret);
 const SEGMENT_ANGLE = 360 / SEGMENT_COUNT;
 
 const PLAYLIST_PUSH_CODE = "FR2AZEF";
@@ -41,10 +41,10 @@ function buildConicGradient() {
     const end = (i + 1) * SEGMENT_ANGLE;
     stops += `${seg.color} ${start}deg ${end}deg${i < SEGMENTS.length - 1 ? ", " : ""}`;
   });
-  return `conic-gradient(from 0deg, ${stops})`;
+  return `conic-gradient(from -11.25deg, ${stops})`;
 }
 
-// — dopamine audio: tick + rising ding via Web Audio —
+// audio — soft, not harsh
 let _audioCtx: AudioContext | null = null;
 function getAudio() {
   if (typeof window === "undefined") return null;
@@ -64,15 +64,15 @@ function playTick(intensity = 1) {
   if (!ctx) return;
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
-  osc.type = "square";
-  osc.frequency.value = 900 + Math.random() * 80;
-  gain.gain.value = 0.09 * intensity;
+  osc.type = "sine";
+  osc.frequency.value = 820 + Math.random() * 60;
+  gain.gain.value = 0.06 * intensity;
   osc.connect(gain);
   gain.connect(ctx.destination);
   const now = ctx.currentTime;
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
   osc.start(now);
-  osc.stop(now + 0.07);
+  osc.stop(now + 0.06);
 }
 function playRisingDing() {
   const ctx = getAudio();
@@ -81,34 +81,19 @@ function playRisingDing() {
   const gain = ctx.createGain();
   osc.type = "sine";
   const now = ctx.currentTime;
-  osc.frequency.setValueAtTime(480, now);
-  osc.frequency.exponentialRampToValueAtTime(1400, now + 0.55);
-  osc.frequency.exponentialRampToValueAtTime(1800, now + 0.9);
+  osc.frequency.setValueAtTime(520, now);
+  osc.frequency.exponentialRampToValueAtTime(1320, now + 0.5);
   gain.gain.setValueAtTime(0, now);
-  gain.gain.linearRampToValueAtTime(0.22, now + 0.05);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+  gain.gain.linearRampToValueAtTime(0.16, now + 0.04);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
   osc.connect(gain);
   gain.connect(ctx.destination);
   osc.start(now);
-  osc.stop(now + 1.2);
-  // second harmonic for sparkle
-  const osc2 = ctx.createOscillator();
-  const gain2 = ctx.createGain();
-  osc2.type = "triangle";
-  osc2.frequency.setValueAtTime(960, now + 0.08);
-  osc2.frequency.exponentialRampToValueAtTime(2200, now + 0.7);
-  gain2.gain.setValueAtTime(0, now + 0.08);
-  gain2.gain.linearRampToValueAtTime(0.08, now + 0.12);
-  gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
-  osc2.connect(gain2);
-  gain2.connect(ctx.destination);
-  osc2.start(now + 0.08);
-  osc2.stop(now + 0.9);
+  osc.stop(now + 0.9);
 }
 function playNearMissTick() {
-  playTick(0.7);
-  setTimeout(() => playTick(0.9), 110);
-  setTimeout(() => playTick(0.6), 240);
+  playTick(0.5);
+  setTimeout(() => playTick(0.7), 120);
 }
 
 export function LuckyWheelButton({
@@ -124,23 +109,13 @@ export function LuckyWheelButton({
     <button
       type="button"
       onClick={onClick}
-      className={`cta group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] p-[2px] shadow-[0_6px_20px_rgba(124,92,255,0.45)] transition hover:scale-[1.02] active:scale-[0.98] ${className}`}
+      className={`group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 p-[1.5px] shadow-[0_4px_16px_rgba(251,146,60,0.35)] transition hover:shadow-[0_6px_24px_rgba(251,146,60,0.45)] hover:scale-[1.015] active:scale-[0.985] ${className}`}
     >
-      <span
-        className={`flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 font-black uppercase tracking-wide text-white ${small ? "text-xs" : "text-sm"}`}
-      >
-        <span className="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-acid to-yellow-400 text-ink animate-[spin_3s_linear_infinite] text-[16px] leading-none">
-          🎡
-        </span>
-        <span className="bg-gradient-to-r from-[#ff3b82] via-acid to-[#00e5ff] bg-clip-text text-transparent">
-          Spin the wheel for a free discount
-        </span>
-        <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-acid px-2 py-1 text-[10px] font-black tracking-widest text-ink">
-          1 in 10,000
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blood" />
-        </span>
+      <span className={`flex items-center gap-2.5 rounded-full bg-[#0F0F12] px-5 py-2.5 ${small ? "text-xs" : "text-sm"}`}>
+        <span className="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-[13px]">🎡</span>
+        <span className="font-extrabold tracking-tight text-white">Spin the wheel for a free discount</span>
+        <span className="hidden sm:inline-flex items-center rounded-full bg-white px-2 py-0.5 text-[10px] font-black tracking-widest text-zinc-900">1 in 10,000</span>
       </span>
-      <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent group-hover:translate-x-full transition duration-700" />
     </button>
   );
 }
@@ -167,9 +142,7 @@ export function LuckyWheelModal({
   const [firstCoupon, setFirstCoupon] = useState<LuckyCoupon | null>(null);
   const [nowMs, setNowMs] = useState(Date.now());
   const timeoutRef = useRef<number | null>(null);
-  const wheelRef = useRef<HTMLDivElement>(null);
 
-  // live countdown for first coupon
   useEffect(() => {
     if (phase !== "firstWon" && phase !== "secondWon" && phase !== "secondWheel") return;
     if (!firstCoupon) return;
@@ -177,10 +150,8 @@ export function LuckyWheelModal({
     return () => clearInterval(t);
   }, [phase, firstCoupon]);
 
-  // reset / hydrate on open
   useEffect(() => {
     if (isOpen) {
-      // if user already won the founder bundle, jump straight to firstWon with that coupon
       if (existingCoupon && existingCoupon.expiresAt > Date.now()) {
         setFirstCoupon(existingCoupon);
         setPhase("firstWon");
@@ -201,7 +172,6 @@ export function LuckyWheelModal({
     }
   }, [isOpen, existingCoupon]);
 
-  // close on esc
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -217,45 +187,35 @@ export function LuckyWheelModal({
     if (spinning || phase !== "firstWheel") return;
     setSpinning(true);
     getAudio();
-    // 8-slice carnival near-miss: slam to 10% OFF (index 0, clockwise after jackpot) then elastic snap to JACKPOT
-    const NEAR_MISS_INDEX = 0; // 10% OFF — adjacent clockwise after jackpot
-    const spins = 5 + Math.random() * 0.8;
-    const nearMissCenter = NEAR_MISS_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2; // 22.5
-    const jitter = (Math.random() - 0.5) * 3; // tiny jitter so jackpot feels alive
-    const targetNearMiss = spins * 360 + (360 - nearMissCenter) + jitter; // lands on 10% OFF (near-miss)
-    const targetJackpot = targetNearMiss + SEGMENT_ANGLE; // 45° clockwise nudge to JACKPOT · AU + KIT
+    const NEAR_MISS_INDEX = 0; // 10% OFF
+    const spins = 5 + Math.random() * 0.6;
+    const nearMissCenter = NEAR_MISS_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
+    const jitter = (Math.random() - 0.5) * 2.5;
+    const targetNearMiss = spins * 360 + (360 - nearMissCenter) + jitter;
+    const targetJackpot = targetNearMiss + SEGMENT_ANGLE;
 
-    // tick storm during first fast spin — dopaminergic ticks
-    const tickIds: number[] = [];
     const start = Date.now();
     const tickInterval = window.setInterval(() => {
-      const elapsed = Date.now() - start;
-      if (elapsed > 3400) {
+      if (Date.now() - start > 3350) {
         clearInterval(tickInterval);
         return;
       }
-      playTick(elapsed < 2000 ? 1 : 0.85);
-    }, 82);
-    tickIds.push(tickInterval as unknown as number);
+      playTick(0.9);
+    }, 78);
 
-    // phase 1: slam to 10% OFF (near-miss) — fast, exciting
-    setWheelTransition("transform 3650ms cubic-bezier(0.15, 0.88, 0.20, 1)");
+    setWheelTransition("transform 3550ms cubic-bezier(0.22, 0.85, 0.24, 1)");
     requestAnimationFrame(() => setRotation(targetNearMiss));
-    // use ref to store intermediate timeouts for cleanup
+
     const nearMissTimeout = window.setTimeout(() => {
       clearInterval(tickInterval);
-      playNearMissTick(); // tick tick — hesitation
-      // brief hesitation — wheel appears to stick on 10% OFF — dopamine near-miss
+      playNearMissTick();
       const hesitation = window.setTimeout(() => {
-        // nudge to JACKPOT with elastic snap + rising ding
         playRisingDing();
         try {
-          navigator.vibrate?.([20, 30, 20, 40]);
+          navigator.vibrate?.([18, 22, 18]);
         } catch {}
-        // elastic carnival snap into jackpot
-        setWheelTransition("transform 680ms cubic-bezier(0.34, 1.56, 0.64, 1)");
+        setWheelTransition("transform 720ms cubic-bezier(0.34, 1.56, 0.64, 1)");
         setRotation(targetJackpot);
-        // after nudge, show win with confetti explosion
         timeoutRef.current = window.setTimeout(() => {
           setWheelTransition("none");
           const c = generateLuckyCoupon();
@@ -264,16 +224,14 @@ export function LuckyWheelModal({
           setPhase("firstWon");
           setSpinning(false);
           onWin(c);
-          // final vibration burst
           try {
-            navigator.vibrate?.([30, 20, 30, 50]);
+            navigator.vibrate?.([24, 16, 24]);
           } catch {}
-        }, 720) as unknown as number;
-      }, 520) as unknown as number;
-      tickIds.push(hesitation as unknown as number);
-    }, 3650) as unknown as number;
+        }, 740) as unknown as number;
+      }, 480) as unknown as number;
+      void hesitation;
+    }, 3550) as unknown as number;
 
-    // store for cleanup (only last timeout is tracked in timeoutRef, but we clear on unmount via phase reset)
     timeoutRef.current = nearMissTimeout as unknown as number;
   };
 
@@ -288,17 +246,20 @@ export function LuckyWheelModal({
     if (spinning || phase !== "secondWheel") return;
     setSpinning(true);
     getAudio();
-    const spins = 5 + Math.random() * 1.2;
+    const spins = 5 + Math.random() * 0.7;
     const secretCenter = SECRET_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
-    const jitter = (Math.random() - 0.5) * 6;
+    const jitter = (Math.random() - 0.5) * 3;
     const targetRotation = spins * 360 + (360 - secretCenter) + jitter;
-    setWheelTransition("transform 4200ms cubic-bezier(0.12, 0.78, 0.18, 1)");
-    // tick storm for second spin too
+    setWheelTransition("transform 4200ms cubic-bezier(0.18, 0.82, 0.22, 1)");
     const sStart = Date.now();
     const sTick = window.setInterval(() => {
-      if (Date.now() - sStart > 3800) { clearInterval(sTick); return; }
-      playTick(0.9);
-    }, 90);
+      if (Date.now() - sStart > 3800) {
+        clearInterval(sTick);
+        return;
+      }
+      playTick(0.85);
+    }, 88);
+    void sTick;
     requestAnimationFrame(() => setRotation(targetRotation));
     timeoutRef.current = window.setTimeout(() => {
       setWheelTransition("none");
@@ -306,7 +267,7 @@ export function LuckyWheelModal({
       setSpinning(false);
       playRisingDing();
       try {
-        navigator.vibrate?.([30, 50, 30, 50]);
+        navigator.vibrate?.([28, 18, 28]);
         localStorage.setItem("rr_secret_playlist_revealed", "1");
       } catch {}
     }, 4200);
@@ -317,620 +278,429 @@ export function LuckyWheelModal({
 
   return (
     <div
-      className="fixed inset-0 z-[80] grid place-items-center bg-black/80 p-3 backdrop-blur-[6px] sm:p-4"
+      className="fixed inset-0 z-[80] grid place-items-center bg-[#070709]/80 p-4 backdrop-blur-[10px]"
       onClick={() => !spinning && onClose()}
       role="dialog"
       aria-modal="true"
       aria-labelledby="wheel-title"
     >
+      {/* subtle backdrop gradient */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(251,146,60,0.12),transparent_55%),radial-gradient(ellipse_at_bottom,_rgba(6,182,212,0.10),transparent_55%)]" />
+
       {showConfetti && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-          {Array.from({ length: 44 }).map((_, i) => (
+          {Array.from({ length: 36 }).map((_, i) => (
             <span
               key={i}
-              className="absolute top-0 animate-[confettiFall_1.35s_ease-out_forwards] rounded-full"
+              className="absolute top-0 rounded-full animate-[confettiFall_1.4s_ease-out_forwards]"
               style={{
-                left: `${2 + i * 2.25}%`,
-                width: `${6 + (i % 3) * 4}px`,
-                height: `${8 + (i % 2) * 6}px`,
-                background: ["#ffe600", "#ff3b82", "#00d4ff", "#22c55e", "#a855f7", "#f97316", "#ffffff"][i % 7],
-                animationDelay: `${i * 32}ms`,
+                left: `${3 + i * 2.6}%`,
+                width: `${5 + (i % 3) * 3}px`,
+                height: `${7 + (i % 2) * 5}px`,
+                background: ["#F59E0B", "#FB923C", "#06B6D4", "#10B981", "#A78BFA", "#F472B6", "#fff"][i % 7],
+                animationDelay: `${i * 28}ms`,
                 transform: `rotate(${Math.random() * 360}deg)`,
-                boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+                opacity: 0.95,
               }}
             />
           ))}
-          <style>{`@keyframes confettiFall{0%{transform:translateY(-22vh) rotate(0deg) scale(1); opacity:1} 50%{opacity:1} 100%{transform:translateY(108vh) rotate(720deg) scale(0.9); opacity:0}}`}</style>
+          <style>{`@keyframes confettiFall{0%{transform:translateY(-20vh) rotate(0deg); opacity:1} 100%{transform:translateY(110vh) rotate(680deg); opacity:0}}`}</style>
         </div>
       )}
 
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[480px] overflow-hidden rounded-[20px] border-2 border-white/15 bg-gradient-to-b from-[#1a1a22] to-[#08080a] shadow-[0_20px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.06)] sm:max-w-[520px] sm:rounded-[28px]"
+        className="relative w-full max-w-[520px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0F0F12] shadow-[0_24px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.06)]"
       >
-        <div className="bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-3 py-2 text-center">
-          <p className="font-black text-[11px] uppercase tracking-[0.18em] text-white drop-shadow sm:text-xs">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-white shadow" />
-              {phase === "secondWon" || phase === "secondWheel"
-                ? "Secret industry code — shh..."
-                : "Only 1 in 10,000 visitors win the jackpot"}
-              <span className="hidden sm:inline">• verified live draw</span>
-            </span>
-          </p>
+        {/* top bar — minimal */}
+        <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5">
+          <span className="flex items-center gap-2 text-[11px] font-bold tracking-[0.14em] text-white/60">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
+            {phase === "secondWon" || phase === "secondWheel" ? "SECRET CODE" : "VERIFIED DRAW"}
+          </span>
+          <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-white/[0.06] px-2.5 py-1 font-mono text-[11px] tracking-wide text-white/50">
+            1 in 10,000
+            <span className="h-1 w-1 rounded-full bg-white/40" />
+            live
+          </span>
+          <button
+            type="button"
+            onClick={onClose}
+            disabled={spinning}
+            aria-label="Close"
+            className="grid h-7 w-7 place-items-center rounded-full bg-white/[0.06] text-white/60 hover:bg-white/10 hover:text-white disabled:opacity-30"
+          >
+            ×
+          </button>
         </div>
 
-        {/* FIRST WHEEL */}
         {phase === "firstWheel" && (
-          <>
-            <div className="px-5 pt-5 text-center sm:px-7 sm:pt-6">
-              <h2 id="wheel-title" className="font-display text-[1.55rem] leading-[1] sm:text-3xl">
-                <span className="bg-gradient-to-r from-[#ff6b9d] via-acid to-[#00e5ff] bg-clip-text text-transparent">
-                  SPIN THE RAINBOW WHEEL
-                </span>
-              </h2>
-              <p className="mx-auto mt-2 max-w-[36ch] text-[13px] leading-[1.5] text-white/70 sm:text-sm">
-                <span className="inline-flex items-center gap-1 rounded-full bg-acid/15 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-acid border border-acid/20">🎪 8-SLICE CARNIVAL WHEEL</span>
-                <br className="hidden sm:block" />
-                <span className="mt-1 inline-block">
-                  Novelty prizes like <b className="text-white">$100 Guitar Center</b> & <b className="text-white">secret code</b> — watch it <b className="text-yellow-300">near-miss 10% OFF</b> then snap to green <b className="text-acid">JACKPOT · AU + KIT</b> for <b className="text-acid">$21</b> <span className="text-white/40 line-through">($54)</span>
-                </span>
+          <div className="px-6 pt-6 pb-6 sm:px-7">
+            <div className="text-center">
+              <p className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-amber-300">
+                <span className="text-[13px]">🎪</span> 8-SLICE CARNIVAL WHEEL
               </p>
-              <div className="mt-3 flex flex-wrap justify-center gap-1.5 text-[11px]">
-                <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-bold uppercase tracking-wider text-white/60">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" /> 342 spinning now
-                </span>
-                <span className="inline-flex items-center gap-1 rounded-full border border-acid/30 bg-acid/10 px-2.5 py-1 font-bold uppercase tracking-wider text-acid">
-                  3 jackpots in last hour
-                </span>
-                <span className="hidden sm:inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-white/50">
-                  draw #RR-{(Math.floor(Math.random() * 9000) + 1000)}
-                </span>
-              </div>
-              <p className="mt-2 text-center text-[10px] uppercase tracking-[0.14em] text-white/30">
-                Freecash-style novelty prizes on wheel • jackpot is pre-selected upsells at founder price
+              <h2 id="wheel-title" className="mt-3 font-display text-[1.7rem] leading-none tracking-tight text-white sm:text-[1.9rem]">
+                Spin for your <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">discount</span>
+              </h2>
+              <p className="mx-auto mt-2 max-w-[32ch] text-[13px] leading-relaxed text-white/55">
+                Novelty prizes inside — watch it <span className="font-semibold text-amber-300">near-miss 10% OFF</span> then snap to <span className="font-semibold text-emerald-400">JACKPOT</span>
               </p>
             </div>
 
-            <div className="relative mx-auto mt-5 flex justify-center px-4 pb-2 sm:mt-6">
-              <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1">
+            {/* wheel stage — premium, not cluttered */}
+            <div className="relative mx-auto mt-6 flex justify-center">
+              {/* pointer — sleek */}
+              <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-[1px]">
                 <div className="relative">
-                  <div className="h-0 w-0 border-l-[14px] border-r-[14px] border-t-[22px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]" />
-                  <div className="absolute left-1/2 top-[-2px] h-3 w-3 -translate-x-1/2 rounded-full border-2 border-white bg-acid shadow-[0_0_12px_rgba(255,230,0,0.8)]" />
+                  <div className="h-0 w-0 border-l-[11px] border-r-[11px] border-t-[18px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_6px_12px_rgba(0,0,0,0.4)]" />
+                  <div className="absolute left-1/2 top-[-1px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border-[2px] border-white bg-amber-400 shadow-[0_0_10px_rgba(251,146,60,0.9)]" />
                 </div>
               </div>
-              <div className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#ff3b82]/20 via-[#7c5cff]/20 to-[#00d4ff]/20 blur-[18px]" />
-              <div className="relative h-[300px] w-[300px] shrink-0 sm:h-[340px] sm:w-[340px]">
-              {/* carnival lights — 20 bulbs around wheel */}
-              <div className="pointer-events-none absolute inset-[-14px] rounded-full" aria-hidden>
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <span
-                    key={i}
-                    className={`absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white shadow-[0_0_10px_rgba(255,255,255,0.9)] ${i % 2 === 0 ? "bg-acid" : i % 3 === 0 ? "bg-[#ff3b82]" : "bg-white"} animate-[carnivalBlink_0.9s_ease-in-out_infinite]`}
-                    style={{
-                      left: `${50 + 52 * Math.cos((i * 18 * Math.PI) / 180)}%`,
-                      top: `${50 + 52 * Math.sin((i * 18 * Math.PI) / 180)}%`,
-                      animationDelay: `${i * 70}ms`,
-                    }}
-                  />
-                ))}
-                <style>{`@keyframes carnivalBlink{0%,100%{opacity:1; transform:translate(-50%,-50%) scale(1); box-shadow:0 0 10px rgba(255,255,255,0.9)}50%{opacity:0.35; transform:translate(-50%,-50%) scale(0.78); box-shadow:0 0 4px rgba(255,255,255,0.4)}}`}</style>
-              </div>
-                <div
-                  ref={wheelRef}
-                  className="absolute inset-0 rounded-full border-[8px] border-white shadow-[0_12px_40px_rgba(0,0,0,0.6),inset_0_0_0_3px_rgba(255,255,255,0.15)] will-change-transform"
-                  style={{
-                    background: buildConicGradient(),
-                    transform: `rotate(${rotation}deg)`,
-                    transition: wheelTransition,
-                  }}
-                >
-                  <div className="absolute inset-[10px] rounded-full border border-white/25" />
-                  <div className="absolute inset-[14px] rounded-full border border-black/10" />
-                  <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full rounded-full pointer-events-none" aria-hidden>
-                    {SEGMENTS.map((_, i) => {
-                      const angle = (i * SEGMENT_ANGLE * Math.PI) / 180;
-                      const x2 = 50 + 50 * Math.sin(angle);
-                      const y2 = 50 - 50 * Math.cos(angle);
-                      return <line key={i} x1="50" y1="50" x2={x2} y2={y2} stroke="rgba(255,255,255,0.9)" strokeWidth="0.8" strokeLinecap="round" />;
-                    })}
-                  </svg>
-                  {SEGMENTS.map((seg, i) => {
-                    const angle = i * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
-                    const isJack = seg.isJackpot;
-                    const isSecret = seg.isSecret;
-                    return (
-                      <div
-                        key={seg.label + i}
-                        className="absolute left-1/2 top-1/2"
-                        style={{ transform: `rotate(${angle}deg)`, transformOrigin: "0 0" }}
-                      >
-                        <div
-                          className="flex flex-col items-center text-center"
-                          style={{ transform: `translate(-50%, -92px) rotate(90deg)`, width: isJack ? "96px" : isSecret ? "84px" : "72px" }}
-                        >
+
+              {/* soft glow */}
+              <div className="absolute left-1/2 top-1/2 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-amber-500/[0.07] via-orange-500/[0.07] to-cyan-500/[0.07] blur-[20px]" />
+
+              <div className="relative h-[300px] w-[300px] sm:h-[330px] sm:w-[330px]">
+                {/* outer gold ring with subtle lights — minimal */}
+                <div className="absolute inset-[-7px] rounded-full bg-gradient-to-b from-white/15 to-white/5 p-[1px] shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
+                  <div className="h-full w-full rounded-full bg-[#0F0F12] p-[6px]">
+                    <div className="relative h-full w-full rounded-full bg-[#0F0F12] shadow-[inset_0_2px_12px_rgba(0,0,0,0.5)]">
+                      {/* lights — very subtle, 16 dots, slow */}
+                      <div className="pointer-events-none absolute inset-[-9px] rounded-full" aria-hidden>
+                        {Array.from({ length: 16 }).map((_, i) => (
                           <span
-                            className={`font-black leading-none tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] ${isJack ? "text-[10px] sm:text-[11px]" : "text-[9px] sm:text-[10px]"}`}
-                            style={{ color: seg.textColor, textShadow: "0 1px 3px rgba(0,0,0,0.6)", lineHeight: isJack ? "1.05" : "1.15", whiteSpace: "pre-line" }}
-                          >
-                            {seg.label}
-                            {seg.sub ? `\n${seg.sub}` : ""}
-                          </span>
-                          {isJack && (
-                            <span className="mt-0.5 rounded-full bg-black/20 px-1.5 py-0.5 text-[7px] font-black uppercase tracking-[0.14em] text-white/90 border border-white/30">
-                              SAVE $33
-                            </span>
-                          )}
-                          {isSecret && (
-                            <span className="mt-0.5 rounded-full bg-black/20 px-1 py-0.5 text-[6px] font-black uppercase tracking-[0.12em] text-white/90 border border-white/30">
-                              2ND PRIZE
-                            </span>
-                          )}
+                            key={i}
+                            className={`absolute h-[6px] w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full ${i % 2 === 0 ? "bg-amber-300" : "bg-white"} shadow-[0_0_8px_rgba(255,255,255,0.7)]`}
+                            style={{
+                              left: `${50 + 50.5 * Math.cos((i * 22.5 * Math.PI) / 180)}%`,
+                              top: `${50 + 50.5 * Math.sin((i * 22.5 * Math.PI) / 180)}%`,
+                              opacity: 0.9,
+                            }}
+                          />
+                        ))}
+                      </div>
+
+                      <div
+                        className="absolute inset-[7px] overflow-hidden rounded-full border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] will-change-transform"
+                        style={{
+                          background: buildConicGradient(),
+                          transform: `rotate(${rotation}deg)`,
+                          transition: wheelTransition,
+                        }}
+                      >
+                        {/* inner highlight */}
+                        <div className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.18),inset_0_-1px_8px_rgba(0,0,0,0.25)]" />
+                        <svg viewBox="0 0 100 100" className="pointer-events-none absolute inset-0 h-full w-full rounded-full" aria-hidden>
+                          {SEGMENTS.map((_, i) => {
+                            const angle = (i * SEGMENT_ANGLE * Math.PI) / 180;
+                            const x2 = 50 + 50 * Math.sin(angle);
+                            const y2 = 50 - 50 * Math.cos(angle);
+                            return <line key={i} x1="50" y1="50" x2={x2} y2={y2} stroke="rgba(255,255,255,0.14)" strokeWidth="0.6" />;
+                          })}
+                        </svg>
+                        {/* labels — clean, single line where possible */}
+                        {SEGMENTS.map((seg, i) => {
+                          const angle = i * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
+                          const isJack = seg.isJackpot;
+                          return (
+                            <div
+                              key={seg.label + i}
+                              className="absolute left-1/2 top-1/2"
+                              style={{ transform: `rotate(${angle}deg)`, transformOrigin: "0 0" }}
+                            >
+                              <div
+                                className="flex flex-col items-center text-center"
+                                style={{
+                                  transform: `translate(-50%, -102px) rotate(90deg)`,
+                                  width: isJack ? "94px" : "78px",
+                                }}
+                              >
+                                <span
+                                  className={`font-black tracking-[0.02em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)] ${isJack ? "text-[11px]" : "text-[10px]"}`}
+                                  style={{ color: seg.textColor, lineHeight: 1.05, whiteSpace: "pre-line" }}
+                                >
+                                  {seg.label}
+                                  {seg.sub ? `\n${seg.sub}` : ""}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* center hub — premium */}
+                      <div className="absolute left-1/2 top-1/2 grid h-[84px] w-[84px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-gradient-to-b from-zinc-800 to-zinc-950 shadow-[0_8px_24px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] sm:h-[92px] sm:w-[92px]">
+                        <div className="grid h-[72px] w-[72px] place-items-center rounded-full border border-white/10 bg-gradient-to-b from-white/[0.08] to-transparent sm:h-[80px] sm:w-[80px]">
+                          <div className="text-center">
+                            <div className="font-display text-[12px] tracking-[0.16em] text-white">SPIN</div>
+                            <div className="text-[9px] font-bold tracking-[0.18em] text-white/45">TO WIN</div>
+                          </div>
                         </div>
                       </div>
-                    );
-                  })}
-                  <div className="absolute left-1/2 top-1/2 flex h-[86px] w-[86px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[5px] border-white bg-gradient-to-br from-[#1a1a22] to-black shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2)] sm:h-[96px] sm:w-[96px]">
-                    <div className="text-center">
-                      <div className="font-display text-[13px] leading-none tracking-[0.14em] text-acid sm:text-sm">SPIN</div>
-                      <div className="text-[8px] font-bold uppercase tracking-[0.16em] text-white/50">to win</div>
-                    </div>
-                    <div className="absolute inset-0 rounded-full">
-                      {Array.from({ length: 12 }).map((_, i) => (
-                        <span
-                          key={i}
-                          className="absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/80"
-                          style={{
-                            left: `${50 + 38 * Math.cos((i * 30 * Math.PI) / 180)}%`,
-                            top: `${50 + 38 * Math.sin((i * 30 * Math.PI) / 180)}%`,
-                          }}
-                        />
-                      ))}
                     </div>
                   </div>
                 </div>
-                <div className="pointer-events-none absolute inset-[-6px] rounded-full border border-white/10" />
               </div>
             </div>
 
-            <div className="px-5 pb-5 sm:px-7 sm:pb-6">
+            <div className="mt-6">
               <button
                 type="button"
                 onClick={handleFirstSpin}
                 disabled={spinning}
-                className={`cta relative w-full overflow-hidden rounded-full px-6 py-4 font-display text-xl uppercase tracking-wide text-white shadow-[0_10px_30px_rgba(124,92,255,0.45)] transition ${spinning ? "cursor-wait bg-white/10 text-white/50" : "bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] hover:brightness-[1.08] active:scale-[0.99]"}`}
+                className="group relative w-full overflow-hidden rounded-full bg-gradient-to-r from-amber-400 to-orange-500 px-6 py-[14px] font-black tracking-tight text-zinc-900 shadow-[0_8px_20px_rgba(251,146,60,0.35)] transition hover:shadow-[0_10px_28px_rgba(251,146,60,0.45)] hover:brightness-[1.03] active:scale-[0.985] disabled:cursor-wait disabled:opacity-60"
               >
-                <span className="relative flex items-center justify-center gap-2">
+                <span className="flex items-center justify-center gap-2 text-[15px]">
                   {spinning ? (
                     <>
-                      <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-zinc-900/20 border-t-zinc-900" />
                       Spinning...
                     </>
                   ) : (
-                    <>
-                      <span className="text-xl">🎡</span> TAP TO SPIN <span className="hidden sm:inline text-sm opacity-80">— free</span>
-                    </>
+                    <>Tap to spin — free</>
                   )}
                 </span>
-                {!spinning && <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_1.6s_ease_infinite]" />}
+                <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition duration-700" />
               </button>
-              <div className="mt-3 flex items-center justify-center gap-2 text-center text-[11px] leading-none text-white/35">
-                <span className="h-px w-8 bg-white/10" />
-                <span>No email required • Instant win check</span>
-                <span className="h-px w-8 bg-white/10" />
-              </div>
-              <div className="mt-4 flex items-center justify-between rounded-xl border border-white/10 bg-black/30 px-3 py-2.5">
-                <div className="flex items-center gap-2">
-                  <img src="https://i.pravatar.cc/100?img=33" alt="" aria-hidden className="h-7 w-7 rounded-full object-cover ring-1 ring-white/15" />
-                  <div className="text-left leading-tight">
-                    <p className="text-[12px] font-bold text-white">Maya K. just won</p>
-                    <p className="text-[11px] text-white/50">Founder Bundle $21 • 2m ago</p>
-                  </div>
-                </div>
-                <span className="rounded-full bg-green-500/15 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-green-400 border border-green-500/20">Live</span>
-              </div>
-              <button type="button" onClick={onClose} disabled={spinning} className="mx-auto mt-3 block text-[12px] text-white/30 underline underline-offset-4 hover:text-white/60 disabled:opacity-30">
-                No thanks, I don't like discounts
-              </button>
-              <style>{`@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}`}</style>
+              <p className="mt-2.5 text-center text-[11px] font-medium tracking-wide text-white/35">342 spinning now • No email • 5 seconds</p>
             </div>
-          </>
+          </div>
         )}
 
         {phase === "firstWon" && firstCoupon && (
-          <div className="px-5 py-6 text-center sm:px-7 sm:py-7">
-            <div className="mx-auto -mt-2 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-acid via-yellow-300 to-[#ff3b82] text-3xl shadow-[0_10px_30px_rgba(255,230,0,0.45)] ring-4 ring-white/15 animate-[pop_420ms_cubic-bezier(0.34,1.56,0.64,1)]">
-              🎉
-            </div>
-            <style>{`@keyframes pop{0%{transform:scale(0.4)}100%{transform:scale(1)}}`}</style>
-            <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-acid to-yellow-300 px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-ink">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blood" /> Jackpot Winner Verified
-            </p>
-            <h3 className="mt-3 font-display text-[1.75rem] leading-[0.95] sm:text-4xl">
-              YOU DID IT —{" "}
-              <span className="bg-gradient-to-r from-acid via-[#ff6b9d] to-[#00e5ff] bg-clip-text text-transparent">1 IN 10,000!</span>
-            </h3>
-            <p className="mx-auto mt-3 max-w-[38ch] text-[13px] leading-[1.55] text-white/70 sm:text-sm">
-              You beat <b className="text-white">9,999</b> other visitors. The rainbow stopped on <b className="text-acid">JACKPOT</b> — that almost never happens.
-              <br />
-              <span className="text-white/50">
-                Winner ID: <b className="font-mono text-white">{firstCoupon.winnerId}</b> • Draw #{firstCoupon.winnerNumber}
-              </span>
-            </p>
-
-            <div className="relative mt-5 overflow-hidden rounded-2xl border-2 border-acid bg-gradient-to-b from-acid/15 via-white/[0.04] to-black/20 p-4 text-left shadow-[0_12px_40px_rgba(255,230,0,0.18)] sm:p-5">
-              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-acid/15 blur-2xl" />
-              <div className="absolute -left-8 -bottom-8 h-24 w-24 rounded-full bg-[#7c5cff]/15 blur-2xl" />
-              <div className="relative">
-                <p className="text-[11px] font-black uppercase tracking-[0.18em] text-acid">Your exclusive prize — pre-selected at checkout</p>
-                <p className="mt-1 font-display text-xl leading-none sm:text-2xl">FOUNDER'S BUNDLE UNLOCKED</p>
-                <div className="mt-3 grid gap-2">
-                  <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2.5">
-                    <div>
-                      <p className="text-sm font-bold text-white">📄 Indie Contract Kit</p>
-                      <p className="text-[11px] text-white/50">6 templates + guide</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[11px] font-bold uppercase tracking-widest text-white/40 line-through">$25</p>
-                      <p className="font-display text-xl leading-none text-acid">$9</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2.5">
-                    <div>
-                      <p className="text-sm font-bold text-white">🇦🇺 AU Radio List</p>
-                      <p className="text-[11px] text-white/50">2,847 contacts • 1,612 emails</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[11px] font-bold uppercase tracking-widest text-white/40 line-through">$29</p>
-                      <p className="font-display text-xl leading-none text-acid">$12</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between rounded-lg border-2 border-acid/50 bg-acid/10 px-3 py-2.5">
-                    <div>
-                      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-acid">Bundle total</p>
-                      <p className="text-xs text-white/60">Both add-ons together</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs font-bold uppercase tracking-widest text-white/40 line-through">$54</p>
-                      <p className="font-display text-2xl leading-none text-acid">$21</p>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-green-400">Save $33 • 61% OFF</p>
-                    </div>
-                  </div>
-                </div>
+          <div className="px-5 pb-6 pt-5 sm:px-6">
+            <div className="text-center">
+              <div className="mx-auto grid h-[56px] w-[56px] place-items-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-xl shadow-[0_8px_20px_rgba(251,146,60,0.35)]">
+                ✓
               </div>
-              <div className="relative mt-4 grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-white/10 bg-black/40 p-3">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Coupon code</p>
-                  <p className="mt-1 flex items-center gap-2 font-mono text-[13px] font-black tracking-[0.08em] text-white">
-                    {firstCoupon.code}
-                    <button
-                      type="button"
-                      onClick={() => navigator.clipboard?.writeText(firstCoupon.code)}
-                      className="rounded bg-white px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-ink hover:bg-acid"
-                    >
-                      Copy
-                    </button>
-                  </p>
-                  <p className="mt-1 text-[11px] text-white/40">Auto-applied at checkout</p>
-                </div>
-                <div className="rounded-xl border border-acid/30 bg-acid/10 p-3 text-center">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-acid/70">Prize expires in</p>
-                  <p className="mt-1 font-display text-2xl leading-none tracking-wide text-acid tabular-nums">{formatRemainingMs(remainingMs)}</p>
-                  <p className="mt-1 text-[11px] font-bold uppercase tracking-wider text-white/50">Don't miss it</p>
-                </div>
-              </div>
-              <div className="relative mt-3 flex items-center gap-2 rounded-lg border border-white/10 bg-black/30 px-3 py-2">
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-green-500 text-xs font-black text-white">✓</span>
-                <p className="text-[12px] leading-snug text-white/70">
-                  <b className="text-white">Both boxes will be pre-ticked at checkout.</b> You can untick, but you won't see this celebration again.
-                </p>
-              </div>
-              <div className="relative mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full bg-gradient-to-r from-acid via-[#ff6b9d] to-[#00d4ff] transition-all duration-1000" style={{ width: `${Math.max(8, (remainingMs / (15 * 60 * 1000)) * 100)}%` }} />
-              </div>
+              <p className="mt-3 inline-flex items-center rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.14em] text-emerald-300">
+                <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                JACKPOT — 1 IN 10,000
+              </p>
+              <h3 className="mt-2 font-display text-[1.65rem] leading-none tracking-tight text-white">
+                You won <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">AU + KIT</span>
+              </h3>
+              <p className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">
+                Pre-selected at checkout for <span className="font-semibold text-white">$21</span> <span className="line-through opacity-40">$54</span> • <span className="font-mono text-white/70">{firstCoupon.code}</span>
+              </p>
             </div>
 
-            <div className="mt-4 flex items-center justify-center gap-2 text-[11px] text-white/35">
-              <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-green-400" /> 11 people claimed in last 10 minutes • 1 jackpot / 10,000 spins
+            <div className="mt-4 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.03]">
+              <div className="grid gap-px bg-white/[0.06] p-px">
+                <div className="flex items-center justify-between bg-[#0F0F12] px-3.5 py-2.5">
+                  <span className="text-sm font-semibold text-white">📄 Indie Contract Kit</span>
+                  <span className="text-right">
+                    <span className="block text-[11px] line-through text-white/30">$25</span>
+                    <span className="font-display text-[15px] leading-none text-emerald-400">$9</span>
+                  </span>
+                </div>
+                <div className="flex items-center justify-between bg-[#0F0F12] px-3.5 py-2.5">
+                  <span className="text-sm font-semibold text-white">🇦🇺 AU Radio List</span>
+                  <span className="text-right">
+                    <span className="block text-[11px] line-through text-white/30">$29</span>
+                    <span className="font-display text-[15px] leading-none text-emerald-400">$12</span>
+                  </span>
+                </div>
+                <div className="flex items-center justify-between bg-emerald-500/[0.08] px-3.5 py-3">
+                  <span className="text-xs font-black tracking-[0.12em] text-emerald-300">BUNDLE</span>
+                  <span className="text-right">
+                    <span className="text-[11px] line-through text-white/30">$54</span>
+                    <span className="ml-2 font-display text-lg leading-none text-white">$21</span>
+                    <span className="ml-2 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-black tracking-widest text-white">SAVE $33</span>
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between border-t border-white/[0.06] bg-white/[0.02] px-3.5 py-2.5">
+                <span className="font-mono text-xs font-bold tracking-wide text-white/70">{firstCoupon.code}</span>
+                <span className="flex items-center gap-2">
+                  <span className="font-mono text-xs tabular-nums text-amber-300">{formatRemainingMs(remainingMs)}</span>
+                  <button
+                    type="button"
+                    onClick={() => navigator.clipboard?.writeText(firstCoupon.code)}
+                    className="rounded-full bg-white px-2.5 py-1 text-[11px] font-black tracking-wide text-zinc-900 hover:bg-zinc-100"
+                  >
+                    Copy
+                  </button>
+                </span>
+              </div>
+              <div className="h-1 bg-white/10">
+                <div className="h-full bg-gradient-to-r from-amber-400 to-emerald-400 transition-all duration-1000" style={{ width: `${Math.max(6, (remainingMs / (15 * 60 * 1000)) * 100)}%` }} />
+              </div>
             </div>
 
             <button
               type="button"
               onClick={onClaim}
-              className="cta mt-5 w-full rounded-full bg-acid px-6 py-4 font-display text-[1.15rem] uppercase tracking-wide text-ink shadow-[0_10px_30px_rgba(255,230,0,0.45)] hover:brightness-[1.06] active:scale-[0.99] sm:text-xl"
+              className="mt-4 w-full rounded-full bg-white px-6 py-3.5 font-black tracking-tight text-zinc-900 shadow-[0_8px_20px_rgba(255,255,255,0.12)] hover:bg-zinc-100 active:scale-[0.985]"
             >
-              Claim My Founder Bundle →
-              <span className="mt-0.5 block text-[11px] font-sans font-bold normal-case tracking-normal opacity-70">Takes you to checkout • Both add-ons pre-selected • $21</span>
+              Continue to checkout →
             </button>
 
-            <div className="relative my-5 flex items-center gap-3">
-              <span className="h-px flex-1 bg-gradient-to-r from-transparent to-white/15" />
-              <span className="rounded-full bg-gradient-to-r from-cyan-400 to-[#7c5cff] px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-white shadow-[0_2px_10px_rgba(6,182,212,0.4)] animate-pulse">ONE MORE CHANCE →</span>
-              <span className="h-px flex-1 bg-gradient-to-l from-transparent to-white/15" />
+            <div className="relative my-4 flex items-center gap-3">
+              <span className="h-px flex-1 bg-white/10" />
+              <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-cyan-300">ONE MORE CHANCE</span>
+              <span className="h-px flex-1 bg-white/10" />
             </div>
 
-            <div className="relative overflow-hidden rounded-2xl border-2 border-cyan-400 bg-gradient-to-br from-cyan-500/10 via-[#7c5cff]/10 to-[#ff3b82]/10 p-4 text-left shadow-[0_8px_30px_rgba(6,182,212,0.2)]">
-              <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-cyan-400/20 blur-xl animate-pulse" />
+            <div className="rounded-2xl border border-cyan-500/15 bg-gradient-to-b from-cyan-500/[0.06] to-transparent p-4 text-left">
               <div className="flex items-center gap-3">
-                <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-[#7c5cff] text-xl shadow-[0_4px_16px_rgba(6,182,212,0.4)] animate-[pulse_1.4s_ease-in-out_infinite]">🤫</span>
-                <div className="flex-1">
-                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-300">YOU UNLOCKED A SECOND SPIN!</p>
-                  <p className="text-sm font-black leading-none text-white">Hidden industry secret inside</p>
-                  <p className="text-[11px] leading-none text-white/60">Everyone gets one more chance — don't miss it</p>
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/20">🤫</span>
+                <div>
+                  <p className="text-xs font-black tracking-[0.12em] text-cyan-300">SECOND SPIN UNLOCKED</p>
+                  <p className="text-sm font-bold leading-none text-white">Reveal your secret code</p>
                 </div>
-                <span className="hidden sm:grid h-8 w-8 place-items-center rounded-full bg-white text-ink font-black text-xs animate-bounce">!</span>
+                <span className="ml-auto hidden sm:inline-flex rounded-full bg-white px-2 py-1 text-[10px] font-black tracking-widest text-zinc-900">FR2AZEF</span>
               </div>
-              <div className="mt-3 rounded-xl border-2 border-dashed border-white/15 bg-black/40 p-3 backdrop-blur">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.14em] text-white/50">Locked secret code</p>
-                    <p className="font-mono text-lg font-black tracking-[0.18em] text-white/25 blur-[4px] select-none">FR2AZEF</p>
-                    <p className="text-[11px] font-bold text-cyan-300">PLAYLIST CAMPAIGN DISCOUNT</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-cyan-400 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-ink">Tap to reveal</span>
-                    <p className="mt-1 text-[10px] font-bold uppercase tracking-widest text-white/30">Value hidden</p>
-                  </div>
-                </div>
+              <div className="mt-3 flex items-center justify-between rounded-xl border border-dashed border-white/10 bg-black/20 px-3 py-2.5">
+                <span className="font-mono text-sm font-black tracking-[0.16em] text-white/20 blur-[3px]">FR2AZEF</span>
+                <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-black tracking-wide text-zinc-900">Tap spin to reveal</span>
               </div>
               <button
                 type="button"
                 onClick={handleGoToSecondWheel}
-                className="cta mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-[#7c5cff] to-[#00d4ff] px-6 py-3.5 font-black uppercase tracking-[0.08em] text-white shadow-[0_10px_30px_rgba(6,182,212,0.45)] hover:brightness-[1.08] active:scale-[0.99] animate-[pulse_1.8s_ease-in-out_infinite]"
+                className="mt-3 w-full rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-3 font-black tracking-tight text-white shadow-[0_8px_20px_rgba(6,182,212,0.3)] hover:brightness-[1.05] active:scale-[0.985]"
               >
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-ink text-sm">🎡</span>
-                SPIN AGAIN — REVEAL SECRET CODE →
+                Spin again — reveal secret →
               </button>
-              <p className="mt-2 text-center text-[11px] font-bold leading-snug text-cyan-200">
-                <span className="inline-flex items-center gap-1 rounded-full bg-black/30 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-white/70">SHHH... INDUSTRY SECRET</span> • Always lands on <b className="text-white">SECRET CODE</b>
-              </p>
+              <p className="mt-2 text-center text-[11px] font-medium text-white/35">Always lands on <span className="font-bold text-cyan-300">SHHH... INDUSTRY SECRET</span></p>
             </div>
-
-            <button type="button" onClick={onClose} className="mx-auto mt-4 block text-[12px] text-white/40 underline underline-offset-4 hover:text-white/70">
-              Keep shopping without bonus
-            </button>
-            <p className="mx-auto mt-3 max-w-[40ch] text-center text-[10px] leading-snug text-white/25">Founder pricing is reserved for this browser for 15 minutes — after that the checkout returns to standard.</p>
           </div>
         )}
 
         {phase === "secondWheel" && (
-          <>
-            <div className="px-5 pt-5 text-center sm:px-7 sm:pt-6">
-              <p className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#7c5cff] to-[#00d4ff] px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-white">
-                🤫 SECOND SPIN — SECRET CODE
-              </p>
-              <h2 className="mt-3 font-display text-[1.45rem] leading-[1] sm:text-3xl">
-                <span className="bg-gradient-to-r from-[#00e5ff] via-acid to-[#ff6b9d] bg-clip-text text-transparent">ONE MORE PRIZE</span>
-              </h2>
-              <p className="mx-auto mt-2 max-w-[36ch] text-[13px] leading-[1.5] text-white/70 sm:text-sm">
-                You already hit the jackpot — now try for the{" "}
-                <b className="text-acid">hidden industry secret</b>:{" "}
-                <b className="text-white">PlaylistPush promo code</b> creators whisper about.
-              </p>
-              <p className="mx-auto mt-2 max-w-[34ch] rounded-lg border border-cyan-500/20 bg-cyan-500/10 px-3 py-2 text-[11px] leading-snug text-cyan-200">
-                🤫 Shh, don't tell anyone I gave it to you…
-              </p>
+          <div className="px-6 pt-5 pb-6 sm:px-7">
+            <div className="text-center">
+              <p className="inline-flex items-center rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-cyan-300">🤫 SECOND SPIN</p>
+              <h2 className="mt-2 font-display text-xl leading-none tracking-tight text-white">One more prize</h2>
+              <p className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">Hidden industry secret — <span className="font-semibold text-white">PlaylistPush code</span> inside.</p>
             </div>
 
-            <div className="relative mx-auto mt-5 flex justify-center px-4 pb-2 sm:mt-6">
-              <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1">
-                <div className="relative">
-                  <div className="h-0 w-0 border-l-[14px] border-r-[14px] border-t-[22px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]" />
-                  <div className="absolute left-1/2 top-[-2px] h-3 w-3 -translate-x-1/2 rounded-full border-2 border-white bg-acid shadow-[0_0_12px_rgba(255,230,0,0.8)]" />
-                </div>
+            <div className="relative mx-auto mt-6 flex justify-center">
+              <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-[1px]">
+                <div className="h-0 w-0 border-l-[11px] border-r-[11px] border-t-[18px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_6px_12px_rgba(0,0,0,0.4)]" />
               </div>
-              <div className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-cyan-500/20 via-[#7c5cff]/20 to-[#ff3b82]/20 blur-[18px]" />
-              <div className="relative h-[300px] w-[300px] shrink-0 sm:h-[340px] sm:w-[340px]">
-              {/* carnival lights — 20 bulbs around wheel */}
-              <div className="pointer-events-none absolute inset-[-14px] rounded-full" aria-hidden>
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <span
-                    key={i}
-                    className={`absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white shadow-[0_0_10px_rgba(255,255,255,0.9)] ${i % 2 === 0 ? "bg-acid" : i % 3 === 0 ? "bg-[#ff3b82]" : "bg-white"} animate-[carnivalBlink_0.9s_ease-in-out_infinite]`}
-                    style={{
-                      left: `${50 + 52 * Math.cos((i * 18 * Math.PI) / 180)}%`,
-                      top: `${50 + 52 * Math.sin((i * 18 * Math.PI) / 180)}%`,
-                      animationDelay: `${i * 70}ms`,
-                    }}
-                  />
-                ))}
-                <style>{`@keyframes carnivalBlink{0%,100%{opacity:1; transform:translate(-50%,-50%) scale(1); box-shadow:0 0 10px rgba(255,255,255,0.9)}50%{opacity:0.35; transform:translate(-50%,-50%) scale(0.78); box-shadow:0 0 4px rgba(255,255,255,0.4)}}`}</style>
-              </div>
-                <div
-                  ref={wheelRef}
-                  className="absolute inset-0 rounded-full border-[8px] border-white shadow-[0_12px_40px_rgba(0,0,0,0.6),inset_0_0_0_3px_rgba(255,255,255,0.15)] will-change-transform"
-                  style={{
-                    background: buildConicGradient(),
-                    transform: `rotate(${rotation}deg)`,
-                    transition: wheelTransition,
-                  }}
-                >
-                  <div className="absolute inset-[10px] rounded-full border border-white/25" />
-                  <div className="absolute inset-[14px] rounded-full border border-black/10" />
-                  <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full rounded-full pointer-events-none" aria-hidden>
-                    {SEGMENTS.map((_, i) => {
-                      const angle = (i * SEGMENT_ANGLE * Math.PI) / 180;
-                      const x2 = 50 + 50 * Math.sin(angle);
-                      const y2 = 50 - 50 * Math.cos(angle);
-                      return <line key={i} x1="50" y1="50" x2={x2} y2={y2} stroke="rgba(255,255,255,0.9)" strokeWidth="0.8" strokeLinecap="round" />;
-                    })}
-                  </svg>
-                  {SEGMENTS.map((seg, i) => {
-                    const angle = i * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
-                    const isJack = seg.isJackpot;
-                    const isSecret = seg.isSecret;
-                    return (
-                      <div key={seg.label + i} className="absolute left-1/2 top-1/2" style={{ transform: `rotate(${angle}deg)`, transformOrigin: "0 0" }}>
-                        <div className="flex flex-col items-center text-center" style={{ transform: `translate(-50%, -92px) rotate(90deg)`, width: isJack ? "96px" : isSecret ? "84px" : "72px" }}>
+              <div className="relative h-[300px] w-[300px] sm:h-[330px] sm:w-[330px]">
+                <div className="absolute inset-[-7px] rounded-full bg-gradient-to-b from-white/15 to-white/5 p-[1px]">
+                  <div className="h-full w-full rounded-full bg-[#0F0F12] p-[6px]">
+                    <div className="relative h-full w-full rounded-full bg-[#0F0F12]">
+                      <div className="pointer-events-none absolute inset-[-9px] rounded-full" aria-hidden>
+                        {Array.from({ length: 16 }).map((_, i) => (
                           <span
-                            className={`font-black leading-none tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] ${isJack ? "text-[10px] sm:text-[11px]" : "text-[9px] sm:text-[10px]"}`}
-                            style={{ color: seg.textColor, textShadow: "0 1px 3px rgba(0,0,0,0.6)", lineHeight: isJack ? "1.05" : "1.15", whiteSpace: "pre-line" }}
-                          >
-                            {seg.label}
-                            {seg.sub ? `\n${seg.sub}` : ""}
-                          </span>
-                          {isJack && <span className="mt-0.5 rounded-full bg-black/20 px-1.5 py-0.5 text-[7px] font-black uppercase tracking-[0.14em] text-white/90 border border-white/30">SAVE $33</span>}
-                          {isSecret && <span className="mt-0.5 rounded-full bg-cyan-400 px-1.5 py-0.5 text-[7px] font-black uppercase tracking-[0.12em] text-ink">2ND PRIZE</span>}
+                            key={i}
+                            className="absolute h-[6px] w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                            style={{
+                              left: `${50 + 50.5 * Math.cos((i * 22.5 * Math.PI) / 180)}%`,
+                              top: `${50 + 50.5 * Math.sin((i * 22.5 * Math.PI) / 180)}%`,
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <div
+                        className="absolute inset-[7px] overflow-hidden rounded-full border border-white/10 will-change-transform"
+                        style={{ background: buildConicGradient(), transform: `rotate(${rotation}deg)`, transition: wheelTransition }}
+                      >
+                        <svg viewBox="0 0 100 100" className="pointer-events-none absolute inset-0 h-full w-full rounded-full" aria-hidden>
+                          {SEGMENTS.map((_, i) => {
+                            const angle = (i * SEGMENT_ANGLE * Math.PI) / 180;
+                            const x2 = 50 + 50 * Math.sin(angle);
+                            const y2 = 50 - 50 * Math.cos(angle);
+                            return <line key={i} x1="50" y1="50" x2={x2} y2={y2} stroke="rgba(255,255,255,0.14)" strokeWidth="0.6" />;
+                          })}
+                        </svg>
+                        {SEGMENTS.map((seg, i) => {
+                          const angle = i * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
+                          const isJack = seg.isJackpot;
+                          return (
+                            <div key={seg.label + i} className="absolute left-1/2 top-1/2" style={{ transform: `rotate(${angle}deg)`, transformOrigin: "0 0" }}>
+                              <div className="flex flex-col items-center text-center" style={{ transform: `translate(-50%, -102px) rotate(90deg)`, width: isJack ? "94px" : "78px" }}>
+                                <span className={`font-black tracking-[0.02em] ${isJack ? "text-[11px]" : "text-[10px]"}`} style={{ color: seg.textColor, lineHeight: 1.05, whiteSpace: "pre-line" }}>
+                                  {seg.label}
+                                  {seg.sub ? `\n${seg.sub}` : ""}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className="absolute left-1/2 top-1/2 grid h-[84px] w-[84px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-gradient-to-b from-zinc-800 to-zinc-950 shadow-[0_8px_24px_rgba(0,0,0,0.5)] sm:h-[92px] sm:w-[92px]">
+                        <div className="grid h-[72px] w-[72px] place-items-center rounded-full border border-white/10 bg-white/[0.06] sm:h-[80px] sm:w-[80px]">
+                          <div className="text-center">
+                            <div className="font-display text-[12px] tracking-[0.16em] text-white">SPIN</div>
+                            <div className="text-[9px] font-bold tracking-[0.18em] text-white/45">AGAIN</div>
+                          </div>
                         </div>
                       </div>
-                    );
-                  })}
-                  <div className="absolute left-1/2 top-1/2 flex h-[86px] w-[86px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[5px] border-white bg-gradient-to-br from-[#1a1a22] to-black shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2)] sm:h-[96px] sm:w-[96px]">
-                    <div className="text-center">
-                      <div className="font-display text-[13px] leading-none tracking-[0.14em] text-cyan-400 sm:text-sm">SPIN</div>
-                      <div className="text-[8px] font-bold uppercase tracking-[0.16em] text-white/50">again</div>
                     </div>
-                    <div className="absolute inset-0 rounded-full">
-                      {Array.from({ length: 12 }).map((_, i) => (
-                        <span
-                          key={i}
-                          className="absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/80"
-                          style={{ left: `${50 + 38 * Math.cos((i * 30 * Math.PI) / 180)}%`, top: `${50 + 38 * Math.sin((i * 30 * Math.PI) / 180)}%` }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="pointer-events-none absolute inset-[-6px] rounded-full border border-cyan-500/20" />
-              </div>
-            </div>
-
-            <div className="px-5 pb-5 sm:px-7 sm:pb-6">
-              <button
-                type="button"
-                onClick={handleSecondSpin}
-                disabled={spinning}
-                className={`cta relative w-full overflow-hidden rounded-full px-6 py-4 font-display text-xl uppercase tracking-wide text-white shadow-[0_10px_30px_rgba(6,182,212,0.45)] transition ${spinning ? "cursor-wait bg-white/10 text-white/50" : "bg-gradient-to-r from-[#06b6d4] via-[#7c5cff] to-[#00d4ff] hover:brightness-[1.08] active:scale-[0.99]"}`}
-              >
-                <span className="relative flex items-center justify-center gap-2">
-                  {spinning ? (
-                    <>
-                      <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      Spinning for secret...
-                    </>
-                  ) : (
-                    <>
-                      <span className="text-xl">🤫</span> SPIN FOR SECRET CODE
-                    </>
-                  )}
-                </span>
-              </button>
-              <p className="mt-3 text-center text-[11px] leading-snug text-white/40">
-                Hidden industry code — affiliate promo for{" "}
-                <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="underline decoration-cyan-400 underline-offset-2 hover:text-cyan-300">
-                  PlaylistPush
-                </a>
-                {" "}campaigns
-              </p>
-            </div>
-          </>
-        )}
-
-        {phase === "secondWon" && firstCoupon && (
-          <div className="px-5 py-6 text-center sm:px-7 sm:py-7">
-            <div className="mx-auto -mt-2 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-[#7c5cff] to-[#ff3b82] text-3xl shadow-[0_10px_30px_rgba(6,182,212,0.45)] ring-4 ring-white/15 animate-[pop_420ms_cubic-bezier(0.34,1.56,0.64,1)]">
-              🤫
-            </div>
-            <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-cyan-400 to-[#7c5cff] px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-white">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" /> Secret Unlocked
-            </p>
-            <h3 className="mt-3 font-display text-[1.6rem] leading-[0.95] sm:text-3xl">
-              SHHH...{" "}
-              <span className="bg-gradient-to-r from-cyan-400 via-acid to-[#7c5cff] bg-clip-text text-transparent">INDUSTRY SECRET</span>
-            </h3>
-            <p className="mx-auto mt-3 max-w-[38ch] text-[13px] leading-[1.55] text-white/70 sm:text-sm">
-              Don't tell anyone I gave it to you… this is the code insiders whisper about for{" "}
-              <b className="text-white">PlaylistPush</b> campaigns.
-            </p>
-
-            <div className="relative mt-5 overflow-hidden rounded-2xl border-2 border-cyan-400 bg-gradient-to-b from-cyan-500/15 via-white/[0.04] to-black/20 p-4 text-left shadow-[0_12px_40px_rgba(6,182,212,0.18)] sm:p-5">
-              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-cyan-400/15 blur-2xl" />
-              <div className="absolute -left-8 -bottom-8 h-24 w-24 rounded-full bg-[#7c5cff]/15 blur-2xl" />
-              <div className="relative">
-                <p className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-300">Your hidden promo code</p>
-                <p className="mt-1 font-display text-lg leading-none sm:text-xl">PLAYLIST CAMPAIGN DISCOUNT</p>
-                <p className="mt-1 text-[12px] leading-snug text-white/60">
-                  Use at checkout on{" "}
-                  <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="font-bold text-cyan-300 underline underline-offset-2">
-                    PlaylistPush.com
-                  </a>{" "}
-                  — genuine affiliate promo, gamified just for you.
-                </p>
-                <div className="mt-4 rounded-xl border-2 border-dashed border-cyan-400/40 bg-black/40 p-4 text-center">
-                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-white/40">Tap to copy — paste at PlaylistPush checkout</p>
-                  <div className="mt-2 flex items-center justify-center gap-3">
-                    <span className="font-mono text-2xl font-black tracking-[0.12em] text-white sm:text-3xl">{PLAYLIST_PUSH_CODE}</span>
-                    <button
-                      type="button"
-                      onClick={() => navigator.clipboard?.writeText(PLAYLIST_PUSH_CODE)}
-                      className="rounded-full bg-cyan-400 px-4 py-2 text-xs font-black uppercase tracking-widest text-ink hover:bg-white"
-                    >
-                      Copy
-                    </button>
-                  </div>
-                  <a
-                    href={PLAYLIST_PUSH_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-3 inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-widest text-ink hover:bg-cyan-50"
-                  >
-                    Open PlaylistPush.com →
-                  </a>
-                  <p className="mt-2 text-[11px] italic text-white/40">“Shh, don’t tell anyone I gave it to you…”</p>
-                </div>
-                <div className="mt-3 flex items-center gap-2 rounded-lg border border-white/10 bg-black/30 px-3 py-2.5">
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-cyan-500 text-xs font-black text-white">✓</span>
-                  <div>
-                    <p className="text-[12px] font-bold leading-none text-white">Both prizes secured</p>
-                    <p className="text-[11px] leading-snug text-white/50">
-                      Founder Bundle {firstCoupon.code} • {formatRemainingMs(remainingMs)} left • + Secret {PLAYLIST_PUSH_CODE}
-                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-5 grid gap-3">
-              <button
-                type="button"
-                onClick={onClaim}
-                className="cta w-full rounded-full bg-acid px-6 py-4 font-display text-[1.05rem] uppercase tracking-wide text-ink shadow-[0_10px_30px_rgba(255,230,0,0.45)] hover:brightness-[1.06] sm:text-lg"
-              >
-                Claim Founder Bundle & Keep Code →
-                <span className="mt-0.5 block text-[11px] font-sans font-bold normal-case tracking-normal opacity-70">Goes to checkout • Code saved • Use anytime at PlaylistPush</span>
-              </button>
-              <a
-                href={PLAYLIST_PUSH_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="cta flex w-full items-center justify-center gap-2 rounded-full border-2 border-cyan-400 bg-transparent px-6 py-3.5 font-black uppercase tracking-widest text-cyan-300 hover:bg-cyan-400 hover:text-ink"
-              >
-                Go to PlaylistPush.com
-              </a>
-            </div>
-            <p className="mx-auto mt-3 max-w-[38ch] text-center text-[10px] leading-snug text-white/25">
-              Affiliate disclosure: this is a genuine PlaylistPush promo code shared via gamification. Use it at PlaylistPush checkout for your campaign.
-            </p>
-
-            <button type="button" onClick={onClose} className="mx-auto mt-4 block text-[12px] text-white/40 underline underline-offset-4 hover:text-white/70">
-              Close and keep both codes
+            <button
+              type="button"
+              onClick={handleSecondSpin}
+              disabled={spinning}
+              className="mt-6 w-full rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 px-6 py-3.5 font-black tracking-tight text-white shadow-[0_8px_20px_rgba(6,182,212,0.3)] hover:brightness-[1.05] disabled:opacity-60"
+            >
+              {spinning ? "Spinning for secret..." : "Spin for secret code"}
             </button>
+            <p className="mt-2 text-center text-[11px] text-white/35">
+              Affiliate promo for <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="underline decoration-cyan-400 underline-offset-2">PlaylistPush</a>
+            </p>
           </div>
         )}
 
-        <div className="border-t border-white/10 bg-black/20 px-4 py-3 text-center text-[10px] leading-relaxed tracking-wide text-white/25 sm:px-6">
-          {phase === "secondWon" ? (
-            <>Affiliate code {PLAYLIST_PUSH_CODE} for PlaylistPush.com • Founder Bundle reserved for this browser only</>
-          ) : (
-            <>Verified draw • This price is reserved for this browser only • Novelty prizes on wheel for fun</>
-          )}
+        {phase === "secondWon" && firstCoupon && (
+          <div className="px-5 pb-6 pt-5 sm:px-6">
+            <div className="text-center">
+              <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/20">🤫</div>
+              <p className="mt-3 inline-flex items-center rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-cyan-300">SECRET UNLOCKED</p>
+              <h3 className="mt-2 font-display text-xl leading-none tracking-tight text-white">
+                SHHH... <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">INDUSTRY SECRET</span>
+              </h3>
+              <p className="mx-auto mt-1.5 max-w-[32ch] text-[13px] leading-relaxed text-white/55">Don't tell anyone — insiders use this for PlaylistPush.</p>
+            </div>
+
+            <div className="mt-4 overflow-hidden rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-cyan-500/[0.06] to-transparent">
+              <div className="bg-cyan-500/10 px-4 py-2.5 text-center">
+                <p className="text-[11px] font-black tracking-[0.14em] text-cyan-300">PLAYLIST CAMPAIGN DISCOUNT</p>
+              </div>
+              <div className="p-4">
+                <div className="rounded-xl border-2 border-dashed border-cyan-500/30 bg-zinc-900 p-4 text-center">
+                  <p className="text-[10px] font-black tracking-[0.14em] text-white/40">TAP TO COPY</p>
+                  <div className="mt-2 flex items-center justify-center gap-3">
+                    <span className="font-mono text-2xl font-black tracking-[0.14em] text-white">{PLAYLIST_PUSH_CODE}</span>
+                    <button type="button" onClick={() => navigator.clipboard?.writeText(PLAYLIST_PUSH_CODE)} className="rounded-full bg-white px-3 py-1.5 text-xs font-black tracking-wide text-zinc-900">
+                      Copy
+                    </button>
+                  </div>
+                  <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center rounded-full bg-cyan-400 px-4 py-2 text-xs font-black tracking-wide text-zinc-900">
+                    Open PlaylistPush.com →
+                  </a>
+                  <p className="mt-2 text-[11px] italic text-white/30">“Shh, don’t tell anyone I gave it to you…”</p>
+                </div>
+                <p className="mt-3 text-center text-xs text-white/50">
+                  Use at <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="font-semibold text-cyan-300 underline">PlaylistPush.com</a> checkout • Founder bundle {firstCoupon.code} still active
+                </p>
+              </div>
+            </div>
+
+            <button type="button" onClick={onClaim} className="mt-4 w-full rounded-full bg-white px-6 py-3.5 font-black tracking-tight text-zinc-900 hover:bg-zinc-100">
+              Claim bundle & keep code →
+            </button>
+            <p className="mt-2 text-center text-[11px] text-white/25">Affiliate code • Use anytime at PlaylistPush</p>
+          </div>
+        )}
+
+        <div className="border-t border-white/[0.06] bg-white/[0.02] px-4 py-3 text-center text-[10px] tracking-wide text-white/25">
+          {phase === "secondWon" ? <>Code {PLAYLIST_PUSH_CODE} for PlaylistPush.com • Bundle reserved for this browser</> : <>Verified • Novelty prizes for fun • Jackpot is pre-selected upsells</>}
         </div>
       </div>
     </div>
   );
 }
 
-// small inline banner that sits near checkout to promote spin
 export function LuckyUpsellInline({
   coupon,
   onSpinClick,
@@ -940,40 +710,32 @@ export function LuckyUpsellInline({
 }) {
   if (coupon && coupon.expiresAt > Date.now()) {
     return (
-      <div className="rounded-xl border-2 border-acid bg-gradient-to-br from-acid/15 via-acid/5 to-transparent p-4">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.14em] text-ink">🎉 Jackpot Unlocked</p>
-            <p className="mt-2 font-display text-lg leading-none">FOUNDER BUNDLE $21</p>
-            <p className="mt-1 text-[12px] text-white/60">
-              Code <b className="font-mono text-white">{coupon.code}</b> • 1 in 10,000 • saves $33 • <b className="text-acid">{formatRemainingMs(Math.max(0, coupon.expiresAt - Date.now()))}</b> left
-            </p>
-          </div>
-          <span className="shrink-0 rounded-full bg-green-500 px-3 py-1 text-[11px] font-black uppercase tracking-widest text-white">Active</span>
+      <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] p-3.5">
+        <div className="flex items-center justify-between">
+          <span className="inline-flex items-center rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-black tracking-[0.14em] text-white">JACKPOT ACTIVE</span>
+          <span className="font-mono text-xs tabular-nums text-emerald-300">{formatRemainingMs(Math.max(0, coupon.expiresAt - Date.now()))}</span>
         </div>
+        <p className="mt-2 font-display text-base leading-none text-white">FOUNDER BUNDLE $21</p>
+        <p className="mt-1 font-mono text-xs text-white/60">
+          {coupon.code} • <span className="text-emerald-300">saves $33</span>
+        </p>
       </div>
     );
   }
-
   return (
-    <div className="rounded-xl border border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40 p-4">
+    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5">
       <div className="flex items-center gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-lg">🎡</span>
-        <div className="flex-1">
-          <p className="font-black text-sm leading-none">Want the founder price?</p>
-          <p className="mt-1 text-[12px] leading-snug text-white/55">
-            Spin the rainbow wheel — <b className="text-white">only 1 in 10,000</b> wins both add-ons for <b className="text-acid">$21</b> <span className="line-through">($54)</span>
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-sm">🎡</span>
+        <div>
+          <p className="text-sm font-bold leading-none text-white">Want the founder price?</p>
+          <p className="mt-1 text-xs leading-snug text-white/50">
+            Spin — <span className="font-semibold text-white">1 in 10,000</span> wins AU + Kit for <span className="font-semibold text-white">$21</span>
           </p>
         </div>
       </div>
-      <button
-        type="button"
-        onClick={onSpinClick}
-        className="cta mt-3 w-full rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-4 py-3 text-sm font-black uppercase tracking-wide text-white shadow-[0_6px_20px_rgba(124,92,255,0.35)]"
-      >
+      <button type="button" onClick={onSpinClick} className="mt-3 w-full rounded-full bg-white px-4 py-2.5 text-sm font-black tracking-tight text-zinc-900 hover:bg-zinc-100">
         Spin the wheel — free
       </button>
-      <p className="mt-2 text-center text-[10px] uppercase tracking-widest text-white/25">Takes 5 seconds • No email needed</p>
     </div>
   );
 }
