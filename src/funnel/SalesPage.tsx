@@ -20,6 +20,12 @@ import { isMomentumSequenceEnabled } from "../config/features";
 const MomentumSequence = lazy(() => import("./MomentumSequence"));
 
 import { TESTIMONIALS } from "./testimonials";
+import { LuckyWheelButton } from "./LuckyWheel";
+import {
+  formatRemainingMs,
+  getLuckyCouponRemainingMs,
+  type LuckyCoupon,
+} from "../lib/luckyCoupon";
 
 import {
   DebugPanel,
@@ -56,9 +62,23 @@ const FAQS = [
   ],
 ];
 
-export default function SalesPage({ onCta }: { onCta: () => void }) {
+type Props = {
+  onCta: () => void;
+  luckyCoupon?: LuckyCoupon | null;
+  onOpenWheel?: () => void;
+  onClaimWheel?: () => void;
+};
+
+export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWheel }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [espDebug] = useState(() => readEspFlag().debug);
+  const [nowMs, setNowMs] = useState(() => Date.now());
+
+  useEffect(() => {
+    if (!luckyCoupon) return;
+    const t = window.setInterval(() => setNowMs(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, [luckyCoupon]);
 
   // Start the Emotional State Proxy. Behind the feature flag this is
   // a no-op; cleanup fully detaches it when the funnel leaves this page.
@@ -71,6 +91,10 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
     espLogConversion("cta_click", { label });
     onCta();
   };
+
+  const hasWinningCoupon =
+    !!luckyCoupon && getLuckyCouponRemainingMs(luckyCoupon) > 0;
+  const remainingStr = luckyCoupon ? formatRemainingMs(Math.max(0, luckyCoupon.expiresAt - nowMs)) : "";
 
   return (
     <div id="top" className="min-h-screen bg-ink pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))]">
@@ -90,6 +114,32 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           <EmotiveText slot="alertBar" />
         </p>
       </div>
+
+      {/* lucky winner top banner — founder bundle */}
+      {hasWinningCoupon && luckyCoupon ? (
+        <div className="bg-gradient-to-r from-acid via-yellow-300 to-[#7c5cff] px-3 py-2 text-center">
+          <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.12em] text-ink sm:gap-3 sm:text-xs">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 text-[10px] tracking-[0.16em] text-acid">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
+              JACKPOT UNLOCKED
+            </span>
+            <span>
+              1 in 10,000 — <span className="font-mono">{luckyCoupon.code}</span> • Founder Bundle{" "}
+              <span className="line-through opacity-60">$54</span> → $21
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2 py-1 font-mono text-acid">
+              ⏳ {remainingStr}
+            </span>
+            <button
+              type="button"
+              onClick={onClaimWheel}
+              className="rounded-full bg-ink px-3 py-1 text-[11px] font-black tracking-widest text-white hover:bg-black"
+            >
+              Claim at checkout →
+            </button>
+          </p>
+        </div>
+      ) : null}
 
       <TopNav onCta={() => handleCta("topnav")} />
       <Ticker />
@@ -165,8 +215,38 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             </div>
           </div>
 
-          <div className="mt-5 flex flex-col items-center gap-1.5">
+          <div className="mt-5 flex flex-col items-center gap-2">
             <LiveViewers />
+            {/* Temu-style wheel CTA — founder bundle */}
+            <div className="mt-3 flex flex-col items-center gap-2">
+              {hasWinningCoupon && luckyCoupon ? (
+                <div className="rounded-full border border-acid/40 bg-acid/10 px-4 py-2.5 text-center">
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-acid">
+                    🎉 You won! Only 1 in 10,000 gets this
+                  </p>
+                  <p className="mt-1 text-[13px] font-bold text-white">
+                    {luckyCoupon.code} • Founder Bundle{" "}
+                    <span className="line-through opacity-50">$54</span> → <span className="text-acid">$21</span> • ⏳ {remainingStr}
+                  </p>
+                  <p className="text-[11px] text-white/50">Contract Kit + AU List • Save $33</p>
+                  <button
+                    type="button"
+                    onClick={onClaimWheel}
+                    className="cta mt-2 rounded-full bg-acid px-5 py-2 text-xs font-black uppercase tracking-widest text-ink"
+                  >
+                    Claim at checkout →
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <LuckyWheelButton onClick={() => onOpenWheel?.()} />
+                  <p className="max-w-[32ch] text-center text-[11px] leading-snug text-white/40">
+                    No email needed • 5 sec spin •{" "}
+                    <span className="font-bold text-white/60">Only 3 jackpots / hour</span> • 342 spinning now
+                  </p>
+                </>
+              )}
+            </div>
           </div>
 
           {/* Terminal preview */}
@@ -178,6 +258,33 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           </div>
         </div>
       </section>
+
+      {/* lucky teaser strip - Temu style social proof */}
+      {!hasWinningCoupon && (
+        <div className="border-y border-acid/20 bg-gradient-to-r from-[#7c5cff]/10 via-acid/10 to-[#ff3b82]/10">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3 px-4 py-3 text-center text-[12px] sm:gap-6 sm:py-3.5">
+            <span className="inline-flex items-center gap-1.5 font-bold text-white">
+              <span className="grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br from-acid to-yellow-400 text-ink">🎡</span>
+              Spin the rainbow wheel — will you be the 1 in 10,000?
+            </span>
+            <span className="hidden items-center gap-2 text-white/60 sm:inline-flex">
+              <span className="h-1 w-1 rounded-full bg-white/30" />
+              <img src="https://i.pravatar.cc/100?img=12" alt="" className="h-5 w-5 rounded-full ring-1 ring-white/20" />
+              <span className="text-white">Alex P.</span> won 2m ago
+              <span className="h-1 w-1 rounded-full bg-white/30" />
+              <img src="https://i.pravatar.cc/100?img=28" alt="" className="h-5 w-5 rounded-full ring-1 ring-white/20" />
+              <span className="text-white">Sofia R.</span> won 7m ago
+            </span>
+            <button
+              type="button"
+              onClick={() => onOpenWheel?.()}
+              className="rounded-full bg-acid px-4 py-1.5 text-xs font-black uppercase tracking-widest text-ink hover:brightness-110"
+            >
+              Try my luck →
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* THE PROBLEM — agitation */}
       <section className="defer-render border-y border-white/10 bg-panel">
@@ -303,6 +410,79 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             <div className="flex items-center justify-between gap-3 bg-acid p-3.5 text-ink sm:p-4">
               <span className="font-display text-base uppercase leading-tight sm:text-lg">Your price right now</span>
               <span className="font-display text-3xl">$20</span>
+            </div>
+          </div>
+
+          {/* Founder bundle teaser — pre-selected upsells */}
+          <div className={`mt-6 rounded-xl border-2 p-4 sm:p-5 ${hasWinningCoupon ? "border-acid bg-acid/10" : "border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40"}`}>
+            <div className="flex items-start gap-3">
+              <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-lg ${hasWinningCoupon ? "bg-acid text-ink" : "bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white"}`}>
+                {hasWinningCoupon ? "✓" : "🎁"}
+              </span>
+              <div className="flex-1">
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">
+                  {hasWinningCoupon ? "Jackpot unlocked — 1 in 10,000" : "Bonus — spin to unlock founder price"}
+                </p>
+                <p className="mt-1 font-display text-lg leading-none sm:text-xl">FOUNDER'S BUNDLE — BOTH ADD-ONS</p>
+                <div className="mt-2 grid gap-2">
+                  <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2">
+                    <span className="text-[13px] font-bold text-white">📄 Indie Contract Kit <span className="font-normal text-white/50">— 6 templates + guide</span></span>
+                    <span className="text-right"><span className="block text-[11px] line-through text-white/30">$25</span><span className="block font-display text-sm leading-none text-acid">$9</span></span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2">
+                    <span className="text-[13px] font-bold text-white">🇦🇺 AU Radio List <span className="font-normal text-white/50">— 2,847 contacts</span></span>
+                    <span className="text-right"><span className="block text-[11px] line-through text-white/30">$29</span><span className="block font-display text-sm leading-none text-acid">$12</span></span>
+                  </div>
+                </div>
+                <p className="mt-2 text-[13px] leading-snug text-white/60">
+                  Normally <span className="line-through">$54</span> together —{" "}
+                  {hasWinningCoupon ? (
+                    <>
+                      <b className="text-acid">yours for $21 (save $33)</b> with code <b className="font-mono text-white">{luckyCoupon.code}</b> • pre-ticked at checkout
+                    </>
+                  ) : (
+                    <>
+                      <b className="text-white">spin to feel like a winner at checkout</b> — they'll be pre-selected for you at the discounted price
+                    </>
+                  )}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {hasWinningCoupon ? (
+                    <button
+                      type="button"
+                      onClick={onClaimWheel}
+                      className="cta rounded-full bg-acid px-4 py-2 text-xs font-black uppercase tracking-widest text-ink"
+                    >
+                      Go to checkout — $21 bundle →
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => onOpenWheel?.()}
+                      className="cta rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-4 py-2 text-xs font-black uppercase tracking-widest text-white"
+                    >
+                      🎡 Spin the wheel — free
+                    </button>
+                  )}
+                  <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white/50">
+                    {hasWinningCoupon ? `⏳ ${remainingStr} left` : "Only 1 in 10,000 wins"}
+                  </span>
+                </div>
+              </div>
+              <div className="hidden shrink-0 text-right sm:block">
+                {hasWinningCoupon ? (
+                  <>
+                    <p className="text-xs line-through text-white/30">$54</p>
+                    <p className="font-display text-xl leading-none text-acid">$21</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-green-400">Save $33</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-xs text-white/40">Locked</p>
+                    <p className="font-display text-xl leading-none text-white/60">$21 win</p>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
@@ -527,6 +707,45 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                 <EmotiveText slot="roadB" />
               </p>
             </div>
+          </div>
+          {/* wheel CTA in final section — founder bundle */}
+          <div className="mx-auto mt-7 max-w-md">
+            {hasWinningCoupon && luckyCoupon ? (
+              <div className="rounded-xl border-2 border-acid bg-acid/10 p-4 text-left">
+                <p className="text-center text-[11px] font-black uppercase tracking-[0.18em] text-acid">
+                  🎉 Jackpot winner — don't leave it behind
+                </p>
+                <div className="mt-2 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-display text-lg leading-none">FOUNDER BUNDLE</p>
+                    <p className="text-[11px] text-white/50">Contract Kit + AU List • Save $33</p>
+                    <p className="font-mono text-xs text-white/70">{luckyCoupon.code} • ⏳ {remainingStr}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs line-through text-white/40">$54</p>
+                    <p className="font-display text-2xl leading-none text-acid">$21</p>
+                  </div>
+                </div>
+                <p className="mt-2 text-center text-xs text-white/60">Pre-selected at checkout for the next {remainingStr}</p>
+              </div>
+            ) : (
+              <div className="rounded-xl border border-white/10 bg-black/40 p-4">
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Psst — want to feel lucky?</p>
+                <p className="mt-1 text-[13px] font-bold text-white">
+                  Spin the rainbow wheel for a chance to unlock <span className="text-acid">both add-ons for $21</span>{" "}
+                  <span className="line-through opacity-40">$54</span>
+                </p>
+                <p className="text-xs text-white/50">Contract Kit + AU List — pre-selected if you win</p>
+                <button
+                  type="button"
+                  onClick={() => onOpenWheel?.()}
+                  className="cta mt-3 w-full rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] py-3 text-sm font-black uppercase tracking-widest text-white"
+                >
+                  🎡 Spin the wheel for a free discount
+                </button>
+                <p className="mt-1.5 text-center text-[10px] uppercase tracking-widest text-white/30">Only 1 in 10,000 wins • instant</p>
+              </div>
+            )}
           </div>
 
           <div className="mt-7 flex justify-center sm:mt-8">

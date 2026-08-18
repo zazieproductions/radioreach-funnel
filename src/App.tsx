@@ -3,6 +3,8 @@ import SalesPage from "./funnel/SalesPage";
 import type { Addons } from "./funnel/Checkout";
 import type { Stage } from "./funnel/FunnelNav";
 import { trackTipFromReturnUrl } from "./lib/metaPixel";
+import { loadLuckyCoupon, type LuckyCoupon, clearLuckyCoupon } from "./lib/luckyCoupon";
+import { LuckyWheelModal } from "./funnel/LuckyWheel";
 
 const Checkout = lazy(() => import("./funnel/Checkout"));
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
@@ -43,6 +45,17 @@ export default function App() {
   });
   const [hasUpwork, setHasUpwork] = useState(false);
 
+  // Lucky wheel global state — jackpot for pre-selected upsells
+  const [luckyCoupon, setLuckyCoupon] = useState<LuckyCoupon | null>(() => {
+    try {
+      return loadLuckyCoupon();
+    } catch {
+      return null;
+    }
+  });
+  const [isWheelOpen, setIsWheelOpen] = useState(false);
+  const [wheelInitialMode, setWheelInitialMode] = useState<"first" | "second">("first");
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage, routeSuccess]);
@@ -50,6 +63,22 @@ export default function App() {
   // Track completed tips (Stripe redirects back with ?tip=thanks&…).
   useEffect(() => {
     trackTipFromReturnUrl();
+  }, []);
+
+  // poll coupon validity every 5s (in case it expires while on checkout)
+  useEffect(() => {
+    const t = window.setInterval(() => {
+      const cur = loadLuckyCoupon();
+      setLuckyCoupon((prev) => {
+        const prevCode = prev?.code;
+        const curCode = cur?.code;
+        if (prevCode !== curCode) return cur;
+        if (cur && Date.now() > cur.expiresAt) return null;
+        if (prev && Date.now() > prev.expiresAt) return null;
+        return prev;
+      });
+    }, 5000);
+    return () => clearInterval(t);
   }, []);
 
   if (routeSuccess) {
@@ -60,10 +89,32 @@ export default function App() {
     );
   }
 
+  const handleWheelWin = (c: LuckyCoupon) => {
+    setLuckyCoupon(c);
+  };
+
+  const handleWheelClaim = () => {
+    setIsWheelOpen(false);
+    setStage("checkout");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const openWheel = (mode: "first" | "second" = "first") => {
+    setWheelInitialMode(mode);
+    setIsWheelOpen(true);
+  };
+
   const screen = () => {
     switch (stage) {
       case "sales":
-        return <SalesPage onCta={() => setStage("checkout")} />;
+        return (
+          <SalesPage
+            onCta={() => setStage("checkout")}
+            luckyCoupon={luckyCoupon}
+            onOpenWheel={() => openWheel("first")}
+            onClaimWheel={handleWheelClaim}
+          />
+        );
 
       case "checkout":
         return (
@@ -72,6 +123,9 @@ export default function App() {
               setTotal(t);
               setAddons(a);
             }}
+            luckyCoupon={luckyCoupon}
+            onOpenWheel={() => openWheel("first")}
+            onOpenWheelForSecret={() => openWheel("second")}
           />
         );
 
@@ -118,6 +172,8 @@ export default function App() {
             hasUpwork={hasUpwork}
             onRestart={() => {
               sessionStorage.clear();
+              clearLuckyCoupon();
+              setLuckyCoupon(null);
               setTotal(41);
               setAddons({ contracts: true, au: true });
               setHasUpwork(false);
@@ -137,6 +193,15 @@ export default function App() {
       <main id="main">
         <Suspense fallback={<LoadingScreen />}>{screen()}</Suspense>
       </main>
+
+      <LuckyWheelModal
+        isOpen={isWheelOpen}
+        onClose={() => setIsWheelOpen(false)}
+        onWin={handleWheelWin}
+        onClaim={handleWheelClaim}
+        existingCoupon={luckyCoupon}
+        initialMode={wheelInitialMode}
+      />
     </>
   );
 }
