@@ -46,7 +46,7 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
         <span className="ml-2 truncate font-mono text-[11px] tracking-wide text-white/35">
           radio_reach_vault.csv
         </span>
-        <span className="ml-auto shrink-0 font-mono text-[10px] text-green-400/70">18,020 rows</span>
+        <span className="ml-auto shrink-0 font-mono text-[10px] text-green-400/70">18,000+ rows</span>
       </div>
 
       {/* prompt */}
@@ -58,7 +58,7 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
       <div className="scroll-x" role="region" aria-label="Scrollable contact sample" tabIndex={0}>
         <table className="w-full min-w-[540px] font-mono text-[12px] sm:min-w-[560px]">
           <caption className="sr-only">
-            Sample of 7 radio station contacts from the 18,020-entry database
+            Sample of 7 radio station contacts from the 18,000+-entry database
           </caption>
           <thead>
             <tr className="border-b border-white/10 bg-[#0d110d] text-left">
@@ -108,8 +108,8 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
       {/* unlock gate — in flow, so it can never overlap content */}
       <div className="border-t border-white/10 bg-[#0b0f0b] px-3 py-4 text-center sm:px-4 sm:py-5">
         <p className="tnum font-mono text-[11px] tracking-wide text-green-400/60">
-          <span className="text-white/30">showing</span> 7 / 18,020
-          <span className="ml-2 text-acid">+18,013 locked</span>
+          <span className="text-white/30">showing</span> 7 / 18,000+
+          <span className="ml-2 text-acid">· rest locked</span>
         </p>
 
         <p className="mt-3 font-display text-[1.15rem] uppercase leading-tight sm:text-2xl">
