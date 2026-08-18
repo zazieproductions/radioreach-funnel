@@ -15,7 +15,6 @@ import {
   SEGMENT_ANGLE,
   SEGMENT_COUNT,
   JACKPOT_INDEX,
-  SECRET_INDEX,
   wheelFaceGradient,
   rotationToLandOn,
   clockwiseNudge,
@@ -46,7 +45,7 @@ check("no stray -11.25deg offset anywhere", !gradient.includes("-11.25"), "old b
 
 // 2. Unique special segments exist where the choreography expects them.
 check("exactly one jackpot segment", SEGMENTS.filter((s) => s.isJackpot).length === 1);
-check("exactly one secret segment", SEGMENTS.filter((s) => s.isSecret).length === 1);
+check("wheel has 8 slices including the mystery slice", SEGMENT_COUNT === 8 && SEGMENTS.some((s) => s.label === "MYSTERY"));
 check("jackpot is the counter-clockwise neighbor of the near-miss (idx 0)", JACKPOT_INDEX === SEGMENT_COUNT - 1);
 
 // 3. Landing math: for every segment, spins count, and allowed jitter, the
@@ -78,10 +77,12 @@ check("first stop lands on the near-miss slice (10% OFF)", segmentUnderPointer(n
 check("nudge after near-miss lands on JACKPOT", segmentUnderPointer(jackpot) === JACKPOT_INDEX);
 check("nudge is one slice (45°), not a wrap-around", clockwiseNudge(0, JACKPOT_INDEX) === SEGMENT_ANGLE);
 
-// 5. Second-wheel choreography: spin lands on SECRET.
-const spins2 = 5.6;
-const jitter2 = -1.4;
-check("second-wheel spin lands on SECRET", segmentUnderPointer(rotationToLandOn(SECRET_INDEX, spins2, jitter2)) === SECRET_INDEX);
+// 5. Landing works identically for every slice on the wheel (the component
+//    choreographs the near-miss → jackpot pair; the rest must still be
+//    landable correctly if the choreography ever changes).
+for (let i = 1; i < SEGMENT_COUNT - 1; i++) {
+  check(`spin lands on slice ${i} (${SEGMENTS[i].label})`, segmentUnderPointer(rotationToLandOn(i, 5, 1.1)) === i);
+}
 
 // 6. Pointer offset sanity: with the max jitter the component ever applies,
 //    the pointer stays inside the winning slice (band spans ±22.5°).

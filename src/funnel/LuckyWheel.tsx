@@ -9,12 +9,10 @@ import {
   SEGMENTS,
   SEGMENT_ANGLE,
   JACKPOT_INDEX,
-  SECRET_INDEX,
   wheelFaceGradient,
   rotationToLandOn,
   clockwiseNudge,
 } from "../lib/wheel";
-
 const RAINBOW_CONIC =
   "conic-gradient(from 0deg,#EF4444,#FB923C,#FACC15,#34D399,#22D3EE,#60A5FA,#A78BFA,#F472B6,#EF4444)";
 const RAINBOW_LINEAR_90 =
@@ -24,8 +22,6 @@ const RAINBOW_LINEAR_135 =
 const RAINBOW_PROGRESS =
   "linear-gradient(90deg,#FACC15,#FB923C,#F472B6,#22D3EE)";
 
-const PLAYLIST_PUSH_CODE = "FR2AZEF";
-const PLAYLIST_PUSH_URL = "https://playlistpush.com/";
 
 // audio — soft, not harsh
 let _audioCtx: AudioContext | null = null;
@@ -106,7 +102,7 @@ export function LuckyWheelButton({
   );
 }
 
-type Phase = "firstWheel" | "firstWon" | "secondWheel" | "secondWon";
+type Phase = "firstWheel" | "firstWon";
 
 export function LuckyWheelModal({
   isOpen,
@@ -114,14 +110,12 @@ export function LuckyWheelModal({
   onWin,
   onClaim,
   existingCoupon,
-  initialMode,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onWin: (coupon: LuckyCoupon) => void;
   onClaim: () => void;
   existingCoupon?: LuckyCoupon | null;
-  initialMode?: "first" | "second";
 }) {
   const [phase, setPhase] = useState<Phase>("firstWheel");
   const [spinning, setSpinning] = useState(false);
@@ -130,9 +124,16 @@ export function LuckyWheelModal({
   const [firstCoupon, setFirstCoupon] = useState<LuckyCoupon | null>(null);
   const [nowMs, setNowMs] = useState(Date.now());
   const timeoutRef = useRef<number | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  // Move focus into the dialog when it opens so keyboard users aren't
+  // stranded behind the overlay.
+  useEffect(() => {
+    if (isOpen) closeRef.current?.focus();
+  }, [isOpen]);
 
   useEffect(() => {
-    if (phase !== "firstWon" && phase !== "secondWon" && phase !== "secondWheel") return;
+    if (phase !== "firstWon") return;
     if (!firstCoupon) return;
     const t = window.setInterval(() => setNowMs(Date.now()), 1000);
     return () => clearInterval(t);
@@ -140,43 +141,21 @@ export function LuckyWheelModal({
 
   useEffect(() => {
     if (isOpen) {
-      if (initialMode === "second" && existingCoupon && existingCoupon.expiresAt > Date.now()) {
-        try {
-          if (localStorage.getItem("rr_secret_playlist_revealed") === "1") {
-            setFirstCoupon(existingCoupon);
-            setPhase("secondWon");
-            setSpinning(false);
-            setRotation(0);
-            setWheelTransition("none");
-            setNowMs(Date.now());
-            return;
-          }
-        } catch {}
-        setFirstCoupon(existingCoupon);
-        setPhase("secondWheel");
-        setSpinning(false);
-        setRotation(0);
-        setWheelTransition("none");
-        setNowMs(Date.now());
-      } else if (existingCoupon && existingCoupon.expiresAt > Date.now()) {
+      if (existingCoupon && existingCoupon.expiresAt > Date.now()) {
         setFirstCoupon(existingCoupon);
         setPhase("firstWon");
-        setSpinning(false);
-        setRotation(0);
-        setWheelTransition("none");
-        setNowMs(Date.now());
       } else {
         setPhase("firstWheel");
         setFirstCoupon(null);
-        setSpinning(false);
-        setRotation(0);
-        setWheelTransition("none");
-        setNowMs(Date.now());
       }
-    } else {
-      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+      setSpinning(false);
+      setRotation(0);
+      setWheelTransition("none");
+      setNowMs(Date.now());
+    } else if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
     }
-  }, [isOpen, existingCoupon, initialMode]);
+  }, [isOpen, existingCoupon]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -245,81 +224,8 @@ export function LuckyWheelModal({
     timeoutRef.current = nearMissTimeout as unknown as number;
   };
 
-  const handleGoToSecondWheel = () => {
-    // one-click second chance — show wheel then auto-spin to SECRET
-    setPhase("secondWheel");
-    setSpinning(false);
-    setWheelTransition("none");
-    setRotation(0);
-    // give the wheel a frame to snap to 0, then auto-spin for dopamine
-    window.setTimeout(() => {
-      // verify we are still on secondWheel and not already spinning
-      // trigger the secret spin automatically so one click = one more prize
-      const el = document.activeElement as HTMLElement | null;
-      el?.blur();
-      // directly invoke second spin logic without requiring a second tap
-      // we inline the spin to avoid stale closure on phase
-      getAudio();
-      const spins = 5 + Math.round(Math.random());
-      const jitter = (Math.random() - 0.5) * 3;
-      const targetRotation = rotationToLandOn(SECRET_INDEX, spins, jitter);
-      setSpinning(true);
-      setWheelTransition("transform 4200ms cubic-bezier(0.18, 0.82, 0.22, 1)");
-      const sStart = Date.now();
-      const sTick = window.setInterval(() => {
-        if (Date.now() - sStart > 3800) {
-          clearInterval(sTick);
-          return;
-        }
-        playTick(0.85);
-      }, 88);
-      void sTick;
-      requestAnimationFrame(() => setRotation(targetRotation));
-      timeoutRef.current = window.setTimeout(() => {
-        setWheelTransition("none");
-        setPhase("secondWon");
-        setSpinning(false);
-        playRisingDing();
-        try {
-          navigator.vibrate?.([28, 18, 28]);
-          localStorage.setItem("rr_secret_playlist_revealed", "1");
-        } catch {}
-      }, 4200) as unknown as number;
-    }, 420);
-  };
-
-  const handleSecondSpin = () => {
-    if (spinning || phase !== "secondWheel") return;
-    setSpinning(true);
-    getAudio();
-    const spins = 5 + Math.round(Math.random());
-    const jitter = (Math.random() - 0.5) * 3;
-    const targetRotation = rotationToLandOn(SECRET_INDEX, spins, jitter);
-    setWheelTransition("transform 4200ms cubic-bezier(0.18, 0.82, 0.22, 1)");
-    const sStart = Date.now();
-    const sTick = window.setInterval(() => {
-      if (Date.now() - sStart > 3800) {
-        clearInterval(sTick);
-        return;
-      }
-      playTick(0.85);
-    }, 88);
-    void sTick;
-    requestAnimationFrame(() => setRotation(targetRotation));
-    timeoutRef.current = window.setTimeout(() => {
-      setWheelTransition("none");
-      setPhase("secondWon");
-      setSpinning(false);
-      playRisingDing();
-      try {
-        navigator.vibrate?.([28, 18, 28]);
-        localStorage.setItem("rr_secret_playlist_revealed", "1");
-      } catch {}
-    }, 4200);
-  };
-
   const remainingMs = firstCoupon ? Math.max(0, firstCoupon.expiresAt - nowMs) : 0;
-  const showConfetti = phase === "firstWon" || phase === "secondWon";
+  const showConfetti = phase === "firstWon";
 
   return (
     <div
@@ -366,7 +272,7 @@ export function LuckyWheelModal({
           />
           <span className="flex items-center gap-2 text-[11px] font-bold tracking-[0.14em] text-white/60">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
-            {phase === "secondWon" || phase === "secondWheel" ? "SECRET CODE" : "CARNIVAL SPIN"}
+            CARNIVAL SPIN
           </span>
           <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-white/[0.06] px-2.5 py-1 font-mono text-[11px] tracking-wide text-white/50">
             FREE
@@ -374,6 +280,7 @@ export function LuckyWheelModal({
             live
           </span>
           <button
+            ref={closeRef}
             type="button"
             onClick={onClose}
             disabled={spinning}
@@ -526,7 +433,7 @@ export function LuckyWheelModal({
                   )}
                 </span>
               </button>
-              <p className="mt-2.5 text-center text-[11px] font-medium tracking-wide text-white/35">342 spinning now • No email • 5 seconds</p>
+              <p className="mt-2.5 text-center text-[11px] font-medium tracking-wide text-white/35">Free · no email · 5-second spin</p>
             </div>
           </div>
         )}
@@ -607,219 +514,13 @@ export function LuckyWheelModal({
             >
               Continue to checkout →
             </button>
-
-            <div className="relative my-4 flex items-center gap-3">
-              <span className="h-px flex-1 bg-white/10" />
-              <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-cyan-300">ONE MORE SPIN</span>
-              <span className="h-px flex-1 bg-white/10" />
-            </div>
-
-            <div className="rounded-2xl border-transparent p-[1px] text-left" style={{ background: RAINBOW_LINEAR_135 }}>
-            <div className="rounded-[15px] bg-[#0F0F12] p-4">
-              <div className="flex items-center gap-3">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/20">🤫</span>
-                <div>
-                  <p className="text-xs font-black tracking-[0.12em] text-cyan-300">SECOND SPIN UNLOCKED</p>
-                  <p className="text-sm font-bold leading-none text-white">Reveal your secret code</p>
-                </div>
-                <span className="ml-auto hidden sm:inline-flex rounded-full bg-white px-2 py-1 text-[10px] font-black tracking-widest text-zinc-900">LOCKED</span>
-              </div>
-              <div className="mt-3 flex items-center justify-between rounded-xl border border-dashed border-white/10 bg-black/20 px-3 py-2.5">
-                <span className="font-mono text-sm font-black tracking-[0.16em] text-white/20 blur-[3px]">FR2AZEF</span>
-                <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-black tracking-wide text-zinc-900">Tap spin to reveal</span>
-              </div>
-              <button
-                type="button"
-                onClick={handleGoToSecondWheel}
-                className="mt-3 w-full rounded-full p-[2px] font-black tracking-tight text-white shadow-[0_8px_20px_rgba(6,182,212,0.3)] hover:brightness-[1.05] active:scale-[0.985]"
-                style={{ background: RAINBOW_CONIC }}
-              >
-                <span className="flex items-center justify-center rounded-full bg-[#0F0F12] px-5 py-3">
-                  Spin again — reveal secret →
-                </span>
-              </button>
-              <p className="mt-2 text-center text-[11px] font-medium text-white/35">Mystery prize awaits — spin to reveal</p>
-            </div>
-            </div>
-          </div>
-        )}
-
-        {phase === "secondWheel" && (
-          <div className="px-6 pt-5 pb-6 sm:px-7">
-            <div className="text-center">
-              <p className="inline-flex items-center rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-cyan-300">🤫 SECOND SPIN</p>
-              <h2 className="mt-2 font-display text-xl leading-none tracking-tight text-white">One more prize</h2>
-              <p className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">A hidden prize is waiting on this spin.</p>
-            </div>
-
-            <div className="relative mx-auto mt-6 flex justify-center">
-              <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-[1px]">
-                <div className="h-0 w-0 border-l-[11px] border-r-[11px] border-t-[18px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_6px_12px_rgba(0,0,0,0.4)]" />
-              </div>
-              <div className="relative h-[300px] w-[300px] sm:h-[330px] sm:w-[330px]">
-                <div className="absolute inset-[-7px] rounded-full p-[1px]" style={{ background: RAINBOW_CONIC }}>
-                  <div className="h-full w-full rounded-full bg-[#0F0F12] p-[6px]">
-                    <div className="relative h-full w-full rounded-full bg-[#0F0F12]">
-                      <div className="pointer-events-none absolute inset-[-9px] rounded-full" aria-hidden>
-                        {Array.from({ length: 16 }).map((_, i) => (
-                          <span
-                            key={i}
-                            className="absolute h-[6px] w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.7)]"
-                            style={{
-                              left: `${50 + 50.5 * Math.cos((i * 22.5 * Math.PI) / 180)}%`,
-                              top: `${50 + 50.5 * Math.sin((i * 22.5 * Math.PI) / 180)}%`,
-                            }}
-                          />
-                        ))}
-                      </div>
-                      <div
-                        className="absolute inset-[7px] overflow-hidden rounded-full border border-white/10 will-change-transform"
-                        style={{ background: wheelFaceGradient(), transform: `rotate(${rotation}deg)`, transition: wheelTransition }}
-                      >
-                        <svg viewBox="0 0 100 100" className="pointer-events-none absolute inset-0 h-full w-full rounded-full" aria-hidden>
-                          {SEGMENTS.map((_, i) => {
-                            const angle = (i * SEGMENT_ANGLE * Math.PI) / 180;
-                            const x2 = 50 + 50 * Math.sin(angle);
-                            const y2 = 50 - 50 * Math.cos(angle);
-                            return <line key={i} x1="50" y1="50" x2={x2} y2={y2} stroke="rgba(255,255,255,0.14)" strokeWidth="0.6" />;
-                          })}
-                        </svg>
-                        {SEGMENTS.map((seg, i) => {
-                          const angle = i * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
-                          const isJack = seg.isJackpot;
-                          return (
-                            <div key={seg.label + i} className="absolute left-1/2 top-1/2" style={{ transform: `rotate(${angle}deg)`, transformOrigin: "0 0" }}>
-                              <div className="flex flex-col items-center text-center" style={{ transform: `translate(-50%, -102px) rotate(90deg)`, width: isJack ? "94px" : "78px" }}>
-                                <span className={`font-black tracking-[0.02em] ${isJack ? "text-[11px]" : "text-[10px]"}`} style={{ color: seg.textColor, lineHeight: 1.05, whiteSpace: "pre-line" }}>
-                                  {seg.label}
-                                  {seg.sub ? `\n${seg.sub}` : ""}
-                                </span>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div
-                        className="absolute left-1/2 top-1/2 grid h-[84px] w-[84px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full p-[2px] shadow-[0_8px_24px_rgba(0,0,0,0.5)] sm:h-[92px] sm:w-[92px]"
-                        style={{ background: RAINBOW_CONIC }}
-                      >
-                        <div className="grid h-full w-full place-items-center rounded-full bg-gradient-to-b from-zinc-800 to-zinc-950">
-                          <div className="text-center">
-                            <div className="font-display text-[12px] tracking-[0.16em] text-white">SPIN</div>
-                            <div className="text-[9px] font-bold tracking-[0.18em] text-white/45">AGAIN</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleSecondSpin}
-              disabled={spinning}
-              className="mt-6 w-full rounded-full p-[2px] font-black tracking-tight text-white shadow-[0_8px_20px_rgba(6,182,212,0.3)] hover:brightness-[1.05] disabled:opacity-60"
-              style={{ background: RAINBOW_CONIC }}
-            >
-              <span className="flex items-center justify-center rounded-full bg-[#0F0F12] px-6 py-3.5">
-                {spinning ? "Spinning for secret..." : "Spin for secret code"}
-              </span>
-            </button>
-            <p className="mt-2 text-center text-[11px] text-white/35">One more spin — prize stays hidden until it lands</p>
-          </div>
-        )}
-
-        {phase === "secondWon" && firstCoupon && (
-          <div className="px-5 pb-6 pt-5 sm:px-6">
-            <div className="text-center">
-              <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/20">🤫</div>
-              <p className="mt-3 inline-flex items-center rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.12em] text-cyan-300">SECRET UNLOCKED</p>
-              <h3 className="mt-2 font-display text-xl leading-none tracking-tight text-white">
-                SHHH... <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">INDUSTRY SECRET</span>
-              </h3>
-              <p className="mx-auto mt-1.5 max-w-[32ch] text-[13px] leading-relaxed text-white/55">Don't tell anyone — insiders use this for PlaylistPush.</p>
-            </div>
-
-            <div className="mt-4 overflow-hidden rounded-2xl border-transparent p-[1px]" style={{ background: RAINBOW_LINEAR_135 }}>
-              <div className="overflow-hidden rounded-[15px] bg-[#0F0F12]">
-              <div className="bg-cyan-500/10 px-4 py-2.5 text-center">
-                <p className="text-[11px] font-black tracking-[0.14em] text-cyan-300">PLAYLIST CAMPAIGN DISCOUNT</p>
-              </div>
-              <div className="p-4">
-                <div className="rounded-xl border-2 border-dashed border-cyan-500/30 bg-zinc-900 p-4 text-center">
-                  <p className="text-[10px] font-black tracking-[0.14em] text-white/40">TAP TO COPY</p>
-                  <div className="mt-2 flex items-center justify-center gap-3">
-                    <span className="font-mono text-2xl font-black tracking-[0.14em] text-white">{PLAYLIST_PUSH_CODE}</span>
-                    <button type="button" onClick={() => navigator.clipboard?.writeText(PLAYLIST_PUSH_CODE)} className="rounded-full bg-white px-3 py-1.5 text-xs font-black tracking-wide text-zinc-900">
-                      Copy
-                    </button>
-                  </div>
-                  <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center rounded-full bg-cyan-400 px-4 py-2 text-xs font-black tracking-wide text-zinc-900">
-                    Open PlaylistPush.com →
-                  </a>
-                  <p className="mt-2 text-[11px] italic text-white/30">“Shh, don’t tell anyone I gave it to you…”</p>
-                </div>
-                <p className="mt-3 text-center text-xs text-white/50">
-                  Use at <a href={PLAYLIST_PUSH_URL} target="_blank" rel="noreferrer" className="font-semibold text-cyan-300 underline">PlaylistPush.com</a> checkout • Founder bundle {firstCoupon.code} still active
-                </p>
-              </div>
-              </div>
-            </div>
-
-            <button type="button" onClick={onClaim} className="mt-4 w-full rounded-full bg-white px-6 py-3.5 font-black tracking-tight text-zinc-900 hover:bg-zinc-100">
-              Claim bundle & keep code →
-            </button>
-            <p className="mt-2 text-center text-[11px] text-white/25">Affiliate code • Use anytime at PlaylistPush</p>
           </div>
         )}
 
         <div className="border-t border-white/[0.06] bg-white/[0.02] px-4 py-3 text-center text-[10px] tracking-wide text-white/25">
-          {phase === "secondWon" ? <>Code {PLAYLIST_PUSH_CODE} for PlaylistPush.com • Bundle reserved for this browser</> : <>Free spin • Prize reserved for this browser</>}
+          Free spin • Prize reserved for this browser
         </div>
       </div>
-    </div>
-  );
-}
-
-export function LuckyUpsellInline({
-  coupon,
-  onSpinClick,
-}: {
-  coupon: LuckyCoupon | null;
-  onSpinClick: () => void;
-}) {
-  if (coupon && coupon.expiresAt > Date.now()) {
-    return (
-      <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] p-3.5">
-        <div className="flex items-center justify-between">
-          <span className="inline-flex items-center rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-black tracking-[0.14em] text-white">JACKPOT ACTIVE</span>
-          <span className="font-mono text-xs tabular-nums text-emerald-300">{formatRemainingMs(Math.max(0, coupon.expiresAt - Date.now()))}</span>
-        </div>
-        <p className="mt-2 font-display text-base leading-none text-white">FOUNDER BUNDLE $21</p>
-        <p className="mt-1 font-mono text-xs text-white/60">
-          {coupon.code} • <span className="text-emerald-300">saves $33</span>
-        </p>
-      </div>
-    );
-  }
-  return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5">
-      <div className="flex items-center gap-3">
-        <span className="grid h-9 w-9 place-items-center rounded-full p-[2px] text-sm" style={{ background: RAINBOW_CONIC }}>
-          <span className="grid h-full w-full place-items-center rounded-full bg-[#0F0F12]">🎡</span>
-        </span>
-        <div>
-          <p className="text-sm font-bold leading-none text-white">Want the founder price?</p>
-          <p className="mt-1 text-xs leading-snug text-white/50">
-            Spin to unlock AU + Kit for <span className="font-semibold text-white">$21</span>
-          </p>
-        </div>
-      </div>
-      <button type="button" onClick={onSpinClick} className="mt-3 w-full rounded-full bg-white px-4 py-2.5 text-sm font-black tracking-tight text-zinc-900 hover:bg-zinc-100">
-        Spin the wheel — free
-      </button>
     </div>
   );
 }

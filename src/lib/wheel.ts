@@ -18,7 +18,6 @@ export type WheelSegment = {
   color: string;
   textColor: string;
   isJackpot?: boolean;
-  isSecret?: boolean;
 };
 
 // 8-slice carnival — vivid rainbow, not cluttered
@@ -28,7 +27,7 @@ export const SEGMENTS: WheelSegment[] = [
   { label: "TRY AGAIN", color: "#F87171", textColor: "#fff" },
   { label: "FREE MIX", color: "#F472B6", textColor: "#fff" },
   { label: "NO LUCK", color: "#A78BFA", textColor: "#fff" },
-  { label: "SECRET", sub: "CODE", color: "#22D3EE", textColor: "#fff", isSecret: true },
+  { label: "MYSTERY", sub: "PRIZE", color: "#22D3EE", textColor: "#fff" },
   { label: "5% OFF", color: "#38BDF8", textColor: "#fff" },
   { label: "JACKPOT", sub: "AU+KIT", color: "#34D399", textColor: "#fff", isJackpot: true },
 ];
@@ -36,7 +35,6 @@ export const SEGMENTS: WheelSegment[] = [
 export const SEGMENT_COUNT = SEGMENTS.length;
 export const SEGMENT_ANGLE = 360 / SEGMENT_COUNT;
 export const JACKPOT_INDEX = SEGMENTS.findIndex((s) => s.isJackpot);
-export const SECRET_INDEX = SEGMENTS.findIndex((s) => s.isSecret);
 
 /** Start angle (deg) of segment i's color band. */
 export function segmentStart(i: number): number {

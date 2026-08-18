@@ -54,7 +54,6 @@ export default function App() {
     }
   });
   const [isWheelOpen, setIsWheelOpen] = useState(false);
-  const [wheelInitialMode, setWheelInitialMode] = useState<"first" | "second">("first");
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -99,8 +98,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const openWheel = (mode: "first" | "second" = "first") => {
-    setWheelInitialMode(mode);
+  const openWheel = () => {
     setIsWheelOpen(true);
   };
 
@@ -111,7 +109,7 @@ export default function App() {
           <SalesPage
             onCta={() => setStage("checkout")}
             luckyCoupon={luckyCoupon}
-            onOpenWheel={() => openWheel("first")}
+            onOpenWheel={() => openWheel()}
             onClaimWheel={handleWheelClaim}
           />
         );
@@ -124,8 +122,7 @@ export default function App() {
               setAddons(a);
             }}
             luckyCoupon={luckyCoupon}
-            onOpenWheel={() => openWheel("first")}
-            onOpenWheelForSecret={() => openWheel("second")}
+            onOpenWheel={() => openWheel()}
           />
         );
 
@@ -200,7 +197,6 @@ export default function App() {
         onWin={handleWheelWin}
         onClaim={handleWheelClaim}
         existingCoupon={luckyCoupon}
-        initialMode={wheelInitialMode}
       />
     </>
   );
