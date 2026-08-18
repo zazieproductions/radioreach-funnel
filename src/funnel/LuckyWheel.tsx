@@ -236,10 +236,47 @@ export function LuckyWheelModal({
   };
 
   const handleGoToSecondWheel = () => {
+    // one-click second chance — show wheel then auto-spin to SECRET
     setPhase("secondWheel");
     setSpinning(false);
     setWheelTransition("none");
     setRotation(0);
+    // give the wheel a frame to snap to 0, then auto-spin for dopamine
+    window.setTimeout(() => {
+      // verify we are still on secondWheel and not already spinning
+      // trigger the secret spin automatically so one click = one more prize
+      const el = document.activeElement as HTMLElement | null;
+      el?.blur();
+      // directly invoke second spin logic without requiring a second tap
+      // we inline the spin to avoid stale closure on phase
+      getAudio();
+      const spins = 5 + Math.random() * 0.7;
+      const secretCenter = SECRET_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
+      const jitter = (Math.random() - 0.5) * 3;
+      const targetRotation = spins * 360 + (360 - secretCenter) + jitter;
+      setSpinning(true);
+      setWheelTransition("transform 4200ms cubic-bezier(0.18, 0.82, 0.22, 1)");
+      const sStart = Date.now();
+      const sTick = window.setInterval(() => {
+        if (Date.now() - sStart > 3800) {
+          clearInterval(sTick);
+          return;
+        }
+        playTick(0.85);
+      }, 88);
+      void sTick;
+      requestAnimationFrame(() => setRotation(targetRotation));
+      timeoutRef.current = window.setTimeout(() => {
+        setWheelTransition("none");
+        setPhase("secondWon");
+        setSpinning(false);
+        playRisingDing();
+        try {
+          navigator.vibrate?.([28, 18, 28]);
+          localStorage.setItem("rr_secret_playlist_revealed", "1");
+        } catch {}
+      }, 4200) as unknown as number;
+    }, 420);
   };
 
   const handleSecondSpin = () => {
@@ -304,13 +341,13 @@ export function LuckyWheelModal({
               }}
             />
           ))}
-          <style>{`@keyframes confettiFall{0%{transform:translateY(-20vh) rotate(0deg); opacity:1} 100%{transform:translateY(110vh) rotate(680deg); opacity:0}}`}</style>
+          <style>{`@keyframes confettiFall{0%{transform:translateY(-20vh) rotate(0deg); opacity:1} 100%{transform:translateY(110vh) rotate(680deg); opacity:0}} @keyframes modalIn{0%{opacity:0; transform:scale(0.96) translateY(8px)}100%{opacity:1; transform:scale(1) translateY(0)}}`}</style>
         </div>
       )}
 
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[520px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0F0F12] shadow-[0_24px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.06)]"
+        className="relative w-full max-w-[520px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0F0F12] shadow-[0_24px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.06)] animate-[modalIn_0.32s_cubic-bezier(0.16,1,0.3,1)]"
       >
         {/* top bar — minimal */}
         <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5">
@@ -387,6 +424,8 @@ export function LuckyWheelModal({
                           background: buildConicGradient(),
                           transform: `rotate(${rotation}deg)`,
                           transition: wheelTransition,
+                          backfaceVisibility: "hidden",
+                          transformOrigin: "50% 50%",
                         }}
                       >
                         {/* inner highlight */}
