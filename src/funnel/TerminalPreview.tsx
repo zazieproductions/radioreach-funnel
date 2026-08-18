@@ -55,8 +55,8 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
       </p>
 
       {/* table — scrolls inside itself, never the page */}
-      <div className="scroll-x">
-        <table className="w-full min-w-[560px] font-mono text-[12px]">
+      <div className="scroll-x" role="region" aria-label="Scrollable contact sample" tabIndex={0}>
+        <table className="w-full min-w-[540px] font-mono text-[12px] sm:min-w-[560px]">
           <caption className="sr-only">
             Sample of 7 radio station contacts from the 18,020-entry database
           </caption>
@@ -101,6 +101,9 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
           </tbody>
         </table>
       </div>
+      <p className="border-t border-white/5 px-4 py-1.5 text-right font-mono text-[9px] uppercase tracking-wider text-white/30 sm:hidden">
+        Swipe table to explore →
+      </p>
 
       {/* unlock gate — in flow, so it can never overlap content */}
       <div className="border-t border-white/10 bg-[#0b0f0b] px-3 py-4 text-center sm:px-4 sm:py-5">
@@ -117,8 +120,9 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
         </p>
 
         <button
+          type="button"
           onClick={onCta}
-          className="cta mt-4 w-full rounded-lg bg-acid px-5 py-3.5 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-7 sm:py-4 sm:text-lg"
+          className="cta mt-4 min-h-14 w-full rounded-lg bg-acid px-5 py-3.5 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-7 sm:py-4 sm:text-lg"
         >
           Get full access — $20
         </button>

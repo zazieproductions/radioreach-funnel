@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { FlipClock, LiveViewers, Stars, StockBar } from "./ui";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
 import { PRODUCTS } from "../config/storefront";
-import { setAdvancedMatching, track } from "../lib/metaPixel";
+import { track } from "../lib/metaPixel";
 import { getMomentumAttribution } from "../lib/momentumSequence";
 
 export type Addons = { contracts: boolean; au: boolean };
@@ -16,8 +16,6 @@ const AU_PRICE = PRODUCTS.australia_addon.price;
 export default function Checkout({ onComplete }: Props) {
   const [contracts, setContracts] = useState(true);
   const [au, setAu] = useState(true);
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
   const total = BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0);
@@ -49,17 +47,6 @@ export default function Checkout({ onComplete }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Advanced Matching: when the visitor types their receipt email, hash it
-  // (SHA-256, client-side) and attach it to the pixel so later events —
-  // including the Purchase on the success page — match better (EMQ).
-  useEffect(() => {
-    if (!email.includes("@") || !email.includes(".")) return;
-    const timer = setTimeout(() => {
-      setAdvancedMatching({ email }).catch(() => {});
-    }, 800);
-    return () => clearTimeout(timer);
-  }, [email]);
-
   return (
     <div className="min-h-screen bg-ink">
       <p className="bg-blood py-2 text-center text-[11px] font-black uppercase tracking-[0.16em]">
@@ -67,9 +54,9 @@ export default function Checkout({ onComplete }: Props) {
       </p>
 
       <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
-        <div className="mb-6 flex flex-col items-center gap-3 text-center">
+        <div className="mb-5 flex flex-col items-center gap-3 text-center sm:mb-6">
           <p className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">ALMOST YOURS — SECURE CHECKOUT</p>
-          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+          <div className="flex flex-col items-center gap-2 min-[400px]:flex-row min-[400px]:gap-4">
             <span className="text-[11px] font-bold uppercase tracking-wider text-blood sm:text-[12px] sm:tracking-widest">Founder pricing ends in</span>
             <FlipClock seconds={597} />
           </div>
@@ -86,8 +73,8 @@ export default function Checkout({ onComplete }: Props) {
               </p>
 
               <div className="mt-5 grid gap-3">
-                <label className="flex items-start gap-3 rounded-xl border border-acid/40 bg-acid/8 p-3.5 sm:p-4">
-                  <input type="checkbox" checked readOnly className="mt-1 h-5 w-5 accent-yellow-400" />
+                <label className="flex min-h-14 items-start gap-3 rounded-xl border border-acid/40 bg-acid/8 p-3.5 sm:p-4">
+                  <input type="checkbox" checked readOnly aria-label="Radio Reach Vault included" className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1" />
                   <span className="space-y-1">
                     <span className="block font-display text-lg uppercase">{PRODUCTS.vault_core.shortName}</span>
                     <span className="block text-sm text-white/65">{PRODUCTS.vault_core.description}</span>
@@ -98,33 +85,31 @@ export default function Checkout({ onComplete }: Props) {
                   </span>
                 </label>
 
-                <label className={`flex items-start gap-3 rounded-xl border p-4 ${contracts ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"}`}>
+                <label className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${contracts ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"}`}>
                   <input
                     type="checkbox"
                     checked={contracts}
                     onChange={(e) => setContracts(e.target.checked)}
-                    className="mt-1 h-5 w-5 accent-yellow-400"
+                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
-                  <span className="space-y-1">
+                  <div className="space-y-1">
                     <span className="block font-display text-lg uppercase">{PRODUCTS.contract_bundle.name}</span>
                     <span className="block text-sm text-acid">6 agreement templates plus a plain-English usage guide</span>
-                    <span className="block text-sm text-white/65">
-                      <ul className="mt-1 grid gap-1 text-[13px] text-white/65">
-                        {[
-                          "Composer Agreement",
-                          "Artist/Producer Agreement",
-                          "Mechanical License Agreement",
-                          "Musician/Vocalist Work-for-Hire Agreement",
-                          "Session Player Release",
-                          "Synchronization License Agreement",
-                          "Indie Music Contract Kit Usage Guide"
-                        ].map((t) => (
-                          <li key={t} className="flex items-center gap-2">
-                            <span className="text-acid">✓</span> {t}
-                          </li>
-                        ))}
-                      </ul>
-                    </span>
+                    <ul className="mt-1 hidden gap-1 text-[13px] text-white/65 sm:grid">
+                      {[
+                        "Composer Agreement",
+                        "Artist/Producer Agreement",
+                        "Mechanical License Agreement",
+                        "Musician/Vocalist Work-for-Hire Agreement",
+                        "Session Player Release",
+                        "Synchronization License Agreement",
+                        "Indie Music Contract Kit Usage Guide"
+                      ].map((t) => (
+                        <li key={t} className="flex items-center gap-2">
+                          <span className="text-acid">✓</span> {t}
+                        </li>
+                      ))}
+                    </ul>
                     <span className="block mt-1 text-[11px] text-white/40 italic">
                       This is an educational template kit, not legal advice.
                     </span>
@@ -133,15 +118,15 @@ export default function Checkout({ onComplete }: Props) {
                       <b className="text-acid">${PRODUCTS.contract_bundle.price.toFixed(2)}</b>
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Saved me from a nightmare split deal." — Jordan Meacham</span>
-                  </span>
+                  </div>
                 </label>
 
-                <label className={`flex items-start gap-3 rounded-xl border p-4 ${au ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"}`}>
+                <label className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${au ? "border-acid/40 bg-acid/8" : "border-white/10 bg-black/30"}`}>
                   <input
                     type="checkbox"
                     checked={au}
                     onChange={(e) => setAu(e.target.checked)}
-                    className="mt-1 h-5 w-5 accent-yellow-400"
+                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <span className="space-y-1">
                     <span className="block font-display text-lg uppercase">{PRODUCTS.australia_addon.name}</span>
@@ -157,56 +142,49 @@ export default function Checkout({ onComplete }: Props) {
               </div>
             </section>
 
-            <section className="rounded-xl border border-white/10 bg-panel p-5">
-              <p className="mb-4 font-display text-xl uppercase">Order summary</p>
-              <div className="space-y-3 text-[15px]">
-                <SummaryRow label={PRODUCTS.vault_core.name} was={`$${PRODUCTS.vault_core.compareAt}`} now={`$${PRODUCTS.vault_core.price.toFixed(2)}`} />
-                {contracts && <SummaryRow label={PRODUCTS.contract_bundle.shortName} was={`$${PRODUCTS.contract_bundle.compareAt}`} now={`$${PRODUCTS.contract_bundle.price.toFixed(2)}`} accent />}
-                {au && <SummaryRow label={PRODUCTS.australia_addon.shortName} was={`$${PRODUCTS.australia_addon.compareAt}`} now={`$${PRODUCTS.australia_addon.price.toFixed(2)}`} accent />}
-                <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
-                  <span>You save</span>
-                  <span className="font-bold text-acid">${saved.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
-                  <span>Tax</span>
-                  <span className="font-bold text-white/40">$0.00</span>
-                </div>
-                <div className="flex items-center justify-between border-t border-white/10 pt-3">
-                  <span className="font-display text-xl uppercase">Total</span>
-                  <span className="font-display text-3xl text-acid">${total.toFixed(2)}</span>
-                </div>
+            <details className="group overflow-hidden rounded-xl border border-white/10 bg-panel lg:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-2 [&::-webkit-details-marker]:hidden">
+                <span>
+                  <span className="block text-[10px] font-bold uppercase tracking-widest text-white/45">Order total</span>
+                  <span className="font-display text-2xl text-acid">${total.toFixed(2)}</span>
+                </span>
+                <span className="text-right text-[11px] font-bold uppercase tracking-wider text-white/55">
+                  Save ${saved.toFixed(2)} <span aria-hidden className="ml-1 inline-block transition-transform group-open:rotate-180">⌄</span>
+                </span>
+              </summary>
+              <div className="border-t border-white/10 p-4">
+                <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} />
               </div>
+            </details>
+
+            <a
+              href="#payment"
+              role="button"
+              className="cta tap-target w-full rounded-lg bg-acid px-5 py-3 text-center font-display text-lg uppercase tracking-wide text-ink lg:hidden"
+            >
+              Continue to secure payment ↓
+            </a>
+
+            <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
+              <p className="mb-4 font-display text-xl uppercase">Order summary</p>
+              <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} />
             </section>
 
-            <section className="rounded-xl border border-white/10 bg-panel p-5">
+            <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
               <StockBar />
             </section>
 
-            <section className="rounded-xl border border-acid/40 bg-acid/5 p-5 text-[13px] leading-relaxed text-white/70">
+            <section className="hidden rounded-xl border border-acid/40 bg-acid/5 p-5 text-[13px] leading-relaxed text-white/70 lg:block">
               <p className="font-display text-lg text-acid">WHAT HAPPENS NEXT</p>
               Stripe processes the payment securely inside this page. After payment, your order is verified server-side and your private downloads unlock from protected storage.
             </section>
           </aside>
 
-          {/* right column — embed */}
-          <section className="space-y-4">
-            <div className="rounded-xl border border-white/10 bg-panel p-5 sm:p-6">
-              <p className="font-display text-2xl">DELIVERY DETAILS</p>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="co-name" className="mb-1 block text-[12px] font-semibold text-white/60">Name (optional)</label>
-                  <input id="co-name" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="w-full rounded-lg border border-white/15 bg-black/60 px-4 py-3 text-base outline-none placeholder:text-white/30 focus:border-acid" />
-                </div>
-                <div>
-                  <label htmlFor="co-email" className="mb-1 block text-[12px] font-semibold text-white/60">Receipt email (optional)</label>
-                  <input id="co-email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" inputMode="email" className="w-full rounded-lg border border-white/15 bg-black/60 px-4 py-3 text-base outline-none placeholder:text-white/30 focus:border-acid" />
-                </div>
-              </div>
-              <p className="mt-3 text-[12px] text-white/45">
-                Payment fields are rendered by Stripe below. Card details never touch this frontend.
-              </p>
+          {/* right column — Stripe collects delivery + payment details once */}
+          <section id="payment" className="space-y-3">
+            <div className="rounded-lg border border-acid/25 bg-acid/5 px-4 py-3 text-center text-[12px] text-white/60 lg:hidden">
+              <b className="text-acid">Next:</b> enter your email and payment details securely with Stripe.
             </div>
-
             <EmbeddedStripeCheckout items={items} bundleId={bundleId} />
           </section>
         </div>
@@ -216,6 +194,56 @@ export default function Checkout({ onComplete }: Props) {
       <button type="button" onClick={() => onComplete(total, { contracts, au })} className="sr-only">
         sync
       </button>
+    </div>
+  );
+}
+
+function OrderSummaryRows({
+  contracts,
+  au,
+  saved,
+  total,
+}: {
+  contracts: boolean;
+  au: boolean;
+  saved: number;
+  total: number;
+}) {
+  return (
+    <div className="space-y-3 text-[15px]">
+      <SummaryRow
+        label={PRODUCTS.vault_core.name}
+        was={`$${PRODUCTS.vault_core.compareAt}`}
+        now={`$${PRODUCTS.vault_core.price.toFixed(2)}`}
+      />
+      {contracts && (
+        <SummaryRow
+          label={PRODUCTS.contract_bundle.shortName}
+          was={`$${PRODUCTS.contract_bundle.compareAt}`}
+          now={`$${PRODUCTS.contract_bundle.price.toFixed(2)}`}
+          accent
+        />
+      )}
+      {au && (
+        <SummaryRow
+          label={PRODUCTS.australia_addon.shortName}
+          was={`$${PRODUCTS.australia_addon.compareAt}`}
+          now={`$${PRODUCTS.australia_addon.price.toFixed(2)}`}
+          accent
+        />
+      )}
+      <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
+        <span>You save</span>
+        <span className="font-bold text-acid">${saved.toFixed(2)}</span>
+      </div>
+      <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
+        <span>Tax</span>
+        <span className="font-bold text-white/40">$0.00</span>
+      </div>
+      <div className="flex items-center justify-between border-t border-white/10 pt-3">
+        <span className="font-display text-xl uppercase">Total</span>
+        <span className="font-display text-3xl text-acid">${total.toFixed(2)}</span>
+      </div>
     </div>
   );
 }

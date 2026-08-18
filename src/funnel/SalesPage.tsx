@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import {
   Check,
   Cross,
@@ -13,8 +13,11 @@ import {
   TopNav,
 } from "./ui";
 import TerminalPreview from "./TerminalPreview";
-import MomentumSequence from "./MomentumSequence";
 import { isMomentumSequenceEnabled } from "../config/features";
+
+// Keep the substantial below-the-fold interaction out of the initial mobile
+// bundle so it never competes with the hero for main-thread time.
+const MomentumSequence = lazy(() => import("./MomentumSequence"));
 
 import { TESTIMONIALS } from "./testimonials";
 
@@ -126,7 +129,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           {/* CTA box */}
           <div
             data-esp-zone="pricing"
-            className="mt-8 mx-auto max-w-md rounded-xl border-2 border-acid/50 bg-black/60 p-5 text-left backdrop-blur"
+            className="mobile-solid mx-auto mt-6 max-w-md rounded-xl border-2 border-acid/50 bg-black/85 p-4 text-left backdrop-blur sm:mt-8 sm:bg-black/60 sm:p-5"
           >
             <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blood">
               <EmotiveText slot="ctaLabel" />
@@ -140,8 +143,9 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
               </div>
             </div>
             <button
+              type="button"
               onClick={() => handleCta("hero")}
-              className="cta mt-5 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
+              className="cta mt-5 min-h-14 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
             >
               Yes — Give Me The Contacts
               <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
@@ -153,7 +157,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
                 <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
               </p>
               <div className="text-[10px] font-bold uppercase tracking-wider text-white/45">
-                🔒 Stripe checkout · Instant access · No account
+                🔒 Stripe checkout · Instant access · 30-day refund
               </div>
               <p className="text-[10px] text-white/30">
                 <EmotiveText slot="ctaTrust" />
@@ -176,7 +180,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       </section>
 
       {/* THE PROBLEM — agitation */}
-      <section className="border-y border-white/10 bg-panel">
+      <section className="defer-render border-y border-white/10 bg-panel">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:py-14">
           <SectionLabel>
             <EmotiveText slot="problemLabel" />
@@ -226,11 +230,17 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
 
       {/* MOMENTUM + OWNERSHIP — runtime feature flagged */}
       {isMomentumSequenceEnabled() && (
-        <MomentumSequence onCta={() => handleCta("momentum")} />
+        <Suspense
+          fallback={
+            <div className="min-h-[680px] border-y border-white/10 bg-[#0b0b0e]" aria-hidden="true" />
+          }
+        >
+          <MomentumSequence onCta={() => handleCta("momentum")} />
+        </Suspense>
       )}
 
       {/* MECHANISM */}
-      <section className="mx-auto max-w-4xl px-4 py-12 sm:py-16">
+      <section className="defer-render mx-auto max-w-4xl px-4 py-12 sm:py-16">
         <SectionLabel>The mechanism</SectionLabel>
         <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
           HOW TO <span className="hl">SUBMIT MUSIC TO RADIO STATIONS</span> CITY BY CITY
@@ -255,7 +265,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       </section>
 
       {/* WHAT'S INSIDE / STACK */}
-      <section id="inside" className="border-y border-white/10 bg-panel">
+      <section id="inside" className="defer-render border-y border-white/10 bg-panel">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:py-16">
           <SectionLabel>Everything you get today</SectionLabel>
           <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
@@ -301,6 +311,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
           </div>
 
           <button
+            type="button"
             onClick={() => handleCta("stack")}
             className="cta mt-7 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
           >
@@ -316,7 +327,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       <section
         id="proof"
         data-esp-zone="proof"
-        className="mx-auto max-w-5xl px-4 py-10 sm:py-16"
+        className="defer-render mx-auto max-w-5xl px-4 py-10 sm:py-16"
       >
         <SectionLabel>Receipts</SectionLabel>
         <EmotiveText
@@ -366,7 +377,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       </section>
 
       {/* WHO IT'S FOR */}
-      <section className="border-y border-white/10 bg-panel">
+      <section className="defer-render border-y border-white/10 bg-panel">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:py-14">
           <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">THIS IS FOR YOU IF…</h2>
           <ul className="mt-5 grid gap-3 text-[15px] leading-snug sm:mt-6 sm:grid-cols-2 sm:text-[16px]">
@@ -384,7 +395,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       </section>
 
       {/* GUARANTEE */}
-      <section className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
+      <section className="defer-render mx-auto max-w-3xl px-4 py-12 sm:py-16">
         <div
           data-esp-zone="safety"
           className="rounded-2xl border-2 border-acid/40 bg-gradient-to-b from-acid/10 to-transparent p-5 text-center sm:p-8"
@@ -400,7 +411,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
+      <section id="faq" className="defer-render mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
         {/* SEO / RESOURCE CLUSTER */}
         <section className="mx-auto max-w-4xl py-8 sm:py-12">
           <div className="rounded-xl border border-white/10 bg-black/30 p-4 sm:p-8">
@@ -467,6 +478,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
               <div key={q}>
                 <h3>
                   <button
+                    type="button"
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${i}`}
@@ -496,7 +508,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       {/* FINAL CTA */}
       <section
         data-esp-zone="cta"
-        className="border-t border-white/10 bg-gradient-to-b from-blood/20 to-ink"
+        className="defer-render border-t border-white/10 bg-gradient-to-b from-blood/20 to-ink"
       >
         <div className="mx-auto max-w-3xl px-4 py-12 text-center sm:py-16">
           <h2 className="font-display text-[2rem] leading-[1.05] sm:text-6xl sm:leading-[0.95]">
@@ -521,6 +533,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
             <FlipClock seconds={897} />
           </div>
           <button
+            type="button"
             onClick={() => handleCta("final")}
             className="cta mt-5 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-6 sm:px-6 sm:py-5 sm:text-3xl"
           >
@@ -533,7 +546,7 @@ export default function SalesPage({ onCta }: { onCta: () => void }) {
       </section>
 
       {/* FTC DISCLAIMER */}
-      <section className="border-t border-white/10 bg-black/60 px-4 py-8 sm:py-10">
+      <section className="defer-render border-t border-white/10 bg-black/60 px-4 py-8 sm:py-10">
         <div className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-panel p-4 text-[11px] leading-relaxed text-white/40 sm:p-6 sm:text-[12px]">
           <p className="mb-2 font-bold uppercase tracking-widest text-white/60">
             FTC Disclaimer &amp; Legal Notice

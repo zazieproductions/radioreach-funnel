@@ -286,7 +286,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
       ref={sectionRef}
       id="your-access"
       aria-labelledby="momentum-title"
-      className="relative isolate overflow-hidden border-y border-white/10 bg-[#0b0b0e]"
+      className="defer-render relative isolate overflow-hidden border-y border-white/10 bg-[#0b0b0e]"
     >
       <div
         aria-hidden
