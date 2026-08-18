@@ -17,18 +17,17 @@ type Segment = {
 };
 
 const SEGMENTS: Segment[] = [
-  { label: "5% OFF", color: "#ef4444", textColor: "#fff" }, // red
+  { label: "10% OFF", color: "#eab308", textColor: "#111" }, // yellow — near-miss (clockwise after jackpot)
   { label: "$100", sub: "GUITAR CENTER", color: "#f97316", textColor: "#fff" }, // placeholder — Guitar Center $100
   { label: "TRY", sub: "AGAIN", color: "#3b82f6", textColor: "#fff" }, // blue
   { label: "FREE MIXING", sub: "$150 VALUE", color: "#ec4899", textColor: "#fff" }, // placeholder — other music prize
   { label: "NO LUCK", color: "#8b5cf6", textColor: "#fff" }, // purple
   { label: "SECRET CODE", sub: "PLAYLIST PUSH", color: "#06b6d4", textColor: "#fff", isSecret: true }, // second spin jackpot
-  { label: "15% OFF", color: "#eab308", textColor: "#111" }, // yellow
-  { label: "★ JACKPOT ★", sub: "BOTH FOR $21", color: "#22c55e", textColor: "#fff", isJackpot: true }, // first spin jackpot
+  { label: "5% OFF", color: "#ef4444", textColor: "#fff" }, // red
+  { label: "★ JACKPOT ★", sub: "AU + KIT", color: "#22c55e", textColor: "#fff", isJackpot: true }, // first spin jackpot — AU + KIT (carnival green)
 ];
 
 const SEGMENT_COUNT = SEGMENTS.length;
-const JACKPOT_INDEX = SEGMENTS.findIndex((s) => s.isJackpot); // 7
 const SECRET_INDEX = SEGMENTS.findIndex((s) => s.isSecret); // 5
 const SEGMENT_ANGLE = 360 / SEGMENT_COUNT;
 
@@ -43,6 +42,73 @@ function buildConicGradient() {
     stops += `${seg.color} ${start}deg ${end}deg${i < SEGMENTS.length - 1 ? ", " : ""}`;
   });
   return `conic-gradient(from 0deg, ${stops})`;
+}
+
+// — dopamine audio: tick + rising ding via Web Audio —
+let _audioCtx: AudioContext | null = null;
+function getAudio() {
+  if (typeof window === "undefined") return null;
+  if (_audioCtx) return _audioCtx;
+  try {
+    const Ctx = (window as unknown as { AudioContext: typeof AudioContext; webkitAudioContext: typeof AudioContext }).AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    if (!Ctx) return null;
+    _audioCtx = new Ctx();
+    if (_audioCtx.state === "suspended") _audioCtx.resume().catch(() => {});
+    return _audioCtx;
+  } catch {
+    return null;
+  }
+}
+function playTick(intensity = 1) {
+  const ctx = getAudio();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "square";
+  osc.frequency.value = 900 + Math.random() * 80;
+  gain.gain.value = 0.09 * intensity;
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  const now = ctx.currentTime;
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+  osc.start(now);
+  osc.stop(now + 0.07);
+}
+function playRisingDing() {
+  const ctx = getAudio();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  const now = ctx.currentTime;
+  osc.frequency.setValueAtTime(480, now);
+  osc.frequency.exponentialRampToValueAtTime(1400, now + 0.55);
+  osc.frequency.exponentialRampToValueAtTime(1800, now + 0.9);
+  gain.gain.setValueAtTime(0, now);
+  gain.gain.linearRampToValueAtTime(0.22, now + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(now);
+  osc.stop(now + 1.2);
+  // second harmonic for sparkle
+  const osc2 = ctx.createOscillator();
+  const gain2 = ctx.createGain();
+  osc2.type = "triangle";
+  osc2.frequency.setValueAtTime(960, now + 0.08);
+  osc2.frequency.exponentialRampToValueAtTime(2200, now + 0.7);
+  gain2.gain.setValueAtTime(0, now + 0.08);
+  gain2.gain.linearRampToValueAtTime(0.08, now + 0.12);
+  gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
+  osc2.connect(gain2);
+  gain2.connect(ctx.destination);
+  osc2.start(now + 0.08);
+  osc2.stop(now + 0.9);
+}
+function playNearMissTick() {
+  playTick(0.7);
+  setTimeout(() => playTick(0.9), 110);
+  setTimeout(() => playTick(0.6), 240);
 }
 
 export function LuckyWheelButton({
@@ -97,6 +163,7 @@ export function LuckyWheelModal({
   const [phase, setPhase] = useState<Phase>("firstWheel");
   const [spinning, setSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
+  const [wheelTransition, setWheelTransition] = useState("none");
   const [firstCoupon, setFirstCoupon] = useState<LuckyCoupon | null>(null);
   const [nowMs, setNowMs] = useState(Date.now());
   const timeoutRef = useRef<number | null>(null);
@@ -119,12 +186,14 @@ export function LuckyWheelModal({
         setPhase("firstWon");
         setSpinning(false);
         setRotation(0);
+        setWheelTransition("none");
         setNowMs(Date.now());
       } else {
         setPhase("firstWheel");
         setFirstCoupon(null);
         setSpinning(false);
         setRotation(0);
+        setWheelTransition("none");
         setNowMs(Date.now());
       }
     } else {
@@ -147,46 +216,97 @@ export function LuckyWheelModal({
   const handleFirstSpin = () => {
     if (spinning || phase !== "firstWheel") return;
     setSpinning(true);
-    const spins = 5 + Math.random() * 1.2;
-    const jackpotCenter = JACKPOT_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
-    const jitter = (Math.random() - 0.5) * 8;
-    const targetRotation = spins * 360 + (360 - jackpotCenter) + jitter;
-    requestAnimationFrame(() => setRotation(targetRotation));
-    timeoutRef.current = window.setTimeout(() => {
-      const c = generateLuckyCoupon();
-      saveLuckyCoupon(c);
-      setFirstCoupon(c);
-      setPhase("firstWon");
-      setSpinning(false);
-      onWin(c);
-      try {
-        navigator.vibrate?.([30, 50, 30]);
-      } catch {}
-    }, 4200);
+    getAudio();
+    // 8-slice carnival near-miss: slam to 10% OFF (index 0, clockwise after jackpot) then elastic snap to JACKPOT
+    const NEAR_MISS_INDEX = 0; // 10% OFF — adjacent clockwise after jackpot
+    const spins = 5 + Math.random() * 0.8;
+    const nearMissCenter = NEAR_MISS_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2; // 22.5
+    const jitter = (Math.random() - 0.5) * 3; // tiny jitter so jackpot feels alive
+    const targetNearMiss = spins * 360 + (360 - nearMissCenter) + jitter; // lands on 10% OFF (near-miss)
+    const targetJackpot = targetNearMiss + SEGMENT_ANGLE; // 45° clockwise nudge to JACKPOT · AU + KIT
+
+    // tick storm during first fast spin — dopaminergic ticks
+    const tickIds: number[] = [];
+    const start = Date.now();
+    const tickInterval = window.setInterval(() => {
+      const elapsed = Date.now() - start;
+      if (elapsed > 3400) {
+        clearInterval(tickInterval);
+        return;
+      }
+      playTick(elapsed < 2000 ? 1 : 0.85);
+    }, 82);
+    tickIds.push(tickInterval as unknown as number);
+
+    // phase 1: slam to 10% OFF (near-miss) — fast, exciting
+    setWheelTransition("transform 3650ms cubic-bezier(0.15, 0.88, 0.20, 1)");
+    requestAnimationFrame(() => setRotation(targetNearMiss));
+    // use ref to store intermediate timeouts for cleanup
+    const nearMissTimeout = window.setTimeout(() => {
+      clearInterval(tickInterval);
+      playNearMissTick(); // tick tick — hesitation
+      // brief hesitation — wheel appears to stick on 10% OFF — dopamine near-miss
+      const hesitation = window.setTimeout(() => {
+        // nudge to JACKPOT with elastic snap + rising ding
+        playRisingDing();
+        try {
+          navigator.vibrate?.([20, 30, 20, 40]);
+        } catch {}
+        // elastic carnival snap into jackpot
+        setWheelTransition("transform 680ms cubic-bezier(0.34, 1.56, 0.64, 1)");
+        setRotation(targetJackpot);
+        // after nudge, show win with confetti explosion
+        timeoutRef.current = window.setTimeout(() => {
+          setWheelTransition("none");
+          const c = generateLuckyCoupon();
+          saveLuckyCoupon(c);
+          setFirstCoupon(c);
+          setPhase("firstWon");
+          setSpinning(false);
+          onWin(c);
+          // final vibration burst
+          try {
+            navigator.vibrate?.([30, 20, 30, 50]);
+          } catch {}
+        }, 720) as unknown as number;
+      }, 520) as unknown as number;
+      tickIds.push(hesitation as unknown as number);
+    }, 3650) as unknown as number;
+
+    // store for cleanup (only last timeout is tracked in timeoutRef, but we clear on unmount via phase reset)
+    timeoutRef.current = nearMissTimeout as unknown as number;
   };
 
   const handleGoToSecondWheel = () => {
-    // reset wheel for second spin
     setPhase("secondWheel");
     setSpinning(false);
-    // snap rotation to 0 instantly, then allow second spin
+    setWheelTransition("none");
     setRotation(0);
   };
 
   const handleSecondSpin = () => {
     if (spinning || phase !== "secondWheel") return;
     setSpinning(true);
+    getAudio();
     const spins = 5 + Math.random() * 1.2;
     const secretCenter = SECRET_INDEX * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
     const jitter = (Math.random() - 0.5) * 6;
     const targetRotation = spins * 360 + (360 - secretCenter) + jitter;
+    setWheelTransition("transform 4200ms cubic-bezier(0.12, 0.78, 0.18, 1)");
+    // tick storm for second spin too
+    const sStart = Date.now();
+    const sTick = window.setInterval(() => {
+      if (Date.now() - sStart > 3800) { clearInterval(sTick); return; }
+      playTick(0.9);
+    }, 90);
     requestAnimationFrame(() => setRotation(targetRotation));
     timeoutRef.current = window.setTimeout(() => {
+      setWheelTransition("none");
       setPhase("secondWon");
       setSpinning(false);
+      playRisingDing();
       try {
         navigator.vibrate?.([30, 50, 30, 50]);
-        // persist that secret was revealed
         localStorage.setItem("rr_secret_playlist_revealed", "1");
       } catch {}
     }, 4200);
@@ -205,19 +325,22 @@ export function LuckyWheelModal({
     >
       {showConfetti && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-          {Array.from({ length: 28 }).map((_, i) => (
+          {Array.from({ length: 44 }).map((_, i) => (
             <span
               key={i}
-              className="absolute top-0 h-2 w-1.5 animate-[confettiFall_1.2s_ease-out_forwards] rounded-full"
+              className="absolute top-0 animate-[confettiFall_1.35s_ease-out_forwards] rounded-full"
               style={{
-                left: `${4 + i * 3.4}%`,
-                background: ["#ffe600", "#ff3b82", "#00d4ff", "#22c55e", "#a855f7", "#f97316"][i % 6],
-                animationDelay: `${i * 45}ms`,
+                left: `${2 + i * 2.25}%`,
+                width: `${6 + (i % 3) * 4}px`,
+                height: `${8 + (i % 2) * 6}px`,
+                background: ["#ffe600", "#ff3b82", "#00d4ff", "#22c55e", "#a855f7", "#f97316", "#ffffff"][i % 7],
+                animationDelay: `${i * 32}ms`,
                 transform: `rotate(${Math.random() * 360}deg)`,
+                boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
               }}
             />
           ))}
-          <style>{`@keyframes confettiFall{0%{transform:translateY(-20vh) rotate(0deg); opacity:1} 100%{transform:translateY(105vh) rotate(720deg); opacity:0}}`}</style>
+          <style>{`@keyframes confettiFall{0%{transform:translateY(-22vh) rotate(0deg) scale(1); opacity:1} 50%{opacity:1} 100%{transform:translateY(108vh) rotate(720deg) scale(0.9); opacity:0}}`}</style>
         </div>
       )}
 
@@ -247,12 +370,11 @@ export function LuckyWheelModal({
                 </span>
               </h2>
               <p className="mx-auto mt-2 max-w-[36ch] text-[13px] leading-[1.5] text-white/70 sm:text-sm">
-                8 possibilities. 1 jackpot. Plus novelty prizes like{" "}
-                <b className="text-white">$100 Guitar Center</b> &{" "}
-                <b className="text-white">secret playlist code</b> just for fun — land on green{" "}
-                <b className="text-acid">JACKPOT</b> to unlock{" "}
-                <b className="text-white">both checkout add-ons</b> for{" "}
-                <b className="text-acid">$21</b> <span className="text-white/40 line-through">($54)</span>.
+                <span className="inline-flex items-center gap-1 rounded-full bg-acid/15 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-acid border border-acid/20">🎪 8-SLICE CARNIVAL WHEEL</span>
+                <br className="hidden sm:block" />
+                <span className="mt-1 inline-block">
+                  Novelty prizes like <b className="text-white">$100 Guitar Center</b> & <b className="text-white">secret code</b> — watch it <b className="text-yellow-300">near-miss 10% OFF</b> then snap to green <b className="text-acid">JACKPOT · AU + KIT</b> for <b className="text-acid">$21</b> <span className="text-white/40 line-through">($54)</span>
+                </span>
               </p>
               <div className="mt-3 flex flex-wrap justify-center gap-1.5 text-[11px]">
                 <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-bold uppercase tracking-wider text-white/60">
@@ -279,13 +401,28 @@ export function LuckyWheelModal({
               </div>
               <div className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#ff3b82]/20 via-[#7c5cff]/20 to-[#00d4ff]/20 blur-[18px]" />
               <div className="relative h-[300px] w-[300px] shrink-0 sm:h-[340px] sm:w-[340px]">
+              {/* carnival lights — 20 bulbs around wheel */}
+              <div className="pointer-events-none absolute inset-[-14px] rounded-full" aria-hidden>
+                {Array.from({ length: 20 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={`absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white shadow-[0_0_10px_rgba(255,255,255,0.9)] ${i % 2 === 0 ? "bg-acid" : i % 3 === 0 ? "bg-[#ff3b82]" : "bg-white"} animate-[carnivalBlink_0.9s_ease-in-out_infinite]`}
+                    style={{
+                      left: `${50 + 52 * Math.cos((i * 18 * Math.PI) / 180)}%`,
+                      top: `${50 + 52 * Math.sin((i * 18 * Math.PI) / 180)}%`,
+                      animationDelay: `${i * 70}ms`,
+                    }}
+                  />
+                ))}
+                <style>{`@keyframes carnivalBlink{0%,100%{opacity:1; transform:translate(-50%,-50%) scale(1); box-shadow:0 0 10px rgba(255,255,255,0.9)}50%{opacity:0.35; transform:translate(-50%,-50%) scale(0.78); box-shadow:0 0 4px rgba(255,255,255,0.4)}}`}</style>
+              </div>
                 <div
                   ref={wheelRef}
                   className="absolute inset-0 rounded-full border-[8px] border-white shadow-[0_12px_40px_rgba(0,0,0,0.6),inset_0_0_0_3px_rgba(255,255,255,0.15)] will-change-transform"
                   style={{
                     background: buildConicGradient(),
                     transform: `rotate(${rotation}deg)`,
-                    transition: spinning ? "transform 4.2s cubic-bezier(0.12, 0.78, 0.18, 1)" : "none",
+                    transition: wheelTransition,
                   }}
                 >
                   <div className="absolute inset-[10px] rounded-full border border-white/25" />
@@ -557,13 +694,28 @@ export function LuckyWheelModal({
               </div>
               <div className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-cyan-500/20 via-[#7c5cff]/20 to-[#ff3b82]/20 blur-[18px]" />
               <div className="relative h-[300px] w-[300px] shrink-0 sm:h-[340px] sm:w-[340px]">
+              {/* carnival lights — 20 bulbs around wheel */}
+              <div className="pointer-events-none absolute inset-[-14px] rounded-full" aria-hidden>
+                {Array.from({ length: 20 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={`absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white shadow-[0_0_10px_rgba(255,255,255,0.9)] ${i % 2 === 0 ? "bg-acid" : i % 3 === 0 ? "bg-[#ff3b82]" : "bg-white"} animate-[carnivalBlink_0.9s_ease-in-out_infinite]`}
+                    style={{
+                      left: `${50 + 52 * Math.cos((i * 18 * Math.PI) / 180)}%`,
+                      top: `${50 + 52 * Math.sin((i * 18 * Math.PI) / 180)}%`,
+                      animationDelay: `${i * 70}ms`,
+                    }}
+                  />
+                ))}
+                <style>{`@keyframes carnivalBlink{0%,100%{opacity:1; transform:translate(-50%,-50%) scale(1); box-shadow:0 0 10px rgba(255,255,255,0.9)}50%{opacity:0.35; transform:translate(-50%,-50%) scale(0.78); box-shadow:0 0 4px rgba(255,255,255,0.4)}}`}</style>
+              </div>
                 <div
                   ref={wheelRef}
                   className="absolute inset-0 rounded-full border-[8px] border-white shadow-[0_12px_40px_rgba(0,0,0,0.6),inset_0_0_0_3px_rgba(255,255,255,0.15)] will-change-transform"
                   style={{
                     background: buildConicGradient(),
                     transform: `rotate(${rotation}deg)`,
-                    transition: spinning ? "transform 4.2s cubic-bezier(0.12, 0.78, 0.18, 1)" : "none",
+                    transition: wheelTransition,
                   }}
                 >
                   <div className="absolute inset-[10px] rounded-full border border-white/25" />

@@ -211,8 +211,8 @@ export default function Checkout({
                   }`}
                 >
                   {hasWinningCoupon && (
-                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-gradient-to-r from-acid to-yellow-300 px-2 py-1 text-[9px] font-black uppercase tracking-widest text-ink">
-                      ★ JACKPOT PICK
+                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-acid px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-ink animate-pulse">
+                      YOU WON THIS ✓
                     </span>
                   )}
                   <input
@@ -225,8 +225,8 @@ export default function Checkout({
                     <span className="flex flex-wrap items-center gap-2">
                       <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_bundle.name}</span>
                       {hasWinningCoupon && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-ink">
-                          1 in 10,000
+                        <span className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-ink animate-[pulse_1.2s_ease-in-out_infinite]">
+                          YOU WON THIS
                         </span>
                       )}
                     </span>
@@ -280,8 +280,8 @@ export default function Checkout({
                   }`}
                 >
                   {hasWinningCoupon && (
-                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-gradient-to-r from-[#7c5cff] to-[#00d4ff] px-2 py-1 text-[9px] font-black uppercase tracking-widest text-white">
-                      ★ JACKPOT PICK
+                    <span className="pointer-events-none absolute right-0 top-0 rounded-bl-lg bg-acid px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-ink animate-pulse">
+                      YOU WON THIS ✓
                     </span>
                   )}
                   <input
@@ -294,8 +294,8 @@ export default function Checkout({
                     <span className="flex flex-wrap items-center gap-2">
                       <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.australia_addon.name}</span>
                       {hasWinningCoupon && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-ink">
-                          1 in 10,000
+                        <span className="inline-flex items-center gap-1 rounded-full bg-acid px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-ink animate-[pulse_1.2s_ease-in-out_infinite]">
+                          YOU WON THIS
                         </span>
                       )}
                     </span>
@@ -461,7 +461,7 @@ function OrderSummaryRows({
           was={`$${PRODUCTS.contract_bundle.compareAt}`}
           now={`$${PRODUCTS.contract_bundle.price.toFixed(2)}`}
           accent={hasWinningCoupon}
-          badge={hasWinningCoupon ? "★ JACKPOT" : undefined}
+          badge={hasWinningCoupon ? "YOU WON THIS" : undefined}
         />
       )}
       {au && (
@@ -470,7 +470,7 @@ function OrderSummaryRows({
           was={`$${PRODUCTS.australia_addon.compareAt}`}
           now={`$${PRODUCTS.australia_addon.price.toFixed(2)}`}
           accent={hasWinningCoupon}
-          badge={hasWinningCoupon ? "★ JACKPOT" : undefined}
+          badge={hasWinningCoupon ? "YOU WON THIS" : undefined}
         />
       )}
       {hasWinningCoupon && coupon && (
@@ -507,7 +507,7 @@ function SummaryRow({ label, was, now, accent, badge }: { label: string; was?: s
     <div className={`flex items-start justify-between gap-4 ${accent ? "rounded-lg border border-acid/20 bg-acid/5 px-2 py-1 -mx-2" : ""}`}>
       <span className={`${accent ? "text-acid font-bold" : "text-white/75"} flex items-center gap-1.5`}>
         {label}
-        {badge && <span className="rounded-full bg-acid px-1.5 py-0.5 text-[8px] font-black uppercase tracking-widest text-ink">{badge}</span>}
+        {badge && <span className="rounded-full bg-acid px-2 py-0.5 text-[8px] font-black uppercase tracking-[0.08em] text-ink shadow-[0_0_8px_rgba(255,230,0,0.5)] animate-pulse">{badge}</span>}
       </span>
       <span className="shrink-0 whitespace-nowrap">
         {was && <span className="mr-2 text-white/30 line-through">{was}</span>}
