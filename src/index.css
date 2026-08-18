@@ -273,6 +273,93 @@ summary {
   animation: fadeIn 180ms ease both;
 }
 
+/* ─────────────────────────────────────────────
+   LUCKY SPIN — Temu-style wheel theater
+───────────────────────────────────────────── */
+
+.lucky-spin-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.lucky-rim {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 62%, #3d3500 63%, #ffe600 70%, #8a7600 76%, #ffe600 84%, #2a2400 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 0, 0, 0.45),
+    0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+@keyframes luckyIdle {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+.lucky-idle {
+  animation: luckyIdle 2.8s ease-in-out infinite;
+}
+
+@keyframes luckyWinGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px rgba(255, 230, 0, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(255, 230, 0, 0.7));
+  }
+}
+.lucky-win-glow {
+  animation: luckyWinGlow 900ms ease-in-out infinite;
+}
+
+@keyframes luckyPulse {
+  0% {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(255, 230, 0, 0.45);
+  }
+  70% {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), 0 0 0 14px rgba(255, 230, 0, 0);
+  }
+  100% {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(255, 230, 0, 0);
+  }
+}
+.lucky-pulse {
+  animation: luckyPulse 1.7s ease-out infinite;
+}
+
+@keyframes luckyFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.lucky-float {
+  animation: luckyFloat 2.4s ease-in-out infinite;
+}
+
+@keyframes luckyConfetti {
+  0% {
+    transform: translate3d(0, -12px, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--dx, 40px), 110vh, 0) rotate(720deg);
+    opacity: 0;
+  }
+}
+.lucky-confetti {
+  animation: luckyConfetti 2.2s ease-in forwards;
+}
+
 /* Honour the OS setting: kill all motion, keep all content */
 @media (prefers-reduced-motion: reduce) {
   html {
