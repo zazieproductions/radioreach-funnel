@@ -11,6 +11,7 @@ import {
   pagePath,
   pageUrl,
 } from "./shared.mjs";
+import { organizationNode } from "./entity.mjs";
 
 const OG_IMAGE_ABS = `${SITE.url}${SITE.ogImage}`;
 
@@ -98,17 +99,12 @@ src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
 /></noscript>`;
 
 /** Graph nodes shared by every generated page. */
+// Use the canonical Organization node built from the entity source of truth
+// (src/data/radioreach-entity.json) so every generated page describes the
+// publisher identically. A thin local copy used to emit only name+url+logo,
+// which fragmented the entity across the site.
 function orgNode() {
-  return {
-    "@type": "Organization",
-    "@id": `${SITE.url}/#organization`,
-    name: "RadioReach",
-    url: `${SITE.url}/`,
-    logo: {
-      "@type": "ImageObject",
-      url: `${SITE.url}/favicon.svg`,
-    },
-  };
+  return organizationNode();
 }
 
 function breadcrumbNodes(items) {
@@ -135,11 +131,11 @@ function articleNode(page) {
     image: OG_IMAGE_ABS,
     inLanguage: "en-US",
     articleSection: categoryById(page.category).name,
-    author: {
-      "@type": "Organization",
-      name: "RadioReach team",
-      url: `${SITE.url}/`,
-    },
+    // Point at the canonical organization rather than minting a second,
+    // unlinked "RadioReach team" Organization. Editorial responsibility is
+    // stated on /about/; when a named editorial owner is confirmed this
+    // should become that Person's @id.
+    author: { "@id": `${SITE.url}/#organization` },
     publisher: { "@id": `${SITE.url}/#organization` },
     isPartOf: { "@id": `${SITE.url}/resources/#collection` },
   };
@@ -163,7 +159,7 @@ function howtoNode(howto, slug) {
     "@id": `${pageUrl(slug)}#howto`,
     name: howto.name,
     description: howto.description,
-    totalTime: "PT0M" in howto ? howto.totalTime : undefined,
+    totalTime: howto.totalTime || undefined,
     step: howto.steps.map((s, i) => ({
       "@type": "HowToStep",
       position: i + 1,
