@@ -27,7 +27,7 @@ const CARDS = [
   { icon: "📕", title: "400+ page document", value: "$97", caption: "The gatekeepers in one file." },
   { icon: "📍", title: "City-by-city organization", value: "$79", caption: "Start local, expand along your tour route." },
   { icon: "🔓", title: "Lifetime access", value: "$120", caption: "No subscription. No renewal." },
-  { icon: "📮", title: "Verified emails", value: "$149", caption: "10,372 deliverable, tied to a real human." },
+  { icon: "📮", title: "Direct emails", value: "$149", caption: "Tied to a named person, not a generic inbox." },
 ];
 
 export default function RevealSequence() {

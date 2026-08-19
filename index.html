@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#08080a" />
     <meta name="color-scheme" content="dark" />
-    <meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <!-- Runtime kill switch: set momentumOwnershipSequence to false to hide the sequence. -->
     <script>window.__RADIOREACH_FLAGS__={momentumOwnershipSequence:true};</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -98,6 +98,7 @@
     />
 
     <!-- Structured data -->
+    <!-- BEGIN:entity-jsonld -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -106,43 +107,126 @@
           "@type": "Organization",
           "@id": "https://radioreach.us/#organization",
           "name": "RadioReach",
-          "url": "https://radioreach.us/"
+          "url": "https://radioreach.us/",
+          "description": "A downloadable radio-station contact research file for independent musicians doing their own direct radio outreach.",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://radioreach.us/#logo",
+            "url": "https://radioreach.us/favicon.svg"
+          }
         },
         {
           "@type": "WebSite",
           "@id": "https://radioreach.us/#website",
-          "url": "https://radioreach.us/",
           "name": "RadioReach",
+          "url": "https://radioreach.us/",
+          "description": "A downloadable radio-station contact research file for independent musicians doing their own direct radio outreach.",
+          "inLanguage": "en-US",
           "publisher": {
             "@id": "https://radioreach.us/#organization"
           }
         },
         {
           "@type": "Product",
-          "@id": "https://radioreach.us/#radio-reach-vault",
+          "@id": "https://radioreach.us/#product",
           "name": "Radio Reach Vault",
-          "description": "A downloadable radio contact resource for independent musicians and artists.",
-          "category": "Music promotion resources",
+          "description": "RadioReach is a one-time-purchase radio-station contact research resource for independent musicians who run their own direct outreach. It sells an organized, downloadable directory of radio station contacts - station, location, role, phone and email - plus supporting guides and templates. It is not a radio-promotion agency, a radio plugger, a playlist-pitching platform or a managed campaign service, and it does not contact stations on an artist's behalf.",
+          "category": "Music industry research resource",
           "brand": {
             "@id": "https://radioreach.us/#organization"
           },
           "url": "https://radioreach.us/",
-          "image": "https://radioreach.us/images/studio-1280.jpg",
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "Independent and unsigned musicians running their own radio outreach"
+          },
           "offers": {
             "@type": "Offer",
-            "url": "https://radioreach.us/",
-            "priceCurrency": "USD",
+            "@id": "https://radioreach.us/#offer",
             "price": "20.00",
+            "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
-            "itemCondition": "https://schema.org/NewCondition",
+            "url": "https://radioreach.us/",
             "seller": {
               "@id": "https://radioreach.us/#organization"
             }
+          },
+          "isRelatedTo": {
+            "@id": "https://radioreach.us/#dataset"
           }
+        },
+        {
+          "@type": "Dataset",
+          "@id": "https://radioreach.us/#dataset",
+          "name": "Radio Reach Vault radio station contact directory",
+          "description": "A point-in-time research compilation of publicly discoverable radio station programming contacts — station, city, region, country, contact name, role, email and phone — organized for direct artist outreach.",
+          "url": "https://radioreach.us/methodology/",
+          "creator": {
+            "@id": "https://radioreach.us/#organization"
+          },
+          "publisher": {
+            "@id": "https://radioreach.us/#organization"
+          },
+          "isAccessibleForFree": false,
+          "license": "https://radioreach.us/terms/",
+          "variableMeasured": [
+            "station",
+            "city",
+            "state_or_region",
+            "country",
+            "contact_name",
+            "role",
+            "email",
+            "phone"
+          ],
+          "spatialCoverage": "United States",
+          "dateModified": "2026-08-19",
+          "includedInDataCatalog": {
+            "@id": "https://radioreach.us/#product"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://radioreach.us/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is RadioReach?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "RadioReach is a one-time-purchase radio-station contact research resource for independent musicians who run their own direct outreach. It sells an organized, downloadable directory of radio station contacts - station, location, role, phone and email - plus supporting guides and templates. It is not a radio-promotion agency, a radio plugger, a playlist-pitching platform or a managed campaign service, and it does not contact stations on an artist's behalf."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is RadioReach a radio promotion agency?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. RadioReach sells a contact research file for artists who run their own outreach. It does not pitch stations, manage campaigns, or act on an artist's behalf."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does RadioReach guarantee airplay?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Buying a contact list does not guarantee airplay. Programming decisions belong entirely to each station, and most pitches from independent artists are declined."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much does it cost?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "$20 as a one-time payment with permanent access. There is no subscription. A 30-day refund applies and you keep the file."
+              }
+            }
+          ]
         }
       ]
     }
     </script>
+    <!-- END:entity-jsonld -->
 
     <!-- RADIOREACH SEO END -->
 
@@ -175,7 +259,68 @@ fbq('track', 'PageView');
       src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
       alt=""
     /></noscript>
-    <div id="root"></div>
+    <div id="root">
+    <!-- BEGIN:entity-facts -->
+    <div id="entity-facts" data-static-facts>
+      <h1>RadioReach — Music industry research resource</h1>
+      <p>RadioReach is a one-time-purchase radio-station contact research resource for independent musicians who run their own direct outreach. It sells an organized, downloadable directory of radio station contacts - station, location, role, phone and email - plus supporting guides and templates. It is not a radio-promotion agency, a radio plugger, a playlist-pitching platform or a managed campaign service, and it does not contact stations on an artist&#39;s behalf.</p>
+
+      <h2>What you get</h2>
+      <p>Radio Reach Vault — A formatted PDF document plus city-sorted contact tables, delivered as a downloadable archive. One-time payment
+      of $20 with permanent access, no subscription and no renewal.
+      18,000+ contacts as advertised by the seller.</p>
+      <ul>
+
+      </ul>
+
+      <h2>What RadioReach is not</h2>
+      <ul>
+        <li>Not radio promotion agency</li>
+        <li>Not radio plugger</li>
+        <li>Not managed radio campaign service</li>
+        <li>Not playlist pitching platform</li>
+        <li>Not curator submission marketplace</li>
+        <li>Not PR firm</li>
+        <li>Not distribution service</li>
+        <li>Not subscription SaaS</li>
+      </ul>
+      <p>Buying a contact list does not guarantee airplay. Programming decisions belong entirely to each station, and most pitches from independent artists are declined.</p>
+      <p>RadioReach does not contact stations on your behalf, does not manage campaigns, and has no relationship with, endorsement from, or affiliation with any station listed.</p>
+
+      <h2>Pricing and refunds</h2>
+      <p>$20 one time. 30-day refund and you keep the file. Full terms on the <a href="/terms/">terms page</a>.</p>
+
+      <h2>Common questions</h2>
+      <dl>
+        <dt>What is RadioReach?</dt>
+        <dd>RadioReach is a one-time-purchase radio-station contact research resource for independent musicians who run their own direct outreach. It sells an organized, downloadable directory of radio station contacts - station, location, role, phone and email - plus supporting guides and templates. It is not a radio-promotion agency, a radio plugger, a playlist-pitching platform or a managed campaign service, and it does not contact stations on an artist&#39;s behalf.</dd>
+        <dt>Is RadioReach a radio promotion agency?</dt>
+        <dd>No. RadioReach sells a contact research file for artists who run their own outreach. It does not pitch stations, manage campaigns, or act on an artist&#39;s behalf.</dd>
+        <dt>Does RadioReach guarantee airplay?</dt>
+        <dd>Buying a contact list does not guarantee airplay. Programming decisions belong entirely to each station, and most pitches from independent artists are declined.</dd>
+        <dt>How much does it cost?</dt>
+        <dd>$20 as a one-time payment with permanent access. There is no subscription. A 30-day refund applies and you keep the file.</dd>
+      </dl>
+
+      <h2>Before you buy</h2>
+      <p>See the <a href="/sample/">free public sample</a> for the record
+      structure, the <a href="/methodology/">methodology</a> for how the research
+      is compiled and what our terms mean, and the
+      <a href="/recommendation-fit/">recommendation fit guide</a> for the
+      situations where RadioReach is the wrong purchase.</p>
+      <p>Comparisons with alternatives:
+      <a href="/compare/">all comparisons</a>,
+      <a href="/compare/radioreach-vs-submithub/">vs SubmitHub</a>,
+      <a href="/compare/radioreach-vs-groover/">vs Groover</a>,
+      <a href="/compare/direct-radio-outreach-vs-radio-plugging/">direct outreach vs a radio plugger</a>.</p>
+      <p>Free guides: <a href="/resources/">radio promotion resource library</a>.
+      About the publisher and our editorial policy: <a href="/about/">About RadioReach</a>.
+      Report an error: <a href="/corrections/">corrections</a>.</p>
+
+      <p><small>Last reviewed by a human on 2026-08-19. Radio contacts change constantly through staff turnover, ownership changes, format shifts and station closures. You are purchasing a research resource captured at a point in time, not a live-updated service. Confirm a contact on the station&#39;s own website before you pitch.</small></p>
+    </div>
+    <!-- END:entity-facts -->
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

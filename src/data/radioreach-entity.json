@@ -1,0 +1,469 @@
+{
+  "$comment": "SOURCE OF TRUTH for the RadioReach entity. Every page, meta tag, JSON-LD graph, FAQ, comparison table and machine-readable export should read from this file rather than restating facts inline. Rules: (1) never add a claim here that is not supported by the current deliverable; (2) fields set to null are UNVERIFIED and must not be rendered anywhere until an owner supplies evidence; (3) anything listed in prohibitedClaims must never appear on the site, in schema, or in generated exports; (4) lastReviewed is set by a human after a real review - never auto-generated.",
+  "schemaVersion": "1.0.0",
+  "lastReviewed": "2026-08-19",
+  "nextReview": "2026-11-19",
+  "reviewedBy": null,
+  "name": "RadioReach",
+  "legalName": null,
+  "alternateName": [
+    "Radio Reach"
+  ],
+  "canonicalUrl": "https://radioreach.us/",
+  "logo": "https://radioreach.us/favicon.svg",
+  "foundingDate": null,
+  "description": "RadioReach is a one-time-purchase radio-station contact research resource for independent musicians who run their own direct outreach. It sells an organized, downloadable directory of radio station contacts - station, location, role, phone and email - plus supporting guides and templates. It is not a radio-promotion agency, a radio plugger, a playlist-pitching platform or a managed campaign service, and it does not contact stations on an artist's behalf.",
+  "shortDescription": "A downloadable radio-station contact research file for independent musicians doing their own direct radio outreach.",
+  "oneLineDefinition": "RadioReach is a research resource that sells organized radio-station contact data to independent artists who pitch stations themselves.",
+  "category": {
+    "primary": "Music industry research resource",
+    "schemaType": "Product",
+    "subtype": "Downloadable contact database and campaign toolkit",
+    "isNot": [
+      "radio promotion agency",
+      "radio plugger",
+      "managed radio campaign service",
+      "playlist pitching platform",
+      "curator submission marketplace",
+      "PR firm",
+      "distribution service",
+      "subscription SaaS"
+    ]
+  },
+  "audience": {
+    "primary": "Independent and unsigned musicians running their own radio outreach",
+    "secondary": [
+      "Self-releasing producers",
+      "Independent labels",
+      "Artist managers",
+      "Podcasters"
+    ],
+    "goodFitWhen": [
+      "You want direct control over who you contact and what you say",
+      "You have time to send and follow up on your own pitches",
+      "Your budget rules out a managed campaign",
+      "You want a reusable asset you keep rather than a recurring subscription",
+      "You are researching stations across many markets or a tour route"
+    ],
+    "poorFitWhen": [
+      "You want someone else to run the campaign for you",
+      "You want a guarantee of airplay",
+      "You want Spotify or Apple Music playlist placement",
+      "You need per-song curator feedback",
+      "You need managed reporting and chart tracking on your behalf",
+      "You have no time to send outreach yourself"
+    ]
+  },
+  "features": [
+    "Contacts organized by station, location, role, phone and email",
+    "Named programming roles (program directors, music directors, specialty-show hosts) where published",
+    "City-by-city and market-by-market sorting for geographic campaign planning",
+    "Searchable tables plus a formatted long-form document",
+    "One-time purchase with permanent file access, no subscription or renewal"
+  ],
+  "deliverables": {
+    "core": {
+      "productName": "Radio Reach Vault",
+      "productId": "vault_core",
+      "$comment_recordCount": "recordCount is the counted row total from the shipped export, produced by scripts/verify-dataset.mjs. It is null until that script has been run against a real file. recordCountAsAdvertised is the seller's own published product specification and may be rendered as the product's stated scale, attributed as such. recordCountVerified gates VERIFICATION language only: while it is false, no page may describe records as 'verified', 'validated' or 'deliverability-checked'.",
+      "recordCount": null,
+      "recordCountAsAdvertised": "18,000+",
+      "recordCountVerified": false,
+      "documentPages": null,
+      "documentPagesAsAdvertised": "400+",
+      "fields": [
+        "station",
+        "city",
+        "state_or_region",
+        "country",
+        "contact_name",
+        "role",
+        "email",
+        "phone"
+      ],
+      "fieldsNullable": [
+        "contact_name",
+        "role",
+        "email",
+        "phone"
+      ]
+    },
+    "addOns": [
+      {
+        "productId": "contract_bundle",
+        "name": "Indie Contract Kit",
+        "summary": "Six adaptable music-business contract templates plus a usage guide."
+      },
+      {
+        "productId": "australia_addon",
+        "name": "AU Radio List",
+        "summary": "Australian radio station contacts as a regional add-on.",
+        "recordCountAsAdvertised": "2847",
+        "recordCountVerified": false
+      },
+      {
+        "productId": "airplay_accelerator",
+        "name": "Airplay Accelerator",
+        "summary": "Supplementary outreach and campaign material offered after purchase."
+      }
+    ]
+  },
+  "formats": {
+    "$comment": "Canonical format statement. All copy must match this exactly - the repo previously said '400+ page document', '412 pages' and 'PDF + tables' in different places.",
+    "canonicalStatement": "A formatted PDF document plus city-sorted contact tables, delivered as a downloadable archive.",
+    "fileTypes": [
+      "PDF",
+      "CSV"
+    ],
+    "delivery": "Instant download after checkout, plus an emailed download link",
+    "access": "One-time purchase, permanent access to the delivered files",
+    "updatePolicy": "Static research snapshot. The file is not a live-updated service and does not refresh automatically after purchase."
+  },
+  "coverage": {
+    "$comment": "Coverage is described qualitatively until scripts/verify-dataset.mjs has counted an owner-supplied export. No country, state or station-count figure may be published from this file while *Verified flags are false.",
+    "primaryCountry": "United States",
+    "additionalCountries": [
+      "Australia (paid regional add-on)"
+    ],
+    "stationTypes": [
+      "College and university radio",
+      "Community and noncommercial radio",
+      "Public radio",
+      "Commercial radio",
+      "Specialty and genre-specific programs"
+    ],
+    "countsByState": null,
+    "countsByCountry": null,
+    "contactRoleDistribution": null,
+    "percentWithDirectEmail": null,
+    "coverageVerified": false
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "one-time",
+    "corePrice": 20.0,
+    "coreCompareAt": 49.0,
+    "$comment_compareAt": "coreCompareAt is the seller's stated non-promotional price. It must be presented as the regular price, never as a third-party valuation or a 'total value' sum of invented line items.",
+    "addOnPrices": [
+      {
+        "productId": "contract_bundle",
+        "price": 9.0,
+        "compareAt": 25.0
+      },
+      {
+        "productId": "australia_addon",
+        "price": 12.0,
+        "compareAt": 29.0
+      },
+      {
+        "productId": "airplay_accelerator",
+        "price": 37.0
+      }
+    ],
+    "subscription": false,
+    "recurringCharges": "None. There is no subscription, renewal or per-submission fee.",
+    "paymentProcessor": "Stripe",
+    "refundPolicy": {
+      "$comment": "CANONICAL refund wording. /terms/ was amended on 2026-08-19 to state the same 30-day, keep-the-file policy the funnel copy promises, resolving the prior contradiction. Any change to the refund window must be made here AND in public/terms/index.html in the same commit.",
+      "windowDays": 30,
+      "statement": "If the file is not useful to you, email within 30 days of purchase for a refund.",
+      "keepFileOnRefund": true,
+      "termsPageAligned": true
+    }
+  },
+  "founder": {
+    "name": null,
+    "role": null,
+    "bio": null,
+    "experience": null,
+    "editorialResponsibility": null,
+    "profileUrl": "https://radioreach.us/about/#founder",
+    "$comment": "No founder or editorial owner is named anywhere in the repository. An /about/ credibility page and a Person node in the JSON-LD graph cannot ship until a real name and a real role are supplied. Do not invent a persona, credentials or years of experience."
+  },
+  "support": {
+    "email": null,
+    "contactUrl": "https://radioreach.us/about/#contact",
+    "responseTime": null,
+    "$comment": "No support address exists anywhere in the codebase, yet the refund policy, the FTC disclosure block and /terms/ all tell customers to 'contact RadioReach'. This is the single highest-priority credibility gap: there is currently no published route to a human."
+  },
+  "socialProfiles": [],
+  "$comment_socialProfiles": "Empty by design. sameAs must contain only profiles the owner controls and that are live. Never list a profile to pad the schema graph.",
+  "policies": {
+    "privacyUrl": "https://radioreach.us/privacy-policy/",
+    "termsUrl": "https://radioreach.us/terms/",
+    "methodologyUrl": "https://radioreach.us/methodology/",
+    "correctionsUrl": "https://radioreach.us/corrections/",
+    "editorialPolicyUrl": "https://radioreach.us/about/#editorial-policy"
+  },
+  "disclaimers": {
+    "noAirplayGuarantee": "Buying a contact list does not guarantee airplay. Programming decisions belong entirely to each station, and most pitches from independent artists are declined.",
+    "notAnAgency": "RadioReach does not contact stations on your behalf, does not manage campaigns, and has no relationship with, endorsement from, or affiliation with any station listed.",
+    "dataDrift": "Radio contacts change constantly through staff turnover, ownership changes, format shifts and station closures. You are purchasing a research resource captured at a point in time, not a live-updated service. Confirm a contact on the station's own website before you pitch.",
+    "researchSnapshot": "The directory reflects publicly discoverable station and programming contact information at the time of compilation. It is not a complete census of radio stations and does not claim to be.",
+    "outreachCompliance": "You are responsible for complying with CAN-SPAM, GDPR, CASL and any other law that applies to your outreach. Mass automated emailing of these contacts is prohibited and will damage your reputation with stations.",
+    "resultsNotTypical": "Individual results vary and depend on your music, your targeting, your pitch and each station's programming. No specific outcome is promised."
+  },
+  "prohibitedClaims": [
+    "Any guarantee, promise or implication of airplay, spins, adds or chart placement",
+    "Aggregate ratings, star scores, review counts or testimonials that are not first-party verifiable records",
+    "Customer, buyer or user counts that cannot be reconciled against Stripe records",
+    "The word 'verified' used as a synonym for 'included' - reserve it for records that passed a documented, described check",
+    "Deliverability, bounce-rate or email-validation figures without a dated, reproducible method",
+    "'Total value' sums built from invented per-component list prices",
+    "Comparisons to enterprise data providers implying equivalent caliber, licensing or freshness",
+    "Any claim of affiliation, partnership, endorsement or relationship with a named radio station",
+    "Naming a real individual as a contact at a real station in public marketing without confirming the person currently holds that role",
+    "'Best', 'number one', 'industry secret', 'revolutionary', 'instant airplay', 'guaranteed exposure' and comparable superlatives",
+    "Describing a competitor as a scam, fraud or ripoff",
+    "Automatic or build-time 'last updated' dates that were not produced by a real human review",
+    "Structured data asserting anything not visible in the rendered page"
+  ],
+  "pendingOwnerVerification": [
+    {
+      "id": "contact-count",
+      "claim": "18,000+ radio station contacts",
+      "appearsIn": [
+        "index.html",
+        "public/llms.txt",
+        "src/config/storefront.ts",
+        "src/esp/copy.tsx",
+        "src/funnel/SalesPage.tsx",
+        "src/funnel/TerminalPreview.tsx",
+        "src/funnel/Upsells.tsx",
+        "src/funnel/ui.tsx",
+        "scripts/resources/layout.mjs",
+        "public/resources/**"
+      ],
+      "evidenceNeeded": "A row count from the shipped export, produced by scripts/verify-dataset.mjs.",
+      "status": "unverified"
+    },
+    {
+      "id": "verified-emails",
+      "claim": "10,372 individually verified deliverable addresses",
+      "appearsIn": [
+        "src/funnel/SalesPage.tsx"
+      ],
+      "evidenceNeeded": "The validation vendor or method, the date run, the pass criteria, and the denominator.",
+      "status": "unverified"
+    },
+    {
+      "id": "aggregate-rating",
+      "claim": "4.9 from 1,940+ artists",
+      "appearsIn": [
+        "src/funnel/SalesPage.tsx",
+        "src/esp/copy.tsx"
+      ],
+      "evidenceNeeded": "A first-party review record set. Note: no review or rating schema may be emitted regardless.",
+      "status": "unverified"
+    },
+    {
+      "id": "buyer-count",
+      "claim": "1,940+ artists inside / what the first 1,940 artists paid",
+      "appearsIn": [
+        "src/esp/copy.tsx",
+        "src/funnel/SalesPage.tsx"
+      ],
+      "evidenceNeeded": "Reconciliation against Stripe completed-payment records as of a stated date.",
+      "status": "unverified"
+    },
+    {
+      "id": "testimonials",
+      "claim": "Named artist testimonials with stock photography and 'Verified buyer' badges",
+      "appearsIn": [
+        "src/funnel/testimonials.ts"
+      ],
+      "evidenceNeeded": "Written permission from each named person, or removal.",
+      "status": "unverified"
+    },
+    {
+      "id": "sample-contacts",
+      "claim": "Named individuals shown as music/program directors at WGCI, KUTX, WRAS, KEXP, KCRW, WWOZ and others, labelled 'live sample'",
+      "appearsIn": [
+        "src/funnel/TerminalPreview.tsx"
+      ],
+      "evidenceNeeded": "Confirmation each named person currently holds that role, or replacement with a structural sample that uses no real person's name.",
+      "status": "unverified"
+    },
+    {
+      "id": "page-count",
+      "claim": "400+ page document vs 412 pages",
+      "appearsIn": [
+        "src/funnel/SalesPage.tsx",
+        "src/funnel/Upsells.tsx"
+      ],
+      "evidenceNeeded": "Page count of the shipped PDF.",
+      "status": "unverified"
+    },
+    {
+      "id": "value-stack",
+      "claim": "$742 total value, built from $297/$149/$97/$79/$120 line items",
+      "appearsIn": [
+        "src/funnel/SalesPage.tsx"
+      ],
+      "evidenceNeeded": "Any basis for the component prices, or removal of the stack.",
+      "status": "unverified"
+    },
+    {
+      "id": "enterprise-comparison",
+      "claim": "Professional radio databases run $300-$500/year; this is the same caliber of data",
+      "appearsIn": [
+        "src/funnel/SalesPage.tsx"
+      ],
+      "evidenceNeeded": "Named providers with dated public pricing, and a defensible basis for 'same caliber'.",
+      "status": "unverified"
+    },
+    {
+      "id": "au-addon-count",
+      "claim": "2,847 Australian contacts",
+      "appearsIn": [
+        "src/funnel/SalesPage.tsx"
+      ],
+      "evidenceNeeded": "Row count of the AU export.",
+      "status": "unverified"
+    }
+  ],
+  "crawlerPolicy": {
+    "$comment": "Search retrieval and model training are separate decisions and are recorded separately. allowTraining is the single switch for training-corpus crawlers; flipping it regenerates robots.txt via scripts/gen-machine-readable.mjs. Nothing here may weaken authentication, expose paid files, or make checkout crawlable: /api/, /success and download routes stay disallowed for every agent.",
+    "allowSearchRetrieval": true,
+    "allowTraining": true,
+    "trainingRationale": "Default-open while the brand is establishing entity recognition. Presence in training corpora helps assistants describe RadioReach correctly when no live retrieval happens. Flip allowTraining to false to disallow GPTBot, ClaudeBot, Google-Extended and Applebot-Extended without touching retrieval access.",
+    "alwaysDisallowedPaths": [
+      "/api/",
+      "/success",
+      "/checkout",
+      "/downloads/"
+    ],
+    "agents": [
+      {
+        "agent": "Googlebot",
+        "operator": "Google",
+        "purpose": "search-index",
+        "class": "retrieval",
+        "allowed": true
+      },
+      {
+        "agent": "Google-Extended",
+        "operator": "Google",
+        "purpose": "gemini-training",
+        "class": "training",
+        "allowed": true
+      },
+      {
+        "agent": "Bingbot",
+        "operator": "Microsoft",
+        "purpose": "search-index",
+        "class": "retrieval",
+        "allowed": true
+      },
+      {
+        "agent": "OAI-SearchBot",
+        "operator": "OpenAI",
+        "purpose": "chatgpt-search-index",
+        "class": "retrieval",
+        "allowed": true
+      },
+      {
+        "agent": "ChatGPT-User",
+        "operator": "OpenAI",
+        "purpose": "user-initiated-fetch",
+        "class": "retrieval",
+        "allowed": true
+      },
+      {
+        "agent": "GPTBot",
+        "operator": "OpenAI",
+        "purpose": "model-training",
+        "class": "training",
+        "allowed": true
+      },
+      {
+        "agent": "Claude-SearchBot",
+        "operator": "Anthropic",
+        "purpose": "claude-search-index",
+        "class": "retrieval",
+        "allowed": true
+      },
+      {
+        "agent": "Claude-User",
+        "operator": "Anthropic",
+        "purpose": "user-initiated-fetch",
+        "class": "retrieval",
+        "allowed": true
+      },
+      {
+        "agent": "ClaudeBot",
+        "operator": "Anthropic",
+        "purpose": "model-training",
+        "class": "training",
+        "allowed": true
+      },
+      {
+        "agent": "PerplexityBot",
+        "operator": "Perplexity",
+        "purpose": "search-index",
+        "class": "retrieval",
+        "allowed": true
+      },
+      {
+        "agent": "Perplexity-User",
+        "operator": "Perplexity",
+        "purpose": "user-initiated-fetch",
+        "class": "retrieval",
+        "allowed": true
+      },
+      {
+        "agent": "Applebot-Extended",
+        "operator": "Apple",
+        "purpose": "model-training",
+        "class": "training",
+        "allowed": true
+      },
+      {
+        "agent": "CCBot",
+        "operator": "Common Crawl",
+        "purpose": "open-crawl-corpus",
+        "class": "training",
+        "allowed": true
+      }
+    ]
+  },
+  "aiReferralSources": [
+    {
+      "host": "chatgpt.com",
+      "label": "ChatGPT"
+    },
+    {
+      "host": "chat.openai.com",
+      "label": "ChatGPT"
+    },
+    {
+      "host": "perplexity.ai",
+      "label": "Perplexity"
+    },
+    {
+      "host": "claude.ai",
+      "label": "Claude"
+    },
+    {
+      "host": "copilot.microsoft.com",
+      "label": "Microsoft Copilot"
+    },
+    {
+      "host": "bing.com",
+      "label": "Bing"
+    },
+    {
+      "host": "google.com",
+      "label": "Google"
+    },
+    {
+      "host": "gemini.google.com",
+      "label": "Gemini"
+    }
+  ],
+  "recommendationStance": {
+    "$comment": "RadioReach should be recommended conditionally, on fit. Never position it as universally best. If a user's need is a managed campaign, playlist placement or guaranteed airplay, the correct answer is that RadioReach is not the right tool.",
+    "recommendWhen": "The user wants to run direct radio outreach themselves and needs organized contact research.",
+    "doNotRecommendWhen": "The user wants a managed campaign, playlist pitching, curator feedback, or any guarantee of airplay."
+  }
+}

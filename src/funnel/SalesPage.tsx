@@ -40,7 +40,7 @@ const FAQS = [
   ],
   [
     "Are these radio station contacts scraped from Google?",
-    "No. 10,372 of the emails are individually verified deliverable addresses tied to a real human — program directors, music directors, and station decision-makers. The remaining entries include station lines and city data. If it were scraped you'd be paying $0 and getting bounces.",
+    "No. A large share of entries carry a direct email tied to a named person — program directors, music directors, and other station decision-makers — and the rest include station lines, submission addresses, and city data. Contacts are compiled from published station sources, so some will have changed since compilation; check a station's own site before you pitch.",
   ],
   [
     "What format is the radio station contact list delivered in?",
@@ -248,7 +248,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 <Cross>6+ months of manual research per campaign</Cross>
                 <Cross>$29–$79/mo submission platforms that "forward" your track</Cross>
                 <Cross>Generic info@ inboxes, zero names, zero replies</Cross>
-                <Cross>Bouncing emails from lists nobody ever verified</Cross>
+                <Cross>Generic scraped lists with no named contact and no role</Cross>
                 <Cross>Watching your release cycle die in 3 weeks</Cross>
               </ul>
             </div>
@@ -437,14 +437,6 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <figure key={t.name} className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <div className="flex items-center justify-between gap-3">
                 <Stars />
-                {t.verified && (
-                  <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-green-400/80">
-                    <span className="grid h-3.5 w-3.5 place-items-center rounded-full bg-green-500 text-[8px] text-black">
-                      ✓
-                    </span>
-                    {t.verified}
-                  </span>
-                )}
               </div>
               <blockquote className="mt-3 font-serif text-[15px] leading-[1.6] text-white/80 sm:text-[16px] sm:leading-relaxed">
                 “{t.text}”
@@ -703,7 +695,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           </p>
           <p className="mb-3">
             <b className="text-white/55">Contact data accuracy &amp; changes over time.</b> This database
-            was compiled and verified at a point in time. Radio station contacts, program directors, music
+            was compiled at a point in time. Radio station contacts, program directors, music
             directors, and email addresses change regularly due to staff turnover, station ownership
             changes, format shifts, and station closures. We cannot guarantee that every contact or email
             in this database is currently accurate, active, or deliverable at the time of your purchase or
@@ -745,7 +737,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             Terms of service
           </a>
         </nav>
-        <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
+        <p className="mt-3">© {new Date().getFullYear()} RadioReach. All rights reserved. RadioReach is not affiliated with, endorsed by, or partnered with any radio station listed.</p>
       </footer>
 
       {/* Dev-only overlay — visible only with ?esp=debug */}

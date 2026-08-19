@@ -59,7 +59,7 @@ const DRAWERS: Drawer[] = [
     icon: "🇦🇺",
     title: "AU Radio List — 2,847 contacts",
     value: "$29",
-    body: "triple j, community, commercial, regional. 1,612 verified emails.",
+    body: "triple j, community, commercial, regional. Direct emails where stations publish them.",
     unlockLabel: "Open one FAQ to open",
     unlockAction: "faq",
   },

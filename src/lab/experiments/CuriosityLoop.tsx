@@ -21,7 +21,7 @@ const GAPS = [
     id: "g1",
     tease: "The #1 reason radio emails get deleted",
     reveal:
-      "It never reaches a person. It lands in info@ or a generic form that an intern clears every Friday. 10,372 of the Vault's emails are verified deliverable addresses tied to a named decision-maker.",
+      "It never reaches a person. It lands in info@ or a generic form that an intern clears every Friday. A large share of the Vault's entries carry a direct email tied to a named decision-maker.",
     chain: "Mistake #2 is worse — and it's the one you're making right now ↓",
   },
   {

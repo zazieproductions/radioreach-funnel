@@ -25,6 +25,9 @@ import { renderPage, resolveRelated } from "./resources/layout.mjs";
 import { CORE_PAGES } from "./resources/content-core.mjs";
 import { TOOL_PAGES } from "./resources/content-tools.mjs";
 import { GENRE_REFERENCE_PAGES } from "./resources/content-genre-reference.mjs";
+import { ENTITY_PAGES } from "./resources/content-entity-pages.mjs";
+import { COMPARE_PAGES } from "./resources/content-compare.mjs";
+import { renderCitationPage } from "./resources/citation-layout.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -374,6 +377,19 @@ fs.writeFileSync(path.join(RESOURCES, "index.html"), renderHub());
 // ---------------------------------------------------------------------------
 // Sitemap — every indexable URL with an honest lastmod.
 // ---------------------------------------------------------------------------
+// Entity / citation pages — rendered at the site root, not under /resources/.
+// ---------------------------------------------------------------------------
+
+let entityWritten = 0;
+for (const page of [...ENTITY_PAGES, ...COMPARE_PAGES]) {
+  const html = renderCitationPage(page);
+  const dir = path.join(PUBLIC, page.slug);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, "index.html"), html);
+  entityWritten += 1;
+}
+
+// ---------------------------------------------------------------------------
 
 const HOME_LASTMOD = "2026-08-18"; // homepage updated in this pass
 const LEGAL = [
@@ -385,6 +401,10 @@ const urls = [
   { loc: `${SITE.url}/`, lastmod: HOME_LASTMOD },
   { loc: SITE.resourcesUrl, lastmod: HOME_LASTMOD },
   ...PAGES.map((p) => ({ loc: pageUrl(p.slug), lastmod: p.updated })),
+  ...[...ENTITY_PAGES, ...COMPARE_PAGES].map((p) => ({
+    loc: `${SITE.url}/${p.slug}/`,
+    lastmod: p.updated,
+  })),
   ...LEGAL,
 ];
 
@@ -401,5 +421,5 @@ ${urls
 fs.writeFileSync(path.join(PUBLIC, "sitemap.xml"), sitemap);
 
 console.log(
-  `✓ Built ${written} resource pages + hub + sitemap (${PAGES.length} URLs incl. legal/home)`
+  `✓ Built ${written} resource pages + ${entityWritten} entity pages + hub + sitemap (${urls.length} URLs)`
 );

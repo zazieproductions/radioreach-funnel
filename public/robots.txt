@@ -1,5 +1,111 @@
+# RadioReach — https://radioreach.us
+#
+# Policy: AI crawlers are NOT treated as one category. Agents that fetch pages
+# to answer a user's question and cite the source are allowed, because being
+# retrievable and correctly described is the entire point. Agents whose stated
+# purpose is bulk collection for model training are handled separately below.
+#
+# Nothing here weakens authentication. /api/ endpoints, checkout state and
+# paid file delivery are excluded from all crawlers, including allowed ones.
+# Reviewed 2026-08-19. See /methodology/ and /about/.
+
+# ---------------------------------------------------------------------------
+# Default
+# ---------------------------------------------------------------------------
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /success
+Disallow: /*?session_id=
+Disallow: /*?checkout=
 
+# ---------------------------------------------------------------------------
+# Traditional search engines — allowed.
+# ---------------------------------------------------------------------------
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+
+# ---------------------------------------------------------------------------
+# AI search retrieval — ALLOWED.
+# These fetch a page to answer a live user query and attribute the source.
+# ---------------------------------------------------------------------------
+
+# OpenAI: search index for ChatGPT Search results.
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+
+# OpenAI: user-initiated fetch when someone asks ChatGPT about a page.
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+
+# Anthropic: search index for Claude's web results.
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /api/
+
+# Anthropic: user-initiated fetch on behalf of a Claude user.
+User-agent: Claude-User
+Allow: /
+Disallow: /api/
+
+# Perplexity: search index.
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+
+# Perplexity: user-initiated fetch.
+User-agent: Perplexity-User
+Allow: /
+Disallow: /api/
+
+# ---------------------------------------------------------------------------
+# Model training crawlers — allowed for public marketing and reference pages,
+# excluded from commercial/transactional paths. This is a deliberate and
+# separate decision from the retrieval agents above: we accept training use of
+# our public explanatory content, since a model that has read our methodology
+# is a model less likely to misdescribe us as a promotion agency.
+# Revisit at the next review date if that trade-off changes.
+# ---------------------------------------------------------------------------
+
+# OpenAI training crawler.
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Disallow: /success
+Disallow: /*?session_id=
+
+# Anthropic training crawler.
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /success
+Disallow: /*?session_id=
+
+# Google's AI training crawler (separate from Googlebot search indexing;
+# blocking this does not affect Search or AI Overviews eligibility).
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+
+# Apple's AI crawler.
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+
+# Common Crawl — widely reused as a training corpus.
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Disallow: /success
+
+# ---------------------------------------------------------------------------
+# Sitemap
+# ---------------------------------------------------------------------------
 Sitemap: https://radioreach.us/sitemap.xml

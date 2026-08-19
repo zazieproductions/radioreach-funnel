@@ -193,8 +193,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         <b className="text-white">The math nobody wants you to do:</b> professional radio databases
         from enterprise data providers run{" "}
         <span className="font-bold text-blood">$300–$500/year</span> and are built for corporate
-        marketing departments. This is the same caliber of data — 18,000+ contacts, 10K+ verified
-        emails — for <span className="font-bold text-acid">$20</span>. That's{" "}
+        marketing departments. This is 18,000+ contacts organized for direct outreach — for <span className="font-bold text-acid">$20</span>. That's{" "}
         <b className="text-white">0.11¢ per contact.</b> Priced for someone currently deciding
         between a mastering session and groceries. I know, because I was.
       </>
@@ -204,8 +203,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         <b className="text-white">The math, plainly:</b> professional radio databases from
         enterprise data providers run{" "}
         <span className="font-bold text-blood">$300–$500/year</span> and are built for corporate
-        marketing departments. This is the same caliber of data — 18,000+ contacts, 10K+ verified
-        emails — for <span className="font-bold text-acid">$20</span>, one time. That's{" "}
+        marketing departments. This is 18,000+ contacts organized for direct outreach — for <span className="font-bold text-acid">$20</span>, one time. That's{" "}
         <b className="text-white">0.11¢ per contact.</b> No subscription, no upsell maze, and a
         30-day refund if it's not for you.
       </>
@@ -214,16 +212,15 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
       <>
         <b className="text-white">The math serious artists do:</b> professional radio databases run{" "}
         <span className="font-bold text-blood">$300–$500/year</span> and are built for corporate
-        marketing departments. You're being offered the same caliber of data — 18,000+ contacts,
-        10K+ verified emails — for <span className="font-bold text-acid">$20</span>, one time.{" "}
+        marketing departments. You're being offered 18,000+ contacts organized for direct outreach — for <span className="font-bold text-acid">$20</span>, one time.{" "}
         <b className="text-white">That's the edge the artists in rotation already paid for.</b>
       </>
     ),
     urgency: (
       <>
-        <b className="text-white">The math nobody wants you to do:</b> professional databases run{" "}
-        <span className="font-bold text-blood">$300–$500/year</span>. The same caliber of data is{" "}
-        <span className="font-bold text-acid">$20</span> right now — but only while the founder
+        <b className="text-white">The math nobody wants you to do:</b> enterprise media databases run{" "}
+        <span className="font-bold text-blood">$300–$500/year</span> on subscription. This is{" "}
+        <span className="font-bold text-acid">$20</span> once — but only while the founder
         slots hold. At $49 it's still a bargain. At $20 it's{" "}
         <b className="text-white">0.11¢ per contact.</b> That number won't be here when the timer
         ends.

@@ -228,7 +228,7 @@ export default function Checkout({
                   />
                   <span className="space-y-1 pr-2 w-full">
                     <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.australia_addon.name}</span>
-                    <span className="block text-sm font-bold text-acid">2,847 AU station contacts · 1,612 verified emails</span>
+                    <span className="block text-sm font-bold text-acid">2,847 AU station contacts · direct emails where published</span>
                     <span className="block text-sm text-white/65">{PRODUCTS.australia_addon.description}</span>
                     <span className="block text-sm">
                       <span className="mr-2 text-white/35 line-through">${PRODUCTS.australia_addon.compareAt}</span>

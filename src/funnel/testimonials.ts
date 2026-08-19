@@ -7,7 +7,6 @@ export type Testimonial = {
   photo: string;
   text: string;
   stat: string;
-  verified?: string;
 };
 
 /* ── Main sales page ── */
@@ -19,7 +18,6 @@ export const TESTIMONIALS: Testimonial[] = [
     text:
       "I sent 40 emails from the Detroit tab on a Sunday night. Two program directors replied by Monday lunch. One of them put my single into weekend rotation. Forty emails. I'd burned six months on submission platforms before this and got nothing but auto-replies.",
     stat: "2 spins in 9 days",
-    verified: "Verified buyer · Mar 2026",
   },
   {
     name: "Aiyana Ross-Whitfield",
@@ -28,7 +26,6 @@ export const TESTIMONIALS: Testimonial[] = [
     text:
       "The city-by-city structure is the whole trick. I pitched every station in the towns on my tour route three weeks before each date. Two stations booked me for on-air interviews. Ticket sales in those two markets literally doubled versus the rest of the run.",
     stat: "2 on-air interviews",
-    verified: "Verified buyer · Feb 2026",
   },
   {
     name: "Tomás Vega Arriaga",
@@ -37,7 +34,6 @@ export const TESTIMONIALS: Testimonial[] = [
     text:
       "I'm not a marketer. I genuinely hate emailing strangers. But having the actual music director's name instead of a generic inbox changed the entire tone of every conversation. People answer when you use their name. That's the whole product, and it works.",
     stat: "17 replies / 120 sent",
-    verified: "Verified buyer · Jan 2026",
   },
   {
     name: "Keisha Bramwell",
@@ -45,8 +41,7 @@ export const TESTIMONIALS: Testimonial[] = [
     photo: P(590479),
     text:
       "$20 for something enterprise vendors quoted me $400/yr for. I spot-checked 30 emails at random against my own research before I trusted it. 28 were live and current. After that I stopped checking and just started sending.",
-    stat: "Verified 28 of 30",
-    verified: "Verified buyer · Mar 2026",
+    stat: "Spot-checked 28 of 30",
   },
   {
     name: "Dev Ramanathan",
@@ -55,7 +50,6 @@ export const TESTIMONIALS: Testimonial[] = [
     text:
       "College and community radio was a total blind spot for me. I found 60 stations in the Northeast that program exactly my genre, pitched them over two weeks, and ended up with a recurring slot on a Tuesday night show. That show is now my biggest referral source.",
     stat: "Recurring weekly slot",
-    verified: "Verified buyer · Feb 2026",
   },
   {
     name: "Siobhán Mulqueen",
@@ -64,7 +58,6 @@ export const TESTIMONIALS: Testimonial[] = [
     text:
       "I bought the Australian add-on on a whim and it paid for the entire order twice over. Got picked up by two community stations in Melbourne and Brisbane within a month. I have never set foot in Australia. My monthly listeners there are now higher than in Tennessee.",
     stat: "AU airplay in 4 weeks",
-    verified: "Verified buyer · Mar 2026",
   },
 ];
 

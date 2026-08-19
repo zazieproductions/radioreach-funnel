@@ -1,7 +1,7 @@
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
-  Referrer-Policy: no-referrer
+  Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
   Strict-Transport-Security: max-age=31536000
 
@@ -18,6 +18,24 @@
   Cache-Control: public, max-age=0, must-revalidate
 
 /404.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/about/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/methodology/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sample/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/corrections/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/recommendation-fit/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/compare/*
   Cache-Control: public, max-age=0, must-revalidate
 
 /images/*

@@ -60,7 +60,7 @@ function Offer({ variant }: { variant: string }) {
   if (variant === "$742→$49→$20 stack") {
     const stack = [
       ["18,000+ entries", "$297"],
-      ["Verified deliverable emails", "$149"],
+      ["Direct emails tied to named contacts", "$149"],
       ["400+ page organized document", "$97"],
       ["City-by-city organization", "$79"],
       ["Lifetime access", "$120"],
@@ -100,9 +100,9 @@ function Offer({ variant }: { variant: string }) {
     return (
       <div className="mx-auto grid max-w-md gap-2.5">
         {[
-          { id: "starter", name: "Starter", price: "$49", badge: null, popular: false, body: "Email list only · 4,000 entries · no PDF" },
-          { id: "vault", name: "Vault", price: "$20", badge: "MOST CHOSEN", popular: true, body: "Everything in Starter + full PDF + contracts + AU list + lifetime access" },
-          { id: "pro", name: "Pro", price: "$97", badge: null, popular: false, body: "Vault + done-for-you campaign setup" },
+          { id: "list", name: "Contact tables only", price: "$49", badge: null, popular: false, body: "City-sorted contact tables · no formatted PDF" },
+          { id: "vault", name: "Vault", price: "$20", badge: "MOST CHOSEN", popular: true, body: "Full PDF + city-sorted tables + contracts + AU list + permanent access" },
+          { id: "addons", name: "Vault + add-ons", price: "$97", badge: null, popular: false, body: "Vault plus every regional add-on and template pack" },
         ].map((t) => (
           <button
             key={t.id}
