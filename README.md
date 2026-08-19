@@ -431,13 +431,27 @@ A carnival-wheel mechanic that turns price sensitivity into a dopamine-driven, s
 **Psychology.** The wheel leverages *variable reward scheduling* (the same mechanism that makes slot machines compelling) and the *near-miss effect*. The wheel is engineered to appear as though it nearly lands on a modest discount (10% OFF) before snapping to the jackpot—a moment of perceived luck that dramatically increases the emotional weight of the "win." The result: winners feel chosen, not marketed to.
 
 **Design.**
-- 8-slice wheel with a single jackpot (1 in 10,000 odds) and a second-spin "secret code" affiliate reveal.
+- 8-slice wheel with a single jackpot (1 in 10,000 odds).
 - Near-miss animation with hesitation, a rising ding, and haptic feedback (where supported) creates a cinematic win moment.
 - Jackpot unlocks a pre-selected founder bundle at a celebratory price, with a 15-minute countdown that converts the win into urgency.
-- A second spin reveals an affiliate promo code (PlaylistPush), turning the gamification into a revenue-positive partnership—the "secret" framing makes winners feel like insiders.
 - Confetti, winner IDs, and a persistent "YOU WON THIS" treatment at checkout reinforce the win across the remaining journey.
 
 **Why it matters.** Rather than blanket discounting (which trains visitors to wait for a sale), the wheel makes the discount feel *earned* and *personal*. Non-winners still see the standard founder pricing; winners get a celebration that makes them more likely to complete and more likely to remember the brand.
+
+### Affiliate Gamification: The Secret Slots Machine
+
+A standalone 3-reel slot machine on the sales page that turns the PlaylistPush affiliate code into a "hidden industry secret" reveal — without ever touching checkout (see the 2026-08-18 audit: the earlier "secret second spin" leaked buyers away mid-payment; this placement is pre-checkout only).
+
+**Psychology.** Same *variable reward* + *near-miss* mechanics as the wheel: the reels stop one by one, the third rests on a LOCK symbol ("so close…"), hesitates, then clicks one row to the KEY. The payline is engineered to land the secret combo on every spin, so the reveal always arrives — the game is the drama, not the odds.
+
+**Design.**
+- 3 reels × 8 symbols, payline on the middle row; whole-row stops only (pure geometry in `src/lib/slots.ts`, regression-tested by `npm run test:slots`).
+- Reveal card: the code `FR2AZEF` with a copy button and the whisper framing — "SHH… DON'T TELL ANYONE I GAVE IT TO YOU." **The promo code IS the affiliate** — there is no outbound link; visitors copy the code and enter it at PlaylistPush checkout (a link-out mid-funnel was removed in the 2026-08-18 audit). The affiliate relationship is disclosed once, in the FTC disclaimer at the bottom of the sales page — the machine itself stays clean.
+- **Deliberately less prominent than the wheel**: at rest it's a single muted teaser row ("The code isn't public — you have to win it") that expands into the cabinet on click and collapses back with a quiet "✕ Hide machine" control. The code only appears after a spin, every visit (no persistence).
+- Feature-flagged (`isSecretSlotsEnabled()` — build env hard switch + runtime kill switch, same discipline as the Momentum sequence).
+- Styled with the funnel's vibrant carnival gradients (rainbow conic cabinet frame, animated rainbow marquee with chasing lights, rainbow payline, rainbow lever CTA, rainbow code card) over clean line-art symbol glyphs — each symbol glows its own vivid hue with the key in brand gold. All motion collapses under the global `prefers-reduced-motion` rule.
+
+**Why it matters.** The affiliate code is a genuine discount for a service this audience already wants (playlist pitching), and the machine makes receiving it feel like an insider secret rather than an ad. The code is configured in one place — `src/lib/secretCode.ts` — so swapping the code is a one-line change.
 
 ### Exit Intent Recovery
 

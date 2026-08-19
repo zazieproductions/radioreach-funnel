@@ -127,3 +127,21 @@ These were flagged but left in place because they're offer/testing decisions, no
 | `src/funnel/Upsells.tsx` | Number consistency; decline-link contrast |
 | `src/App.tsx` | Removed second-spin mode plumbing |
 | `src/esp/copy.tsx` | Removed `alertBar` slot; made `ctaTrust` concrete |
+
+---
+
+## 8. Addendum — 2026-08-19: PlaylistPush affiliate returns as a dedicated slot machine
+
+Funnel owner decision: the PlaylistPush affiliate partnership is back — but rebuilt to answer this audit's exact complaint instead of repeating it.
+
+| Before (removed in §2) | Now |
+|---|---|
+| A "secret second spin" bolted onto the **lucky wheel** | A **standalone 3-reel slot machine** (`src/funnel/SecretSlots.tsx`) with its own payline geometry (`src/lib/slots.ts`) |
+| Placed on the **checkout page**, leaking buyers away mid-payment | Placed on the **sales page only**, between the "Mechanism" and "What's inside" sections — an earned bonus before the offer, never an exit during payment |
+| One more wheel interaction on an already wheel-heavy page | Distinct machine, distinct job (affiliate code reveal), one placement only — no stacking |
+| Hard-coded second-spin phase | Feature-flagged (`isSecretSlotsEnabled()`, build + runtime kill switches); **always starts hidden** — the code appears only after a spin, every visit |
+| Full cabinet inline mid-page | **Quiet one-row teaser at rest** ("The code isn't public — you have to win it") that expands into the machine on click — deliberately less prominent than the hero wheel, with a "✕ Hide machine" collapse control |
+| Reveal linked out to the affiliate site | **Code-only reveal** — the promo code `FR2AZEF` IS the affiliate deliverable: a copy button, zero outbound links anywhere in the machine (hardened by a test assertion). Affiliate disclosure lives in the FTC disclaimer at the bottom of the page, not in the machine |
+| Grey monochrome styling (post-slick pass) | **Vibrant carnival gradients restored**: rainbow conic cabinet frame, animated rainbow marquee + chasing lights, rainbow payline and lever CTA, colored line-art glyphs (each symbol its own hue, key in brand gold) — vibrant enough to invite the click, no emoji regressions |
+
+Kept from the audit's guidance: the code reveal is rigged to always win (same dopamine mechanic as the wheel's jackpot), audio/vibration are preserved but reduced-motion aware, and the machine never links away from the funnel. Covered by `npm run test:slots` (21 geometry assertions + a jsdom integration scenario that plays a full spin through reveal, asserts no outbound link and no in-machine affiliate disclosure, and checks the hidden-until-spin flow).
