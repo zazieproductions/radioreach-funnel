@@ -269,9 +269,9 @@ function renderHub() {
 <meta name="twitter:title" content="Radio Promotion Resources &amp; Free Guides | RadioReach">
 <meta name="twitter:description" content="Free radio promotion guides for independent artists: submissions, pitch templates, EPKs, genre playbooks, and reference.">
 <meta name="twitter:image" content="${SITE.url}${SITE.ogImage}">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/favicon.ico?v=2" sizes="32x32">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" sizes="180x180">
 <script type="application/ld+json">
 ${JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, null, 1)}
 </script>
