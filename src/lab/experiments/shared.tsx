@@ -308,8 +308,12 @@ export function Countdown({ seconds, onDone }: { seconds: number; onDone?: () =>
   const mm = String(Math.floor(left / 60)).padStart(2, "0");
   const ss = String(left % 60).padStart(2, "0");
   return (
-    <span className="tnum inline-flex items-center gap-1 rounded bg-black/50 px-2 py-0.5 font-mono text-sm font-bold text-acid">
-      ⏳ {mm}:{ss}
+    <span
+      className="tnum inline-flex items-center gap-1 rounded bg-black/50 px-2 py-0.5 font-mono text-sm font-bold text-acid"
+      role="timer"
+      aria-label={`${mm} minutes ${ss} seconds remaining`}
+    >
+      <span aria-hidden>⏳</span> {mm}:{ss}
     </span>
   );
 }

@@ -9,8 +9,8 @@
    rule in index.css).
 
    Accessibility: inactive variants are hidden from the tree
-   (aria-hidden + visibility), and the slot is a polite live
-   region so a mode change is announced, not ignored.
+   (aria-hidden + visibility). Mode swaps are not live-announced —
+   announcing every slot at once would drown the page.
 ───────────────────────────────────────────────────────────── */
 
 import { useSyncExternalStore, type ReactNode, type ElementType } from "react";
@@ -49,7 +49,6 @@ export function EmotiveText({
       className={cn("esp-slot", className)}
       data-esp-slot={slot}
       data-esp-mode={mode}
-      aria-live="polite"
     >
       {present.map((m) => (
         <span

@@ -95,9 +95,9 @@ export default function EmbeddedStripeCheckout({
   return (
     <div className="rounded-xl border border-white/10 bg-panel p-2.5 sm:p-4" aria-busy={isLoading}>
       <div className="mb-2.5 rounded-lg border border-white/10 bg-black/30 px-3 py-3 sm:mb-3 sm:px-4">
-        <p className="font-display text-xl uppercase">
+        <h2 className="font-display text-xl uppercase">
           {STORE_COPY.checkoutTitle}
-        </p>
+        </h2>
         <p className="text-sm text-white/55">
           {STORE_COPY.checkoutSubtitle}
         </p>

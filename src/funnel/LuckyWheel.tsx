@@ -6,6 +6,13 @@ import {
   formatRemainingMs,
 } from "../lib/luckyCoupon";
 import {
+  announce,
+  prefersReducedMotion,
+  useFocusTrap,
+  useLockBodyScroll,
+  useRestoreFocus,
+} from "../a11y";
+import {
   SEGMENTS,
   SEGMENT_ANGLE,
   JACKPOT_INDEX,
@@ -88,12 +95,13 @@ export function LuckyWheelButton({
     <button
       type="button"
       onClick={onClick}
+      aria-haspopup="dialog"
       className={`group relative inline-flex items-center justify-center overflow-hidden rounded-full p-[1.5px] shadow-[0_4px_16px_rgba(251,146,60,0.35)] transition hover:shadow-[0_6px_24px_rgba(167,139,250,0.45)] hover:scale-[1.015] active:scale-[0.985] ${className}`}
       style={{ background: RAINBOW_CONIC }}
     >
       <span className={`flex items-center gap-2.5 rounded-full bg-[#0F0F12] px-5 py-2.5 ${small ? "text-xs" : "text-sm"}`}>
         <span className="grid h-7 w-7 place-items-center rounded-full p-[2px]" style={{ background: RAINBOW_CONIC }}>
-          <span className="grid h-full w-full place-items-center rounded-full bg-[#0F0F12] text-[13px]">🎡</span>
+          <span className="grid h-full w-full place-items-center rounded-full bg-[#0F0F12] text-[13px]" aria-hidden>🎡</span>
         </span>
         <span className="font-extrabold tracking-tight text-white">Spin the wheel for a free discount</span>
         <span className="hidden sm:inline-flex items-center rounded-full bg-white px-2 py-0.5 text-[10px] font-black tracking-widest text-zinc-900">FREE SPIN</span>
@@ -125,9 +133,13 @@ export function LuckyWheelModal({
   const [nowMs, setNowMs] = useState(Date.now());
   const timeoutRef = useRef<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [copied, setCopied] = useState(false);
 
-  // Move focus into the dialog when it opens so keyboard users aren't
-  // stranded behind the overlay.
+  useRestoreFocus(isOpen);
+  useFocusTrap(isOpen, panelRef);
+  useLockBodyScroll(isOpen);
+
   useEffect(() => {
     if (isOpen) closeRef.current?.focus();
   }, [isOpen]);
@@ -152,6 +164,7 @@ export function LuckyWheelModal({
       setRotation(0);
       setWheelTransition("none");
       setNowMs(Date.now());
+      setCopied(false);
     } else if (timeoutRef.current) {
       window.clearTimeout(timeoutRef.current);
     }
@@ -170,6 +183,22 @@ export function LuckyWheelModal({
 
   const handleFirstSpin = () => {
     if (spinning || phase !== "firstWheel") return;
+
+    const awardJackpot = () => {
+      const c = generateLuckyCoupon();
+      saveLuckyCoupon(c);
+      setFirstCoupon(c);
+      setPhase("firstWon");
+      setSpinning(false);
+      onWin(c);
+      announce("Jackpot unlocked. Founder bundle is twenty-one dollars.");
+    };
+
+    if (prefersReducedMotion()) {
+      awardJackpot();
+      return;
+    }
+
     setSpinning(true);
     getAudio();
     const NEAR_MISS_INDEX = 0; // 10% OFF
@@ -207,12 +236,7 @@ export function LuckyWheelModal({
         setRotation(targetJackpot);
         timeoutRef.current = window.setTimeout(() => {
           setWheelTransition("none");
-          const c = generateLuckyCoupon();
-          saveLuckyCoupon(c);
-          setFirstCoupon(c);
-          setPhase("firstWon");
-          setSpinning(false);
-          onWin(c);
+          awardJackpot();
           try {
             navigator.vibrate?.([24, 16, 24]);
           } catch {}
@@ -231,14 +255,12 @@ export function LuckyWheelModal({
     <div
       className="fixed inset-0 z-[80] grid place-items-center bg-[#070709]/80 p-4 backdrop-blur-[10px]"
       onClick={() => !spinning && onClose()}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="wheel-title"
     >
       {/* subtle backdrop gradient */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(251,146,60,0.12),transparent_55%),radial-gradient(ellipse_at_bottom,_rgba(6,182,212,0.10),transparent_55%)]" />
 
-      {showConfetti && (
+      <style>{`@keyframes confettiFall{0%{transform:translateY(-20vh) rotate(0deg); opacity:1} 100%{transform:translateY(110vh) rotate(680deg); opacity:0}} @keyframes modalIn{0%{opacity:0; transform:scale(0.96) translateY(8px)}100%{opacity:1; transform:scale(1) translateY(0)}}`}</style>
+      {showConfetti && !prefersReducedMotion() && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
           {Array.from({ length: 36 }).map((_, i) => (
             <span
@@ -255,11 +277,17 @@ export function LuckyWheelModal({
               }}
             />
           ))}
-          <style>{`@keyframes confettiFall{0%{transform:translateY(-20vh) rotate(0deg); opacity:1} 100%{transform:translateY(110vh) rotate(680deg); opacity:0}} @keyframes modalIn{0%{opacity:0; transform:scale(0.96) translateY(8px)}100%{opacity:1; transform:scale(1) translateY(0)}}`}</style>
         </div>
       )}
 
       <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="wheel-title"
+        aria-describedby="wheel-desc"
+        aria-busy={spinning}
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-[520px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0F0F12] shadow-[0_24px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.06)] animate-[modalIn_0.32s_cubic-bezier(0.16,1,0.3,1)]"
       >
@@ -271,7 +299,7 @@ export function LuckyWheelModal({
             aria-hidden
           />
           <span className="flex items-center gap-2 text-[11px] font-bold tracking-[0.14em] text-white/60">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" aria-hidden />
             CARNIVAL SPIN
           </span>
           <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-white/[0.06] px-2.5 py-1 font-mono text-[11px] tracking-wide text-white/50">
@@ -284,8 +312,8 @@ export function LuckyWheelModal({
             type="button"
             onClick={onClose}
             disabled={spinning}
-            aria-label="Close"
-            className="grid h-7 w-7 place-items-center rounded-full bg-white/[0.06] text-white/60 hover:bg-white/10 hover:text-white disabled:opacity-30"
+            aria-label={spinning ? "Close unavailable while the wheel is spinning" : "Close discount wheel"}
+            className="relative grid h-7 w-7 place-items-center rounded-full bg-white/[0.06] text-white/70 hover:bg-white/10 hover:text-white disabled:opacity-30 after:absolute after:inset-[-10px] after:content-['']"
           >
             ×
           </button>
@@ -302,7 +330,7 @@ export function LuckyWheelModal({
               <h2 id="wheel-title" className="mt-3 font-display text-[1.7rem] leading-none tracking-tight text-white sm:text-[1.9rem]">
                 Spin for your <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">discount</span>
               </h2>
-              <p className="mx-auto mt-2 max-w-[32ch] text-[13px] leading-relaxed text-white/55">
+              <p id="wheel-desc" className="mx-auto mt-2 max-w-[32ch] text-[13px] leading-relaxed text-white/55">
                 Eight slices. One free spin. See what lands.
               </p>
             </div>
@@ -433,7 +461,7 @@ export function LuckyWheelModal({
                   )}
                 </span>
               </button>
-              <p className="mt-2.5 text-center text-[11px] font-medium tracking-wide text-white/35">Free · no email · 5-second spin</p>
+              <p className="mt-2.5 text-center text-[11px] font-medium tracking-wide text-white/55">Free · no email · 5-second spin</p>
             </div>
           </div>
         )}
@@ -445,13 +473,13 @@ export function LuckyWheelModal({
                 <span className="grid h-full w-full place-items-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-zinc-900">✓</span>
               </div>
               <p className="mt-3 inline-flex items-center rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-black tracking-[0.14em] text-emerald-300">
-                <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden />
                 JACKPOT UNLOCKED
               </p>
-              <h3 className="mt-2 font-display text-[1.65rem] leading-none tracking-tight text-white">
+              <h2 id="wheel-title" className="mt-2 font-display text-[1.65rem] leading-none tracking-tight text-white">
                 You won <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">AU + KIT</span>
-              </h3>
-              <p className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">
+              </h2>
+              <p id="wheel-desc" className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">
                 Ready at checkout for <span className="font-semibold text-white">$21</span> <span className="line-through opacity-40">$54</span> • <span className="font-mono text-white/70">{firstCoupon.code}</span>
               </p>
             </div>
@@ -488,10 +516,15 @@ export function LuckyWheelModal({
                   <span className="font-mono text-xs tabular-nums text-amber-300">{formatRemainingMs(remainingMs)}</span>
                   <button
                     type="button"
-                    onClick={() => navigator.clipboard?.writeText(firstCoupon.code)}
+                    onClick={() => {
+                      navigator.clipboard?.writeText(firstCoupon.code);
+                      setCopied(true);
+                      announce(`Copied code ${firstCoupon.code}`);
+                      window.setTimeout(() => setCopied(false), 2000);
+                    }}
                     className="rounded-full bg-white px-2.5 py-1 text-[11px] font-black tracking-wide text-zinc-900 hover:bg-zinc-100"
                   >
-                    Copy
+                    {copied ? "Copied" : "Copy code"}
                   </button>
                 </span>
               </div>

@@ -193,7 +193,7 @@
 :root{--bg:#0a0a0c;--panel:#111114;--line:#2a2a30;--text:#d6d6da;--muted:#9b9ba3;--accent:#c7ff4a;--accent-dim:#8fb832}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
 a:hover{color:#e2ff8a}
@@ -234,13 +234,13 @@ dl.terms dd{margin:6px 0 0 0;padding-left:0}
 dl.terms{margin:0}
 .letter{color:#fff;font-size:1.3rem;margin:40px 0 8px;border-bottom:1px solid var(--line);padding-bottom:6px}
 details.faq{border:1px solid var(--line);border-radius:10px;background:var(--panel);margin:12px 0}
-details.faq summary{cursor:pointer;padding:15px 18px;font-weight:600;color:#fff;list-style-position:inside}
+details.faq summary{cursor:pointer;padding:15px 18px;font-weight:600;color:#fff;list-style-position:inside;min-height:44px}
 details.faq[open] summary{border-bottom:1px solid var(--line)}
 details.faq .a{padding:6px 18px 16px}
 .cta{margin:52px 0 8px;padding:26px 26px 22px;border:1px solid var(--line);background:linear-gradient(180deg,#141418,#0e0e11);border-radius:12px}
 .cta h2{margin:0 0 10px;font-size:1.35rem;color:#fff}
 .cta p{margin:0 0 14px}
-.cta a.button{display:inline-block;background:var(--accent);color:#0a0a0c;font-weight:800;padding:12px 20px;border-radius:8px;text-decoration:none}
+.cta a.button{display:inline-block;background:var(--accent);color:#0a0a0c;font-weight:800;padding:12px 20px;border-radius:8px;text-decoration:none;min-height:44px}
 .cta a.button:hover{background:#e2ff8a}
 .related{margin-top:44px;border-top:1px solid var(--line);padding-top:26px}
 .related h2{margin:0 0 14px;font-size:1.2rem;color:#fff}
@@ -269,6 +269,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
+alt=""
 /></noscript>
 <!-- End Meta Pixel Code -->
 </head>

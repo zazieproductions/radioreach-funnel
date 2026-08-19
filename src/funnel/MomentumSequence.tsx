@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { trackCustom } from "../lib/metaPixel";
+import { prefersReducedMotion } from "../a11y";
 import {
   getMomentumStepCount,
   loadMomentumState,
@@ -146,9 +147,12 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [acknowledgment, setAcknowledgment] = useState("");
   const sectionRef = useRef<HTMLElement>(null);
+  const questionRef = useRef<HTMLHeadingElement>(null);
+  const completeHeadingRef = useRef<HTMLHeadingElement>(null);
   const advanceTimer = useRef<number | null>(null);
   const viewedThisMount = useRef(false);
   const startedThisMount = useRef(false);
+  const movedRef = useRef(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -243,6 +247,8 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
       });
     }
 
+    movedRef.current = true;
+    const delay = prefersReducedMotion() ? 0 : 1450;
     advanceTimer.current = window.setTimeout(() => {
       setSelectedValue(null);
       setAcknowledgment("");
@@ -251,8 +257,14 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
       } else {
         setStepIndex((current) => current + 1);
       }
-    }, 1450);
+    }, delay);
   }
+
+  useEffect(() => {
+    if (!movedRef.current) return;
+    const target = complete ? completeHeadingRef.current : questionRef.current;
+    target?.focus({ preventScroll: true });
+  }, [stepIndex, complete]);
 
   function startOver() {
     if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current);
@@ -346,7 +358,11 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                 <p className="mt-5 text-[11px] font-black uppercase tracking-[0.25em] text-acid">
                   Your answers are locked in
                 </p>
-                <h3 className="mt-2 font-display text-[1.65rem] leading-tight sm:text-4xl">
+                <h3
+                  ref={completeHeadingRef}
+                  tabIndex={-1}
+                  className="mt-2 font-display text-[1.65rem] leading-tight sm:text-4xl"
+                >
                   YOUR {answers.target ? TARGET_LABELS[answers.target].toUpperCase() : "RADIO"} PLAN IS SET.
                 </h3>
                 <p className="mt-4 font-serif text-base leading-relaxed text-white/70 sm:text-lg">
@@ -380,22 +396,26 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                 <button
                   type="button"
                   onClick={startOver}
-                  className="mx-auto mt-4 text-[11px] text-white/30 underline underline-offset-4 transition hover:text-white/55"
+                  className="mx-auto mt-4 text-[11px] text-white/60 underline underline-offset-4 transition hover:text-white"
                 >
                   Change my answers
                 </button>
               </div>
             ) : (
               <div className="fade-up" key={step.key}>
-                <p className="text-[11px] font-black uppercase tracking-[0.23em] text-blood">
+                <p className="text-[11px] font-black uppercase tracking-[0.23em] text-blood-aa">
                   {step.eyebrow}
                 </p>
-                <h3 className="mt-2 font-display text-[1.4rem] leading-tight sm:text-3xl">
+                <h3
+                  ref={questionRef}
+                  tabIndex={-1}
+                  className="mt-2 font-display text-[1.4rem] leading-tight sm:text-3xl"
+                >
                   {step.question}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/50">{step.support}</p>
 
-                <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
+                <div className="mt-5 grid gap-2.5 sm:grid-cols-2" role="group" aria-label={step.question}>
                   {step.options.map((option) => {
                     const isSelected = selectedValue === option.value;
                     return (
@@ -452,7 +472,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
           </div>
         </div>
 
-        <p className="mx-auto mt-5 max-w-xl text-center text-[11px] leading-relaxed text-white/30">
+        <p className="mx-auto mt-5 max-w-xl text-center text-[11px] leading-relaxed text-white/55">
           Your choices are used to personalize this experience and measure whether this sequence helps artists take action. No personal information is collected here.
         </p>
       </div>

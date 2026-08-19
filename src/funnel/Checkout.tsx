@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FlipClock, Stars } from "./ui";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
 import { PRODUCTS } from "../config/storefront";
@@ -63,6 +63,15 @@ export default function Checkout({
   );
 
   const bundleId = useMemo(() => items.join("+"), [items]);
+  const [liveTotal, setLiveTotal] = useState("");
+  const firstTotal = useRef(true);
+  useEffect(() => {
+    if (firstTotal.current) {
+      firstTotal.current = false;
+      return;
+    }
+    setLiveTotal(`Order total $${total.toFixed(2)}`);
+  }, [total]);
 
   // InitiateCheckout: fires once when the checkout page mounts, with the
   // initial cart contents. Feeds Meta's optimization between PageView and
@@ -91,7 +100,7 @@ export default function Checkout({
         <div className="bg-gradient-to-r from-acid via-yellow-200 to-acid px-3 py-2.5 text-center">
           <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] text-ink sm:gap-3 sm:text-xs">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 text-[10px] tracking-[0.16em] text-acid">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
+              <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" aria-hidden />
               🎉 JACKPOT WINNER
             </span>
             <span className="font-mono">{luckyCoupon.code}</span>
@@ -108,7 +117,7 @@ export default function Checkout({
       )}
 
       {isCouponExpired && luckyCoupon && (
-        <div className="bg-blood px-3 py-2 text-center text-xs font-bold text-white">
+        <div className="bg-blood px-3 py-2 text-center text-xs font-bold text-white" role="status">
           Your jackpot <span className="font-mono">{luckyCoupon.code}</span> expired after 15 minutes.{" "}
           <button
             type="button"
@@ -120,11 +129,14 @@ export default function Checkout({
         </div>
       )}
 
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {liveTotal}
+      </p>
       <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
         <div className="mb-5 flex flex-col items-center gap-3 text-center sm:mb-6">
-          <p className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">ALMOST YOURS — SECURE CHECKOUT</p>
+          <h1 id="page-heading" tabIndex={-1} className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">ALMOST YOURS — SECURE CHECKOUT</h1>
           <div className="flex flex-col items-center gap-2 min-[400px]:flex-row min-[400px]:gap-4">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-blood sm:text-[12px] sm:tracking-widest">Founder pricing ends in</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-blood-aa sm:text-[12px] sm:tracking-widest">Founder pricing ends in</span>
             <FlipClock seconds={597} />
           </div>
         </div>
@@ -133,14 +145,22 @@ export default function Checkout({
           {/* left column — selector + summary */}
           <aside className="space-y-4">
             <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
-              <p className="font-display text-2xl">YOUR ORDER</p>
+              <h2 className="font-display text-2xl">YOUR ORDER</h2>
               <p className="mt-1 text-sm text-white/55">
                 Select the bundles you want. Checkout updates instantly and stays on-page.
               </p>
 
               <div className="mt-5 grid gap-3">
                 <label className="flex min-h-14 items-start gap-3 rounded-xl border border-acid/40 bg-acid/8 p-3.5 sm:p-4">
-                  <input type="checkbox" checked readOnly aria-label="Radio Reach Vault included" className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1" />
+                  <input
+                    type="checkbox"
+                    checked
+                    readOnly
+                    tabIndex={-1}
+                    aria-disabled="true"
+                    aria-label={`${PRODUCTS.vault_core.shortName} included`}
+                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
+                  />
                   <span className="space-y-1">
                     <span className="block font-display text-lg uppercase">{PRODUCTS.vault_core.shortName}</span>
                     <span className="block text-sm text-white/65">{PRODUCTS.vault_core.description}</span>
@@ -170,12 +190,14 @@ export default function Checkout({
                   )}
                   <input
                     type="checkbox"
+                    name="addon-contracts"
                     checked={contracts}
                     onChange={(e) => setContracts(e.target.checked)}
+                    aria-labelledby="addon-contracts-name"
                     className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <div className="space-y-1 pr-2 w-full">
-                    <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_bundle.name}</span>
+                    <span id="addon-contracts-name" className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_bundle.name}</span>
                     <span className="block text-sm font-bold text-acid">6 agreement templates plus a plain-English usage guide</span>
                     <ul className="mt-1 hidden gap-1 text-[13px] text-white/65 sm:grid">
                       {[
@@ -188,7 +210,7 @@ export default function Checkout({
                         "Indie Music Contract Kit Usage Guide"
                       ].map((t) => (
                         <li key={t} className="flex items-center gap-2">
-                          <span className="text-acid">✓</span> {t}
+                          <span className="text-acid" aria-hidden>✓</span> {t}
                         </li>
                       ))}
                     </ul>
@@ -222,12 +244,14 @@ export default function Checkout({
                   )}
                   <input
                     type="checkbox"
+                    name="addon-au"
                     checked={au}
                     onChange={(e) => setAu(e.target.checked)}
+                    aria-labelledby="addon-au-name"
                     className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <span className="space-y-1 pr-2 w-full">
-                    <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.australia_addon.name}</span>
+                    <span id="addon-au-name" className="block font-display text-lg uppercase leading-none">{PRODUCTS.australia_addon.name}</span>
                     <span className="block text-sm font-bold text-acid">2,847 AU station contacts · 1,612 verified emails</span>
                     <span className="block text-sm text-white/65">{PRODUCTS.australia_addon.description}</span>
                     <span className="block text-sm">
@@ -258,14 +282,13 @@ export default function Checkout({
 
             <a
               href="#payment"
-              role="button"
               className="cta tap-target w-full rounded-lg bg-acid px-5 py-3 text-center font-display text-lg uppercase tracking-wide text-ink lg:hidden"
             >
               Continue to secure payment ↓
             </a>
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
-              <p className="mb-4 font-display text-xl uppercase">Order summary</p>
+              <h2 className="mb-4 font-display text-xl uppercase">Order summary</h2>
               <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
             </section>
 
@@ -286,7 +309,13 @@ export default function Checkout({
       </div>
 
       {/* callback for demo flow compatibility */}
-      <button type="button" onClick={() => onComplete(total, { contracts, au })} className="sr-only">
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-hidden="true"
+        onClick={() => onComplete(total, { contracts, au })}
+        className="sr-only"
+      >
         sync
       </button>
     </div>
