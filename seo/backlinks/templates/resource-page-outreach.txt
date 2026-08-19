@@ -1,0 +1,14 @@
+Subject: Possible resource for your {{page_topic}}
+
+Hi {{contact_name}},
+
+I found your {{specific_page}} while researching resources for independent musicians. The section on {{specific_topic}} may be a good fit for our free {{asset_name}}, which helps artists {{specific_benefit}}.
+
+Resource: {{asset_url}}
+
+It includes {{one_concrete_feature}}. No pressure, but I thought it might be useful for the page.
+
+Best,
+{{sender_name}}
+RadioReach
+https://radioreach.us

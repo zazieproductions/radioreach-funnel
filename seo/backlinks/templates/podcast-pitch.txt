@@ -1,0 +1,17 @@
+Subject: Data-driven segment: how independent artists get radio airplay
+
+Hi {{contact_name}},
+
+I work with RadioReach, which maintains a database of 18,000+ radio station contacts. We've been analyzing patterns in radio accessibility for independent artists and have some original data that might make an interesting segment for {{show_name}}:
+
+- What percentage of stations actually publish submission emails?
+- How college, community, internet, and commercial stations differ in accessibility
+- Geographic patterns in station openness
+- The most common submission requirements across station types
+
+Happy to share the data and discuss on your show. No product pitch — just useful numbers for independent artists navigating radio.
+
+Best,
+{{sender_name}}
+RadioReach
+https://radioreach.us

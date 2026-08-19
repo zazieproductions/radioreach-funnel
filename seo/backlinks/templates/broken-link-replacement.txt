@@ -1,0 +1,18 @@
+Subject: Broken link on {{specific_page}} — suggested replacement
+
+Hi {{contact_name}},
+
+I was reading your {{specific_page}} and noticed the link to {{broken_url}} appears to be returning a {{http_status}}.
+
+Since that resource appears to be unavailable, I wanted to mention a free alternative that covers similar ground: {{asset_name}} ({{asset_url}}). It includes {{one_concrete_feature}}, and your readers might find it useful.
+
+Broken link: {{broken_url}}
+Context: {{anchor_context}}
+Suggested replacement: {{asset_url}}
+
+No pressure at all — just thought I'd mention it.
+
+Best,
+{{sender_name}}
+RadioReach
+https://radioreach.us

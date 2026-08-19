@@ -1,0 +1,112 @@
+{
+  "assets": [
+    {
+      "id": "radio-outreach-tracker",
+      "name": "Radio Outreach Tracker",
+      "url": "https://radioreach.us/resources/radio-stations-accepting-music/",
+      "description": "A framework for tracking radio outreach campaigns \u2014 stations contacted, responses, follow-ups, and outcomes.",
+      "benefit": "track every station contact, follow-up, and response in one organized system",
+      "feature": "columns for station name, contact, submission date, follow-up dates, response status, and notes",
+      "category": "tool",
+      "audience": "independent musicians planning radio campaigns",
+      "updated": "2026-08-18"
+    },
+    {
+      "id": "pitch-email-templates",
+      "name": "Radio Pitch Email Templates",
+      "url": "https://radioreach.us/resources/radio-pitch-email-templates/",
+      "description": "Copy-and-adapt email templates for first contact, specialty shows, follow-ups, and local angles in radio submission outreach.",
+      "benefit": "write effective radio pitch emails without starting from scratch",
+      "feature": "templates for first contact, specialty shows, follow-ups, and local angles with personalization tips",
+      "category": "template",
+      "audience": "independent musicians writing radio submission emails",
+      "updated": "2026-08-18"
+    },
+    {
+      "id": "college-radio-guide",
+      "name": "College Radio Submissions Guide",
+      "url": "https://radioreach.us/resources/college-radio-submissions/",
+      "description": "A practical guide to college radio submissions: finding music directors, timing your send, checking station requirements, writing a pitch, and charting.",
+      "benefit": "navigate college radio submission processes confidently",
+      "feature": "step-by-step workflow from station research through follow-up and chart reporting",
+      "category": "guide",
+      "audience": "independent artists targeting college radio",
+      "updated": "2026-08-18"
+    },
+    {
+      "id": "radio-promotion-guide",
+      "name": "Radio Promotion for Independent Artists",
+      "url": "https://radioreach.us/resources/radio-promotion-independent-artists/",
+      "description": "A complete radio promotion guide covering campaign strategy, station research, pitching, follow-up, and an eight-week timeline.",
+      "benefit": "plan and execute a complete radio promotion campaign",
+      "feature": "an eight-week campaign timeline with week-by-week action items",
+      "category": "guide",
+      "audience": "independent artists planning a radio promotion campaign",
+      "updated": "2026-08-18"
+    },
+    {
+      "id": "stations-accepting-music",
+      "name": "How to Find Radio Stations Accepting Music",
+      "url": "https://radioreach.us/resources/radio-stations-accepting-music/",
+      "description": "Learn the signals that show a station is open to submissions, which contacts matter, and how to pitch without spam.",
+      "benefit": "identify the right stations to contact and avoid wasted outreach",
+      "feature": "five signals that indicate a station is open to submissions plus a pre-send checklist",
+      "category": "guide",
+      "audience": "independent musicians looking for stations that accept music",
+      "updated": "2026-08-18"
+    },
+    {
+      "id": "song-on-radio-guide",
+      "name": "How to Get Your Song on the Radio",
+      "url": "https://radioreach.us/resources/how-to-get-your-song-on-the-radio/",
+      "description": "A step-by-step guide to getting your song on the radio as an independent artist: realistic targets, verified contacts, a clean pitch, and follow-up that works.",
+      "benefit": "understand the realistic path from release to radio airplay",
+      "feature": "realistic timeline expectations and verified contact research methods",
+      "category": "guide",
+      "audience": "independent artists releasing new music",
+      "updated": "2026-08-18"
+    },
+    {
+      "id": "diy-vs-promoter",
+      "name": "DIY Radio Promotion vs. Hiring a Radio Promoter",
+      "url": "https://radioreach.us/resources/diy-radio-promotion-vs-radio-promoter/",
+      "description": "An honest comparison of doing your own radio promotion versus hiring an independent radio promoter: costs, control, reporting, genre fit, and when each approach wins.",
+      "benefit": "decide whether DIY outreach or hiring a promoter fits your budget and goals",
+      "feature": "side-by-side cost and outcome comparison table",
+      "category": "comparison",
+      "audience": "artists deciding between DIY and paid radio promotion",
+      "updated": "2026-08-18"
+    },
+    {
+      "id": "radio-glossary",
+      "name": "Radio Promotion Glossary",
+      "url": "https://radioreach.us/resources/radio-promotion-glossary/",
+      "description": "A plain-English glossary of radio promotion terms for independent artists: adds, spins, rotation, NACC charts, one-sheets, mixshows, and more.",
+      "category": "reference",
+      "audience": "artists new to radio promotion terminology",
+      "updated": "2026-08-18"
+    },
+    {
+      "id": "radio-faq",
+      "name": "Radio Promotion FAQ",
+      "url": "https://radioreach.us/resources/radio-promotion-faq/",
+      "description": "Straight answers about radio promotion for independent artists: submissions, costs, timelines, results, royalty basics, and campaign etiquette.",
+      "benefit": "get quick answers to common radio promotion questions",
+      "feature": "20+ frequently asked questions with detailed answers",
+      "category": "reference",
+      "audience": "artists with questions about radio promotion basics",
+      "updated": "2026-08-18"
+    },
+    {
+      "id": "epk-guide",
+      "name": "How to Build an EPK for Radio",
+      "url": "https://radioreach.us/resources/electronic-press-kit-radio/",
+      "description": "What radio programmers actually want from an electronic press kit: the one-sheet, bio, photos, links, and airplay history.",
+      "benefit": "create an EPK that radio programmers will actually review",
+      "feature": "EPK checklist covering every asset stations expect",
+      "category": "guide",
+      "audience": "artists building press kits for radio submission",
+      "updated": "2026-08-18"
+    }
+  ]
+}
