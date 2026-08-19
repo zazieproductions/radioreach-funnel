@@ -8,6 +8,8 @@
   --color-panel: #101014;
   --color-acid: #ffe600;
   --color-blood: #e01b24;
+  /* Small-text lift of blood so 11–12px labels meet 4.5:1 on ink. */
+  --color-blood-aa: #f04048;
 }
 
 /* ─────────────────────────────────────────────
@@ -74,8 +76,10 @@ video {
 
 :focus-visible {
   outline: 3px solid #ffe600;
-  outline-offset: 2px;
+  outline-offset: 3px;
   border-radius: 4px;
+  /* Dark halo keeps the acid ring visible on yellow and white controls. */
+  box-shadow: 0 0 0 6px #08080a;
 }
 
 /* Only remove default outline where we provide our own */
@@ -83,11 +87,17 @@ video {
   outline: none;
 }
 
+#page-heading:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
 .skip-link {
   position: absolute;
-  left: -9999px;
-  top: 0;
+  left: 0.5rem;
+  top: 0.5rem;
   z-index: 200;
+  transform: translateY(-160%);
   background: #ffe600;
   color: #08080a;
   padding: 0.75rem 1.25rem;
@@ -96,8 +106,7 @@ video {
   letter-spacing: 0.05em;
 }
 .skip-link:focus {
-  left: 0.5rem;
-  top: 0.5rem;
+  transform: none;
 }
 
 .sr-only {
@@ -311,6 +320,21 @@ summary {
   }
   .cta:active {
     transform: none;
+  }
+}
+
+/* Short viewports (400% zoom, landscape phones): sticky chrome must not
+   eat the reading pane. Same visual language, just unstuck. */
+@media (max-height: 420px) {
+  header.sticky {
+    position: static;
+  }
+  .safe-b.fixed {
+    position: static;
+    transform: none !important;
+  }
+  .safe-b.fixed[aria-hidden="true"] {
+    display: none;
   }
 }
 

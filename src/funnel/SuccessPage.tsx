@@ -208,7 +208,7 @@ export default function SuccessPage() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-ink text-white">
+    <main id="main" className="relative min-h-screen overflow-hidden bg-ink text-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(220,255,0,0.14),transparent_30%),radial-gradient(circle_at_bottom,rgba(255,255,255,0.06),transparent_28%)]" />
         <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:42px_42px]" />
@@ -232,7 +232,7 @@ export default function SuccessPage() {
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-acid sm:text-xs sm:tracking-[0.28em]">
                     purchase confirmed
                   </p>
-                  <h1 className="font-display text-2xl uppercase leading-tight tracking-tight text-white sm:text-4xl">
+                  <h1 id="page-heading" tabIndex={-1} className="font-display text-2xl uppercase leading-tight tracking-tight text-white sm:text-4xl">
                     Your files are unlocked
                   </h1>
                 </div>
@@ -246,7 +246,7 @@ export default function SuccessPage() {
 
             {state.kind === "loading" && (
               <div className="px-6 py-12 sm:px-8">
-                <div className="rounded-2xl border border-white/10 bg-black/20 p-6">
+                <div className="rounded-2xl border border-white/10 bg-black/20 p-6" role="status" aria-live="polite">
                   <p className="text-sm font-bold uppercase tracking-[0.22em] text-acid">
                     unlocking delivery
                   </p>
@@ -259,7 +259,7 @@ export default function SuccessPage() {
 
             {state.kind === "error" && (
               <div className="px-6 py-12 sm:px-8">
-                <div className="rounded-2xl border border-blood/40 bg-blood/10 p-6">
+                <div className="rounded-2xl border border-blood/40 bg-blood/10 p-6" role="alert">
                   <p className="text-sm font-bold uppercase tracking-[0.22em] text-white">
                     delivery error
                   </p>
@@ -267,6 +267,7 @@ export default function SuccessPage() {
 
                   <div className="mt-5 flex flex-wrap gap-3">
                     <button
+                      type="button"
                       onClick={() => window.location.reload()}
                       className="rounded-full bg-acid px-5 py-3 text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.02]"
                     >
@@ -341,6 +342,7 @@ export default function SuccessPage() {
 
                           <a
                             href={item.downloadUrl}
+                            aria-label={`Download ${item.name}`}
                             className="inline-flex shrink-0 items-center justify-center rounded-full bg-acid px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-ink transition hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(220,255,0,0.18)]"
                           >
                             Download
@@ -408,6 +410,12 @@ export default function SuccessPage() {
                             key={amount}
                             type="button"
                             disabled={tipLoading !== null}
+                            aria-busy={tipLoading === amount}
+                            aria-label={
+                              tipLoading === amount
+                                ? `Starting $${amount / 100} tip checkout`
+                                : `Leave a $${amount / 100} tip`
+                            }
                             onClick={() => startTip(amount)}
                             className="rounded-xl border border-white/15 bg-black/20 px-2 py-3 text-xs font-bold text-white transition hover:border-acid/60 hover:bg-acid/10 disabled:cursor-wait disabled:opacity-50"
                           >
@@ -439,11 +447,9 @@ export default function SuccessPage() {
                         Share with friends
                       </button>
 
-                      {shareStatus && (
-                        <p className="mt-3 text-center text-xs font-semibold text-acid">
-                          {shareStatus}
-                        </p>
-                      )}
+                      <p className="mt-3 min-h-4 text-center text-xs font-semibold text-acid" role="status" aria-live="polite">
+                        {shareStatus}
+                      </p>
                     </div>
 
                     <a

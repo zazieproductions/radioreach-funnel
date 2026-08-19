@@ -23,11 +23,18 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
+alt=""
 /></noscript>
 <!-- End Meta Pixel Code -->
+  <style>
+    :focus-visible { outline: 3px solid #111; outline-offset: 3px; }
+    .skip { position: absolute; left: .5rem; top: .5rem; transform: translateY(-160%); background: #111; color: #fff; padding: .65rem 1rem; font-weight: 700; z-index: 10; }
+    .skip:focus { transform: none; }
+  </style>
 </head>
 <body>
-  <main>
+  <a class="skip" href="#content">Skip to content</a>
+  <main id="content">
     <h1>Page not found</h1>
     <p>That RadioReach page doesn't exist.</p>
     <ul>

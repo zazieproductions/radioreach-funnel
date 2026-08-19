@@ -5,12 +5,12 @@ import { T_ACCELERATOR, T_FONTS, T_UPWORK, type Testimonial } from "./testimonia
 /** Shared testimonial card with photo */
 export function TCard({ t, compact }: { t: Testimonial; compact?: boolean }) {
   return (
-    <div className="rounded-lg border border-white/10 bg-panel p-5">
+    <figure className="rounded-lg border border-white/10 bg-panel p-5">
       <Stars />
-      <p className={`mt-2 font-serif leading-relaxed text-white/80 ${compact ? "text-[14px]" : "text-[16px]"}`}>
+      <blockquote className={`mt-2 font-serif leading-relaxed text-white/80 ${compact ? "text-[14px]" : "text-[16px]"}`}>
         “{t.text}”
-      </p>
-      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-white/10 pt-3">
+      </blockquote>
+      <figcaption className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-white/10 pt-3">
         <img
           src={t.photo}
           alt=""
@@ -23,13 +23,13 @@ export function TCard({ t, compact }: { t: Testimonial; compact?: boolean }) {
         />
         <div className="min-w-0 flex-1">
           <p className="truncate text-[13px] font-bold">{t.name}</p>
-          <p className="truncate text-[11px] text-white/45">{t.role}</p>
+          <p className="truncate text-[11px] text-white/55">{t.role}</p>
         </div>
         <span className="rounded-full bg-acid/15 px-2.5 py-1 text-[10px] font-bold text-acid">
           {t.stat}
         </span>
-      </div>
-    </div>
+      </figcaption>
+    </figure>
   );
 }
 
@@ -47,6 +47,23 @@ function OtoShell({ kicker, children }: { kicker: string; children: React.ReactN
         {kicker}
       </p>
       <div className="mx-auto max-w-3xl px-4 py-6 sm:py-9">{children}</div>
+    </div>
+  );
+}
+
+function StepMeter({ current, total }: { current: number; total: number }) {
+  return (
+    <div
+      className="mx-auto mt-3 flex max-w-md items-center gap-2"
+      role="img"
+      aria-label={`Step ${current} of ${total}`}
+    >
+      {Array.from({ length: total }, (_, i) => (
+        <div
+          key={i}
+          className={`h-1.5 flex-1 rounded-full ${i < current ? "bg-acid" : "bg-white/15"}`}
+        />
+      ))}
     </div>
   );
 }
@@ -70,13 +87,9 @@ export function Upsell1({
         <p className="text-center text-[11px] font-black uppercase tracking-[0.28em] text-acid">
           Step 2 of 3 · Your download unlocks after this page
         </p>
-        <div className="mx-auto mt-3 flex max-w-md items-center gap-2">
-          <div className="h-1.5 flex-1 rounded-full bg-acid" />
-          <div className="h-1.5 flex-1 rounded-full bg-acid" />
-          <div className="h-1.5 flex-1 rounded-full bg-white/15" />
-        </div>
+        <StepMeter current={2} total={3} />
 
-        <h1 className="mt-6 text-center font-display text-[1.85rem] leading-[1.06] sm:mt-7 sm:text-6xl sm:leading-[0.95]">
+        <h1 id="page-heading" tabIndex={-1} className="mt-6 text-center font-display text-[1.85rem] leading-[1.06] sm:mt-7 sm:text-6xl sm:leading-[0.95]">
           YOU HAVE THE LIST.{" "}
           <span className="text-blood">NOW WHO WRITES THE PITCH?</span>
         </h1>
@@ -112,6 +125,7 @@ export function Upsell1({
           </div>
 
           <button
+            type="button"
             onClick={() => onAccept(37)}
             className="cta mt-6 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.1rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:py-5 sm:text-2xl"
           >
@@ -122,8 +136,9 @@ export function Upsell1({
           </button>
 
           <button
+            type="button"
             onClick={decline}
-            className="mt-5 block w-full text-[12px] leading-relaxed text-white/45 underline underline-offset-4 hover:text-white/75"
+            className="mt-5 block w-full text-[12px] leading-relaxed text-white/65 underline underline-offset-4 hover:text-white"
           >
             No thanks — I'll figure out what to write on my own and hope the program director doesn't delete it
           </button>
@@ -236,16 +251,12 @@ export function Upsell2({
         <p className="text-center text-[11px] font-black uppercase tracking-[0.28em] text-acid">
           Step 3 of 3 · Final upgrade available
         </p>
-        <div className="mx-auto mt-3 flex max-w-md items-center gap-2">
-          <div className="h-1.5 flex-1 rounded-full bg-acid" />
-          <div className="h-1.5 flex-1 rounded-full bg-acid" />
-          <div className="h-1.5 flex-1 rounded-full bg-acid" />
-        </div>
+        <StepMeter current={3} total={3} />
 
         {/* unmistakable course banner */}
         <div className="mt-7 overflow-hidden rounded-xl border-2 border-acid bg-gradient-to-r from-acid/25 via-acid/10 to-transparent">
           <div className="flex items-center gap-4 px-5 py-4">
-            <span className="text-4xl">🎓</span>
+            <span className="text-4xl" aria-hidden>🎓</span>
             <div>
               <p className="font-display text-xl leading-tight sm:text-2xl">
                 ADVANCED UPWORK PROPOSALS
@@ -267,7 +278,7 @@ export function Upsell2({
           </span>
         </div>
 
-        <h1 className="mt-4 text-center font-display text-[1.85rem] leading-[1.06] sm:text-6xl sm:leading-[0.95]">
+        <h1 id="page-heading" tabIndex={-1} className="mt-4 text-center font-display text-[1.85rem] leading-[1.06] sm:text-6xl sm:leading-[0.95]">
           YOU GOT THE CONTACTS.{" "}
           <span className="text-acid">NOW GET THE CLIENTS.</span>
         </h1>
@@ -284,9 +295,9 @@ export function Upsell2({
         {/* terminal-style "course loading" flavour */}
         <div className="mt-8 overflow-hidden rounded-xl border border-white/10 bg-[#0b0f0b] font-mono text-[12px]">
           <div className="flex items-center gap-2 border-b border-white/10 bg-[#111411] px-4 py-2.5">
-            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+            <span aria-hidden className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+            <span aria-hidden className="h-3 w-3 rounded-full bg-[#febc2e]" />
+            <span aria-hidden className="h-3 w-3 rounded-full bg-[#28c840]" />
             <span className="ml-3 text-[11px] text-white/35 tracking-widest">upwork_course_index.txt</span>
           </div>
           <div className="px-4 py-3 text-green-400/60">
@@ -322,8 +333,12 @@ export function Upsell2({
           {PARTS.map((p, i) => (
             <div key={p.n} className="border-b border-white/10 last:border-0">
               <button
+                type="button"
                 onClick={() => setOpenModule(openModule === i ? null : i)}
-                className="flex w-full items-start gap-4 px-5 py-4 text-left hover:bg-white/5"
+                aria-expanded={openModule === i}
+                aria-controls={`module-panel-${i}`}
+                id={`module-btn-${i}`}
+                className="pressable flex w-full items-start gap-4 px-5 py-4 text-left hover:bg-white/5"
               >
                 <span className="font-mono text-[11px] text-acid/50 shrink-0 mt-1 tracking-widest">
                   {p.n}
@@ -337,7 +352,7 @@ export function Upsell2({
                 <span className="shrink-0 text-[13px] text-white/30 line-through mt-1">{p.value}</span>
               </button>
               {openModule === i && (
-                <div className="px-5 pb-5 border-t border-white/5 pt-3">
+                <div id={`module-panel-${i}`} role="region" aria-labelledby={`module-btn-${i}`} className="px-5 pb-5 border-t border-white/5 pt-3">
                   <p className="text-[14px] leading-relaxed text-white/65">{p.blurb}</p>
                   <ol className="mt-3 space-y-1.5">
                     {p.list.map((l, li) => (
@@ -397,6 +412,7 @@ export function Upsell2({
         </div>
 
         <button
+          type="button"
           onClick={() => onAccept(50)}
           className="cta mt-6 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase leading-tight tracking-wide text-ink sm:text-2xl"
         >
@@ -469,7 +485,7 @@ export function Upsell3({
           </div>
         </div>
 
-        <h1 className="mt-7 text-center font-display text-4xl leading-[0.95] sm:text-6xl">
+        <h1 id="page-heading" tabIndex={-1} className="mt-7 text-center font-display text-4xl leading-[0.95] sm:text-6xl">
           YOUR MUSIC IS READY.<br />
           <span className="text-blood">YOUR ARTWORK ISN'T.</span>
         </h1>
@@ -560,6 +576,7 @@ export function Upsell3({
         </div>
 
         <button
+          type="button"
           onClick={() => onAccept(29)}
           className="cta mt-6 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase leading-tight tracking-wide text-ink sm:text-2xl"
         >
@@ -570,8 +587,9 @@ export function Upsell3({
         </button>
 
         <button
+          type="button"
           onClick={decline}
-            className="mt-5 block w-full text-[12px] leading-relaxed text-white/45 underline underline-offset-4 hover:text-white/75"
+            className="mt-5 block w-full text-[12px] leading-relaxed text-white/65 underline underline-offset-4 hover:text-white"
           >
             No thanks — I'll keep making covers in the default font and hope nobody notices
         </button>
@@ -600,10 +618,10 @@ export function Downsell({
   return (
     <OtoShell kicker="Last call — a smaller version of the same offer">
       <div>
-        <p className="text-center text-[11px] font-black uppercase tracking-[0.28em] text-blood">
+        <p className="text-center text-[11px] font-black uppercase tracking-[0.28em] text-blood-aa">
           Hold on. Was it the price?
         </p>
-        <h1 className="mt-3 text-center font-display text-4xl leading-[0.95] sm:text-5xl">
+        <h1 id="page-heading" tabIndex={-1} className="mt-3 text-center font-display text-4xl leading-[0.95] sm:text-5xl">
           FINE. TAKE <span className="text-acid">$19 OFF</span> AND <br /> SPLIT IT IN THREE.
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-center font-serif text-lg text-white/75">
@@ -637,14 +655,16 @@ export function Downsell({
           </div>
 
           <button
+            type="button"
             onClick={() => onAccept(18)}
             className="cta mt-6 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
           >
             OK — ADD THE LITE VERSION FOR $6 TODAY
           </button>
           <button
+            type="button"
             onClick={decline}
-            className="mt-5 block w-full text-[12px] text-white/45 underline underline-offset-4 hover:text-white/75"
+            className="mt-5 block w-full text-[12px] text-white/65 underline underline-offset-4 hover:text-white"
           >
             No — I'm certain I want to send cold emails with no template and no plan
           </button>
@@ -693,7 +713,7 @@ export function ThankYou({
         <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-acid font-display text-3xl text-ink">
           ✓
         </div>
-        <h1 className="mt-6 font-display text-4xl leading-tight sm:text-5xl">
+        <h1 id="page-heading" tabIndex={-1} className="mt-6 font-display text-4xl leading-tight sm:text-5xl">
           WELCOME TO THE VAULT
         </h1>
         <p className="mt-3 font-serif text-lg text-white/75">
@@ -740,8 +760,9 @@ export function ThankYou({
         </div>
 
         <button
+          type="button"
           onClick={onRestart}
-          className="mt-10 text-[12px] text-white/25 underline underline-offset-4 hover:text-white/50"
+          className="mt-10 text-[12px] text-white/55 underline underline-offset-4 hover:text-white"
         >
           ↺ Replay the funnel from the top (demo)
         </button>

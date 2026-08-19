@@ -73,8 +73,8 @@ export default function LabGallery() {
 
   if (!flag.enabled) {
     return (
-      <div className="min-h-screen bg-ink px-4 py-16 text-center">
-        <p className="font-display text-4xl uppercase text-white">Conversion Lab is off</p>
+      <div id="main" className="min-h-screen bg-ink px-4 py-16 text-center">
+        <h1 id="page-heading" tabIndex={-1} className="font-display text-4xl uppercase text-white">Conversion Lab is off</h1>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/55">
           The lab was disabled via <code className="rounded bg-white/10 px-1.5 py-0.5 text-acid">?lab=off</code>,{" "}
           <code className="rounded bg-white/10 px-1.5 py-0.5 text-acid">lab.disabled=1</code>, or the build flag.
@@ -154,7 +154,7 @@ export default function LabGallery() {
       </header>
 
       {/* experiment cards */}
-      <main className="mx-auto max-w-6xl px-4 py-8">
+      <main id="main" className="mx-auto max-w-6xl px-4 py-8">
         <div className="grid gap-6 lg:grid-cols-2">
           {EXPERIMENTS.map((exp) => {
             const Proto = PROTOTYPES[exp.prototype];

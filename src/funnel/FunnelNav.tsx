@@ -32,9 +32,11 @@ export default function FunnelNav({ stage, go }: { stage: Stage; go: (s: Stage) 
   return (
     <div ref={wrap} className="fixed bottom-3 left-3 z-[60] print:hidden">
       <button
+        type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="menu"
+        aria-controls="funnel-demo-menu"
         className="pressable flex items-center gap-2 rounded-full border border-white/20 bg-black/90 px-3 py-2 text-[11px] font-bold uppercase tracking-widest text-white/60 backdrop-blur hover:border-acid hover:text-acid"
       >
         <span aria-hidden>⚙</span>
@@ -55,6 +57,7 @@ export default function FunnelNav({ stage, go }: { stage: Stage; go: (s: Stage) 
             return (
               <button
                 key={s.id}
+                type="button"
                 role="menuitem"
                 onClick={() => {
                   go(s.id);

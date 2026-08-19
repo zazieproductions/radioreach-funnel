@@ -281,6 +281,8 @@ ${JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, null, 1)
 body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
 a:hover{color:#e2ff8a}
+.skip{position:absolute;left:.5rem;top:.5rem;transform:translateY(-160%);background:var(--accent);color:#0a0a0c;padding:10px 16px;font-weight:700;z-index:10}
+.skip:focus{transform:none}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .wrap{max-width:900px;margin:0 auto;padding:0 22px}
 .sitebar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
@@ -313,6 +315,7 @@ footer.site nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
 </style>
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
 <header class="wrap sitebar">
   <a class="brand" href="/">Radio<span>Reach</span></a>
   <nav aria-label="Site" style="font-size:.92rem"><a href="/">Vault →</a></nav>

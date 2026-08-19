@@ -72,6 +72,7 @@ export function DebugPanel() {
             {(["default", "calm", "aspire", "urgency"] as const).map((m) => (
               <button
                 key={m}
+                type="button"
                 onClick={() => force(m === "default" ? null : m)}
                 className={`pressable rounded px-2 py-1 font-bold uppercase tracking-wide ${
                   forced === (m === "default" ? null : m)
@@ -99,6 +100,7 @@ export function DebugPanel() {
             {events.filter((e) => e.type === "conversion").length}
           </p>
           <button
+            type="button"
             onClick={() => {
               killEsp();
               force(null);
@@ -112,8 +114,10 @@ export function DebugPanel() {
       )}
 
       <button
+        type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
+        aria-label="ESP debug panel"
         className="pressable flex items-center gap-2 rounded-full border border-white/20 bg-black/90 px-3 py-1.5 font-mono text-[11px] text-white/80 backdrop-blur hover:border-acid"
       >
         <span className={`h-2 w-2 rounded-full ${MODE_DOTS[mode]}`} />

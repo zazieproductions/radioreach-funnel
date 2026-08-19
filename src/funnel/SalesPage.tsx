@@ -108,10 +108,10 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
       {/* lucky winner top banner — founder bundle */}
       {hasWinningCoupon && luckyCoupon ? (
-        <div className="bg-gradient-to-r from-acid via-yellow-300 to-[#7c5cff] px-3 py-2 text-center">
+        <div className="bg-gradient-to-r from-acid via-yellow-300 to-[#7c5cff] px-3 py-2 text-center" role="status">
           <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.12em] text-ink sm:gap-3 sm:text-xs">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 text-[10px] tracking-[0.16em] text-acid">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
+              <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" aria-hidden />
               JACKPOT UNLOCKED
             </span>
             <span>
@@ -157,7 +157,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <EmotiveText slot="heroEyebrow" />
           </p>
 
-          <h1 className="font-display text-[1.85rem] leading-[1.06] sm:text-6xl sm:leading-[0.95] md:text-7xl">
+          <h1 id="page-heading" tabIndex={-1} className="font-display text-[1.85rem] leading-[1.06] sm:text-6xl sm:leading-[0.95] md:text-7xl">
             RADIO STATION CONTACTS <span className="text-blood">FOR MUSICIANS</span>
             <span className="mt-2 block text-[0.58em] tracking-wide">"WHO DO I EVEN SEND IT TO?"</span>
           </h1>
@@ -172,7 +172,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             data-esp-zone="pricing"
             className="mobile-solid mx-auto mt-6 max-w-md rounded-xl border-2 border-acid/50 bg-black/85 p-4 text-left backdrop-blur sm:mt-8 sm:bg-black/60 sm:p-5"
           >
-            <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blood">
+            <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blood-aa">
               <EmotiveText slot="ctaLabel" />
             </p>
             <div data-esp-zone="scarcity" className="mt-2 flex justify-center">
@@ -324,7 +324,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               ["Lifetime file access", "No subscription. No renewal. No monthly bleed.", "$120"],
             ].map(([t, d, v]) => (
               <div key={t} className="flex items-start gap-3 p-3.5 sm:gap-4 sm:p-4">
-                <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-acid text-[13px] font-black text-ink">
+                <span aria-hidden className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-acid text-[13px] font-black text-ink">
                   ✓
                 </span>
                 <div className="min-w-0 flex-1">
@@ -347,7 +347,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           {/* Founder bundle teaser — pre-selected upsells */}
           <div className={`mt-6 rounded-xl border-2 p-4 sm:p-5 ${hasWinningCoupon ? "border-acid bg-acid/10" : "border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40"}`}>
             <div className="flex items-start gap-3">
-              <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-lg ${hasWinningCoupon ? "bg-acid text-ink" : "bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white"}`}>
+              <span aria-hidden className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-lg ${hasWinningCoupon ? "bg-acid text-ink" : "bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white"}`}>
                 {hasWinningCoupon ? "✓" : "🎁"}
               </span>
               <div className="flex-1">
@@ -414,7 +414,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           >
             Claim The Radio Reach Vault For $20 →
           </button>
-          <p className="mt-2 text-center text-[12px] text-white/40">
+          <p className="mt-2 text-center text-[12px] text-white/60">
             <EmotiveText slot="stackNote" />
           </p>
         </div>
@@ -438,8 +438,8 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               <div className="flex items-center justify-between gap-3">
                 <Stars />
                 {t.verified && (
-                  <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-green-400/80">
-                    <span className="grid h-3.5 w-3.5 place-items-center rounded-full bg-green-500 text-[8px] text-black">
+                  <span className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-green-400">
+                    <span aria-hidden className="grid h-3.5 w-3.5 place-items-center rounded-full bg-green-500 text-[8px] text-black">
                       ✓
                     </span>
                     {t.verified}
@@ -508,16 +508,15 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         </div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="defer-render mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
-        {/* SEO / RESOURCE CLUSTER */}
+      {/* SEO / RESOURCE CLUSTER */}
+      <section id="guides" aria-labelledby="guides-heading" className="defer-render mx-auto max-w-3xl px-4 pb-2 sm:pb-4">
         <section className="mx-auto max-w-4xl py-8 sm:py-12">
           <div className="rounded-xl border border-white/10 bg-black/30 p-4 sm:p-8">
             <p className="text-[10px] font-black uppercase tracking-[0.14em] text-acid sm:text-xs sm:tracking-[0.18em]">
               Free Radio Promotion Guides
             </p>
 
-            <h2 className="mt-3 font-display text-[1.55rem] leading-[1.1] sm:text-4xl sm:leading-tight">
+            <h2 id="guides-heading" className="mt-3 font-display text-[1.55rem] leading-[1.1] sm:text-4xl sm:leading-tight">
               DO THE RESEARCH BEFORE YOU HIT SEND
             </h2>
 
@@ -615,9 +614,12 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             </div>
           </div>
         </section>
+      </section>
 
+      {/* FAQ */}
+      <section id="faq" aria-labelledby="faq-heading" className="defer-render mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
         <SectionLabel>Objections, handled</SectionLabel>
-        <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
+        <h2 id="faq-heading" className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
         <div className="mt-5 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-panel sm:mt-6">
           {FAQS.map(([q, a], i) => {
             const isOpen = openFaq === i;
@@ -627,6 +629,20 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : i)}
+                    onKeyDown={(e) => {
+                      const keys = ["ArrowDown", "ArrowUp", "Home", "End"];
+                      if (!keys.includes(e.key)) return;
+                      e.preventDefault();
+                      const next =
+                        e.key === "Home"
+                          ? 0
+                          : e.key === "End"
+                            ? FAQS.length - 1
+                            : e.key === "ArrowDown"
+                              ? (i + 1) % FAQS.length
+                              : (i - 1 + FAQS.length) % FAQS.length;
+                      document.getElementById(`faq-btn-${next}`)?.focus();
+                    }}
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${i}`}
                     id={`faq-btn-${i}`}
@@ -682,7 +698,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           >
             Give Me Instant Access — $20
           </button>
-          <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
+          <p className="mt-3 text-[11px] leading-snug text-white/60 sm:text-[12px]">
             Secure checkout · Instant download · 30-day refund · No subscription, ever
           </p>
         </div>
@@ -690,19 +706,19 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
       {/* FTC DISCLAIMER */}
       <section className="defer-render border-t border-white/10 bg-black/60 px-4 py-8 sm:py-10">
-        <div className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-panel p-4 text-[11px] leading-relaxed text-white/40 sm:p-6 sm:text-[12px]">
-          <p className="mb-2 font-bold uppercase tracking-widest text-white/60">
+        <div className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-panel p-4 text-[11px] leading-relaxed text-white/55 sm:p-6 sm:text-[12px]">
+          <p className="mb-2 font-bold uppercase tracking-widest text-white/70">
             FTC Disclaimer &amp; Legal Notice
           </p>
           <p className="mb-3">
-            <b className="text-white/55">Results are not guaranteed or typical.</b> The testimonials, case
+            <b className="text-white/80">Results are not guaranteed or typical.</b> The testimonials, case
             studies, and examples shown on this page are individual experiences of real customers. They are
             not intended to represent or guarantee that anyone will achieve the same or similar results.
             Individual outcomes will vary based on your music, your pitch quality, your genre, your target
             market, and many other factors entirely outside our control.
           </p>
           <p className="mb-3">
-            <b className="text-white/55">Contact data accuracy &amp; changes over time.</b> This database
+            <b className="text-white/80">Contact data accuracy &amp; changes over time.</b> This database
             was compiled and verified at a point in time. Radio station contacts, program directors, music
             directors, and email addresses change regularly due to staff turnover, station ownership
             changes, format shifts, and station closures. We cannot guarantee that every contact or email
@@ -712,13 +728,13 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             deliverable list.
           </p>
           <p className="mb-3">
-            <b className="text-white/55">No income or airplay guarantee.</b> Purchasing this product does
+            <b className="text-white/80">No income or airplay guarantee.</b> Purchasing this product does
             not guarantee radio airplay, interviews, playlist placements, increased streams, ticket sales,
             record deals, or income of any kind. Any reference to earning potential or airplay outcomes is
             illustrative only.
           </p>
           <p>
-            <b className="text-white/55">Spam &amp; CAN-SPAM compliance.</b> This database is intended
+            <b className="text-white/80">Spam &amp; CAN-SPAM compliance.</b> This database is intended
             solely for personal, targeted, relevant outreach. You are solely responsible for ensuring your
             use of this data complies with the CAN-SPAM Act, GDPR, CASL, and any other applicable laws in
             your jurisdiction. Mass automated emailing is expressly prohibited.
@@ -726,7 +742,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         </div>
       </section>
 
-      <footer className="border-t border-white/10 px-4 py-8 text-center text-[11px] leading-relaxed text-white/30">
+      <footer className="border-t border-white/10 px-4 py-8 text-center text-[11px] leading-relaxed text-white/60">
         <p className="mx-auto max-w-2xl">
           This product is a contact database intended for targeted, relevant, human outreach.
           Do not use this data for automated spam.
@@ -735,13 +751,13 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           aria-label="Site"
           className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
         >
-          <a href="/resources/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+          <a href="/resources/" className="inline-flex min-h-11 items-center underline decoration-white/30 underline-offset-4 hover:text-white">
             Free radio promotion guides
           </a>
-          <a href="/privacy-policy/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+          <a href="/privacy-policy/" className="inline-flex min-h-11 items-center underline decoration-white/30 underline-offset-4 hover:text-white">
             Privacy policy
           </a>
-          <a href="/terms/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+          <a href="/terms/" className="inline-flex min-h-11 items-center underline decoration-white/30 underline-offset-4 hover:text-white">
             Terms of service
           </a>
         </nav>

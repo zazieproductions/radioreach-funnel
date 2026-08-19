@@ -1,10 +1,11 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from "react";
 import SalesPage from "./funnel/SalesPage";
 import type { Addons } from "./funnel/Checkout";
 import type { Stage } from "./funnel/FunnelNav";
 import { trackTipFromReturnUrl } from "./lib/metaPixel";
 import { loadLuckyCoupon, type LuckyCoupon, clearLuckyCoupon } from "./lib/luckyCoupon";
 import { LuckyWheelModal } from "./funnel/LuckyWheel";
+import { LiveRegion, focusPageHeading } from "./a11y";
 
 const Checkout = lazy(() => import("./funnel/Checkout"));
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
@@ -23,14 +24,42 @@ const ThankYou = lazy(() =>
   import("./funnel/Upsells").then((m) => ({ default: m.ThankYou }))
 );
 
+const PAGE_TITLES: Record<Stage, string> = {
+  sales: "Radio Station Contacts for Musicians | RadioReach",
+  checkout: "Secure Checkout | RadioReach",
+  oto1: "Airplay Accelerator Offer | RadioReach",
+  oto2: "Upwork Course Offer | RadioReach",
+  downsell: "Accelerator Lite Offer | RadioReach",
+  thanks: "Welcome to the Vault | RadioReach",
+};
+
 function LoadingScreen() {
   return (
-    <div className="min-h-screen grid place-items-center bg-ink text-white">
+    <div
+      className="min-h-screen grid place-items-center bg-ink text-white"
+      role="status"
+      aria-live="polite"
+    >
       <div className="text-center">
-        <div className="mx-auto h-7 w-7 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+        <div
+          className="mx-auto h-7 w-7 animate-spin rounded-full border-2 border-white/20 border-t-white"
+          aria-hidden
+        />
         <p className="mt-3 text-sm text-white/60">Loading…</p>
       </div>
     </div>
+  );
+}
+
+function RouteChrome({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
+      {children}
+      <LiveRegion />
+    </>
   );
 }
 
@@ -57,8 +86,34 @@ export default function App() {
   });
   const [isWheelOpen, setIsWheelOpen] = useState(false);
 
+  const previousStage = useRef<Stage | null>(null);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
+  }, [stage, routeSuccess]);
+
+  useEffect(() => {
+    if (routeSuccess) {
+      document.title = "Your files are unlocked | RadioReach";
+      return;
+    }
+    if (routeLab) {
+      document.title = "Conversion Lab | RadioReach";
+      return;
+    }
+    document.title = PAGE_TITLES[stage];
+  }, [stage, routeSuccess, routeLab]);
+
+  useEffect(() => {
+    if (previousStage.current === null) {
+      previousStage.current = stage;
+      return;
+    }
+    if (previousStage.current === stage && !routeSuccess) return;
+    previousStage.current = stage;
+    // Let the new screen paint, then park focus on its heading.
+    const id = window.requestAnimationFrame(() => focusPageHeading());
+    return () => window.cancelAnimationFrame(id);
   }, [stage, routeSuccess]);
 
   // Track completed tips (Stripe redirects back with ?tip=thanks&…).
@@ -84,9 +139,11 @@ export default function App() {
 
   if (routeSuccess) {
     return (
-      <Suspense fallback={<LoadingScreen />}>
-        <SuccessPage />
-      </Suspense>
+      <RouteChrome>
+        <Suspense fallback={<LoadingScreen />}>
+          <SuccessPage />
+        </Suspense>
+      </RouteChrome>
     );
   }
 
@@ -94,9 +151,11 @@ export default function App() {
   // prototypes never mount on the production funnel from here.
   if (routeLab) {
     return (
-      <Suspense fallback={<LoadingScreen />}>
-        <LabGallery />
-      </Suspense>
+      <RouteChrome>
+        <Suspense fallback={<LoadingScreen />}>
+          <LabGallery />
+        </Suspense>
+      </RouteChrome>
     );
   }
 
@@ -107,7 +166,7 @@ export default function App() {
   const handleWheelClaim = () => {
     setIsWheelOpen(false);
     setStage("checkout");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
 
   const openWheel = () => {
@@ -194,12 +253,8 @@ export default function App() {
   };
 
   return (
-    <>
-      <a href="#main" className="skip-link">
-        Skip to content
-      </a>
-
-      <main id="main">
+    <RouteChrome>
+      <main id="main" inert={isWheelOpen || undefined}>
         <Suspense fallback={<LoadingScreen />}>{screen()}</Suspense>
       </main>
 
@@ -210,6 +265,6 @@ export default function App() {
         onClaim={handleWheelClaim}
         existingCoupon={luckyCoupon}
       />
-    </>
+    </RouteChrome>
   );
 }

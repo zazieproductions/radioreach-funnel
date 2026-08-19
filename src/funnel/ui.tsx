@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useFocusTrap, useLockBodyScroll } from "../a11y";
 
 /* ─────────────────────────────────────────────
    COUNTDOWN
@@ -47,7 +48,7 @@ export function FlipClock({ seconds = 897, size = "md" }: { seconds?: number; si
       >
         {v}
       </div>
-      <span className="mt-1 text-[8px] uppercase tracking-[0.16em] text-white/45 sm:text-[9px] sm:tracking-[0.18em]">{l}</span>
+      <span className="mt-1 text-[8px] uppercase tracking-[0.16em] text-white/60 sm:text-[9px] sm:tracking-[0.18em]">{l}</span>
     </div>
   );
 
@@ -150,7 +151,11 @@ export function ExitIntent({
 }) {
   const [open, setOpen] = useState(false);
   const fired = useRef(false);
+  const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+
+  useFocusTrap(open, panelRef);
+  useLockBodyScroll(open);
 
   useEffect(() => {
     // Pointer-based intent only. No timers, never on touch devices.
@@ -168,7 +173,12 @@ export function ExitIntent({
   useEffect(() => {
     if (!open) return;
     closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+      }
+    };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
@@ -181,9 +191,12 @@ export function ExitIntent({
       onClick={() => setOpen(false)}
     >
       <div
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="exit-title"
+        aria-describedby="exit-body"
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-lg overflow-hidden rounded-xl border-2 border-acid bg-panel text-center"
       >
@@ -192,7 +205,7 @@ export function ExitIntent({
           type="button"
           onClick={() => setOpen(false)}
           aria-label="Close offer"
-          className="pressable absolute right-2 top-2 grid h-11 w-11 place-items-center rounded-full text-xl text-white/50 hover:bg-white/10 hover:text-white"
+          className="pressable absolute right-2 top-2 grid h-11 w-11 place-items-center rounded-full text-xl text-white/70 hover:bg-white/10 hover:text-white"
         >
           ×
         </button>
@@ -209,7 +222,7 @@ export function ExitIntent({
               </>
             )}
           </h2>
-          <p className="mt-3 text-[15px] leading-relaxed text-white/70">
+          <p id="exit-body" className="mt-3 text-[15px] leading-relaxed text-white/70">
             {body ?? "You're one click from 18,000+ radio station contacts."}
           </p>
 
@@ -218,14 +231,16 @@ export function ExitIntent({
           </div>
 
           <button
+            type="button"
             onClick={onTake}
             className="cta mt-6 w-full rounded-lg bg-acid px-6 py-4 font-display text-xl uppercase tracking-wide text-ink"
           >
             Hold my $20 spot
           </button>
           <button
+            type="button"
             onClick={() => setOpen(false)}
-            className="tap-sm mt-3 w-full justify-center text-[13px] text-white/40 underline underline-offset-4 hover:text-white/70"
+            className="tap-sm mt-3 w-full justify-center text-[13px] text-white/65 underline underline-offset-4 hover:text-white"
           >
             No thanks, take me back
           </button>
