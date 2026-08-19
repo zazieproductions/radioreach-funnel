@@ -80,22 +80,7 @@ footer.site nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
 .tag{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:2px 10px;margin-left:10px;vertical-align:middle}
 `;
 
-const META_PIXEL = `
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2551277695315034');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
-/></noscript>`;
+const ANALYTICS_CONSENT = `<script defer src="/cookie-consent.js" data-pixel-ids="2551277695315034"></script>`;
 
 /** Graph nodes shared by every generated page. */
 function orgNode() {
@@ -106,8 +91,21 @@ function orgNode() {
     url: `${SITE.url}/`,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE.url}/favicon.svg`,
+      url: `${SITE.url}/icon-512.png`,
+      width: 512,
+      height: 512,
     },
+  };
+}
+
+function websiteNode() {
+  return {
+    "@type": "WebSite",
+    "@id": `${SITE.url}/#website`,
+    name: "RadioReach",
+    url: `${SITE.url}/`,
+    inLanguage: "en-US",
+    publisher: { "@id": `${SITE.url}/#organization` },
   };
 }
 
@@ -163,7 +161,7 @@ function howtoNode(howto, slug) {
     "@id": `${pageUrl(slug)}#howto`,
     name: howto.name,
     description: howto.description,
-    totalTime: "PT0M" in howto ? howto.totalTime : undefined,
+    ...(howto.totalTime ? { totalTime: howto.totalTime } : {}),
     step: howto.steps.map((s, i) => ({
       "@type": "HowToStep",
       position: i + 1,
@@ -190,6 +188,7 @@ export function renderPage(page, allPages, extras = {}) {
 
   const graph = [
     orgNode(),
+    websiteNode(),
     breadcrumbNodes([
       { name: "Home", url: `${SITE.url}/` },
       { name: "Resources", url: SITE.resourcesUrl },
@@ -271,13 +270,13 @@ export function renderPage(page, allPages, extras = {}) {
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(page.description)}">
 <meta name="twitter:image" content="${OG_IMAGE_ABS}">
+<meta name="twitter:image:alt" content="${esc(SITE.ogImageAlt)}">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 ${jsonLd(graph)}
 <style>${CSS}</style>
-<!-- Meta Pixel Code -->${META_PIXEL}
-<!-- End Meta Pixel Code -->
+${ANALYTICS_CONSENT}
 </head>
 <body>
 <a class="skip" href="#content">Skip to content</a>
@@ -307,9 +306,9 @@ ${jsonLd(graph)}
       <span>${readingMinutes(page.body)} min read</span>
       <span>${esc(cat.name)}</span>
     </p>
-    ${tocHtml}
-    ${page.body}
-    ${faqHtml}
+${tocHtml}
+${page.body}
+${faqHtml}
   </article>
   ${cta}
   ${relatedHtml}

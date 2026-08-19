@@ -5,7 +5,7 @@ export const CORE_PAGES = [
   {
     slug: "college-radio-submissions",
     category: "core",
-    title: "College Radio Submissions: How Independent Artists Can Pitch Stations",
+    title: "College Radio Submissions: Independent Artist Guide",
     h1: "College radio submissions for independent artists",
     breadcrumbLabel: "College radio submissions",
     description:
@@ -152,7 +152,7 @@ export const CORE_PAGES = [
   {
     slug: "radio-promotion-independent-artists",
     category: "core",
-    title: "Radio Promotion for Independent Artists: A Practical Outreach Guide",
+    title: "Radio Promotion for Independent Artists",
     h1: "Radio promotion for independent artists",
     breadcrumbLabel: "Radio promotion guide",
     description:
@@ -225,7 +225,7 @@ export const CORE_PAGES = [
   {
     slug: "how-to-get-your-song-on-the-radio",
     category: "core",
-    title: "How to Get Your Song on the Radio: An Independent Artist's Guide",
+    title: "How to Get Your Song Played on the Radio",
     h1: "How to get your song on the radio",
     h1Suffix: "Step by step",
     breadcrumbLabel: "Get your song on the radio",

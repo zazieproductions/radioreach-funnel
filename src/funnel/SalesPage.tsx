@@ -577,6 +577,30 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               </a>
 
               <a
+                href="/resources/radio-station-email-list/"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  Radio Station Email List Guide
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Evaluate contact data, verify records, and use lists without spam.
+                </span>
+              </a>
+
+              <a
+                href="/resources/music-director-contact-list/"
+                className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
+              >
+                <strong className="block text-white">
+                  Music Director Contacts
+                </strong>
+                <span className="mt-1 block text-sm text-white/55">
+                  Find the decision-maker, verify the role, and maintain your list.
+                </span>
+              </a>
+
+              <a
                 href="/resources/how-to-get-your-song-on-the-radio/"
                 className="min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] p-4 transition hover:border-acid/50 hover:bg-white/[0.06]"
               >

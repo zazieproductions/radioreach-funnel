@@ -6,6 +6,52 @@ Public-facing freshness signals (visible "Updated" dates, sitemap lastmod, hub
 changed.** This file records what changed and why, so GSC movement can be
 traced back to specific work.
 
+## 2026-08-19 — SEO pass 2: commercial clusters + safe programmatic expansion
+
+### Search-led expansion (16 new pages)
+- Commercial-intent resources for `radio station email list` and `music director
+  contact list`, including a buyer-quality framework and Dataset schema where
+  the downloadable contact resource is the factual main entity.
+- Station-type cluster: community, internet, and public radio submission guides.
+- Genre cluster expanded with indie rock, jazz, and metal campaign playbooks.
+- Country cluster: Canada, United Kingdom, and Australia, each with distinct
+  radio-market structure and applicable outreach/privacy considerations.
+- State cluster: California, Texas, and New York market guides. These explicitly
+  avoid pretending to be live station inventories and require first-party
+  verification before outreach.
+- Artist-goal cluster: tour-support checklist and radio-interview workflow.
+- Resource hub now exposes every cluster in crawlable category grids; all new
+  pages have breadcrumbs, contextual related links, FAQ schema, Article schema,
+  canonical metadata, and sitemap entries.
+
+### Technical, performance, security, and policy
+- Added WebSite nodes to generated schema graphs, a factual homepage Dataset
+  node, homepage FAQPage markup, raster Organization logos, Twitter image alt
+  text, and fixed HowTo `totalTime` serialization.
+- Added `npm run audit:seo`: checks all sitemap URLs for a corresponding HTML
+  file, canonical, index directives, description length, exactly one resource
+  H1, parseable JSON-LD, duplicate URLs, and broken resource links.
+- Removed eager Stripe preconnects from the sales page. Checkout remains
+  code-split; resource pages remain zero-framework static HTML with inline CSS.
+- Upgraded Vite and audited dependencies; `npm audit` reports zero known
+  vulnerabilities at this pass.
+- Replaced unconditional Meta Pixel loading with an explicit accept/reject gate.
+  Optional analytics stays off until acceptance, and the privacy page provides
+  a preference control. Removed tracking pixels that executed without consent.
+- Reconciled the Terms with the advertised 30-day refund policy, expanded legal
+  page metadata/navigation, and updated truthful sitemap dates.
+- Updated `llms.txt`, cache rules, homepage crawl paths, and shortened titles
+  that were likely to truncate in search results.
+
+### Guardrails
+- No fabricated station records, submission status, review markup, ratings,
+  airplay outcomes, or personal contacts.
+- Programmatic pages are limited to dimensions with a distinct workflow and
+  substantial original guidance; they state that policies and contacts must be
+  verified on first-party station sites.
+- No mass-email instructions, address harvesting, cloaking, doorway pages, or
+  guaranteed-airplay claims.
+
 ## 2026-08-18 — SEO pass 1: content library + technical foundation
 
 ### Content expansion (12 pages + hub)
