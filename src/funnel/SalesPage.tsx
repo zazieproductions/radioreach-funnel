@@ -220,9 +220,6 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <div className="mt-4 flex justify-center">
               <SpreadsheetPreviewButton onClick={() => setSampleOpen(true)} />
             </div>
-            <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-white/35">
-              opens a scrollable spreadsheet — past the first page it blurs out
-            </p>
           </div>
         </div>
       </section>
