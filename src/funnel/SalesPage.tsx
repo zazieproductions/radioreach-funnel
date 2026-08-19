@@ -11,7 +11,7 @@ import {
   TopNav,
 } from "./ui";
 import TerminalPreview from "./TerminalPreview";
-import { isMomentumSequenceEnabled } from "../config/features";
+import { isMomentumSequenceEnabled, isSecretSlotsEnabled } from "../config/features";
 
 // Keep the substantial below-the-fold interaction out of the initial mobile
 // bundle so it never competes with the hero for main-thread time.
@@ -19,6 +19,7 @@ const MomentumSequence = lazy(() => import("./MomentumSequence"));
 
 import { TESTIMONIALS } from "./testimonials";
 import { LuckyWheelButton } from "./LuckyWheel";
+import SecretSlotsSection from "./SecretSlots";
 import {
   formatRemainingMs,
   getLuckyCouponRemainingMs,
@@ -301,6 +302,14 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           ))}
         </div>
       </section>
+
+      {/* AFFILIATE GAMIFICATION — PlaylistPush secret slots.
+          Sales page only (never mid-checkout): the machine reveals the
+          affiliate code FR2AZEF as a "hidden industry secret". The promo
+          code IS the affiliate — no outbound link, visitors copy it and
+          enter it at PlaylistPush checkout. Feature flagged with a runtime
+          kill switch like the Momentum sequence. */}
+      {isSecretSlotsEnabled() && <SecretSlotsSection />}
 
       {/* WHAT'S INSIDE / STACK */}
       <section id="inside" className="defer-render border-y border-white/10 bg-panel">
@@ -716,6 +725,12 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             not guarantee radio airplay, interviews, playlist placements, increased streams, ticket sales,
             record deals, or income of any kind. Any reference to earning potential or airplay outcomes is
             illustrative only.
+          </p>
+          <p className="mb-3">
+            <b className="text-white/55">Affiliate disclosure.</b> The PlaylistPush promo code featured on
+            this page is an affiliate promotion. If you use the code at PlaylistPush's checkout, we may
+            receive a commission at no additional cost to you. PlaylistPush is an independent company with
+            its own terms, privacy policy, and results, which we do not control or guarantee.
           </p>
           <p>
             <b className="text-white/55">Spam &amp; CAN-SPAM compliance.</b> This database is intended

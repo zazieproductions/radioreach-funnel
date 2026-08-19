@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "test:esp": "node scripts/run-esp-tests.mjs",
     "test:lab": "node scripts/run-lab-tests.mjs",
+    "test:slots": "node scripts/run-slots-tests.mjs",
     "lint": "tsc --noEmit && tsc --noEmit -p signal-rot-mastering-suite/tsconfig.json",
     "test": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json --test signal-rot-mastering-suite/tests/*.test.ts signal-rot-mastering-suite/tests/*.test.tsx && npm run test:esp && npm run test:lab",
     "test:dsp": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json signal-rot-mastering-suite/scripts/run-dsp-fixtures.ts",
