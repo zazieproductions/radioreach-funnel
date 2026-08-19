@@ -11,6 +11,9 @@ import {
   TopNav,
 } from "./ui";
 import TerminalPreview from "./TerminalPreview";
+import SpreadsheetPreview, {
+  SpreadsheetPreviewButton,
+} from "./SpreadsheetPreview";
 import { isMomentumSequenceEnabled } from "../config/features";
 
 // Keep the substantial below-the-fold interaction out of the initial mobile
@@ -69,6 +72,7 @@ type Props = {
 
 export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWheel }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [sampleOpen, setSampleOpen] = useState(false);
   const [espDebug] = useState(() => readEspFlag().debug);
   const [nowMs, setNowMs] = useState(() => Date.now());
 
@@ -213,6 +217,9 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               ↓ live sample — 7 of 18,000+ entries
             </p>
             <TerminalPreview onCta={() => handleCta("terminal")} />
+            <div className="mt-4 flex justify-center">
+              <SpreadsheetPreviewButton onClick={() => setSampleOpen(true)} />
+            </div>
           </div>
         </div>
       </section>
@@ -747,6 +754,14 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         </nav>
         <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
       </footer>
+
+      {/* Interactive spreadsheet sample modal */}
+      {sampleOpen && (
+        <SpreadsheetPreview
+          onCta={() => handleCta("sample_unlock")}
+          onClose={() => setSampleOpen(false)}
+        />
+      )}
 
       {/* Dev-only overlay — visible only with ?esp=debug */}
       {espDebug && <DebugPanel />}
