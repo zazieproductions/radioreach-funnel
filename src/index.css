@@ -225,6 +225,10 @@ summary {
   display: inline-grid;
   vertical-align: top;
   max-width: 100%;
+  /* Shorter copy variants stay vertically centered in the cell the
+     tallest variant reserves, so a mode swap never leaves text
+     stranded at the top of the box. */
+  align-items: center;
 }
 
 .esp-slot > .esp-variant {

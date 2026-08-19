@@ -153,7 +153,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/70 via-ink/85 to-ink" />
         <div className="relative mx-auto max-w-4xl px-4 pt-6 pb-10 text-center sm:pt-10 sm:pb-14">
-          <p className="mx-auto mb-4 inline-block max-w-[22rem] border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-bold uppercase leading-snug tracking-[0.12em] text-white/70 sm:mb-5 sm:max-w-none sm:text-[11px] sm:tracking-[0.2em]">
+          <p className="mx-auto mb-4 inline-block max-w-[22rem] rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[10px] font-bold uppercase leading-snug tracking-[0.1em] text-white/70 text-balance sm:mb-5 sm:max-w-[34rem] sm:px-6 sm:py-2 sm:text-[11px] sm:tracking-[0.15em]">
             <EmotiveText slot="heroEyebrow" />
           </p>
 
