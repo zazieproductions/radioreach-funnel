@@ -1,9 +1,6 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <link rel="preconnect" href="https://js.stripe.com">
-    <link rel="preconnect" href="https://m.stripe.network">
-    <link rel="dns-prefetch" href="https://js.stripe.com">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#08080a" />
@@ -106,7 +103,13 @@
           "@type": "Organization",
           "@id": "https://radioreach.us/#organization",
           "name": "RadioReach",
-          "url": "https://radioreach.us/"
+          "url": "https://radioreach.us/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://radioreach.us/icon-512.png",
+            "width": 512,
+            "height": 512
+          }
         },
         {
           "@type": "WebSite",
@@ -127,7 +130,7 @@
             "@id": "https://radioreach.us/#organization"
           },
           "url": "https://radioreach.us/",
-          "image": "https://radioreach.us/images/studio-1280.jpg",
+          "image": "https://radioreach.us/images/og/radioreach-share-1200x800.jpg",
           "offers": {
             "@type": "Offer",
             "url": "https://radioreach.us/",
@@ -139,6 +142,59 @@
               "@id": "https://radioreach.us/#organization"
             }
           }
+        },
+        {
+          "@type": "Dataset",
+          "@id": "https://radioreach.us/#contact-dataset",
+          "name": "Radio Reach Vault radio station contact resource",
+          "description": "A downloadable research resource with 18,000+ radio station entries organized by station, location, role, phone, and email.",
+          "url": "https://radioreach.us/",
+          "creator": { "@id": "https://radioreach.us/#organization" },
+          "isAccessibleForFree": false,
+          "license": "https://radioreach.us/terms/",
+          "distribution": [{
+            "@type": "DataDownload",
+            "encodingFormat": "application/pdf",
+            "contentUrl": "https://radioreach.us/"
+          }]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://radioreach.us/#faq-schema",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I submit music to radio stations?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Find stations that fit your genre, location, or audience; identify the current music director, program director, DJ, or submission route; then send a short personalized pitch with one streaming link and follow the station's published requirements."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What format is the radio station contact list delivered in?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The product is an instant-download organized PDF with city-sorted contact tables. It does not require software or a subscription."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Will contacting radio stations guarantee airplay?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. RadioReach is a contact research resource, not an airplay guarantee. Each station retains editorial control, and relevant, personalized outreach is required."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does RadioReach have a refund policy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. RadioReach states a 30-day refund policy for the Radio Reach Vault."
+              }
+            }
+          ]
         }
       ]
     }
@@ -159,22 +215,9 @@
     <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
-  <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1615271090014015');
-fbq('init', '2551277695315034');
-fbq('track', 'PageView');
-</script>
+  <script defer src="/cookie-consent.js" data-pixel-ids="1615271090014015,2551277695315034"></script>
 </head>
   <body>
-    <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
-      alt=""
-    /></noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -9,6 +9,7 @@
     "dev": "vite",
     "build": "node scripts/build-resources.mjs && vite build",
     "build:resources": "node scripts/build-resources.mjs",
+    "audit:seo": "node scripts/build-resources.mjs && node scripts/seo-audit.mjs",
     "preview": "vite preview",
     "test:esp": "node scripts/run-esp-tests.mjs",
     "test:lab": "node scripts/run-lab-tests.mjs"
@@ -33,7 +34,7 @@
     "jsdom": "^30.0.1",
     "tailwindcss": "4.1.17",
     "typescript": "5.9.3",
-    "vite": "7.3.2",
+    "vite": "^7.3.6",
     "vite-plugin-singlefile": "2.3.0"
   }
 }

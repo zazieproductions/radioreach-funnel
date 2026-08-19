@@ -33,6 +33,18 @@ export const CATEGORIES = [
       "How radio airplay actually works inside specific genres — and where independent artists realistically get spins.",
   },
   {
+    id: "station-type",
+    name: "Station-type submission guides",
+    blurb:
+      "Distinct outreach workflows for community, public, internet, and other radio programming models.",
+  },
+  {
+    id: "market",
+    name: "Country & market guides",
+    blurb:
+      "Market-specific radio maps, outreach considerations, and submission workflows for international campaigns.",
+  },
+  {
     id: "strategy",
     name: "Comparisons & strategy",
     blurb:

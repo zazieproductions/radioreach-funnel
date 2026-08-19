@@ -35,6 +35,9 @@
 /llms.txt
   Cache-Control: public, max-age=3600
 
+/cookie-consent.js
+  Cache-Control: public, max-age=3600, must-revalidate
+
 /favicon.*
   Cache-Control: public, max-age=604800
 

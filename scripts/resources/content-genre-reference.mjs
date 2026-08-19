@@ -4,7 +4,7 @@ export const GENRE_REFERENCE_PAGES = [
   {
     slug: "hip-hop-radio-promotion",
     category: "genre",
-    title: "Hip-Hop Radio Promotion: A Guide for Independent Artists",
+    title: "Hip-Hop Radio Promotion for Independent Artists",
     h1: "Hip-hop radio promotion for independent artists",
     breadcrumbLabel: "Hip-hop radio",
     description:
@@ -75,7 +75,7 @@ export const GENRE_REFERENCE_PAGES = [
   {
     slug: "electronic-music-radio-promotion",
     category: "genre",
-    title: "Electronic Music Radio Promotion: A Guide for Independent Artists",
+    title: "Electronic Music Radio Promotion Guide",
     h1: "Electronic music radio promotion for independent artists",
     breadcrumbLabel: "Electronic music radio",
     description:
@@ -144,7 +144,7 @@ export const GENRE_REFERENCE_PAGES = [
   {
     slug: "country-radio-promotion",
     category: "genre",
-    title: "Country and Americana Radio Promotion for Independent Artists",
+    title: "Country and Americana Radio Promotion",
     h1: "Country and Americana radio promotion for independent artists",
     breadcrumbLabel: "Country & Americana radio",
     description:
@@ -214,7 +214,7 @@ export const GENRE_REFERENCE_PAGES = [
   {
     slug: "radio-promotion-glossary",
     category: "reference",
-    title: "Radio Promotion Glossary: Radio Industry Terms Explained",
+    title: "Radio Promotion Glossary for Independent Artists",
     h1: "Radio promotion glossary",
     h1Suffix: "40+ terms",
     breadcrumbLabel: "Glossary",
