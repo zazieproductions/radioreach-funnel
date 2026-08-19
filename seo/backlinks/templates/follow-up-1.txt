@@ -1,0 +1,14 @@
+Subject: Re: {{original_subject}}
+
+Hi {{contact_name}},
+
+Following up on my earlier message about {{asset_name}}. Just wanted to make sure it reached you.
+
+The resource is available here: {{asset_url}}
+
+Happy to answer any questions.
+
+Best,
+{{sender_name}}
+RadioReach
+https://radioreach.us

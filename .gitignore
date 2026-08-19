@@ -11,3 +11,13 @@ node_modules/
 .arena/
 *.backup
 .DS_Store
+
+# SEO backlink pipeline — regenerable artifacts and imported exports
+seo/backlinks/reports/*.log
+seo/backlinks/reports/competitor-gap-analysis.csv
+seo/backlinks/reports/*-enriched.csv
+seo/backlinks/broken-links.csv
+seo/backlinks/unlinked-mentions.csv
+seo/backlinks/*.json
+!seo/backlinks/assets/index.json
+seo/backlinks/*-enriched.csv

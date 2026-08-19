@@ -1,0 +1,11 @@
+Subject: RadioReach — {{resource_description}}
+
+Site name: RadioReach
+URL: https://radioreach.us
+Description: {{unique_description}}
+Category: {{directory_category}}
+Contact email: {{sender_email}}
+
+RadioReach helps independent musicians find radio station contacts and conduct direct outreach. The {{directory_category}} section of your directory may be a relevant place for this listing.
+
+{{optional_notes}}

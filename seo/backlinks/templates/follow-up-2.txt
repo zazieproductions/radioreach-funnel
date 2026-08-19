@@ -1,0 +1,12 @@
+Subject: Re: {{original_subject}}
+
+Hi {{contact_name}},
+
+Just a quick final note — wanted to check if {{asset_name}} was useful to you or your readers. If not, no worries at all.
+
+Thanks for your time either way.
+
+Best,
+{{sender_name}}
+RadioReach
+https://radioreach.us

@@ -1,0 +1,14 @@
+Subject: Free resource for your {{audience_type}}
+
+Hi {{contact_name}},
+
+I work with RadioReach, a resource helping independent musicians conduct radio outreach. I came across your {{specific_page}} and think our free {{asset_name}} could be a useful addition.
+
+The asset ({{asset_url}}) provides {{specific_benefit}} — something {{audience_type}} often struggle with when planning a radio campaign.
+
+It's entirely free and regularly updated. Happy to provide more context if helpful.
+
+Best,
+{{sender_name}}
+RadioReach
+https://radioreach.us

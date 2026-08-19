@@ -1,0 +1,14 @@
+Subject: Quick question about your mention of RadioReach
+
+Hi {{contact_name}},
+
+Thanks for including RadioReach in your {{specific_page}} — I appreciate the mention.
+
+Would you consider linking {{mention_text}} to {{suggested_url}}? It would help your readers find the resource directly.
+
+No worries either way, and thanks again for the mention.
+
+Best,
+{{sender_name}}
+RadioReach
+https://radioreach.us
