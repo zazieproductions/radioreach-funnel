@@ -7,13 +7,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-resources.mjs && node scripts/build-homepage-facts.mjs && node scripts/check-claims.mjs && vite build",
+    "build": "node scripts/build-resources.mjs && node scripts/gen-machine-readable.mjs && node scripts/build-homepage-facts.mjs && node scripts/check-claims.mjs && vite build",
     "build:resources": "node scripts/build-resources.mjs",
     "preview": "vite preview",
     "test:esp": "node scripts/run-esp-tests.mjs",
     "test:lab": "node scripts/run-lab-tests.mjs",
     "check:claims": "node scripts/check-claims.mjs",
-    "build:facts": "node scripts/build-homepage-facts.mjs"
+    "build:facts": "node scripts/build-homepage-facts.mjs",
+    "gen:machine": "node scripts/gen-machine-readable.mjs",
+    "verify:dataset": "node scripts/verify-dataset.mjs",
+    "test:recommendations": "node scripts/recommendation-test.mjs --report"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1101.0",

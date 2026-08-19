@@ -1,0 +1,32 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "@id": "https://radioreach.us/#dataset",
+  "name": "Radio Reach Vault radio station contact directory",
+  "description": "A point-in-time research compilation of publicly discoverable radio station programming contacts — station, city, region, country, contact name, role, email and phone — organized for direct artist outreach.",
+  "url": "https://radioreach.us/methodology/",
+  "creator": {
+    "@id": "https://radioreach.us/#organization"
+  },
+  "publisher": {
+    "@id": "https://radioreach.us/#organization"
+  },
+  "isAccessibleForFree": false,
+  "license": "https://radioreach.us/terms/",
+  "variableMeasured": [
+    "station",
+    "city",
+    "state_or_region",
+    "country",
+    "contact_name",
+    "role",
+    "email",
+    "phone"
+  ],
+  "spatialCoverage": "United States",
+  "dateModified": "2026-08-19",
+  "includedInDataCatalog": {
+    "@id": "https://radioreach.us/#product"
+  },
+  "$note": "Metadata describing the commercial contact dataset. The dataset itself is paid and is not exposed here. A free structural sample showing the field schema is published at https://radioreach.us/sample/"
+}

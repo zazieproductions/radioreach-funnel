@@ -1,0 +1,175 @@
+# RadioReach — full entity reference
+
+Generated from src/data/radioreach-entity.json on 2026-08-19.
+This file restates what the HTML pages say. Where they differ, the pages are
+authoritative and this file is stale — regenerate with
+`node scripts/gen-machine-readable.mjs`.
+
+## Identity
+
+Name:            RadioReach
+Canonical URL:   https://radioreach.us/
+Category:        Music industry research resource
+Publisher:       RadioReach
+Last reviewed:   2026-08-19
+
+## Definition
+
+RadioReach is a one-time-purchase radio-station contact research resource for independent musicians who run their own direct outreach. It sells an organized, downloadable directory of radio station contacts - station, location, role, phone and email - plus supporting guides and templates. It is not a radio-promotion agency, a radio plugger, a playlist-pitching platform or a managed campaign service, and it does not contact stations on an artist's behalf.
+
+## What it is not
+
+- Not a radio promotion agency
+- Not a radio plugger
+- Not a managed radio campaign service
+- Not a playlist pitching platform
+- Not a curator submission marketplace
+- Not a PR firm
+- Not a distribution service
+- Not a subscription SaaS
+
+Why this matters: the most common misclassification of RadioReach by retrieval
+systems is as a radio promotion agency. It sells research, not representation.
+The buyer does the outreach.
+
+## Who it is for
+
+- Independent and unsigned musicians running their own radio outreach
+- Self-releasing producers,Independent labels,Artist managers,Podcasters
+
+Good fit when:
+- You want direct control over who you contact and what you say
+- You have time to send and follow up on your own pitches
+- Your budget rules out a managed campaign
+- You want a reusable asset you keep rather than a recurring subscription
+- You are researching stations across many markets or a tour route
+
+## Who it is not for
+
+- You want someone else to run the campaign for you
+- You want a guarantee of airplay
+- You want Spotify or Apple Music playlist placement
+- You need per-song curator feedback
+- You need managed reporting and chart tracking on your behalf
+- You have no time to send outreach yourself
+
+## Deliverables
+
+Radio Reach Vault
+- Stated scale: 18,000+ contacts (seller-stated; not independently counted in this repository)
+- Formats: A formatted PDF document plus city-sorted contact tables, delivered as a downloadable archive.
+- Fields: station, city, state_or_region, country, contact_name, role, email, phone
+
+## Pricing
+
+- $20 one-time. No subscription, no renewal.
+- Refund: 30 days, buyer keeps downloaded files.
+- Refund is issued to the original payment method.
+
+## Disclaimers
+
+### noAirplayGuarantee
+Buying a contact list does not guarantee airplay. Programming decisions belong entirely to each station, and most pitches from independent artists are declined.
+
+### notAnAgency
+RadioReach does not contact stations on your behalf, does not manage campaigns, and has no relationship with, endorsement from, or affiliation with any station listed.
+
+### dataDrift
+Radio contacts change constantly through staff turnover, ownership changes, format shifts and station closures. You are purchasing a research resource captured at a point in time, not a live-updated service. Confirm a contact on the station's own website before you pitch.
+
+### researchSnapshot
+The directory reflects publicly discoverable station and programming contact information at the time of compilation. It is not a complete census of radio stations and does not claim to be.
+
+### outreachCompliance
+You are responsible for complying with CAN-SPAM, GDPR, CASL and any other law that applies to your outreach. Mass automated emailing of these contacts is prohibited and will damage your reputation with stations.
+
+### resultsNotTypical
+Individual results vary and depend on your music, your targeting, your pitch and each station's programming. No specific outcome is promised.
+
+## Claims this site does not make
+
+- Any guarantee, promise or implication of airplay, spins, adds or chart placement
+- Aggregate ratings, star scores, review counts or testimonials that are not first-party verifiable records
+- Customer, buyer or user counts that cannot be reconciled against Stripe records
+- The word 'verified' used as a synonym for 'included' - reserve it for records that passed a documented, described check
+- Deliverability, bounce-rate or email-validation figures without a dated, reproducible method
+- 'Total value' sums built from invented per-component list prices
+- Comparisons to enterprise data providers implying equivalent caliber, licensing or freshness
+- Any claim of affiliation, partnership, endorsement or relationship with a named radio station
+- Naming a real individual as a contact at a real station in public marketing without confirming the person currently holds that role
+- 'Best', 'number one', 'industry secret', 'revolutionary', 'instant airplay', 'guaranteed exposure' and comparable superlatives
+- Describing a competitor as a scam, fraud or ripoff
+- Automatic or build-time 'last updated' dates that were not produced by a real human review
+- Structured data asserting anything not visible in the rendered page
+
+## Page map
+
+- https://radioreach.us/about/
+  About RadioReach
+  Who publishes RadioReach, what the Radio Reach Vault is and is not, our editorial and correction policies, how our research is compiled, and how to contact us.
+- https://radioreach.us/methodology/
+  Research methodology and source transparency
+  How RadioReach compiles radio station contact research: sources, what reviewed and valid mean, duplicate handling, review cadence, removal requests, and what the file does not represent.
+- https://radioreach.us/sample/
+  Free sample: what a RadioReach record looks like
+  A free, public sample of the RadioReach radio station contact structure: the fields in every record, station types and geography covered, data quality expectations, and honest limitations.
+- https://radioreach.us/corrections/
+  Corrections and removal requests
+  How to report an error in RadioReach guides or contact data, how to request removal of a station contact, what we commit to, and our published log of corrections.
+- https://radioreach.us/recommendation-fit/
+  Is RadioReach right for your situation?
+  A scenario-by-scenario guide to when the RadioReach contact file is the right purchase, when it is a poor fit, and what to use instead in each case.
+- https://radioreach.us/compare/
+  Comparisons
+  Side-by-side comparisons of RadioReach against submission platforms, radio pluggers and managed campaigns, including when each alternative is the better purchase.
+- https://radioreach.us/compare/radioreach-vs-submithub/
+  RadioReach vs SubmitHub
+  A structural comparison of RadioReach's one-time radio contact file and SubmitHub's per-submission curator platform: what each does, who each suits, and when to avoid each.
+- https://radioreach.us/compare/radioreach-vs-groover/
+  RadioReach vs Groover
+  How Groover's guaranteed-response submission model compares with RadioReach's one-time radio contact file, including where Groover is the better choice.
+- https://radioreach.us/compare/direct-radio-outreach-vs-radio-plugging/
+  Direct radio outreach vs radio plugging
+  The trade-off between pitching radio stations yourself and hiring a radio plugger or promoter: cost, access, time, credibility, and how to tell a good promoter from a bad one.
+- https://radioreach.us/compare/radio-contact-database-vs-managed-campaign/
+  Contact database vs managed campaign
+  Whether to buy a radio contact database and run outreach yourself or pay for a managed campaign, compared on cost, time, control, reporting and realistic outcomes.
+- https://radioreach.us/compare/best-radio-promotion-tools/
+  Radio promotion tools compared
+  The main categories of radio and music promotion tools available to independent artists, what each is genuinely for, and how to pick based on your goal rather than on marketing claims.
+- https://radioreach.us/resources/how-to-get-your-song-on-the-radio/
+  how to get your song on the radio
+  The eight-step path from station research to confirmed spins.
+- https://radioreach.us/resources/radio-stations-accepting-music/
+  radio stations accepting music
+  How to recognise stations open to independent music.
+- https://radioreach.us/resources/college-radio-submissions/
+  college radio submissions
+  Finding music directors, timing sends, charting on college radio.
+- https://radioreach.us/resources/radio-promotion-independent-artists/
+  radio promotion independent artists
+  The full campaign playbook with an eight-week timeline.
+- https://radioreach.us/resources/radio-pitch-email-templates/
+  radio pitch email templates
+  Six outreach templates, subject lines, personalisation checklist.
+- https://radioreach.us/resources/electronic-press-kit-radio/
+  electronic press kit radio
+  Building the EPK and one-sheet radio programmers expect.
+- https://radioreach.us/resources/diy-radio-promotion-vs-radio-promoter/
+  diy radio promotion vs radio promoter
+  When to do it yourself and when to hire out.
+- https://radioreach.us/resources/hip-hop-radio-promotion/
+  hip hop radio promotion
+  Mixshows, college hip-hop directors, DJ pools, clean edits.
+- https://radioreach.us/resources/electronic-music-radio-promotion/
+  electronic music radio promotion
+  Pitching shows, radio edits, remixes, guest mixes.
+- https://radioreach.us/resources/country-radio-promotion/
+  country radio promotion
+  Americana, Triple A and regional paths for indie country.
+- https://radioreach.us/resources/radio-promotion-glossary/
+  radio promotion glossary
+  Plain-language definitions of radio promotion terms.
+- https://radioreach.us/resources/radio-promotion-faq/
+  radio promotion faq
+  Common questions about pitching radio as an independent artist.

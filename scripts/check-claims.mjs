@@ -62,10 +62,18 @@ const read = (f) => fs.readFileSync(f, "utf8");
 
 // Content files only — the entity JSON and this checker legitimately contain
 // the strings they police.
+// Tooling that names the prohibited phrases in order to police, generate or
+// test against them. These files ship no user-facing copy; scanning them
+// produces false positives (e.g. a comment explaining that we watch for
+// systems implying "guaranteed airplay" is not a claim of guaranteed airplay).
 const SELF = new Set([
   "src/data/radioreach-entity.json",
   "scripts/check-claims.mjs",
   "scripts/resources/entity.mjs",
+  "scripts/gen-machine-readable.mjs",
+  "scripts/recommendation-test.mjs",
+  "scripts/verify-dataset.mjs",
+  "scripts/build-homepage-facts.mjs",
   "docs/claim-register.md",
 ]);
 const contentFiles = allFiles.filter((f) => !SELF.has(rel(f)));
