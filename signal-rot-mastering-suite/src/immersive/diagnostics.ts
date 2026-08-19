@@ -1,0 +1,5 @@
+import type { MultichannelBuffer } from "./renderer";
+export function channelDiagnostics(b:MultichannelBuffer){return b.layout.speakers.map(sp=>{const c=b.channels[sp.index];let peak=0,sum=0,dc=0,clips=0;for(const x of c){peak=Math.max(peak,Math.abs(x));sum+=x*x;dc+=x;if(Math.abs(x)>1)clips++;}return {index:sp.index,label:sp.label,ring:sp.ring,role:sp.role,peakDbfs:20*Math.log10(Math.max(1e-12,peak)),rmsDbfs:10*Math.log10(Math.max(1e-20,sum/Math.max(1,c.length))),dc:dc/Math.max(1,c.length),clips};});}
+export function soloChannel(b:MultichannelBuffer,index:number){return {...b,channels:b.channels.map((c,i)=>i===index?new Float32Array(c):new Float32Array(c.length))};}
+export function soloRing(b:MultichannelBuffer,ring:string){return {...b,channels:b.channels.map((c,i)=>b.layout.speakers[i].ring===ring?new Float32Array(c):new Float32Array(c.length))};}
+export function polarityTest(b:MultichannelBuffer,index:number){const channels=b.channels.map(c=>new Float32Array(c));for(let i=0;i<channels[index].length;i++)channels[index][i]*=-1;return {...b,channels};}
