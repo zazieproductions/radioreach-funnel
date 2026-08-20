@@ -11,3 +11,6 @@ node_modules/
 .arena/
 *.backup
 .DS_Store
+
+# Local build output of the signal-rot sub-project
+signal-rot-mastering-suite/dist/
