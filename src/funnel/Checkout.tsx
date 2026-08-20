@@ -304,6 +304,24 @@ export default function Checkout({
       <button type="button" onClick={() => onComplete(total, { contracts, au })} className="sr-only">
         sync
       </button>
+
+      <footer className="mt-6 border-t border-white/10 px-4 py-6 text-center text-[11px] leading-relaxed text-white/30">
+        <nav
+          aria-label="Site"
+          className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
+        >
+          <a href="/privacy-policy/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Privacy policy
+          </a>
+          <a href="/terms/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Terms of service
+          </a>
+          <a href="/refund-policy/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Refund policy
+          </a>
+        </nav>
+        <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
