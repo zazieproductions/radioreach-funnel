@@ -49,6 +49,16 @@ label {
   touch-action: manipulation;
 }
 
+/* Cross-document view transitions (enabled via <meta name="view-transition">):
+   keep the smooth cross-fade but disable it for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 /* Anchor targets clear the sticky header */
 [id] {
   scroll-margin-top: 5.5rem;

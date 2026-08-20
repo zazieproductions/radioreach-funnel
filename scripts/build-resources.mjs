@@ -250,6 +250,7 @@ function renderHub() {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="color-scheme" content="dark">
+<meta name="view-transition" content="same-origin">
 <title>Radio Promotion Resources &amp; Free Guides | RadioReach</title>
 <meta name="description" content="Free radio promotion guides for independent artists: submission how-tos, pitch email templates, EPK building, genre playbooks, a glossary of radio terms, and honest strategy.">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -310,6 +311,7 @@ main{padding:34px 0 64px}
 footer.site{border-top:1px solid var(--line);margin-top:64px;padding:28px 0 44px;font-size:.9rem;color:var(--muted)}
 footer.site nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
 .small{font-size:.85rem}
+@media (prefers-reduced-motion: reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none !important}}
 </style>
 </head>
 <body>

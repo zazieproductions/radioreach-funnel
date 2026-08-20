@@ -1,20 +1,78 @@
 <!doctype html>
-<html lang="en-US">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page Not Found | RadioReach</title>
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#08080a">
+  <meta name="color-scheme" content="dark">
+  <meta name="view-transition" content="same-origin">
   <link rel="icon" href="/favicon.ico?v=2" sizes="32x32">
   <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" sizes="180x180">
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html { background: #08080a; }
+    body {
+      margin: 0;
+      background: #08080a;
+      color: rgba(255,255,255,0.78);
+      font: 16px/1.7 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .site-header { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .site-header a {
+      display: inline-block;
+      padding: 1.1rem 1.5rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      font-size: 0.95rem;
+    }
+    main { max-width: 44rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    h1 {
+      color: #fff;
+      font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      margin: 0 0 0.5rem;
+    }
+    h2 {
+      color: #ffe600;
+      font-size: 1.02rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 2.4rem 0 0.75rem;
+    }
+    a { color: #ffe600; }
+    ul { padding-left: 1.4rem; }
+    li { margin: 0.45rem 0; }
+    li::marker { color: rgba(255,255,255,0.4); }
+    .back {
+      display: inline-block;
+      margin-top: 3rem;
+      padding: 0.65rem 1.1rem;
+      border: 1px solid rgba(255,230,0,0.35);
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .back:hover { background: rgba(255,230,0,0.08); }
+    @media (prefers-reduced-motion: reduce) {
+      ::view-transition-group(*),
+      ::view-transition-old(*),
+      ::view-transition-new(*) { animation: none !important; }
+    }
+  </style>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
+{if(f._fbq)return;n=f._fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
@@ -27,17 +85,30 @@ src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 </head>
 <body>
+  <header class="site-header">
+    <a href="/">RADIOREACH</a>
+  </header>
   <main>
     <h1>Page not found</h1>
-    <p>That RadioReach page doesn't exist.</p>
+
+    <p>That RadioReach page doesn't exist. It may have moved, or the link may be wrong.</p>
+
+    <h2>Popular destinations</h2>
     <ul>
       <li><a href="/">Radio Reach Vault — radio station contacts for musicians</a></li>
       <li><a href="/resources/">Free radio promotion guides</a></li>
       <li><a href="/resources/radio-pitch-email-templates/">Radio pitch email templates</a></li>
       <li><a href="/resources/radio-promotion-glossary/">Radio promotion glossary</a></li>
+    </ul>
+
+    <h2>Legal</h2>
+    <ul>
       <li><a href="/privacy-policy/">Privacy policy</a></li>
       <li><a href="/terms/">Terms of service</a></li>
+      <li><a href="/refund-policy/">Refund policy</a></li>
     </ul>
+
+    <a class="back" href="/">Return to RadioReach</a>
   </main>
 </body>
 </html>

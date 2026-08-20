@@ -6,6 +6,67 @@
   <title>Privacy Policy | RadioReach</title>
   <meta name="description" content="RadioReach Privacy Policy.">
   <link rel="canonical" href="https://radioreach.us/privacy-policy/">
+  <meta name="theme-color" content="#08080a">
+  <meta name="color-scheme" content="dark">
+  <meta name="view-transition" content="same-origin">
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html { background: #08080a; }
+    body {
+      margin: 0;
+      background: #08080a;
+      color: rgba(255,255,255,0.78);
+      font: 16px/1.7 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .site-header { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .site-header a {
+      display: inline-block;
+      padding: 1.1rem 1.5rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      font-size: 0.95rem;
+    }
+    main { max-width: 44rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    h1 {
+      color: #fff;
+      font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      margin: 0 0 0.5rem;
+    }
+    h2 {
+      color: #ffe600;
+      font-size: 1.02rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 2.4rem 0 0.75rem;
+    }
+    strong { color: #fff; font-weight: 600; }
+    a { color: #ffe600; }
+    ul, ol { padding-left: 1.4rem; }
+    li { margin: 0.45rem 0; }
+    li::marker { color: rgba(255,255,255,0.4); }
+    .meta { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+    .back {
+      display: inline-block;
+      margin-top: 3rem;
+      padding: 0.65rem 1.1rem;
+      border: 1px solid rgba(255,230,0,0.35);
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .back:hover { background: rgba(255,230,0,0.08); }
+    @media (prefers-reduced-motion: reduce) {
+      ::view-transition-group(*),
+      ::view-transition-old(*),
+      ::view-transition-new(*) { animation: none !important; }
+    }
+  </style>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -25,9 +86,12 @@ src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 </head>
 <body>
+  <header class="site-header">
+    <a href="/">RADIOREACH</a>
+  </header>
   <main>
     <h1>Privacy Policy</h1>
-    <p><strong>Last updated:</strong> August 15, 2026</p>
+    <p class="meta"><strong>Last updated:</strong> August 20, 2026</p>
 
     <p>
       RadioReach (“RadioReach,” “we,” “us,” or “our”) respects your privacy.
@@ -138,7 +202,7 @@ src="https://www.facebook.com/tr?id=2551277695315034&ev=PageView&noscript=1"
       information provided on the RadioReach website.
     </p>
 
-    <p><a href="/">Return to RadioReach</a></p>
+    <a class="back" href="/">Return to RadioReach</a>
   </main>
 </body>
 </html>

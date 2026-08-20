@@ -755,9 +755,6 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           aria-label="Site"
           className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
         >
-          <a href="/resources/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
-            Free radio promotion guides
-          </a>
           <a href="/privacy-policy/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
             Privacy policy
           </a>
