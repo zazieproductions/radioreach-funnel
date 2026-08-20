@@ -35,6 +35,7 @@ function serveStaticPublicPages(): Plugin {
         const file = path.join(__dirname, "public", match[1], "index.html");
         if (!fs.existsSync(file)) return next();
         res.setHeader("Content-Type", "text/html; charset=utf-8");
+        res.setHeader("Cache-Control", "no-store");
         res.end(fs.readFileSync(file, "utf8"));
       });
     },
