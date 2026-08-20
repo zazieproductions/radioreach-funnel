@@ -8,11 +8,11 @@ import { defineConfig, type Plugin } from "vite";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Static marketing/legal pages that ship as public/<slug>/index.html and are
-// served at /<slug>/ by Cloudflare Pages in production. Vite's dev server
-// resolves those URLs to the SPA shell (history fallback) instead, which makes
-// the footer links appear to "not open a page" while developing. Serve them
-// the way production does.
+// Static marketing/legal pages that ship as public/<slug>/index.html (and the
+// /resources/ guide cluster) and are served at those paths by Cloudflare Pages
+// in production. Vite's dev server resolves these URLs to the SPA shell
+// (history fallback) instead, which makes the links appear dead while
+// developing. Serve them the way production does.
 function serveStaticPublicPages(): Plugin {
   return {
     name: "serve-static-public-pages",
@@ -20,10 +20,27 @@ function serveStaticPublicPages(): Plugin {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const [pathname, query] = (req.url ?? "").split("?");
-        const match = pathname.match(
+        const legal = pathname.match(
           /^\/(refund-policy|privacy-policy|terms)\/?$/,
         );
-        if (!match) return next();
+        const resources = pathname.match(/^\/resources\/?([a-z0-9-]+)?\/?$/);
+
+        // Resolve to the public/ page production (Cloudflare Pages) serves.
+        let file: string | null = null;
+        if (legal) {
+          file = path.join(__dirname, "public", legal[1], "index.html");
+        } else if (resources) {
+          file = resources[1]
+            ? path.join(
+                __dirname,
+                "public",
+                "resources",
+                resources[1],
+                "index.html",
+              )
+            : path.join(__dirname, "public", "resources", "index.html");
+        }
+        if (!file) return next();
 
         // Mirror static hosts: normalize /refund-policy → /refund-policy/.
         if (!pathname.endsWith("/")) {
@@ -32,7 +49,6 @@ function serveStaticPublicPages(): Plugin {
           return res.end();
         }
 
-        const file = path.join(__dirname, "public", match[1], "index.html");
         if (!fs.existsSync(file)) return next();
         res.setHeader("Content-Type", "text/html; charset=utf-8");
         res.setHeader("Cache-Control", "no-store");
