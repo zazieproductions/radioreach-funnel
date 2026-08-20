@@ -78,6 +78,7 @@ footer.site nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
 .template{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0}
 .template strong.t{display:block;color:#fff;margin-bottom:6px}
 .tag{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:2px 10px;margin-left:10px;vertical-align:middle}
+@media (prefers-reduced-motion: reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none !important}}
 `;
 
 const META_PIXEL = `
@@ -249,6 +250,7 @@ export function renderPage(page, allPages, extras = {}) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="color-scheme" content="dark">
+<meta name="view-transition" content="same-origin">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(page.description)}">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
