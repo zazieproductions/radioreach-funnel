@@ -378,7 +378,8 @@ fs.writeFileSync(path.join(RESOURCES, "index.html"), renderHub());
 const HOME_LASTMOD = "2026-08-18"; // homepage updated in this pass
 const LEGAL = [
   { loc: "https://radioreach.us/privacy-policy/", lastmod: "2026-08-15" },
-  { loc: "https://radioreach.us/terms/", lastmod: "2026-08-10" },
+  { loc: "https://radioreach.us/terms/", lastmod: "2026-08-20" },
+  { loc: "https://radioreach.us/refund-policy/", lastmod: "2026-08-20" },
 ];
 
 const urls = [

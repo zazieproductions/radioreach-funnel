@@ -291,7 +291,7 @@ export function StickyBar({
             {label}
           </button>
           <p className="mt-1 text-center text-[10px] text-white/45">
-            <span className="line-through">$49</span> · instant download · 30-day refund
+            <span className="line-through">$49</span> · instant download · 30-day money-back guarantee
           </p>
         </div>
       </div>

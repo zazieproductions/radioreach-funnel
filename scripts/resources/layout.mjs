@@ -321,6 +321,7 @@ ${jsonLd(graph)}
       <a href="/resources/">Free guides</a>
       <a href="/privacy-policy/">Privacy policy</a>
       <a href="/terms/">Terms of service</a>
+      <a href="/refund-policy/">Refund policy</a>
     </nav>
     <p class="small">© ${new Date().getFullYear()} RadioReach. Guidance on this
     page is general information — individual radio stations set their own

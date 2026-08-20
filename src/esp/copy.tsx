@@ -103,8 +103,8 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
 
   /* — trust line under the hero CTA — */
   ctaTrust: {
-    default: "🔒 Stripe checkout · Instant download · 30-day refund",
-    calm: "🔒 Stripe checkout · Instant download · 30-day refund",
+    default: "🔒 Stripe checkout · Instant download · 30-day money-back guarantee",
+    calm: "🔒 Stripe checkout · Instant download · 30-day money-back guarantee",
     aspire: "🔒 Stripe checkout · Instant download · Join 1,940+ artists",
     urgency: "🔒 Stripe checkout · Instant download · Price returns to $49",
   },
@@ -207,7 +207,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         marketing departments. This is the same caliber of data — 18,000+ contacts, 10K+ verified
         emails — for <span className="font-bold text-acid">$20</span>, one time. That's{" "}
         <b className="text-white">0.11¢ per contact.</b> No subscription, no upsell maze, and a
-        30-day refund if it's not for you.
+        30-day money-back guarantee if it's not for you.
       </>
     ),
     aspire: (
@@ -249,13 +249,13 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   /* — guarantee paragraph — */
   guaranteePara: {
     default:
-      "Download it. Open it. Check the emails against your own research. If you decide it wasn't worth $20, email me inside 30 days and I'll refund you — and you can keep the file. I'm an independent artist too. I'd rather you make it than hold your money hostage.",
+      "Download it. Open it. Put it to work: contact at least five stations that fit your music and keep a simple log of what you sent. If you've genuinely tried it and it isn't worth $20, email me within 30 days with your receipt and I'll refund you in full. No airplay or replies required — just an honest attempt.",
     calm:
-      "Download it. Open it. Check the emails against your own research — take your time. If you decide it wasn't worth $20, email me inside 30 days and I'll refund you, and you can keep the file. The risk sits with me, not with you. That's the whole arrangement.",
+      "Download it. Open it. Take your time. Contact at least five stations that fit your music and note what you sent. If you've given it a real look and it isn't worth $20, email me within 30 days with your receipt for a full refund. No replies or airplay required — just your honest attempt. The risk sits with me, not with you.",
     aspire:
-      "Download it. Open it. Check the emails against your own research — serious artists verify their tools. If it doesn't meet your standard, email me inside 30 days and I'll refund you, and you can keep the file. I'm an independent artist too. I'd rather you make it than hold your money hostage.",
+      "Download it. Open it. Serious artists verify their tools: contact at least five stations that fit your music and log what you sent. If it doesn't meet your standard, email me within 30 days with your receipt and I'll refund you in full. You don't need a single reply to qualify — just a genuine, documented effort.",
     urgency:
-      "Download it tonight, while the founder price holds. Check the emails against your own research. If it isn't worth $20, email me inside 30 days and I'll refund you — and you can keep the file. The only way to lose here is to come back after the price returns to $49.",
+      "Download it tonight, while the founder price holds. Contact at least five stations that fit your music and log what you sent. If it isn't worth $20 after a genuine try, email me within 30 days with your receipt — full refund, no airplay or replies required. The only way to lose is to come back after the price returns to $49.",
   },
 
   /* — final CTA, road A — */
