@@ -358,6 +358,7 @@ footer.site nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
       <a href="/resources/">Free guides</a>
       <a href="/privacy-policy/">Privacy policy</a>
       <a href="/terms/">Terms of service</a>
+      <a href="/refund-policy/">Refund policy</a>
     </nav>
     <p class="small">© ${new Date().getFullYear()} RadioReach. Guidance here is general
     information — individual radio stations set their own submission and programming
