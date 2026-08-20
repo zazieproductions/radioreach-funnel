@@ -358,6 +358,7 @@ footer.site nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
       <a href="/resources/">Free guides</a>
       <a href="/privacy-policy/">Privacy policy</a>
       <a href="/terms/">Terms of service</a>
+      <a href="/refund-policy/">Refund policy</a>
     </nav>
     <p class="small">© ${new Date().getFullYear()} RadioReach. Guidance here is general
     information — individual radio stations set their own submission and programming
@@ -378,7 +379,8 @@ fs.writeFileSync(path.join(RESOURCES, "index.html"), renderHub());
 const HOME_LASTMOD = "2026-08-18"; // homepage updated in this pass
 const LEGAL = [
   { loc: "https://radioreach.us/privacy-policy/", lastmod: "2026-08-15" },
-  { loc: "https://radioreach.us/terms/", lastmod: "2026-08-10" },
+  { loc: "https://radioreach.us/terms/", lastmod: "2026-08-20" },
+  { loc: "https://radioreach.us/refund-policy/", lastmod: "2026-08-20" },
 ];
 
 const urls = [

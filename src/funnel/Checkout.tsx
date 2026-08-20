@@ -277,6 +277,21 @@ export default function Checkout({
 
           {/* right column — Stripe collects delivery + payment details once */}
           <section id="payment" className="space-y-3">
+            <div className="rounded-lg border border-acid/25 bg-acid/5 px-4 py-3 text-[12px] leading-relaxed text-white/65">
+              <p>
+                <b className="text-acid">30-Day Action-Based Money-Back Guarantee.</b>{" "}
+                Try RadioReach for 30 days. If you contact at least five relevant
+                stations, document your outreach, and decide the product is not
+                right for you, submit your request within 30 days for a refund.{" "}
+                <a
+                  href="/refund-policy/"
+                  className="underline decoration-acid/40 underline-offset-4 hover:text-acid"
+                >
+                  See full terms
+                </a>
+                .
+              </p>
+            </div>
             <div className="rounded-lg border border-acid/25 bg-acid/5 px-4 py-3 text-center text-[12px] text-white/60 lg:hidden">
               <b className="text-acid">Next:</b> enter your email and payment details securely with Stripe.
             </div>
@@ -289,6 +304,24 @@ export default function Checkout({
       <button type="button" onClick={() => onComplete(total, { contracts, au })} className="sr-only">
         sync
       </button>
+
+      <footer className="mt-6 border-t border-white/10 px-4 py-6 text-center text-[11px] leading-relaxed text-white/30">
+        <nav
+          aria-label="Site"
+          className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
+        >
+          <a href="/privacy-policy/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Privacy policy
+          </a>
+          <a href="/terms/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Terms of service
+          </a>
+          <a href="/refund-policy/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Refund policy
+          </a>
+        </nav>
+        <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
+      </footer>
     </div>
   );
 }

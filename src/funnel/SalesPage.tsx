@@ -57,7 +57,7 @@ const FAQS = [
   ],
   [
     "Does RadioReach have a refund policy?",
-    "You get 30 days. Email me, tell me it didn't help, and I'll refund you. I'd rather have your respect than your $20.",
+    "Yes — a 30-day action-based money-back guarantee. Put it to work: contact at least five relevant stations, keep a simple record of your outreach, and if you decide it isn't for you, email me within 30 days with your receipt and a short note about what happened. No airplay or replies required — just an honest attempt. The full terms are on the refund policy page.",
   ],
 ];
 
@@ -510,9 +510,14 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           <div className="mx-auto grid h-16 w-16 place-items-center rounded-full border-4 border-acid font-display text-xl text-acid sm:h-20 sm:w-20 sm:text-2xl">
             30
           </div>
-          <h2 className="mt-4 font-display text-[1.7rem] leading-[1.1] sm:text-4xl">THE "I'LL EAT THE COST" GUARANTEE</h2>
+          <h2 className="mt-4 font-display text-[1.7rem] leading-[1.1] sm:text-4xl">THE 30-DAY "PUT IT TO WORK" GUARANTEE</h2>
           <p className="mt-3 font-serif text-[1.05rem] leading-[1.65] text-white/75 sm:text-lg">
             <EmotiveText slot="guaranteePara" />
+          </p>
+          <p className="mt-3 text-[12px] text-white/45">
+            <a href="/refund-policy/" className="underline decoration-acid/40 underline-offset-4 hover:text-acid">
+              Read the full refund policy
+            </a>
           </p>
         </div>
       </section>
@@ -692,7 +697,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             Give Me Instant Access — $20
           </button>
           <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
-            Secure checkout · Instant download · 30-day refund · No subscription, ever
+            Secure checkout · Instant download · 30-day money-back guarantee · No subscription, ever
           </p>
         </div>
       </section>
@@ -758,6 +763,9 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           </a>
           <a href="/terms/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
             Terms of service
+          </a>
+          <a href="/refund-policy/" className="underline decoration-white/20 underline-offset-4 hover:text-white/60">
+            Refund policy
           </a>
         </nav>
         <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
