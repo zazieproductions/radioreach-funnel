@@ -25,6 +25,9 @@ import {
   getLuckyCouponRemainingMs,
   type LuckyCoupon,
 } from "../lib/luckyCoupon";
+import { isImpulseMode, rememberPaidTraffic } from "../lib/impulseMode";
+import MobileBounceSave from "./MobileBounceSave";
+import LiveProofStrip from "./LiveProofStrip";
 
 import {
   DebugPanel,
@@ -72,6 +75,8 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [espDebug] = useState(() => readEspFlag().debug);
   const [nowMs, setNowMs] = useState(() => Date.now());
+  const [impulse, setImpulse] = useState(false);
+  const [microYes, setMicroYes] = useState(false);
 
   useEffect(() => {
     if (!luckyCoupon) return;
@@ -82,6 +87,10 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
   // Start the Emotional State Proxy. Behind the feature flag this is
   // a no-op; cleanup fully detaches it when the funnel leaves this page.
   useEffect(() => initEsp(), []);
+  useEffect(() => {
+    rememberPaidTraffic();
+    setImpulse(isImpulseMode());
+  }, []);
 
   // Every CTA in the page funnels through here, so each click can be
   // logged as a conversion event tagged with the mode the visitor
@@ -102,6 +111,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         title={<EmotiveText slot="exitTitle" />}
         body={<EmotiveText slot="exitBody" />}
       />
+      <MobileBounceSave onTake={() => handleCta("mobile_bounce")} />
       <StickyBar
         onCta={() => handleCta("sticky")}
         label={<EmotiveText slot="stickyLabel" />}
@@ -159,8 +169,19 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           </p>
 
           <h1 className="font-display text-[1.85rem] leading-[1.06] sm:text-6xl sm:leading-[0.95] md:text-7xl">
-            RADIO STATION CONTACTS <span className="text-blood">FOR MUSICIANS</span>
-            <span className="mt-2 block text-[0.58em] tracking-wide">"WHO DO I EVEN SEND IT TO?"</span>
+            {impulse ? (
+              <>
+                18,000 RADIO CONTACTS.{" "}
+                <span className="text-blood">$20. ON YOUR PHONE IN 90 SECONDS.</span>
+              </>
+            ) : (
+              <>
+                RADIO STATION CONTACTS <span className="text-blood">FOR MUSICIANS</span>
+                <span className="mt-2 block text-[0.58em] tracking-wide">
+                  &quot;WHO DO I EVEN SEND IT TO?&quot;
+                </span>
+              </>
+            )}
           </h1>
           <EmotiveText
             slot="heroSub"
@@ -524,7 +545,8 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
       {/* FAQ */}
       <section id="faq" className="defer-render mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
-        {/* SEO / RESOURCE CLUSTER */}
+        {/* SEO / RESOURCE CLUSTER — hidden on paid mobile (A3 winner: attention leak) */}
+        {!impulse && (
         <section className="mx-auto max-w-4xl py-8 sm:py-12">
           <div className="rounded-xl border border-white/10 bg-black/30 p-4 sm:p-8">
             <p className="text-[10px] font-black uppercase tracking-[0.14em] text-acid sm:text-xs sm:tracking-[0.18em]">
@@ -629,6 +651,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             </div>
           </div>
         </section>
+        )}
 
         <SectionLabel>Objections, handled</SectionLabel>
         <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>

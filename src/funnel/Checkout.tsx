@@ -4,6 +4,7 @@ import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
 import { PRODUCTS } from "../config/storefront";
 import { track } from "../lib/metaPixel";
 import { getMomentumAttribution } from "../lib/momentumSequence";
+import { isImpulseMode } from "../lib/impulseMode";
 import {
   formatRemainingMs,
   getLuckyCouponRemainingMs,
@@ -30,6 +31,7 @@ export default function Checkout({
   const [contracts, setContracts] = useState(true);
   const [au, setAu] = useState(true);
   const [nowMs, setNowMs] = useState(() => Date.now());
+  const [impulse] = useState(() => isImpulseMode());
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
   const hasWinningCoupon =
@@ -122,7 +124,16 @@ export default function Checkout({
 
       <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
         <div className="mb-5 flex flex-col items-center gap-3 text-center sm:mb-6">
-          <p className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">ALMOST YOURS — SECURE CHECKOUT</p>
+          <p className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">
+            {impulse ? "LAST STEP — CONTACTS UNLOCK AFTER PAY" : "ALMOST YOURS — SECURE CHECKOUT"}
+          </p>
+          {impulse && (
+            <ul className="mt-1 grid max-w-lg gap-1.5 text-left text-[13px] text-white/65">
+              <li>✓ Instant download to this phone — no app, no login later</li>
+              <li>✓ $20 today vs $49 when the timer dies</li>
+              <li>✓ 30-day action guarantee — risk sits with us</li>
+            </ul>
+          )}
           <div className="flex flex-col items-center gap-2 min-[400px]:flex-row min-[400px]:gap-4">
             <span className="text-[11px] font-bold uppercase tracking-wider text-blood sm:text-[12px] sm:tracking-widest">Founder pricing ends in</span>
             <FlipClock seconds={597} />
@@ -276,7 +287,7 @@ export default function Checkout({
           </aside>
 
           {/* right column — Stripe collects delivery + payment details once */}
-          <section id="payment" className="space-y-3">
+          <section id="payment" className={`space-y-3 ${impulse ? "order-1 lg:order-2" : ""}`}>
             <div className="rounded-lg border border-acid/25 bg-acid/5 px-4 py-3 text-[12px] leading-relaxed text-white/65">
               <p>
                 <b className="text-acid">30-Day Action-Based Money-Back Guarantee.</b>{" "}

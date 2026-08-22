@@ -253,7 +253,7 @@ export function StickyBar({
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
-      const threshold = window.matchMedia("(max-width: 639px)").matches ? 380 : 700;
+      const threshold = window.matchMedia("(max-width: 639px)").matches ? 160 : 700;
       raf = requestAnimationFrame(() => setShow(window.scrollY > threshold));
     };
     window.addEventListener("scroll", onScroll, { passive: true });

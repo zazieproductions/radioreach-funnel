@@ -435,6 +435,12 @@ summary {
     font-size: 1.02rem;
   }
 
+  /* Impulse checkout: pay first, cart second — thumb stays on Stripe */
+  .impulse-pay-first {
+    display: flex;
+    flex-direction: column;
+  }
+
   /* FAQ / accordion rows */
   button.pressable {
     min-height: 48px;
