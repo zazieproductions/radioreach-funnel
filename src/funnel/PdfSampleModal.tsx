@@ -423,7 +423,7 @@ export default function PdfSampleModal({ isOpen, onClose, onCta }: Props) {
 
             {/* PAGE 1 TABLE OF ACTUAL CONTACTS */}
             <div className="mt-4 overflow-x-auto">
-              <table className="w-full min-w-[700px] border-collapse text-left text-[11px] sm:text-xs">
+              <table className="w-full min-w-[780px] border-collapse text-left text-[11px] sm:text-xs">
                 <thead>
                   <tr className="border-b-2 border-[#cbd5e1] bg-[#edf2f7] text-[10px] font-black uppercase tracking-wider text-[#2d3748]">
                     <th scope="col" className="p-2 w-8 text-center text-[#718096]">#</th>
@@ -432,6 +432,7 @@ export default function PdfSampleModal({ isOpen, onClose, onCta }: Props) {
                     <th scope="col" className="p-2">Decision-Maker</th>
                     <th scope="col" className="p-2">Role</th>
                     <th scope="col" className="p-2">Direct Email</th>
+                    <th scope="col" className="p-2">Direct Phone</th>
                     <th scope="col" className="p-2 hidden md:table-cell">Format</th>
                     <th scope="col" className="p-2 text-right">Action</th>
                   </tr>
@@ -462,6 +463,9 @@ export default function PdfSampleModal({ isOpen, onClose, onCta }: Props) {
                       </td>
                       <td className="p-2 font-mono text-[11px] text-[#0369a1]">
                         {c.email}
+                      </td>
+                      <td className="p-2 font-mono text-[11px] text-[#166534]">
+                        {c.phone}
                       </td>
                       <td className="p-2 text-[10px] text-[#475569] hidden md:table-cell">
                         {c.format}
