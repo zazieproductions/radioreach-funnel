@@ -46,7 +46,7 @@ export function useCountdown(seconds: number, key = "zp_deadline") {
   };
 }
 
-/** Fixed-width, tabular digits — cannot cause layout shift as it ticks. */
+/** Fixed-width, tabular digits; cannot cause layout shift as it ticks. */
 export function FlipClock({ seconds = 897, size = "md" }: { seconds?: number; size?: "sm" | "md" }) {
   const { h, m, s, pad } = useCountdown(seconds);
   const digit = size === "sm" ? "text-lg sm:text-2xl" : "text-[1.35rem] sm:text-3xl";
@@ -80,7 +80,7 @@ export function FlipClock({ seconds = 897, size = "md" }: { seconds?: number; si
 }
 
 /* ─────────────────────────────────────────────
-   PER-TAB OFFER WINDOW — starts once, survives refreshes in this tab
+   PER-TAB OFFER WINDOW; starts once, survives refreshes in this tab
 ───────────────────────────────────────────── */
 
 const SALE_WINDOW_KEY = "rr_sale_window_end_v1";
@@ -168,7 +168,7 @@ export function Ticker() {
 }
 
 /* ─────────────────────────────────────────────
-   TOP NAV — anchor links, sticky, keyboard safe
+   TOP NAV; anchor links, sticky, keyboard safe
 ───────────────────────────────────────────── */
 
 const LINKS = [
@@ -206,7 +206,7 @@ export function TopNav({ onCta }: { onCta: () => void }) {
           onClick={onCta}
           className="cta ml-auto shrink-0 rounded-lg bg-acid px-3 py-2 text-[12px] font-black uppercase tracking-wide text-ink sm:px-4 sm:text-[13px] md:ml-0"
         >
-          Get access <span className="hidden min-[380px]:inline">— $20</span>
+          Get access <span className="hidden min-[380px]:inline">: $20</span>
         </button>
       </nav>
     </header>
@@ -214,7 +214,7 @@ export function TopNav({ onCta }: { onCta: () => void }) {
 }
 
 /* ─────────────────────────────────────────────
-   EXIT INTENT — desktop only, once, escapable
+   EXIT INTENT; desktop only, once, escapable
 ───────────────────────────────────────────── */
 
 export function ExitIntent({
@@ -223,7 +223,7 @@ export function ExitIntent({
   body,
 }: {
   onTake: () => void;
-  /** Adaptive copy (EmotiveText) — falls back to the defaults below. */
+  /** Adaptive copy (EmotiveText); falls back to the defaults below. */
   title?: ReactNode;
   body?: ReactNode;
 }) {
@@ -277,7 +277,7 @@ export function ExitIntent({
         </button>
 
         <p className="bg-blood py-2 text-[12px] font-black uppercase tracking-[0.18em]">
-          Before you go — see what $20 unlocks
+          Before you go. See what $20 unlocks
         </p>
 
         <div className="p-6 sm:p-8">
@@ -298,7 +298,7 @@ export function ExitIntent({
             onClick={onTake}
             className="cta mt-6 w-full rounded-lg bg-acid px-6 py-4 font-display text-xl uppercase tracking-wide text-ink"
           >
-            Get instant access — $20
+            Get instant access for $20
           </button>
           <button
             onClick={() => setOpen(false)}
@@ -318,7 +318,7 @@ export function ExitIntent({
 
 export function StickyBar({
   onCta,
-  label = "Get Instant Access — $20",
+  label = "Get Instant Access for $20",
 }: {
   onCta: () => void;
   /** String or adaptive copy (EmotiveText slot "stickyLabel"). */

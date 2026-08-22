@@ -32,7 +32,7 @@ export const STORE_COPY = {
 export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
   vault_core: {
     key: "vault_core",
-    name: "Radio Reach Vault — 18,000+ radio contacts",
+    name: "Radio Reach Vault: 18,000+ radio contacts",
     shortName: "Radio Reach Vault",
     price: 20,
     compareAt: 55,
@@ -77,7 +77,7 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
   },
   upwork_course: {
     key: "upwork_course",
-    name: "Advanced Upwork Proposals — Full Course",
+    name: "Advanced Upwork Proposals: Full Course",
     shortName: "Upwork Course",
     price: 50,
     compareAt: 2000,

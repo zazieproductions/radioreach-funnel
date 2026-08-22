@@ -20,7 +20,7 @@ import {
 } from "../lib/slots";
 import { PLAYLISTPUSH_CODE } from "../lib/secretCode";
 
-// Visual language — vibrant carnival gradients shared with the lucky wheel:
+// Visual language; vibrant carnival gradients shared with the lucky wheel:
 // the machine is the colorful thing you can't help but pull. Structure stays
 // clean (line-art glyphs, slim typography) so it reads vibrant, not messy.
 const RAINBOW_CONIC =
@@ -32,7 +32,7 @@ const RAINBOW_LINEAR_135 =
 const RAINBOW_TEXT =
   "linear-gradient(90deg,#FACC15,#FB923C,#F472B6,#A78BFA,#22D3EE,#FACC15)";
 
-// Reel geometry — one strip per reel, ROW_H-tall tiles, repeated symbol
+// Reel geometry; one strip per reel, ROW_H-tall tiles, repeated symbol
 // cycles so the strip is always taller than the largest translate.
 const ROW_H = 44;
 const STRIP_CYCLES = 8;
@@ -56,7 +56,7 @@ const SPIN_EASING = "cubic-bezier(0.22, 0.85, 0.24, 1)";
 const NUDGE_EASING = "cubic-bezier(0.34, 1.56, 0.64, 1)";
 
 // Motion for the cabinet. Reduced-motion users get all of it collapsed by
-// the global `prefers-reduced-motion` rule — content stays.
+// the global `prefers-reduced-motion` rule; content stays.
 const KEYFRAME_CSS = `
 @keyframes slotChase{0%,100%{opacity:.15}50%{opacity:1}}
 .slot-chase-idle{animation:slotChase 2s ease-in-out infinite}
@@ -76,7 +76,7 @@ const KEYFRAME_CSS = `
 
 const LIGHT_COLORS = ["#FACC15", "#FB923C", "#F87171", "#F472B6", "#A78BFA", "#22D3EE", "#38BDF8", "#34D399"];
 
-// audio — soft, not harsh (same helpers as the lucky wheel)
+// audio; soft, not harsh (same helpers as the lucky wheel)
 let _audioCtx: AudioContext | null = null;
 function getAudio() {
   if (typeof window === "undefined") return null;
@@ -147,7 +147,7 @@ function playWinChime() {
   });
 }
 
-// Line-art glyphs — clean shapes, but each one glows its own vivid color.
+// Line-art glyphs; clean shapes, but each one glows its own vivid color.
 function SymbolGlyph({ id, className = "" }: { id: ReelSymbol; className?: string }) {
   const s = {
     fill: "none",
@@ -262,7 +262,7 @@ export default function SecretSlotsSection() {
   // Deliberately less prominent than the lucky wheel: the wheel is a
   // hero-level CTA, so at rest this is just a single teaser row. But it
   // still wears the rainbow so it begs the click. The machine (and the
-  // code) stay hidden until the teaser is opened AND a spin lands — every
+  // code) stay hidden until the teaser is opened AND a spin lands; every
   // visit, no persistence.
   const [expanded, setExpanded] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
@@ -271,11 +271,11 @@ export default function SecretSlotsSection() {
     <section className="defer-render mx-auto max-w-4xl px-4 py-12 sm:py-16">
       <SectionLabel>The industry doesn't advertise this</SectionLabel>
       <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
-        THE OTHER HALF OF THE GAME — <span className="hl">PLAYLISTS</span>
+        THE OTHER HALF OF THE GAME: <span className="hl">PLAYLISTS</span>
       </h2>
       <p className="mt-4 max-w-2xl font-serif text-[1.05rem] leading-[1.65] text-white/70 sm:text-lg">
         Radio gets you spins. Playlists get you streams. Same gatekeepers,
-        different door — and the door the pros use quietly is PlaylistPush:
+        different door. The door the pros use quietly is PlaylistPush:
         they pitch your track to Spotify curators while you sleep. The code
         below is the part they never print.
       </p>
@@ -307,11 +307,11 @@ export default function SecretSlotsSection() {
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-[12px] font-black uppercase tracking-[0.14em] text-white/80">
-                  The code isn't public — you have to win it
+                  The code isn't public; you have to win it
                 </span>
                 <span className="mt-0.5 block text-[12px] text-white/50">
                   One free pull, it always lands on the key.
-                  {unlocked ? " Code unlocked — tap to view." : ""}
+                  {unlocked ? " Code unlocked. Tap to view." : ""}
                 </span>
               </span>
               <span className="shrink-0 rounded-full bg-gradient-to-r from-amber-300 via-orange-400 to-pink-400 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-widest text-zinc-900 shadow-[0_2px_10px_rgba(251,146,60,0.4)] transition group-hover:brightness-[1.06]">
@@ -342,7 +342,7 @@ function Machine({
   onUnlock?: () => void;
   onCollapse?: () => void;
 }) {
-  // Always starts hidden — the code only appears after a spin. The only
+  // Always starts hidden; the code only appears after a spin. The only
   // exception is reopening within the same visit after a win, so the
   // visitor can get back to the code they already earned.
   const [phase, setPhase] = useState<Phase>(initialRevealed ? "reveal" : "idle");
@@ -381,7 +381,7 @@ function Machine({
     getAudio();
 
     // Whole-row targets only. Randomness is the rotation count (like the
-    // wheel's turn count) — the payline always lands on the requested symbol.
+    // wheel's turn count); the payline always lands on the requested symbol.
     const targets = [
       reelStopForSymbol(SECRET_INDEX, 2, Math.random),
       reelStopForSymbol(SECRET_INDEX, 3, Math.random),
@@ -403,7 +403,7 @@ function Machine({
     }
 
     // Keep the translate inside the strip: rewind by whole cycles (visually
-    // identical — the strip is periodic) when the next target runs long.
+    // identical; the strip is periodic) when the next target runs long.
     // The rewind must paint before the spin transition starts, so the plan
     // begins one animation frame after it.
     const maxTarget = Math.max(...targets, finalThird);
@@ -435,7 +435,7 @@ function Machine({
       apply(() => setReel(1, targets[1], `transform ${REEL_1_MS}ms ${SPIN_EASING}`), REEL_1_DELAY);
       apply(() => setReel(2, targets[2], `transform ${REEL_2_MS}ms ${SPIN_EASING}`), REEL_2_DELAY);
 
-      // Near miss: two keys visible, third reel "locked" — a beat of suspense.
+      // Near miss: two keys visible, third reel "locked"; a beat of suspense.
       apply(() => {
         setPhase("nearMiss");
         playNearMissTick();
@@ -481,12 +481,12 @@ function Machine({
   const leverPulled = phase === "spinning" || phase === "nearMiss";
   const status =
     phase === "nearMiss"
-      ? "So close — the third reel is still locked…"
+      ? "So close. The third reel is still locked…"
       : phase === "spinning"
         ? "Spinning…"
         : isSecret && phase === "reveal"
           ? `Three keys! Code unlocked: ${PLAYLISTPUSH_CODE}.`
-          : "Three reels. One payline. The key lands every time — free spin below.";
+          : "Three reels. One payline. The key lands every time; free spin below.";
 
   const handleCopy = () => {
     navigator.clipboard?.writeText(PLAYLISTPUSH_CODE);
@@ -507,7 +507,7 @@ function Machine({
       >
         {/* ── cabinet interior ── */}
         <div className="relative overflow-hidden rounded-[20px] bg-[#0E0E13]">
-          {/* marquee — rainbow title + chasing lights */}
+          {/* marquee; rainbow title + chasing lights */}
           <div className="relative border-b border-white/10 bg-gradient-to-b from-[#16161d] to-[#0d0d12] px-4 pb-2.5 pt-4 text-center">
             <ChaseDots count={10} phase={phase} className="absolute inset-x-5 top-1.5" />
             <p
@@ -530,7 +530,7 @@ function Machine({
           <div
             className={`relative px-3.5 pb-3.5 pt-3.5 sm:px-4 ${phase === "reveal" ? "animate-[winFlash_1.6s_ease-in-out]" : ""}`}
           >
-            {/* burst ring on the win — gold */}
+            {/* burst ring on the win; gold */}
             {phase === "reveal" && (
               <span
                 aria-hidden
@@ -603,7 +603,7 @@ function Machine({
                 })}
               </div>
 
-              {/* glass — top/bottom shading + diagonal reflection */}
+              {/* glass; top/bottom shading + diagonal reflection */}
               <div className="pointer-events-none absolute inset-x-0 top-0 h-7 bg-gradient-to-b from-black/70 to-transparent" aria-hidden />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-7 bg-gradient-to-t from-black/70 to-transparent" aria-hidden />
               <div
@@ -611,7 +611,7 @@ function Machine({
                 aria-hidden
               />
 
-              {/* payline — double bracket around the middle row, rainbow */}
+              {/* payline; double bracket around the middle row, rainbow */}
               {[PAYLINE_INDEX, PAYLINE_INDEX + 1].map((edge) => (
                 <div
                   key={edge}
@@ -632,7 +632,7 @@ function Machine({
               ))}
             </div>
 
-            {/* status — announced politely for screen readers */}
+            {/* status; announced politely for screen readers */}
             <p
               role="status"
               className="mt-2 min-h-[16px] text-center text-[11px] font-medium tracking-wide text-white/45"
@@ -643,7 +643,7 @@ function Machine({
             {/* ── lever / reveal ── */}
             {phase === "reveal" ? (
               <div className="mt-2 animate-[slotCardIn_0.32s_cubic-bezier(0.16,1,0.3,1)]">
-                {/* the whisper — the whole point of the machine */}
+                {/* the whisper; the whole point of the machine */}
                 <div className="text-center">
                   <h3 className="font-display text-[1.15rem] leading-tight tracking-tight text-white sm:text-[1.3rem]">
                     SHH…{" "}
@@ -656,7 +656,7 @@ function Machine({
                   </p>
                 </div>
 
-                {/* code card — rainbow border, shine sweep */}
+                {/* code card; rainbow border, shine sweep */}
                 <div className="relative mt-2.5 overflow-hidden rounded-2xl p-[1.5px]" style={{ background: RAINBOW_LINEAR_135 }}>
                   {/* shine sweep once */}
                   <span
@@ -665,7 +665,7 @@ function Machine({
                   />
                   <div className="relative rounded-[15px] bg-[#0F0F12] p-3.5 text-center sm:p-4">
                     <p className="font-mono text-[9px] font-bold uppercase tracking-[0.24em] text-white/40">
-                      Insider code — PlaylistPush
+                      Insider code; PlaylistPush
                     </p>
                     <div className="mt-2 flex items-center justify-center gap-2">
                       <span className="rounded-lg border border-acid/25 bg-black/60 px-3.5 py-2 font-mono text-[21px] font-black tracking-[0.22em] text-acid animate-[codeGlow_1.8s_ease-in-out_infinite] sm:text-[24px]">
@@ -711,7 +711,7 @@ function Machine({
                   style={{ background: RAINBOW_CONIC }}
                 >
                   <span className="relative flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-amber-300 via-orange-400 to-pink-400 px-5 py-2.5 text-[13px] font-black uppercase tracking-[0.12em] text-zinc-900">
-                    {/* lever — rotates down while pulled */}
+                    {/* lever; rotates down while pulled */}
                     <span
                       className="relative inline-grid h-7 w-6 shrink-0 place-items-end pb-0.5"
                       style={{
@@ -730,7 +730,7 @@ function Machine({
                         Spinning…
                       </>
                     ) : (
-                      <>Pull the lever — free spin</>
+                      <>Pull the lever for a free spin</>
                     )}
                   </span>
                 </button>
@@ -741,7 +741,7 @@ function Machine({
             )}
           </div>
 
-          {/* ── plinth — quiet machine plate ── */}
+          {/* ── plinth; quiet machine plate ── */}
           <div className="flex items-center justify-between border-t border-white/10 bg-gradient-to-b from-[#0d0d12] to-[#15151b] px-4 py-2.5">
             <span className="font-mono text-[8px] font-bold tracking-[0.26em] text-white/35">RADIO REACH</span>
             <span className={`font-mono text-[9px] font-bold tracking-[0.2em] ${phase === "reveal" ? "text-acid" : "text-white/45"}`}>
@@ -751,7 +751,7 @@ function Machine({
         </div>
       </div>
 
-      {/* quiet collapse control — the machine tucks back into the teaser */}
+      {/* quiet collapse control; the machine tucks back into the teaser */}
       <div className="mt-2.5 text-center">
         <button
           type="button"

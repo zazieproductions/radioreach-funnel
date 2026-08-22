@@ -102,10 +102,10 @@ export default function Checkout({
   return (
     <div className="min-h-screen bg-ink">
       <p className="bg-blood py-2 text-center text-[11px] font-black uppercase tracking-[0.16em]">
-        Secure checkout — payment handled by Stripe inside this page
+        Secure checkout. Payment handled by Stripe inside this page
       </p>
 
-      {/* jackpot banner on checkout — makes the pre-selected upsells feel like a win */}
+      {/* jackpot banner on checkout; makes the pre-selected upsells feel like a win */}
       {hasWinningCoupon && luckyCoupon && (
         <div className="bg-gradient-to-r from-acid via-yellow-200 to-acid px-3 py-2.5 text-center">
           <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] text-ink sm:gap-3 sm:text-xs">
@@ -134,7 +134,7 @@ export default function Checkout({
             onClick={() => onOpenWheel?.()}
             className="ml-2 rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-widest text-blood hover:bg-acid"
           >
-            Spin again — free
+            Spin again for free
           </button>
         </div>
       )}
@@ -154,7 +154,7 @@ export default function Checkout({
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-          {/* left column — selector + summary */}
+          {/* left column; selector + summary */}
           <aside className="space-y-4">
             <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <p className="font-display text-2xl">YOUR ORDER</p>
@@ -167,7 +167,7 @@ export default function Checkout({
                   <p className="font-black uppercase tracking-[0.12em] text-acid">🎉 Jackpot pricing unlocked</p>
                   <p className="mt-1">
                     Contract Kit <span className="line-through text-white/35">$25</span> <b className="text-white">$9</b> + AU List{" "}
-                    <span className="line-through text-white/35">$29</span> <b className="text-white">$12</b>. Select either or both below—<b>nothing was pre-added.</b>
+                    <span className="line-through text-white/35">$29</span> <b className="text-white">$12</b>. Select either or both below. <b>Nothing was pre-added.</b>
                   </p>
                   <p className="mt-1 font-mono text-[10px] text-white/45">{luckyCoupon.code} · held for {remainingStr}</p>
                 </div>
@@ -204,7 +204,7 @@ export default function Checkout({
                   <p className="text-[10px] text-white/35">Tap to add or remove</p>
                 </div>
 
-                {/* Contract Kit — jackpot styling when winner */}
+                {/* Contract Kit; jackpot styling when winner */}
                 <label
                   className={`relative flex min-h-14 items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
                     hasWinningCoupon
@@ -254,11 +254,11 @@ export default function Checkout({
                         <b className="text-white/45">🔒 Spin to reveal founder price</b>
                       )}
                     </span>
-                    <span className="block text-[12px] text-white/45"><Stars /> "Saved me from a nightmare split deal." — Jordan Meacham</span>
+                    <span className="block text-[12px] text-white/45"><Stars /> "Saved me from a nightmare split deal." Jordan Meacham</span>
                   </div>
                 </label>
 
-                {/* AU addon — jackpot styling when winner */}
+                {/* AU addon; jackpot styling when winner */}
                 <label
                   className={`relative flex min-h-14 items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
                     hasWinningCoupon
@@ -291,7 +291,7 @@ export default function Checkout({
                         <b className="text-white/45">🔒 Spin to reveal founder price</b>
                       )}
                     </span>
-                    <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." — Dee R.</span>
+                    <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." Dee R.</span>
                   </span>
                 </label>
 
@@ -332,7 +332,7 @@ export default function Checkout({
             </section>
           </aside>
 
-          {/* right column — Stripe collects delivery + payment details once */}
+          {/* right column; Stripe collects delivery + payment details once */}
           <section id="payment" className="space-y-3">
             <div className="rounded-lg border border-acid/25 bg-acid/5 px-4 py-3 text-[12px] leading-relaxed text-white/65">
               <p>
