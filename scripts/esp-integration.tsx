@@ -182,7 +182,7 @@ if (SCENARIO === "A") {
   check("urgency copy visible", activeText("heroSub").includes("Every week the record sits"), activeText("heroSub").slice(0, 60));
   check("price facts untouched", activeText("heroSub").includes("18,000+ radio station contacts"));
   const heroCta = Array.from(document.querySelectorAll(".cta")).find((b) =>
-    b.textContent?.includes("Yes — Give Me The Contacts")
+    b.textContent?.includes("Get Instant Access — $20")
   );
   check("core CTA label untouched", !!heroCta);
 

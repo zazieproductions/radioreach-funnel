@@ -1,9 +1,9 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import {
   Check,
   Cross,
   ExitIntent,
-  FlipClock,
+  SaleTimer,
   SectionLabel,
   Stars,
   StickyBar,
@@ -20,6 +20,7 @@ const MomentumSequence = lazy(() => import("./MomentumSequence"));
 import { TESTIMONIALS } from "./testimonials";
 import { LuckyWheelButton } from "./LuckyWheel";
 import SecretSlotsSection from "./SecretSlots";
+import { trackCustom } from "../lib/metaPixel";
 import {
   formatRemainingMs,
   getLuckyCouponRemainingMs,
@@ -72,6 +73,26 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [espDebug] = useState(() => readEspFlag().debug);
   const [nowMs, setNowMs] = useState(() => Date.now());
+  const trafficContext = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const source = `${params.get("utm_source") ?? ""} ${params.get("utm_medium") ?? ""}`.toLowerCase();
+    const paidSocial =
+      params.has("fbclid") || /facebook|instagram|meta/.test(source) || /paid_social|paidsocial/.test(source);
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    return {
+      paidSocial,
+      mobile,
+      experience: paidSocial && mobile ? "mobile_meta_impulse_v1" : "standard_v1",
+    };
+  }, []);
+
+  useEffect(() => {
+    trackCustom("LandingExperienceViewed", {
+      experience: trafficContext.experience,
+      paid_social: trafficContext.paidSocial,
+      mobile: trafficContext.mobile,
+    });
+  }, [trafficContext]);
 
   useEffect(() => {
     if (!luckyCoupon) return;
@@ -87,7 +108,15 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
   // logged as a conversion event tagged with the mode the visitor
   // was in — the data we'll later use to see which states convert.
   const handleCta = (label = "cta") => {
-    espLogConversion("cta_click", { label });
+    espLogConversion("cta_click", { label, experience: trafficContext.experience });
+    trackCustom("SalesCtaClicked", {
+      placement: label,
+      experience: trafficContext.experience,
+      paid_social: trafficContext.paidSocial,
+      mobile: trafficContext.mobile,
+      value: 20,
+      currency: "USD",
+    });
     onCta();
   };
 
@@ -158,37 +187,50 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <EmotiveText slot="heroEyebrow" />
           </p>
 
-          <h1 className="font-display text-[1.85rem] leading-[1.06] sm:text-6xl sm:leading-[0.95] md:text-7xl">
-            RADIO STATION CONTACTS <span className="text-blood">FOR MUSICIANS</span>
-            <span className="mt-2 block text-[0.58em] tracking-wide">"WHO DO I EVEN SEND IT TO?"</span>
+          <h1 className="font-display text-[2.15rem] leading-[1.02] sm:text-6xl sm:leading-[0.95] md:text-7xl">
+            STOP GUESSING <span className="text-blood">WHO TO EMAIL.</span>
+            <span className="mt-2 block text-[0.55em] tracking-wide text-white/90">START YOUR RADIO OUTREACH TONIGHT.</span>
           </h1>
           <EmotiveText
             slot="heroSub"
             as="p"
-            className="mx-auto mt-4 max-w-2xl font-serif text-[1.05rem] leading-[1.6] text-white/80 sm:mt-5 sm:text-2xl sm:leading-relaxed"
+            className="mx-auto mt-4 max-w-2xl font-serif text-[1.02rem] leading-[1.55] text-white/80 sm:mt-5 sm:text-2xl sm:leading-relaxed"
           />
+
+          <ul className="mx-auto mt-4 grid max-w-lg grid-cols-3 gap-2 text-center text-[10px] font-bold uppercase leading-tight tracking-wide text-white/65 sm:mt-5 sm:text-xs">
+            <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">18K+</span> contacts</li>
+            <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">$20</span> once</li>
+            <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">90 sec</span> access</li>
+          </ul>
 
           {/* CTA box */}
           <div
             data-esp-zone="pricing"
             className="mobile-solid mx-auto mt-6 max-w-md rounded-xl border-2 border-acid/50 bg-black/85 p-4 text-left backdrop-blur sm:mt-8 sm:bg-black/60 sm:p-5"
           >
-            <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blood">
-              <EmotiveText slot="ctaLabel" />
-            </p>
-            <div data-esp-zone="scarcity" className="mt-2 flex justify-center">
-              <FlipClock seconds={897} />
+            <div data-esp-zone="scarcity" className="flex items-end justify-between gap-3 border-b border-white/10 pb-3">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/45">Radio Reach Vault</p>
+                <EmotiveText slot="ctaLabel" as="p" className="mt-1 text-sm font-bold text-white" />
+              </div>
+              <p className="font-display text-3xl text-acid">$20</p>
+            </div>
+            <div className="mt-3">
+              <SaleTimer compact />
             </div>
             <button
               type="button"
               onClick={() => handleCta("hero")}
-              className="cta mt-5 min-h-14 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
+              className="cta mt-4 min-h-14 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
             >
-              Yes — Give Me The Contacts
+              Get Instant Access — $20
               <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
-                Instant download · <span className="line-through opacity-60">$49</span> $20 today
+                Secure checkout · download after payment
               </span>
             </button>
+            <a href="#sample" className="tap-target mt-1 w-full text-center text-[12px] font-bold text-white/65 underline decoration-white/30 underline-offset-4 hover:text-white">
+              See a sample before buying ↓
+            </a>
             <div className="mt-3 flex flex-col items-center gap-1.5 text-center">
               <p className="text-[12px] text-white/55">
                 <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
@@ -209,7 +251,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           )}
 
           {/* Terminal preview */}
-          <div className="mt-8 w-full sm:mt-10">
+          <div id="sample" className="mt-8 w-full sm:mt-10">
             <p className="mb-3 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/60 sm:text-[11px] sm:tracking-[0.2em]">
               ↓ live sample — 7 of 18,000+ entries
             </p>
@@ -266,17 +308,6 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           </div>
         </div>
       </section>
-
-      {/* MOMENTUM + OWNERSHIP — runtime feature flagged */}
-      {isMomentumSequenceEnabled() && (
-        <Suspense
-          fallback={
-            <div className="min-h-[680px] border-y border-white/10 bg-[#0b0b0e]" aria-hidden="true" />
-          }
-        >
-          <MomentumSequence onCta={() => handleCta("momentum")} />
-        </Suspense>
-      )}
 
       {/* MECHANISM */}
       <section className="defer-render mx-auto max-w-4xl px-4 py-12 sm:py-16">
@@ -429,6 +460,19 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         </div>
       </section>
 
+      {/* Optional planning interaction comes only after the visitor has seen
+          the mechanism and the complete offer. Paid-social visitors can buy
+          without being forced through a quiz. */}
+      {isMomentumSequenceEnabled() && !trafficContext.paidSocial && (
+        <Suspense
+          fallback={
+            <div className="min-h-[680px] border-y border-white/10 bg-[#0b0b0e]" aria-hidden="true" />
+          }
+        >
+          <MomentumSequence onCta={() => handleCta("momentum")} />
+        </Suspense>
+      )}
+
       {/* TESTIMONIALS */}
       <section
         id="proof"
@@ -524,7 +568,9 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
       {/* FAQ */}
       <section id="faq" className="defer-render mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
-        {/* SEO / RESOURCE CLUSTER */}
+        {/* Organic visitors keep the resource cluster; paid-social visitors
+            stay on the purchase path instead of being offered seven exits. */}
+        {!trafficContext.paidSocial && (
         <section className="mx-auto max-w-4xl py-8 sm:py-12">
           <div className="rounded-xl border border-white/10 bg-black/30 p-4 sm:p-8">
             <p className="text-[10px] font-black uppercase tracking-[0.14em] text-acid sm:text-xs sm:tracking-[0.18em]">
@@ -629,6 +675,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             </div>
           </div>
         </section>
+        )}
 
         <SectionLabel>Objections, handled</SectionLabel>
         <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
