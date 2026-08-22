@@ -68,6 +68,62 @@ export function FlipClock({ seconds = 897, size = "md" }: { seconds?: number; si
 }
 
 /* ─────────────────────────────────────────────
+   REAL SALE DEADLINE — one public date, never reset per visitor
+───────────────────────────────────────────── */
+
+const DEFAULT_SALE_END_AT = "2026-08-31T23:59:59-04:00";
+
+export function SaleTimer({ compact = false }: { compact?: boolean }) {
+  const endAt = import.meta.env.VITE_SALE_END_AT || DEFAULT_SALE_END_AT;
+  const endMs = Date.parse(endAt);
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    if (!Number.isFinite(endMs) || endMs <= Date.now()) return;
+    const timer = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, [endMs]);
+
+  if (!Number.isFinite(endMs) || endMs <= now) return null;
+
+  const totalSeconds = Math.max(0, Math.floor((endMs - now) / 1000));
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  const dateLabel = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "America/New_York",
+  }).format(new Date(endMs));
+  const units = [
+    [days, "days"],
+    [hours, "hrs"],
+    [minutes, "min"],
+    [seconds, "sec"],
+  ] as const;
+
+  return (
+    <div className={`rounded-lg border border-white/10 bg-white/[0.04] ${compact ? "p-2.5" : "p-3"}`}>
+      <div className="flex items-center justify-between gap-3">
+        <div className="text-left">
+          <p className="text-[9px] font-black uppercase tracking-[0.16em] text-acid">Launch sale closes {dateLabel}</p>
+          <p className="mt-0.5 text-[10px] leading-snug text-white/45">One shared deadline—not a timer that resets on refresh.</p>
+        </div>
+        <div className="flex shrink-0 gap-1" role="timer" aria-label={`${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds left`}>
+          {units.map(([value, label]) => (
+            <span key={label} className="min-w-8 rounded bg-black/60 px-1 py-1 text-center">
+              <b className="tnum block font-display text-sm leading-none text-white">{String(value).padStart(2, "0")}</b>
+              <span className="block text-[7px] uppercase tracking-wider text-white/35">{label}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    STATIC URGENCY STRIP (no marquee, no overflow)
 ───────────────────────────────────────────── */
 
@@ -75,7 +131,7 @@ export function Ticker() {
   const items = [
     "18,000+ radio station contacts",
     "1,940+ independent artists inside",
-    "Price returns to $49 when the timer ends",
+    "$20 one-time payment · no subscription",
   ];
   return (
     <div className="border-y border-acid/25 bg-acid/10">
@@ -198,30 +254,28 @@ export function ExitIntent({
         </button>
 
         <p className="bg-blood py-2 text-[12px] font-black uppercase tracking-[0.18em]">
-          Your founder price is still active
+          Before you go — see what $20 unlocks
         </p>
 
         <div className="p-6 sm:p-8">
           <h2 id="exit-title" className="font-display text-3xl leading-tight sm:text-4xl">
-            {title ?? (
-              <>
-                LEAVING MEANS PAYING <span className="text-blood line-through">$49</span> LATER
-              </>
-            )}
+            {title ?? "SKIP MONTHS OF CONTACT RESEARCH"}
           </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-white/70">
-            {body ?? "You're one click from 18,000+ radio station contacts."}
+            {body ?? "Get the organized contact resource once, then focus your time on relevant, personal outreach."}
           </p>
 
-          <div className="mt-5 flex justify-center">
-            <FlipClock seconds={897} size="sm" />
-          </div>
+          <ul className="mt-5 grid gap-2 text-left text-sm text-white/70 sm:grid-cols-3">
+            <li className="rounded-lg bg-white/5 p-3"><b className="block text-acid">18,000+</b> entries</li>
+            <li className="rounded-lg bg-white/5 p-3"><b className="block text-acid">Instant</b> download</li>
+            <li className="rounded-lg bg-white/5 p-3"><b className="block text-acid">30 days</b> to try it</li>
+          </ul>
 
           <button
             onClick={onTake}
             className="cta mt-6 w-full rounded-lg bg-acid px-6 py-4 font-display text-xl uppercase tracking-wide text-ink"
           >
-            Hold my $20 spot
+            Get instant access — $20
           </button>
           <button
             onClick={() => setOpen(false)}
@@ -273,14 +327,12 @@ export function StickyBar({
     >
       <div className="mx-auto flex max-w-5xl items-center gap-2.5 px-3 py-2 sm:gap-3 sm:py-2.5">
         <div className="hidden shrink-0 sm:block">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-blood">Founder price ends in</p>
-          <FlipClock seconds={897} size="sm" />
+          <p className="text-[10px] font-bold uppercase tracking-widest text-white/45">Radio Reach Vault</p>
+          <p className="font-display text-lg leading-none text-acid">18,000+ contacts · $20</p>
         </div>
         <div className="hidden shrink-0 flex-col justify-center min-[400px]:flex sm:hidden">
-          <p className="text-[9px] font-bold uppercase tracking-wider text-blood">Ends in</p>
-          <p className="tnum font-display text-sm leading-none text-acid">
-            <span className="line-through opacity-50">$49</span> $20
-          </p>
+          <p className="text-[9px] font-bold uppercase tracking-wider text-white/45">One-time</p>
+          <p className="tnum font-display text-sm leading-none text-acid">$20</p>
         </div>
         <div className="min-w-0 flex-1 sm:ml-auto sm:flex-none">
           <button
@@ -291,7 +343,7 @@ export function StickyBar({
             {label}
           </button>
           <p className="mt-1 text-center text-[10px] text-white/45">
-            <span className="line-through">$49</span> · instant download · 30-day money-back guarantee
+            instant download · no subscription · 30-day money-back guarantee
           </p>
         </div>
       </div>

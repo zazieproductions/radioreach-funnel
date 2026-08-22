@@ -58,47 +58,39 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   heroSub: {
     default: (
       <>
-        You finished the record. You mixed it, mastered it, bled on it — and then it died in a{" "}
-        <span className="font-semibold text-white">generic submission form</span>. Here are{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by
-        station, location, role, phone, and email to skip the form entirely.
+        You finished the record. Now get <span className="font-bold text-acid">18,000+ radio station contacts</span>{" "}
+        organized by station, city, role, phone, and email — one instant download for independent artists.
       </>
     ),
     calm: (
       <>
-        You finished the record. You mixed it, mastered it, bled on it — and then it died in a{" "}
-        <span className="font-semibold text-white">generic submission form</span>. No platforms.
-        No monthly bills. No noise. Just{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by
-        station, location, role, phone, and email — one file that skips the form entirely.
+        You finished the record. No platforms. No monthly bills. Just{" "}
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by station,
+        city, role, phone, and email in one download.
       </>
     ),
     aspire: (
       <>
-        You didn't finish this record to disappear into a{" "}
-        <span className="font-semibold text-white">generic submission form</span>. The artists in
-        rotation all have one thing in common — they reached the right people directly. Here are{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by
-        station, location, role, phone, and email. The people who decide what gets played.
+        Turn your next release into a real outreach plan with{" "}
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by station,
+        city, role, phone, and email.
       </>
     ),
     urgency: (
       <>
-        Every week the record sits, the release gets colder — and someone else's song takes the
-        slot you were building toward. It's already dying in a{" "}
-        <span className="font-semibold text-white">generic submission form</span> while{" "}
-        <span className="font-bold text-acid">18,000+ radio station contacts</span> sit organized
-        by station, location, role, phone, and email — and the founder price is still $20.
+        Every week the record sits is another week lost to research. Start tonight with{" "}
+        <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by station,
+        city, role, phone, and email.
       </>
     ),
   },
 
   /* — hero CTA box label — */
   ctaLabel: {
-    default: "Founder price locks in for:",
+    default: "One-time access:",
     calm: "One-time price — no subscription, no fine print:",
-    aspire: "Founder price — what the first 1,940 artists paid:",
-    urgency: "Founder price expires in:",
+    aspire: "Join 1,940+ artists inside:",
+    urgency: "Start your outreach tonight:",
   },
 
   /* — trust line under the hero CTA — */
@@ -106,7 +98,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
     default: "🔒 Stripe checkout · Instant download · 30-day money-back guarantee",
     calm: "🔒 Stripe checkout · Instant download · 30-day money-back guarantee",
     aspire: "🔒 Stripe checkout · Instant download · Join 1,940+ artists",
-    urgency: "🔒 Stripe checkout · Instant download · Price returns to $49",
+    urgency: "🔒 Stripe checkout · Instant download · One-time payment",
   },
 
   /* — problem section label — */
@@ -221,22 +213,20 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
     ),
     urgency: (
       <>
-        <b className="text-white">The math nobody wants you to do:</b> professional databases run{" "}
-        <span className="font-bold text-blood">$300–$500/year</span>. The same caliber of data is{" "}
-        <span className="font-bold text-acid">$20</span> right now — but only while the founder
-        slots hold. At $49 it's still a bargain. At $20 it's{" "}
-        <b className="text-white">0.11¢ per contact.</b> That number won't be here when the timer
-        ends.
+        <b className="text-white">The faster path:</b> professional databases can run{" "}
+        <span className="font-bold text-blood">$300–$500/year</span>. RadioReach gives you an organized
+        research starting point for <span className="font-bold text-acid">$20 once</span> — about{" "}
+        <b className="text-white">0.11¢ per entry</b> — so tonight can be about outreach instead of more searching.
       </>
     ),
   },
 
   /* — note under the stack CTA — */
   stackNote: {
-    default: "73% off · price returns to $49 when the timer expires · instant download",
-    calm: "73% off · one-time payment · instant download — no subscription, ever",
-    aspire: "73% off today · instant download · join 1,940+ artists inside",
-    urgency: "73% off · returns to $49 when the timer expires · founder slots are going",
+    default: "$20 one-time payment · instant download · no subscription",
+    calm: "$20 one-time payment · instant download — no subscription, ever",
+    aspire: "$20 today · instant download · join 1,940+ artists inside",
+    urgency: "$20 once · start your contact research tonight",
   },
 
   /* — testimonials headline — */
@@ -255,19 +245,19 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
     aspire:
       "Download it. Open it. Serious artists verify their tools: contact at least five stations that fit your music and log what you sent. If it doesn't meet your standard, email me within 30 days with your receipt and I'll refund you in full. You don't need a single reply to qualify — just a genuine, documented effort.",
     urgency:
-      "Download it tonight, while the founder price holds. Contact at least five stations that fit your music and log what you sent. If it isn't worth $20 after a genuine try, email me within 30 days with your receipt — full refund, no airplay or replies required. The only way to lose is to come back after the price returns to $49.",
+      "Download it tonight and put it to work. Contact at least five stations that fit your music and log what you sent. If it isn't worth $20 after a genuine try, email me within 30 days with your receipt — full refund, no airplay or replies required.",
   },
 
   /* — final CTA, road A — */
   roadA: {
     default:
-      "Close this tab. Go back to Google. Spend the next six months building a worse list by hand while your release gets colder. Pay $49 if you come back.",
+      "Keep researching one station at a time, checking roles and copying contact details into your own spreadsheet before outreach can begin.",
     calm:
-      "Close this tab and think it over — no pressure from us, the file will still be here. Just know the founder price steps up to $49 once the launch window closes.",
+      "Keep building the list yourself. It costs nothing but the time you could otherwise spend on your release and your pitch.",
     aspire:
-      "Close this tab. Go back to Google. Spend six months building a worse list by hand while artists with your sound take the slots in your own city. Then come back and pay $49.",
+      "Keep assembling a contact list by hand while your next release waits for a clear outreach plan.",
     urgency:
-      "Close this tab. Go back to Google. Spend six months building a worse list by hand while your release gets colder — and pay $49 when you come back, because the founder slots will be gone.",
+      "Spend tonight searching for contacts one station at a time instead of sending focused pitches to relevant people.",
   },
 
   /* — final CTA, road B — */
@@ -287,29 +277,21 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
     default: "Get Instant Access — $20",
     calm: "Get The Contacts — $20",
     aspire: "Join The Vault — $20",
-    urgency: "Lock In $20 Before It's $49",
+    urgency: "Start Outreach — $20",
   },
 
   /* — exit-intent dialog — */
   exitTitle: {
-    default: (
-      <>
-        LEAVING MEANS PAYING <span className="text-blood line-through">$49</span> LATER
-      </>
-    ),
-    calm: "THINK IT OVER — THE $20 DOOR STAYS OPEN FOR NOW",
-    aspire: "THE ARTISTS WHO MOVE FIRST GET PLAYED FIRST",
-    urgency: (
-      <>
-        LEAVING MEANS PAYING <span className="text-blood line-through">$49</span> LATER
-      </>
-    ),
+    default: "SKIP MONTHS OF CONTACT RESEARCH",
+    calm: "TAKE ONE LAST LOOK AT WHAT'S INCLUDED",
+    aspire: "TURN YOUR NEXT RELEASE INTO A REAL OUTREACH PLAN",
+    urgency: "START OUTREACH INSTEAD OF ANOTHER NIGHT OF SEARCHING",
   },
   exitBody: {
-    default: "You're one click from 18,000+ radio station contacts.",
-    calm: "No pressure. But the founder price steps up to $49 when the launch window closes.",
-    aspire: "You're one click from the same list the artists in rotation used.",
-    urgency: "You're one click from 18,000+ radio station contacts — and the $20 founder price.",
+    default: "Get 18,000+ organized radio station entries for one $20 payment.",
+    calm: "Review the sample, the guarantee, and the exact deliverables before you decide.",
+    aspire: "The Vault gives you the research starting point; your music and pitch do the rest.",
+    urgency: "One click gets you the organized contact resource. Airplay is never guaranteed.",
   },
 };
 

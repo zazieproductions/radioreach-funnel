@@ -40,10 +40,10 @@ export default function App() {
   const routeLab = hash.startsWith("#/lab");
 
   const [stage, setStage] = useState<Stage>("sales");
-  const [total, setTotal] = useState(41);
+  const [total, setTotal] = useState(20);
   const [addons, setAddons] = useState<Addons>({
-    contracts: true,
-    au: true,
+    contracts: false,
+    au: false,
   });
   const [hasUpwork, setHasUpwork] = useState(false);
 
@@ -183,8 +183,8 @@ export default function App() {
               sessionStorage.clear();
               clearLuckyCoupon();
               setLuckyCoupon(null);
-              setTotal(41);
-              setAddons({ contracts: true, au: true });
+              setTotal(20);
+              setAddons({ contracts: false, au: false });
               setHasUpwork(false);
               setStage("sales");
             }}

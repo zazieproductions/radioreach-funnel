@@ -95,7 +95,7 @@ export function LuckyWheelButton({
         <span className="grid h-7 w-7 place-items-center rounded-full p-[2px]" style={{ background: RAINBOW_CONIC }}>
           <span className="grid h-full w-full place-items-center rounded-full bg-[#0F0F12] text-[13px]">🎡</span>
         </span>
-        <span className="font-extrabold tracking-tight text-white">Spin the wheel for a free discount</span>
+        <span className="font-extrabold tracking-tight text-white">Spin for the Founder’s Bundle jackpot</span>
         <span className="hidden sm:inline-flex items-center rounded-full bg-white px-2 py-0.5 text-[10px] font-black tracking-widest text-zinc-900">FREE SPIN</span>
       </span>
     </button>
@@ -300,10 +300,10 @@ export function LuckyWheelModal({
                 </span>
               </p>
               <h2 id="wheel-title" className="mt-3 font-display text-[1.7rem] leading-none tracking-tight text-white sm:text-[1.9rem]">
-                Spin for your <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">discount</span>
+                Reveal your <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">Founder’s Bundle</span>
               </h2>
-              <p className="mx-auto mt-2 max-w-[32ch] text-[13px] leading-relaxed text-white/55">
-                Eight slices. One free spin. See what lands.
+              <p className="mx-auto mt-2 max-w-[34ch] text-[13px] leading-relaxed text-white/55">
+                One celebratory spin reveals the preset launch jackpot. You still choose whether to add either item at checkout.
               </p>
             </div>
 
@@ -517,8 +517,8 @@ export function LuckyWheelModal({
           </div>
         )}
 
-        <div className="border-t border-white/[0.06] bg-white/[0.02] px-4 py-3 text-center text-[10px] tracking-wide text-white/25">
-          Free spin • Prize reserved for this browser
+        <div className="border-t border-white/[0.06] bg-white/[0.02] px-4 py-3 text-center text-[10px] tracking-wide text-white/35">
+          Promotional reveal • preset Founder’s Bundle reward • optional items are never preselected
         </div>
       </div>
     </div>
