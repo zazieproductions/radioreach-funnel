@@ -106,16 +106,27 @@ export function Upsell1({
               <p className="font-display text-3xl text-white/40 line-through decoration-blood decoration-2">$822</p>
             </div>
             <div className="text-right">
+              <p className="text-[12px] uppercase tracking-widest text-white/40">Regular price</p>
+              <p className="font-display text-lg text-white/35 line-through">$97</p>
+            </div>
+            <div className="text-right">
               <p className="text-[12px] uppercase tracking-widest text-acid">One-time, on this page only</p>
               <p className="font-display text-5xl text-acid">$37</p>
             </div>
+          </div>
+
+          {/* Savings callout */}
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-4 rounded-lg border border-acid/30 bg-acid/[0.06] px-4 py-2 text-center">
+            <span className="text-[11px] font-bold text-acid">You save <b>$785</b></span>
+            <span className="text-acid/40">•</span>
+            <span className="text-[11px] font-bold text-acid">That's <b>95% off</b> the total value</span>
           </div>
 
           <button
             onClick={() => onAccept(37)}
             className="cta mt-6 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.1rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:py-5 sm:text-2xl"
           >
-            YES — ADD THE ACCELERATOR TO MY ORDER
+            YES — ADD THE ACCELERATOR FOR <span className="line-through opacity-60">$97</span> $37
             <span className="mt-1 block text-[11px] font-sans font-bold tracking-normal">
               One click. Card already on file. No re-entry.
             </span>
@@ -382,6 +393,11 @@ export function Upsell2({
           <p className="mt-3 text-center font-mono text-[11px] text-white/30">
             That's $1.67 per lesson · 97.5% off the standalone value
           </p>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-4 rounded-lg border border-acid/30 bg-acid/[0.06] px-4 py-2 text-center">
+            <span className="text-[11px] font-bold text-acid">You save <b>$1,950</b></span>
+            <span className="text-acid/40">•</span>
+            <span className="text-[11px] font-bold text-acid">Regular price: <b className="line-through">$250</b> Today: $50</span>
+          </div>
         </div>
 
         {/* social proof */}
@@ -400,7 +416,7 @@ export function Upsell2({
           onClick={() => onAccept(50)}
           className="cta mt-6 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase leading-tight tracking-wide text-ink sm:text-2xl"
         >
-          YES — ADD THE FULL COURSE FOR $50
+          YES — ADD THE FULL COURSE FOR <span className="line-through opacity-60">$250</span> $50
           <span className="mt-1 block text-[11px] font-sans font-bold tracking-normal">
             One click · card on file · instant access · 4 parts · {TOTAL_LESSONS} lessons · $2,000 value
           </span>

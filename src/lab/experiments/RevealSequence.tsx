@@ -23,11 +23,11 @@ import { LabCta, LabFrame } from "./shared";
 import { labLogAction, labLogMilestone } from "../log";
 
 const CARDS = [
-  { icon: "📇", title: "18,000+ entries", value: "$297", caption: "The room. Program directors, music directors, decision-makers." },
-  { icon: "📕", title: "400+ page document", value: "$97", caption: "The gatekeepers in one file." },
-  { icon: "📍", title: "City-by-city organization", value: "$79", caption: "Start local, expand along your tour route." },
-  { icon: "🔓", title: "Lifetime access", value: "$120", caption: "No subscription. No renewal." },
-  { icon: "📮", title: "Verified emails", value: "$149", caption: "10,372 deliverable, tied to a real human." },
+  { icon: "📇", title: "18,000+ entries", caption: "The room. Program directors, music directors, decision-makers." },
+  { icon: "📕", title: "400+ page document", caption: "The gatekeepers in one file." },
+  { icon: "📍", title: "City-by-city organization", caption: "Start local, expand along your tour route." },
+  { icon: "🔓", title: "Lifetime access", caption: "No subscription. No renewal." },
+  { icon: "📮", title: "Verified emails", caption: "10,372 deliverable, tied to a real human." },
 ];
 
 export default function RevealSequence() {
@@ -111,7 +111,7 @@ function Reveal({ variant }: { variant: string }) {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline justify-between gap-2">
                     <p className="truncate text-[13px] font-bold text-white">{c.title}</p>
-                    <span className="shrink-0 font-display text-sm text-white/40 line-through decoration-blood">{c.value}</span>
+
                   </div>
                   <p className="mt-0.5 text-[12px] leading-snug text-white/55">{c.caption}</p>
                 </div>
@@ -122,8 +122,8 @@ function Reveal({ variant }: { variant: string }) {
       </div>
 
       <div className="mt-3 flex items-center justify-between gap-3 rounded-xl bg-acid/10 px-4 py-3">
-        <span className="font-display text-sm uppercase text-white/80">Total real value</span>
-        <span className="font-display text-xl text-white/50 line-through decoration-blood decoration-2">$742</span>
+        <span className="font-display text-sm uppercase text-white/80">Usually worth</span>
+        <span className="font-display text-xl text-white/50 line-through decoration-blood decoration-2">$55</span>
         <span className="font-display text-3xl text-acid">$20</span>
       </div>
 

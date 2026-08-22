@@ -372,7 +372,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                   onClick={finishUnlocking}
                   className="cta mt-5 w-full rounded-xl bg-acid px-4 py-4 font-display text-[1.1rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-2xl"
                 >
-                  Finish Unlocking My Contacts — $20 →
+                  Finish Unlocking My Contacts — <span className="line-through opacity-60">$55</span> $20 →
                   <span className="mt-1 block font-sans text-[10px] font-bold normal-case tracking-normal opacity-65 sm:text-[11px]">
                     One-time payment · instant access · 30-day guarantee
                   </span>

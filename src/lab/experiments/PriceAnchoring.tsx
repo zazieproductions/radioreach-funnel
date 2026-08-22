@@ -6,16 +6,15 @@
    arrive in, not the number itself.
 
    • bare $20            — no anchor; the visitor supplies their own
-   • $742→$49→$20 stack  — today's page; the stack the visitor just
+   • $55→$20 simple anchor  — today's page; the stack the visitor just
                            read becomes the anchor
-   • decoy tiers         — a dominated $49 tier makes $20 the obvious
-                           no-regret choice while $97 re-anchors the
-                           ceiling (decoy effect)
+   • simple comparison  — regular $55 beside today's $20, with no
+                           extra tiers or decisions
    • per-day reframe     — "5¢ a day" reframes the same $20 against
                            daily coffee money instead of one-time cost
 
-   Guardrail note: every anchor maps to real line items; the decoy
-   tier must exist as a real, purchasable SKU if shipped.
+   Guardrail note: the anchor and sale price describe the same complete
+   Vault; no item-level values or invented tiers are shown.
 ───────────────────────────────────────────────────────────── */
 
 import { LabFrame } from "./shared";
@@ -27,7 +26,7 @@ export default function PriceAnchoring() {
       experiment="lab_anchoring"
       title="Anchor the stack, not just the price"
       principles={["anchoring", "choice_architecture"]}
-      variants={["bare $20", "$742→$49→$20 stack", "decoy tiers", "per-day reframe"]}
+      variants={["bare $20", "$55→$20 simple anchor", "simple comparison", "per-day reframe"]}
       footer="Same product, same $20, four reference frames. The demo button logs a conversion probe per presentation so the winning anchor can be picked by the same metric the live test would use."
     >
       {(variant) => <Offer variant={variant} />}
@@ -57,13 +56,13 @@ function Offer({ variant }: { variant: string }) {
     );
   }
 
-  if (variant === "$742→$49→$20 stack") {
+  if (variant === "$55→$20 simple anchor") {
     const stack = [
-      ["18,000+ entries", "$297"],
-      ["Verified deliverable emails", "$149"],
-      ["400+ page organized document", "$97"],
-      ["City-by-city organization", "$79"],
-      ["Lifetime access", "$120"],
+      "18,000+ entries",
+      "Verified deliverable emails",
+      "400+ page organized document",
+      "City-by-city organization",
+      "Lifetime access",
     ];
     return (
       <div className="mx-auto max-w-sm">
@@ -71,15 +70,12 @@ function Offer({ variant }: { variant: string }) {
           Everything you get today
         </p>
         <div className="divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-black/40">
-          {stack.map(([t, v]) => (
-            <div key={t} className="flex items-center justify-between gap-3 px-3.5 py-2">
-              <span className="text-[13px] font-bold text-white/85">✓ {t}</span>
-              <span className="font-display text-sm text-white/40 line-through decoration-blood">{v}</span>
-            </div>
+          {stack.map((t) => (
+            <div key={t} className="px-3.5 py-2 text-[13px] font-bold text-white/85">✓ {t}</div>
           ))}
           <div className="flex items-center justify-between bg-acid/10 px-3.5 py-2">
-            <span className="font-display text-sm uppercase text-white/80">Real value</span>
-            <span className="font-display text-lg text-white/50 line-through decoration-2 decoration-blood">$742</span>
+            <span className="font-display text-sm uppercase text-white/80">Usually worth</span>
+            <span className="font-display text-lg text-white/50 line-through decoration-2 decoration-blood">$55</span>
           </div>
         </div>
         <button
@@ -87,22 +83,21 @@ function Offer({ variant }: { variant: string }) {
           onClick={() => pick("stack")}
           className="cta mt-3 w-full rounded-lg bg-acid px-4 py-4 font-display text-xl uppercase text-ink"
         >
-          Claim it — <span className="line-through opacity-50">$49</span> $20
+          Claim it — <span className="line-through opacity-50">$55</span> $20
         </button>
         <p className="mt-2 text-center text-[11px] text-white/40">
-          The stack you just read becomes the anchor for $20.
+          The complete Vault is usually worth $55; today it is $20.
         </p>
       </div>
     );
   }
 
-  if (variant === "decoy tiers") {
+  if (variant === "simple comparison") {
     return (
       <div className="mx-auto grid max-w-md gap-2.5">
         {[
-          { id: "starter", name: "Starter", price: "$49", badge: null, popular: false, body: "Email list only · 4,000 entries · no PDF" },
-          { id: "vault", name: "Vault", price: "$20", badge: "MOST CHOSEN", popular: true, body: "Everything in Starter + full PDF + contracts + AU list + lifetime access" },
-          { id: "pro", name: "Pro", price: "$97", badge: null, popular: false, body: "Vault + done-for-you campaign setup" },
+          { id: "regular", name: "Regular price", price: "$55", badge: null, popular: false, body: "The complete Radio Reach Vault" },
+          { id: "vault", name: "Today", price: "$20", badge: "SAVE $35", popular: true, body: "The same complete Radio Reach Vault · one-time payment" },
         ].map((t) => (
           <button
             key={t.id}
@@ -127,7 +122,7 @@ function Offer({ variant }: { variant: string }) {
           </button>
         ))}
         <p className="text-center text-[11px] text-white/40">
-          $49 is dominated by $20 on every dimension — the decoy that makes the middle door obvious.
+          The complete Vault is usually worth $55; today it is $20. No tiers, subscriptions, or extra decisions.
         </p>
       </div>
     );

@@ -54,7 +54,7 @@ const FAQS = [
   ],
   [
     "Why is the RadioReach radio contact list only $20?",
-    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $20 is the launch rate — it goes to $49 once the founder slots are gone.",
+    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $20 is the launch rate — it goes to $55 once the founder slots are gone.",
   ],
   [
     "Does RadioReach have a refund policy?",
@@ -199,7 +199,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
           <ul className="mx-auto mt-4 grid max-w-lg grid-cols-3 gap-2 text-center text-[10px] font-bold uppercase leading-tight tracking-wide text-white/65 sm:mt-5 sm:text-xs">
             <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">18K+</span> contacts</li>
-            <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">$20</span> once</li>
+            <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="text-xs text-white/40 line-through">$55</span> <span className="block text-base text-acid">$20</span> once</li>
             <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">90 sec</span> access</li>
           </ul>
 
@@ -213,7 +213,10 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/45">Radio Reach Vault</p>
                 <EmotiveText slot="ctaLabel" as="p" className="mt-1 text-sm font-bold text-white" />
               </div>
-              <p className="font-display text-3xl text-acid">$20</p>
+              <div className="text-right">
+                <p className="text-sm text-white/40 line-through decoration-blood">$55</p>
+                <p className="font-display text-3xl text-acid">$20</p>
+              </div>
             </div>
             <div className="mt-3">
               <SaleTimer compact />
@@ -223,7 +226,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               onClick={() => handleCta("hero")}
               className="cta mt-4 min-h-14 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
             >
-              Get Instant Access — $20
+              Get Instant Access — <span className="line-through opacity-60">$55</span> $20
               <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
                 Secure checkout · download after payment
               </span>
@@ -294,6 +297,11 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 <Cross>Bouncing emails from lists nobody ever verified</Cross>
                 <Cross>Watching your release cycle die in 3 weeks</Cross>
               </ul>
+              <div className="mt-4 border-t border-blood/20 pt-3">
+                <p className="text-[10px] font-black uppercase tracking-widest text-blood/70">Typical cost</p>
+                <p className="font-display text-2xl text-blood">$348–$948/yr</p>
+                <p className="text-[11px] text-white/40">Platforms + research time + bounced emails</p>
+              </div>
             </div>
             <div className="rounded-lg border border-acid/50 bg-acid/5 p-4 sm:p-5">
               <p className="mb-3 font-display text-lg text-acid sm:text-xl">WITH THE VAULT</p>
@@ -304,6 +312,11 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 <Check>Sorted city by city so you start where you're strongest</Check>
                 <Check>Named decision-makers, so your email starts with "Hi [name]"</Check>
               </ul>
+              <div className="mt-4 border-t border-acid/20 pt-3">
+                <p className="text-[10px] font-black uppercase tracking-widest text-acid/70">Your cost</p>
+                <p className="font-display text-2xl text-acid"><span className="text-white/35 line-through">$55</span> $20 <span className="text-[11px] font-bold text-acid/70">once</span></p>
+                <p className="text-[11px] text-white/40">One payment · lifetime access · no subscriptions</p>
+              </div>
             </div>
           </div>
         </div>
@@ -352,35 +365,72 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               RADIO CONTACT LIST FOR INDEPENDENT ARTISTS
             </span>
           </h2>
+
+          <div className="mt-6 rounded-xl border border-acid/30 bg-acid/5 px-4 py-3 text-center">
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">Simple, one-time pricing</p>
+            <p className="mt-1 text-sm text-white/70">The complete Radio Reach Vault is usually worth <span className="font-bold text-white">$55</span>.</p>
+          </div>
+
           <div
             data-esp-zone="pricing"
-            className="mt-8 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-black/40"
+            className="mt-6 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-black/40"
           >
             {[
-              ["18,000+ radio station entries", "Program directors, music directors, decision-makers.", "$297"],
-              ["Detailed contact information", "Organized by station, location, role, phone, and email.", "$149"],
-              ["400+ page organized document", "Direct access to the gatekeepers, in one file.", "$97"],
-              ["City-by-city organization", "Start local, expand along your tour route.", "$79"],
-              ["Lifetime file access", "No subscription. No renewal. No monthly bleed.", "$120"],
-            ].map(([t, d, v]) => (
+              ["18,000+ radio station entries", "Program directors, music directors, and decision-makers."],
+              ["Detailed contact information", "Organized by station, location, role, phone, and email."],
+              ["400+ page organized document", "Direct access to the gatekeepers, in one file."],
+              ["City-by-city organization", "Start local, then expand along your tour route."],
+              ["Lifetime file access", "No subscription, renewal, or monthly fee."],
+            ].map(([t, d]) => (
               <div key={t} className="flex items-start gap-3 p-3.5 sm:gap-4 sm:p-4">
-                <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-acid text-[13px] font-black text-ink">
-                  ✓
-                </span>
+                <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-acid text-[13px] font-black text-ink">✓</span>
                 <div className="min-w-0 flex-1">
                   <p className="font-bold leading-snug">{t}</p>
                   <p className="mt-0.5 text-[13px] leading-snug text-white/55 sm:text-[14px]">{d}</p>
                 </div>
-                <span className="shrink-0 font-display text-base text-white/45 line-through decoration-blood sm:text-lg">{v}</span>
               </div>
             ))}
             <div className="flex items-center justify-between gap-3 bg-acid/10 p-3.5 sm:p-4">
-              <span className="font-display text-base uppercase leading-tight sm:text-lg">Total real value</span>
-              <span className="font-display text-xl text-white/50 line-through decoration-blood decoration-2 sm:text-2xl">$742</span>
+              <span className="text-[13px] font-bold uppercase tracking-wider text-white/70 sm:text-sm">Usually worth</span>
+              <span className="font-display text-xl text-white/50 line-through sm:text-2xl">$55</span>
             </div>
             <div className="flex items-center justify-between gap-3 bg-acid p-3.5 text-ink sm:p-4">
-              <span className="font-display text-base uppercase leading-tight sm:text-lg">Your price right now</span>
-              <span className="font-display text-3xl">$20</span>
+              <span className="font-display text-base uppercase leading-tight sm:text-lg">You pay today</span>
+              <span className="flex items-baseline gap-2">
+                <span className="font-display text-xl text-ink/60 line-through">$55</span>
+                <span className="font-display text-4xl">$20</span>
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-4 rounded-xl border-2 border-acid/40 bg-acid/[0.07] px-5 py-4 text-center">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-acid">You save</p>
+              <p className="font-display text-3xl text-acid sm:text-4xl">$35</p>
+            </div>
+            <div className="h-10 w-px bg-acid/30" aria-hidden />
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-acid">That's</p>
+              <p className="font-display text-3xl text-acid sm:text-4xl">64% off</p>
+            </div>
+          </div>
+
+          {/* A short comparison keeps the price in context without adding another value stack. */}
+          <div className="mt-8 overflow-hidden rounded-xl border border-white/10 bg-black/40">
+            <div className="bg-white/[0.04] px-4 py-3 text-center">
+              <p className="font-display text-sm uppercase tracking-[0.14em] text-white/70 sm:text-base">A simpler alternative</p>
+            </div>
+            <div className="divide-y divide-white/5">
+              {[
+                ["Manual research", "Hours of searching and organizing"],
+                ["Submission platforms", "Monthly fees without direct contacts"],
+                ["RadioReach Vault", "18K+ contacts, organized once and ready now"],
+              ].map(([service, note], i) => (
+                <div key={service} className={`flex items-start justify-between gap-4 px-4 py-3 sm:px-5 ${i === 2 ? "bg-acid/10" : ""}`}>
+                  <p className={`text-[13px] ${i === 2 ? "font-bold text-acid" : "text-white/70"}`}>{service}</p>
+                  <span className={`text-right text-[12px] ${i === 2 ? "font-bold text-acid" : "text-white/40"}`}>{note}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -452,7 +502,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             onClick={() => handleCta("stack")}
             className="cta mt-7 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
           >
-            Claim The Radio Reach Vault For $20 →
+            Claim The Radio Reach Vault For <span className="line-through opacity-60">$55</span> $20 →
           </button>
           <p className="mt-2 text-center text-[12px] text-white/40">
             <EmotiveText slot="stackNote" />
@@ -563,6 +613,9 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               Read the full refund policy
             </a>
           </p>
+          <div className="mx-auto mt-5 max-w-md rounded-lg border border-acid/20 bg-acid/[0.05] px-4 py-3 text-[13px] text-white/60">
+            <p><b className="text-acid">Zero risk, all reward.</b> Download the full Vault, use every contact, and if it isn't worth the usual <span className="line-through text-white/40">$55</span> price to you, get a full refund. You either get the full Vault for $20, or you get your $20 back.</p>
+          </div>
         </div>
       </section>
 
@@ -741,10 +794,10 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             onClick={() => handleCta("final")}
             className="cta mt-7 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-8 sm:px-6 sm:py-5 sm:text-3xl"
           >
-            Give Me Instant Access — $20
+            Give Me Instant Access — <span className="line-through opacity-60">$55</span> $20
           </button>
           <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
-            Secure checkout · Instant download · 30-day money-back guarantee · No subscription, ever
+            Usually worth <span className="line-through">$55</span> · Today $20 · Secure checkout · Instant download · 30-day money-back guarantee
           </p>
         </div>
       </section>

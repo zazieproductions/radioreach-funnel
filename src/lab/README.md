@@ -60,7 +60,7 @@ next to their prototypes.
 | Personalization | Echo answers into checkout | configure | `EndowmentWidget` |
 | Commitment & consistency | Foot-in-the-door yes-ladder | engage | `CommitmentLadder` |
 | Endowment | Reserved personal copy | attention | `EndowmentWidget` |
-| Anchoring | $742→$49→$20 stack, per-day reframe | configure | `PriceAnchoring` |
+| Anchoring | $55→$20 anchor, per-day reframe | configure | `PriceAnchoring` |
 
 ## Flag & QA
 

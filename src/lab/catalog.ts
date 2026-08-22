@@ -224,7 +224,7 @@ export const EXPERIMENTS: readonly LabExperiment[] = [
     principles: ["choice_architecture", "anchoring"],
     stage: "configure",
     mechanism:
-      "Checkout is presented as three tiers: Starter ($49, list only), Vault ($20, everything), Pro ($97, Vault + done-for-you campaign). The $49 tier is a dominated decoy — worse than the Vault on every dimension — which makes the $20 option the obvious, dominant choice while the $97 tier re-anchors the ceiling.",
+      "Checkout is presented as three tiers: Starter ($55, list only), Vault ($20, everything), Pro ($97, Vault + done-for-you campaign). The $55 tier is a dominated decoy — worse than the Vault on every dimension — which makes the $20 option the obvious, dominant choice while the $97 tier re-anchors the ceiling.",
     hypothesis:
       "If a dominated decoy option frames the Vault as the obvious middle choice, then purchase conversion rises, because the Vault becomes the no-regret default instead of a yes/no gamble.",
     prediction: "+7–15% purchase conversion; some AOV lift via Pro tier.",
@@ -390,18 +390,18 @@ export const EXPERIMENTS: readonly LabExperiment[] = [
   },
   {
     id: "lab_anchoring",
-    title: "Anchor the stack, not just the price",
-    pitch: "A $742 stack for $20. Or 5¢ a day.",
+    title: "Anchor the offer, not a fictional value stack",
+    pitch: "A $55 offer for $20. Or 5¢ a day.",
     principles: ["anchoring", "choice_architecture"],
     stage: "configure",
     mechanism:
-      "Anchoring works through the *order* numbers arrive. Four presentations hold the price at $20 while moving the anchor: (a) bare $20, (b) $742 → $49 → $20 stack (current page), (c) decoy tiers, (d) per-day reframe ('less than 5¢/day'). Each sets a different reference point for the same number.",
+      "Anchoring works through the *order* numbers arrive. Three honest presentations hold the price at $20: (a) bare $20, (b) the complete Vault is usually worth $55 and is $20 today (current page), and (c) a per-day reframe ('less than 5¢/day'). The live page uses one flat $55 reference point rather than adding item-level values.",
     hypothesis:
       "If the anchor precedes the price and is self-generated (the stack the visitor just read), then perceived value and conversion rise, because $20 is judged against the last large number seen, not the visitor's own prior.",
-    prediction: "Stack and decoy presentations outperform bare price by 8–20% on CTA.",
+    prediction: "A clear $55-to-$20 presentation should outperform a bare price by reducing uncertainty without adding checkout friction.",
     primaryMetric: "CTA rate per presentation",
     guardrail: "No fabricated anchor values — every anchor maps to real listed line items.",
-    variants: ["bare $20", "$742→$49→$20 stack", "decoy tiers", "per-day reframe"],
+    variants: ["bare $20", "$55→$20 simple anchor", "simple comparison", "per-day reframe"],
     prototype: "PriceAnchoring",
     dropIn: "Pricing box on SalesPage + checkout summary",
     risk: "low",

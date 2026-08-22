@@ -59,7 +59,7 @@ export default function Checkout({
   const total =
     BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0);
   const saved =
-    29 + (contracts ? 16 : 0) + (au ? 17 : 0);
+    35 + (contracts ? 16 : 0) + (au ? 17 : 0);
 
   const items = useMemo(
     () => [
@@ -143,10 +143,16 @@ export default function Checkout({
         <div className="mb-5 text-center sm:mb-6">
           <p className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">COMPLETE YOUR SECURE ORDER</p>
           <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-white/60">
-            Your Vault is $20. Optional add-ons are off by default, so the price you saw is the price you start with.
+            Your Vault is <span className="line-through text-white/40">$55</span> <b className="text-acid">$20</b> today. Optional add-ons are off by default, so the price you saw is the price you start with.
           </p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] font-bold uppercase tracking-wider text-white/50">
             <span>✓ Instant download</span><span>✓ No subscription</span><span>✓ 30-day guarantee</span>
+          </div>
+          {/* ——— Mini value recap ——— */}
+          <div className="mx-auto mt-4 flex max-w-lg flex-wrap items-center justify-center gap-2 rounded-lg border border-acid/25 bg-acid/[0.06] px-4 py-2.5 text-[11px] font-bold text-white/65 sm:gap-4">
+            <span>Usually worth: <span className="text-white/40 line-through">$55</span></span>
+            <span className="text-acid/40">•</span>
+            <span className="text-acid">You save <b>$35 (64%)</b></span>
           </div>
           <div className="mx-auto mt-4 max-w-md">
             <SaleTimer compact />
@@ -386,7 +392,7 @@ export default function Checkout({
 function OrderSummaryRows({
   contracts,
   au,
-  saved,
+  saved: _saved,
   total,
   coupon,
   remainingStr,
@@ -407,6 +413,7 @@ function OrderSummaryRows({
         was={`$${PRODUCTS.vault_core.compareAt}`}
         now={`$${PRODUCTS.vault_core.price.toFixed(2)}`}
       />
+
       {contracts && (
         <SummaryRow
           label={PRODUCTS.contract_bundle.shortName}
@@ -436,8 +443,12 @@ function OrderSummaryRows({
         </div>
       )}
       <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
-        <span>You save</span>
-        <span className="font-bold text-acid">${saved.toFixed(2)}</span>
+        <span>Vault usually worth</span>
+        <span className="font-bold text-white/40 line-through">$55.00</span>
+      </div>
+      <div className="flex justify-between border-t border-white/10 pt-3">
+        <span className="text-acid">Vault savings</span>
+        <span className="font-bold text-acid">$35.00 <span className="text-[11px] font-normal text-acid/70">(64% off)</span></span>
       </div>
       <div className="flex justify-between border-t border-white/10 pt-3 text-white/50">
         <span>Tax</span>

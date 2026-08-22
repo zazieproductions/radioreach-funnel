@@ -2,9 +2,9 @@
 export const PRICE = {
   core: 20,
   coreLabel: "$20",
-  anchor: 49, // "regular" price the timer supposedly restores
-  anchorLabel: "$49",
-  discountPct: 73,
+  anchor: 55, // usual one-time value for the complete Vault
+  anchorLabel: "$55",
+  discountPct: 64,
 
   bump: 9,
   bumpLabel: "$9",
