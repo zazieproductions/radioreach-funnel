@@ -114,6 +114,7 @@ Example keys:
 - `upsells/airplay-accelerator.zip`
 - `upsells/advanced-upwork-proposals-course.zip`
 - `upsells/arcane-type-vault.zip`
+- `products/contract-guide/radioreach-indie-artist-contract-info-guide.pdf` (single-file PDF, same key contract)
 
 ## Admin guide — add a new product
 

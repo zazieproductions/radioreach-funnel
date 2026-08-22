@@ -1,5 +1,5 @@
 import { json } from "../../_lib/json";
-import { resolveAllowedPrices, type AllowedProductKey } from "../../_lib/config";
+import { resolveAllowedPrices } from "../../_lib/config";
 import { getStripe } from "../../_lib/stripe";
 
 type MomentumInput = Record<string, unknown>;
@@ -32,22 +32,38 @@ function normalizeMomentum(input?: MomentumInput) {
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   try {
     const body = (await request.json()) as {
-      items?: AllowedProductKey[];
+      items?: unknown[];
       bundleId?: string;
       utm?: Record<string, string>;
       momentum?: MomentumInput;
     };
 
-    const items = Array.isArray(body.items) ? body.items : [];
-    if (!items.length) return json({ error: "No products selected." }, { status: 400 });
+    const rawItems = Array.isArray(body.items) ? body.items : [];
+    if (!rawItems.length) return json({ error: "No products selected." }, { status: 400 });
 
-    const allowed = resolveAllowedPrices(env);
-    const line_items = [];
-    for (const key of items) {
-      const item = allowed[key as AllowedProductKey];
-      if (!item || !item.priceId) {
-        return json({ error: `Invalid or unconfigured product key: ${String(key)}` }, { status: 400 });
+    // The browser may only reference approved internal product keys. The
+    // server maps each key to its permitted Stripe Price ID — arbitrary
+    // price IDs sent from the client are never used.
+    const allowed = resolveAllowedPrices(env) as Record<
+      string,
+      { priceId?: string } | undefined
+    >;
+    const line_items: { price: string; quantity: 1 }[] = [];
+    const seen = new Set<string>();
+    const keys: string[] = [];
+    for (const raw of rawItems) {
+      if (typeof raw !== "string" || !raw) {
+        return json({ error: "Invalid product selection." }, { status: 400 });
       }
+      const item = allowed[raw];
+      if (!item || !item.priceId) {
+        return json({ error: `Invalid or unconfigured product key: ${raw}` }, { status: 400 });
+      }
+      // Each product can be purchased exactly once — ignore duplicate keys
+      // so a tampered or buggy client can never add extra copies.
+      if (seen.has(raw)) continue;
+      seen.add(raw);
+      keys.push(raw);
       line_items.push({ price: item.priceId, quantity: 1 });
     }
 
@@ -55,8 +71,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const origin = new URL(request.url).origin || env.PUBLIC_APP_URL;
     const momentum = normalizeMomentum(body.momentum);
     const metadata = {
-      bundle_id: body.bundleId || items.join("+"),
-      product_keys: items.join(","),
+      bundle_id: body.bundleId || keys.join("+"),
+      product_keys: keys.join(","),
       utm_source: body.utm?.utm_source || "",
       utm_medium: body.utm?.utm_medium || "",
       utm_campaign: body.utm?.utm_campaign || "",
