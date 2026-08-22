@@ -68,52 +68,63 @@ export function FlipClock({ seconds = 897, size = "md" }: { seconds?: number; si
 }
 
 /* ─────────────────────────────────────────────
-   REAL SALE DEADLINE — one public date, never reset per visitor
+   PER-TAB OFFER WINDOW — starts once, survives refreshes in this tab
 ───────────────────────────────────────────── */
 
-const DEFAULT_SALE_END_AT = "2026-08-31T23:59:59-04:00";
+const SALE_WINDOW_KEY = "rr_sale_window_end_v1";
+const DEFAULT_SALE_WINDOW_MINUTES = 15;
+
+function getTabSaleEnd() {
+  const configured = Number(import.meta.env.VITE_SALE_WINDOW_MINUTES);
+  const minutes = Number.isFinite(configured) && configured > 0
+    ? configured
+    : DEFAULT_SALE_WINDOW_MINUTES;
+
+  try {
+    const stored = Number(sessionStorage.getItem(SALE_WINDOW_KEY));
+    if (Number.isFinite(stored) && stored > 0) return stored;
+    const end = Date.now() + minutes * 60 * 1000;
+    sessionStorage.setItem(SALE_WINDOW_KEY, String(end));
+    return end;
+  } catch {
+    return Date.now() + minutes * 60 * 1000;
+  }
+}
 
 export function SaleTimer({ compact = false }: { compact?: boolean }) {
-  const endAt = import.meta.env.VITE_SALE_END_AT || DEFAULT_SALE_END_AT;
-  const endMs = Date.parse(endAt);
+  const [endMs] = useState(getTabSaleEnd);
   const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
-    if (!Number.isFinite(endMs) || endMs <= Date.now()) return;
+    if (endMs <= Date.now()) return;
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, [endMs]);
 
-  if (!Number.isFinite(endMs) || endMs <= now) return null;
-
-  const totalSeconds = Math.max(0, Math.floor((endMs - now) / 1000));
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const totalSeconds = Math.max(0, Math.ceil((endMs - now) / 1000));
+  const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
-  const dateLabel = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    timeZone: "America/New_York",
-  }).format(new Date(endMs));
-  const units = [
-    [days, "days"],
-    [hours, "hrs"],
-    [minutes, "min"],
-    [seconds, "sec"],
-  ] as const;
+  const expired = totalSeconds === 0;
+  const units = hours > 0
+    ? ([[hours, "hrs"], [minutes, "min"], [seconds, "sec"]] as const)
+    : ([[minutes, "min"], [seconds, "sec"]] as const);
 
   return (
     <div className={`rounded-lg border border-white/10 bg-white/[0.04] ${compact ? "p-2.5" : "p-3"}`}>
       <div className="flex items-center justify-between gap-3">
         <div className="text-left">
-          <p className="text-[9px] font-black uppercase tracking-[0.16em] text-acid">Launch sale closes {dateLabel}</p>
-          <p className="mt-0.5 text-[10px] leading-snug text-white/45">One shared deadline—not a timer that resets on refresh.</p>
+          <p className="text-[9px] font-black uppercase tracking-[0.16em] text-acid">
+            {expired ? "Offer window ended" : "Your $20 offer is reserved for"}
+          </p>
+          <p className="mt-0.5 text-[10px] leading-snug text-white/45">
+            {expired ? "Continue to checkout to see current availability." : "This timer is unique to this browser tab."}
+          </p>
         </div>
-        <div className="flex shrink-0 gap-1" role="timer" aria-label={`${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds left`}>
+        <div className="flex shrink-0 gap-1" role="timer" aria-label={expired ? "Offer window ended" : `${hours} hours, ${minutes} minutes, ${seconds} seconds left`}>
           {units.map(([value, label]) => (
-            <span key={label} className="min-w-8 rounded bg-black/60 px-1 py-1 text-center">
-              <b className="tnum block font-display text-sm leading-none text-white">{String(value).padStart(2, "0")}</b>
+            <span key={label} className="min-w-9 rounded bg-black/60 px-1.5 py-1 text-center">
+              <b className="tnum block font-display text-base leading-none text-white">{String(value).padStart(2, "0")}</b>
               <span className="block text-[7px] uppercase tracking-wider text-white/35">{label}</span>
             </span>
           ))}

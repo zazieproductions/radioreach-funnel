@@ -37,7 +37,7 @@ The third treatment was selected. The scores identify likely direction and must 
 
 ## Honest urgency and checkout reward
 
-- The sale timer uses one public calendar deadline shared by every visitor. It does not use session storage and does not reset on refresh. Override the default deadline with `VITE_SALE_END_AT` using an ISO-8601 timestamp; remove or advance the campaign only when the underlying sale terms genuinely change.
+- The sale timer starts a 15-minute window per browser tab and stores its end time in `sessionStorage`, so refreshing that tab does not restart it. A newly opened tab receives its own window. Override the duration with `VITE_SALE_WINDOW_MINUTES`.
 - The Founder’s Bundle wheel is a promotional reveal with a preset jackpot. The modal discloses that the reward is preset, and checkout keeps both optional items unchecked.
 - Before a spin, the optional add-on prices are locked. After the spin, the $25 → $9 and $29 → $12 jackpot prices are revealed for 15 minutes. The customer must explicitly select either or both products.
 
