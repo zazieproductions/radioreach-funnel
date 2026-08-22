@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import {
+  AnchorPrice,
   Check,
   Cross,
   ExitIntent,
@@ -54,7 +55,7 @@ const FAQS = [
   ],
   [
     "Why is the RadioReach radio contact list only $20?",
-    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $20 is the launch rate — it goes to $49 once the founder slots are gone.",
+    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $20 is the launch rate — it goes to $50 once the founder slots are gone.",
   ],
   [
     "Does RadioReach have a refund policy?",
@@ -213,7 +214,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/45">Radio Reach Vault</p>
                 <EmotiveText slot="ctaLabel" as="p" className="mt-1 text-sm font-bold text-white" />
               </div>
-              <p className="font-display text-3xl text-acid">$20</p>
+              <AnchorPrice className="font-display text-xl sm:text-2xl" />
             </div>
             <div className="mt-3">
               <SaleTimer compact />
@@ -357,12 +358,12 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             className="mt-8 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-black/40"
           >
             {[
-              ["18,000+ radio station entries", "Program directors, music directors, decision-makers.", "$297"],
-              ["Detailed contact information", "Organized by station, location, role, phone, and email.", "$149"],
-              ["400+ page organized document", "Direct access to the gatekeepers, in one file.", "$97"],
-              ["City-by-city organization", "Start local, expand along your tour route.", "$79"],
-              ["Lifetime file access", "No subscription. No renewal. No monthly bleed.", "$120"],
-            ].map(([t, d, v]) => (
+              ["18,000+ radio station entries", "Program directors, music directors, decision-makers."],
+              ["Detailed contact information", "Organized by station, location, role, phone, and email."],
+              ["400+ page organized document", "Direct access to the gatekeepers, in one file."],
+              ["City-by-city organization", "Start local, expand along your tour route."],
+              ["Lifetime file access", "No subscription. No renewal. No monthly bleed."],
+            ].map(([t, d]) => (
               <div key={t} className="flex items-start gap-3 p-3.5 sm:gap-4 sm:p-4">
                 <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-acid text-[13px] font-black text-ink">
                   ✓
@@ -371,16 +372,14 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                   <p className="font-bold leading-snug">{t}</p>
                   <p className="mt-0.5 text-[13px] leading-snug text-white/55 sm:text-[14px]">{d}</p>
                 </div>
-                <span className="shrink-0 font-display text-base text-white/45 line-through decoration-blood sm:text-lg">{v}</span>
               </div>
             ))}
-            <div className="flex items-center justify-between gap-3 bg-acid/10 p-3.5 sm:p-4">
-              <span className="font-display text-base uppercase leading-tight sm:text-lg">Total real value</span>
-              <span className="font-display text-xl text-white/50 line-through decoration-blood decoration-2 sm:text-2xl">$742</span>
-            </div>
             <div className="flex items-center justify-between gap-3 bg-acid p-3.5 text-ink sm:p-4">
-              <span className="font-display text-base uppercase leading-tight sm:text-lg">Your price right now</span>
-              <span className="font-display text-3xl">$20</span>
+              <span className="font-display text-base uppercase leading-tight sm:text-lg">Your price today</span>
+              <span className="text-right">
+                <span className="block text-[11px] font-bold uppercase tracking-wider opacity-60 line-through">Normally $55</span>
+                <span className="font-display text-3xl">$20</span>
+              </span>
             </div>
           </div>
 
