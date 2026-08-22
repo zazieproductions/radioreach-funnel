@@ -1,4 +1,16 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { PRICE } from "./prices";
+
+/** Consistent launch-price treatment used anywhere the Vault is offered. */
+export function AnchorPrice({ className = "" }: { className?: string }) {
+  return (
+    <span className={`inline-flex items-baseline gap-2 ${className}`} aria-label={`Normally ${PRICE.anchorLabel}, today ${PRICE.coreLabel}`}>
+      <span className="text-[0.62em] font-sans font-bold uppercase tracking-wider text-white/45">Normally</span>
+      <span className="line-through decoration-blood decoration-2 text-white/45">{PRICE.anchorLabel}</span>
+      <span className="text-acid">Today {PRICE.coreLabel}</span>
+    </span>
+  );
+}
 
 /* ─────────────────────────────────────────────
    COUNTDOWN
@@ -339,11 +351,11 @@ export function StickyBar({
       <div className="mx-auto flex max-w-5xl items-center gap-2.5 px-3 py-2 sm:gap-3 sm:py-2.5">
         <div className="hidden shrink-0 sm:block">
           <p className="text-[10px] font-bold uppercase tracking-widest text-white/45">Radio Reach Vault</p>
-          <p className="font-display text-lg leading-none text-acid">18,000+ contacts · $20</p>
+          <p className="font-display text-lg leading-none text-acid">18,000+ contacts · <span className="mr-1 text-sm text-white/40 line-through">$55</span>$20 today</p>
         </div>
         <div className="hidden shrink-0 flex-col justify-center min-[400px]:flex sm:hidden">
           <p className="text-[9px] font-bold uppercase tracking-wider text-white/45">One-time</p>
-          <p className="tnum font-display text-sm leading-none text-acid">$20</p>
+          <p className="tnum font-display text-sm leading-none text-acid"><span className="mr-1 text-[10px] text-white/40 line-through">$55</span>$20</p>
         </div>
         <div className="min-w-0 flex-1 sm:ml-auto sm:flex-none">
           <button
