@@ -17,7 +17,13 @@ const ROWS = [
 
 const VISIBLE = 7;
 
-export default function TerminalPreview({ onCta }: { onCta: () => void }) {
+export default function TerminalPreview({
+  onCta,
+  onOpenPdf,
+}: {
+  onCta: () => void;
+  onOpenPdf?: () => void;
+}) {
   const [typed, setTyped] = useState(0);
 
   // Progressive reveal. No scrollIntoView; the page never moves on its own.
@@ -119,39 +125,24 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
           Organized by station, location, role, phone, and email
         </p>
 
-        <button
-          type="button"
-          onClick={onCta}
-          className="cta mt-4 min-h-14 w-full rounded-lg bg-acid px-5 py-3.5 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-7 sm:py-4 sm:text-lg"
-        >
-          Get full access; $20
-        </button>
-      </div>
-
-      {/* A document-style sample sits directly beneath the terminal so visitors can
-          inspect the format, not just the locked preview. */}
-      <div className="border-t-4 border-acid/70 bg-[#f4f6f8] px-4 py-5 text-[#17202a] sm:px-8 sm:py-7">
-        <div className="mx-auto max-w-3xl">
-          <div className="flex items-start justify-between border-b-2 border-[#17202a]/80 pb-3">
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#536170]">RadioReach Vault · sample page</p>
-              <h3 className="mt-1 text-lg font-black tracking-tight sm:text-2xl">18,000 Radio Station Contacts</h3>
-              <p className="mt-1 text-[11px] text-[#536170]">U.S. stations · music directors · program directors · 2026 edition</p>
-            </div>
-            <span className="rounded border border-[#17202a]/20 px-2 py-1 text-[10px] font-bold text-[#536170]">SAMPLE</span>
-          </div>
-          <p className="py-3 text-[11px] leading-relaxed text-[#536170]">
-            A real look at the organized contact format inside the Vault. Filter by city, station, role, or email and start building a targeted outreach list.
-          </p>
-          <div className="overflow-x-auto border border-[#17202a]/15">
-            <table className="w-full min-w-[620px] border-collapse text-left text-[10px] sm:text-[11px]">
-              <thead className="bg-[#dce3ea] text-[9px] font-black uppercase tracking-wider text-[#536170]"><tr>
-                <th className="border-r border-[#17202a]/10 px-2 py-2">City / State</th><th className="border-r border-[#17202a]/10 px-2 py-2">Station</th><th className="border-r border-[#17202a]/10 px-2 py-2">Contact & role</th><th className="px-2 py-2">Email</th>
-              </tr></thead>
-              <tbody>{ROWS.slice(0, 5).map((row) => <tr key={`doc-${row.email}`} className="border-t border-[#17202a]/10"><td className="px-2 py-2 font-semibold">{row.city}</td><td className="px-2 py-2 font-bold">{row.station}</td><td className="px-2 py-2">{row.name}<span className="block text-[#536170]">{row.title}</span></td><td className="px-2 py-2 font-medium text-[#245b83]">{row.email}</td></tr>)}</tbody>
-            </table>
-          </div>
-          <p className="mt-3 text-center text-[10px] font-bold uppercase tracking-wider text-[#536170]">Sample shown · full Vault includes 18,000+ organized entries</p>
+        <div className="mt-4 flex flex-col items-center justify-center gap-2.5 sm:flex-row sm:gap-3">
+          <button
+            type="button"
+            onClick={onCta}
+            className="cta min-h-12 w-full rounded-lg bg-acid px-5 py-3 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-7 sm:text-lg"
+          >
+            Get full access; $20
+          </button>
+          {onOpenPdf && (
+            <button
+              type="button"
+              onClick={onOpenPdf}
+              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-3 font-mono text-xs font-bold text-white/85 transition hover:border-acid hover:bg-white/10 hover:text-white sm:w-auto"
+            >
+              <span>📄</span>
+              <span>Preview 400+ Page PDF Sample →</span>
+            </button>
+          )}
         </div>
       </div>
     </div>

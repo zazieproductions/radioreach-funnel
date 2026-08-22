@@ -12,6 +12,7 @@ import {
   TopNav,
 } from "./ui";
 import TerminalPreview from "./TerminalPreview";
+import PdfSampleModal from "./PdfSampleModal";
 import { isMomentumSequenceEnabled, isSecretSlotsEnabled } from "../config/features";
 
 // Keep the substantial below-the-fold interaction out of the initial mobile
@@ -72,6 +73,7 @@ type Props = {
 
 export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWheel }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [isPdfOpen, setIsPdfOpen] = useState(false);
   const [espDebug] = useState(() => readEspFlag().debug);
   const [nowMs, setNowMs] = useState(() => Date.now());
   const trafficContext = useMemo(() => {
@@ -100,6 +102,18 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
     const t = window.setInterval(() => setNowMs(Date.now()), 1000);
     return () => clearInterval(t);
   }, [luckyCoupon]);
+
+  useEffect(() => {
+    const handleHash = () => {
+      const h = window.location.hash.toLowerCase();
+      if (h === "#pdf" || h === "#sample-pdf" || h === "#pdf-sample" || h === "#document-sample") {
+        setIsPdfOpen(true);
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
 
   // Start the Emotional State Proxy. Behind the feature flag this is
   // a no-op; cleanup fully detaches it when the funnel leaves this page.
@@ -229,9 +243,18 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 Secure checkout · download after payment
               </span>
             </button>
-            <a href="#sample" className="tap-target mt-1 w-full text-center text-[12px] font-bold text-white/65 underline decoration-white/30 underline-offset-4 hover:text-white">
-              See a sample before buying ↓
-            </a>
+            <div className="mt-2 flex flex-col items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setIsPdfOpen(true)}
+                className="tap-target w-full text-center text-[12px] font-bold text-acid underline decoration-acid/30 underline-offset-4 hover:text-white"
+              >
+                📄 Preview 400+ page PDF directory sample (Page 1) →
+              </button>
+              <a href="#sample" className="tap-target text-center text-[11px] font-medium text-white/50 underline decoration-white/20 underline-offset-4 hover:text-white/80">
+                or view terminal table sample ↓
+              </a>
+            </div>
             <div className="mt-3 flex flex-col items-center gap-1.5 text-center">
               <p className="text-[12px] text-white/55">
                 <Stars /> 4.9 from <b className="text-white/75">1,940+</b> artists
@@ -253,10 +276,21 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
           {/* Terminal preview */}
           <div id="sample" className="mt-8 w-full sm:mt-10">
-            <p className="mb-3 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/60 sm:text-[11px] sm:tracking-[0.2em]">
-              ↓ live sample; 7 of 18,000+ entries
-            </p>
-            <TerminalPreview onCta={() => handleCta("terminal")} />
+            <div className="mb-3 flex flex-wrap items-center justify-center gap-2 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/60 sm:text-[11px] sm:tracking-[0.2em]">
+              <span>↓ live sample; 7 of 18,000+ entries</span>
+              <span className="text-white/30">•</span>
+              <button
+                type="button"
+                onClick={() => setIsPdfOpen(true)}
+                className="text-acid underline decoration-acid/40 hover:text-white"
+              >
+                View full PDF sample (Page 1) →
+              </button>
+            </div>
+            <TerminalPreview
+              onCta={() => handleCta("terminal")}
+              onOpenPdf={() => setIsPdfOpen(true)}
+            />
           </div>
         </div>
       </section>
@@ -358,19 +392,28 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             className="mt-8 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-black/40"
           >
             {[
-              ["18,000+ radio station entries", "Program directors, music directors, decision-makers."],
-              ["Detailed contact information", "Organized by station, location, role, phone, and email."],
-              ["400+ page organized document", "Direct access to the gatekeepers, in one file."],
-              ["City-by-city organization", "Start local, expand along your tour route."],
-              ["Lifetime file access", "No subscription. No renewal. No monthly bleed."],
-            ].map(([t, d]) => (
-              <div key={t} className="flex items-start gap-3 p-3.5 sm:gap-4 sm:p-4">
+              ["18,000+ radio station entries", "Program directors, music directors, decision-makers.", false],
+              ["Detailed contact information", "Organized by station, location, role, phone, and email.", false],
+              ["400+ page organized document", "Direct access to the gatekeepers, in one file.", true],
+              ["City-by-city organization", "Start local, expand along your tour route.", false],
+              ["Lifetime file access", "No subscription. No renewal. No monthly bleed.", false],
+            ].map(([t, d, isPdf]) => (
+              <div key={t as string} className="flex items-start gap-3 p-3.5 sm:gap-4 sm:p-4">
                 <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-acid text-[13px] font-black text-ink">
                   ✓
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="font-bold leading-snug">{t}</p>
-                  <p className="mt-0.5 text-[13px] leading-snug text-white/55 sm:text-[14px]">{d}</p>
+                  <p className="font-bold leading-snug">{t as string}</p>
+                  <p className="mt-0.5 text-[13px] leading-snug text-white/55 sm:text-[14px]">{d as string}</p>
+                  {isPdf && (
+                    <button
+                      type="button"
+                      onClick={() => setIsPdfOpen(true)}
+                      className="mt-1.5 inline-flex items-center gap-1.5 rounded-full border border-acid/40 bg-acid/10 px-2.5 py-0.5 text-[11px] font-bold text-acid hover:bg-acid hover:text-ink transition"
+                    >
+                      <span>📄 Preview PDF directory layout (Page 1) →</span>
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -816,6 +859,13 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
       {/* Dev-only overlay; visible only with ?esp=debug */}
       {espDebug && <DebugPanel />}
+
+      {/* Interactive PDF Document Viewer Modal */}
+      <PdfSampleModal
+        isOpen={isPdfOpen}
+        onClose={() => setIsPdfOpen(false)}
+        onCta={() => handleCta("pdf_sample_unlock")}
+      />
     </div>
   );
 }
