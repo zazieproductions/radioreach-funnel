@@ -24,6 +24,11 @@ export const ALLOWED_PRODUCTS = {
     bundleKey: "upsells/advanced-upwork-proposals-course.zip",
     name: "Advanced Upwork Proposals — Full Course",
   },
+  contract_guide: {
+    envPriceVar: "STRIPE_PRICE_CONTRACT_GUIDE",
+    bundleKey: "products/contract-guide/radioreach-indie-artist-contract-info-guide.pdf",
+    name: "RadioReach Indie Artist Contract Info Guide (PDF)",
+  },
 
 } as const;
 

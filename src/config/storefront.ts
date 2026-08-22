@@ -3,7 +3,8 @@ export type ProductKey =
   | "contract_bundle"
   | "australia_addon"
   | "airplay_accelerator"
-  | "upwork_course";
+  | "upwork_course"
+  | "contract_guide";
   // | "font_vault";
 
 export type StorefrontProduct = {
@@ -85,11 +86,22 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     r2BundleKey: "upsells/advanced-upwork-proposals-course.zip",
     description: "4-part, 30-lesson series for any niche to 10× client responses faster.",
   },
+  contract_guide: {
+    key: "contract_guide",
+    name: "RadioReach Indie Artist Contract Info Guide (PDF)",
+    shortName: "Contract Info Guide",
+    price: 10,
+    compareAt: 10,
+    stripePriceIdEnv: "STRIPE_PRICE_CONTRACT_GUIDE",
+    r2BundleKey: "products/contract-guide/radioreach-indie-artist-contract-info-guide.pdf",
+    description: "Understand contracts, catch red flags, protect your rights, and negotiate with confidence.",
+    checkoutBadge: "Instant PDF Access",
+  },
 };
 
 export const CHECKOUT_DEFAULTS = {
   core: "vault_core" as ProductKey,
-  addons: ["contract_bundle", "australia_addon"] as ProductKey[],
+  addons: ["contract_bundle", "australia_addon", "contract_guide"] as ProductKey[],
   upsells: ["airplay_accelerator", "upwork_course"] as ProductKey[],
 };
 

@@ -10,7 +10,7 @@ import {
   type LuckyCoupon,
 } from "../lib/luckyCoupon";
 
-export type Addons = { contracts: boolean; au: boolean };
+export type Addons = { contracts: boolean; au: boolean; contractGuide: boolean };
 
 type Props = {
   onComplete: (total: number, addons: Addons) => void;
@@ -21,6 +21,7 @@ type Props = {
 const BASE = PRODUCTS.vault_core.price;
 const CONTRACTS_PRICE = PRODUCTS.contract_bundle.price;
 const AU_PRICE = PRODUCTS.australia_addon.price;
+const CONTRACT_GUIDE_PRICE = PRODUCTS.contract_guide.price;
 
 export default function Checkout({
   onComplete,
@@ -31,6 +32,7 @@ export default function Checkout({
   // Even after a jackpot, optional products require an explicit opt-in.
   const [contracts, setContracts] = useState(false);
   const [au, setAu] = useState(false);
+  const [contractGuide, setContractGuide] = useState(false);
   const [nowMs, setNowMs] = useState(() => Date.now());
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
@@ -54,10 +56,11 @@ export default function Checkout({
     if (hasWinningCoupon) return;
     setContracts(false);
     setAu(false);
+    setContractGuide(false);
   }, [hasWinningCoupon]);
 
   const total =
-    BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0);
+    BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0) + (contractGuide ? CONTRACT_GUIDE_PRICE : 0);
   const saved =
     29 + (contracts ? 16 : 0) + (au ? 17 : 0);
 
@@ -66,8 +69,9 @@ export default function Checkout({
       "vault_core" as const,
       ...(contracts ? (["contract_bundle"] as const) : []),
       ...(au ? (["australia_addon"] as const) : []),
+      ...(contractGuide ? (["contract_guide"] as const) : []),
     ],
-    [contracts, au]
+    [contracts, au, contractGuide]
   );
 
   const bundleId = useMemo(() => items.join("+"), [items]);
@@ -76,12 +80,13 @@ export default function Checkout({
     trackCustom("CheckoutCartConfigured", {
       value: total,
       currency: "USD",
-      core_only: !contracts && !au,
+      core_only: !contracts && !au && !contractGuide,
       contract_bundle: contracts,
       australia_addon: au,
+      contract_guide: contractGuide,
       num_items: items.length,
     });
-  }, [au, contracts, items.length, total]);
+  }, [au, contracts, contractGuide, items.length, total]);
 
   // InitiateCheckout: fires once when the checkout page mounts, with the
   // initial cart contents. Feeds Meta's optimization between PageView and
@@ -295,6 +300,24 @@ export default function Checkout({
                   </span>
                 </label>
 
+                {/* Contract Info Guide - Available to all users */}
+                <label className="flex min-h-14 items-start gap-3 rounded-xl border border-acid/40 bg-black/20 p-3.5 sm:p-4 cursor-pointer hover:bg-black/30">
+                  <input
+                    type="checkbox"
+                    checked={contractGuide}
+                    onChange={(e) => setContractGuide(e.target.checked)}
+                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
+                  />
+                  <div className="space-y-1 pr-2 w-full">
+                    <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_guide.name}</span>
+                    <span className="block text-sm font-bold text-acid">{PRODUCTS.contract_guide.description}</span>
+                    <span className="block text-sm">
+                      <b className="text-acid">${PRODUCTS.contract_guide.price.toFixed(2)}</b>
+                    </span>
+                    <span className="block text-[12px] text-white/45"><Stars /> {PRODUCTS.contract_guide.checkoutBadge}</span>
+                  </div>
+                </label>
+
               </div>
             </section>
 
@@ -309,7 +332,7 @@ export default function Checkout({
                 </span>
               </summary>
               <div className="border-t border-white/10 p-4">
-                <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
+                <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
               </div>
             </details>
 
@@ -323,7 +346,7 @@ export default function Checkout({
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
               <p className="mb-4 font-display text-xl uppercase">Order summary</p>
-              <OrderSummaryRows contracts={contracts} au={au} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
+              <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
             </section>
 
             <section className="hidden rounded-xl border border-acid/40 bg-acid/5 p-5 text-[13px] leading-relaxed text-white/70 lg:block">
@@ -358,7 +381,7 @@ export default function Checkout({
       </div>
 
       {/* callback for demo flow compatibility */}
-      <button type="button" onClick={() => onComplete(total, { contracts, au })} className="sr-only">
+      <button type="button" onClick={() => onComplete(total, { contracts, au, contractGuide })} className="sr-only">
         sync
       </button>
 
@@ -386,6 +409,7 @@ export default function Checkout({
 function OrderSummaryRows({
   contracts,
   au,
+  contractGuide,
   saved,
   total,
   coupon,
@@ -394,6 +418,7 @@ function OrderSummaryRows({
 }: {
   contracts: boolean;
   au: boolean;
+  contractGuide: boolean;
   saved: number;
   total: number;
   coupon?: LuckyCoupon | null;
@@ -423,6 +448,12 @@ function OrderSummaryRows({
           now={`$${PRODUCTS.australia_addon.price.toFixed(2)}`}
           accent={hasWinningCoupon}
           badge={hasWinningCoupon ? "YOU WON THIS" : undefined}
+        />
+      )}
+      {contractGuide && (
+        <SummaryRow
+          label={PRODUCTS.contract_guide.shortName}
+          now={`$${PRODUCTS.contract_guide.price.toFixed(2)}`}
         />
       )}
       {hasWinningCoupon && coupon && (
