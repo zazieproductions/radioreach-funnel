@@ -237,6 +237,13 @@ summary {
   max-width: 100%;
 }
 
+/* Block-level slots (hero H1, proof H2) still stack variants in one cell. */
+h1.esp-slot,
+h2.esp-slot,
+p.esp-slot {
+  display: grid;
+}
+
 .esp-slot > .esp-variant {
   grid-area: 1 / 1;
   min-width: 0;

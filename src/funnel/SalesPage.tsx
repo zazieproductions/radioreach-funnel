@@ -187,10 +187,11 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <EmotiveText slot="heroEyebrow" />
           </p>
 
-          <h1 className="font-display text-[2.15rem] leading-[1.02] sm:text-6xl sm:leading-[0.95] md:text-7xl">
-            STOP GUESSING <span className="text-blood">WHO TO EMAIL.</span>
-            <span className="mt-2 block text-[0.55em] tracking-wide text-white/90">START YOUR RADIO OUTREACH TONIGHT.</span>
-          </h1>
+          <EmotiveText
+            slot="heroHeadline"
+            as="h1"
+            className="grid w-full font-display text-[2.15rem] leading-[1.02] sm:text-6xl sm:leading-[0.95] md:text-7xl"
+          />
           <EmotiveText
             slot="heroSub"
             as="p"
@@ -253,7 +254,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           {/* Terminal preview */}
           <div id="sample" className="mt-8 w-full sm:mt-10">
             <p className="mb-3 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/60 sm:text-[11px] sm:tracking-[0.2em]">
-              ↓ live sample — 7 of 18,000+ entries
+              ↓ the names you&apos;re not emailing — 7 of 18,000+
             </p>
             <TerminalPreview onCta={() => handleCta("terminal")} />
           </div>
@@ -267,7 +268,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <EmotiveText slot="problemLabel" />
           </SectionLabel>
           <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
-            THE GAP ISN'T TALENT.{" "}
+            THE GAP ISN&apos;T TALENT.{" "}
             <EmotiveText slot="problemHeadline" className="text-blood" />
           </h2>
           <div className="mt-5 space-y-4 font-serif text-[1.05rem] leading-[1.65] text-white/75 sm:mt-6 sm:text-lg sm:leading-relaxed">
@@ -275,9 +276,12 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               <EmotiveText slot="problemP1" />
             </p>
             <p>
-              Meanwhile you're on page 6 of Google at 2am, copying station names into a spreadsheet,
-              guessing at email formats, firing your life's work into <code className="rounded bg-black/60 px-1.5 py-0.5 text-acid">info@</code>{" "}
-              inboxes that a 19-year-old intern clears every Friday without opening.
+              Meanwhile you&apos;re on page 6 of Google at 2am, copying station names into a spreadsheet,
+              guessing at email formats, firing the song you bled for into{" "}
+              <code className="rounded bg-black/60 px-1.5 py-0.5 text-acid">info@</code>{" "}
+              inboxes a 19-year-old intern deletes every Friday without opening. You tell yourself
+              the next release will be different. It won&apos;t. Same silence. Same shame when a weaker
+              record gets the spin you wanted.
             </p>
             <p className="text-white/90">
               <EmotiveText slot="problemP3" />
@@ -286,23 +290,23 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
           <div className="mt-8 grid gap-3 sm:mt-9 sm:grid-cols-2 sm:gap-4">
             <div className="rounded-lg border border-blood/40 bg-blood/5 p-4 sm:p-5">
-              <p className="mb-3 font-display text-lg text-blood sm:text-xl">WITHOUT THE VAULT</p>
+              <p className="mb-3 font-display text-lg text-blood sm:text-xl">STAY INVISIBLE</p>
               <ul className="space-y-2.5 text-[15px] leading-snug">
-                <Cross>6+ months of manual research per campaign</Cross>
-                <Cross>$29–$79/mo submission platforms that "forward" your track</Cross>
+                <Cross>6+ months of research while the release goes cold</Cross>
+                <Cross>$29–$79/mo platforms that &quot;forward&quot; you into a void</Cross>
                 <Cross>Generic info@ inboxes, zero names, zero replies</Cross>
                 <Cross>Bouncing emails from lists nobody ever verified</Cross>
-                <Cross>Watching your release cycle die in 3 weeks</Cross>
+                <Cross>Watching a weaker artist get the add you wanted</Cross>
               </ul>
             </div>
             <div className="rounded-lg border border-acid/50 bg-acid/5 p-4 sm:p-5">
-              <p className="mb-3 font-display text-lg text-acid sm:text-xl">WITH THE VAULT</p>
+              <p className="mb-3 font-display text-lg text-acid sm:text-xl">GET HEARD</p>
               <ul className="space-y-2.5 text-[15px] leading-snug">
                 <Check>18,000+ entries, ready in the next 90 seconds</Check>
                 <Check>Organized by station, location, role, phone, and email</Check>
                 <Check>Program &amp; music directors — the people who decide</Check>
-                <Check>Sorted city by city so you start where you're strongest</Check>
-                <Check>Named decision-makers, so your email starts with "Hi [name]"</Check>
+                <Check>Sorted city by city so you start where you&apos;re strongest</Check>
+                <Check>Named decision-makers, so your email starts with &quot;Hi [name]&quot;</Check>
               </ul>
             </div>
           </div>
@@ -311,13 +315,14 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
       {/* MECHANISM */}
       <section className="defer-render mx-auto max-w-4xl px-4 py-12 sm:py-16">
-        <SectionLabel>The mechanism</SectionLabel>
+        <SectionLabel>The way out</SectionLabel>
         <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
           HOW TO <span className="hl">SUBMIT MUSIC TO RADIO STATIONS</span> CITY BY CITY
         </h2>
         <p className="mt-4 max-w-2xl font-serif text-[1.05rem] leading-[1.65] text-white/70 sm:text-lg">
-          Major-market stations are drowning in label submissions. Local stations are actively looking for
-          local talent to champion. Sorting the database by city turns a cold list into a warm ladder:
+          You don&apos;t need a label. You need a first name and a warm market. Major-market stations are
+          drowning in label submissions. Local stations are hunting for a local act to champion. Sorting
+          the database by city turns a cold list into a ladder you can actually climb:
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           {[
@@ -345,11 +350,11 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
       {/* WHAT'S INSIDE / STACK */}
       <section id="inside" className="defer-render border-y border-white/10 bg-panel">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:py-16">
-          <SectionLabel>Everything you get today</SectionLabel>
+          <SectionLabel>The solution in one download</SectionLabel>
           <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
             THE RADIO REACH VAULT
             <span className="mt-2 block text-[0.55em] text-white/60">
-              RADIO CONTACT LIST FOR INDEPENDENT ARTISTS
+              THE NAMES THAT GET INDEPENDENT ARTISTS HEARD
             </span>
           </h2>
           <div
@@ -532,10 +537,10 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           <SectionLabel>Is this you?</SectionLabel>
           <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">THIS IS FOR YOU IF…</h2>
           <ul className="mt-5 grid gap-3 text-[15px] leading-snug sm:mt-6 sm:grid-cols-2 sm:text-[16px]">
-            <Check>You're an independent musician with a release to pitch</Check>
-            <Check>You're a podcaster chasing syndication or features</Check>
-            <Check>You're sick of monthly platforms that deliver nothing</Check>
-            <Check>You want to start outreach today, not in six months</Check>
+            <Check>You know your record is better than what they&apos;re playing</Check>
+            <Check>You&apos;re done feeling like a hobbyist in your own scene</Check>
+            <Check>You&apos;re sick of monthly platforms that deliver nothing</Check>
+            <Check>You want to start outreach tonight, not in six months</Check>
           </ul>
           <p className="mt-8 border-l-2 border-blood pl-4 text-[15px] text-white/55">
             <b className="text-white">This is NOT for you if</b> you plan to blast 18,000 identical emails.
@@ -720,17 +725,17 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
       >
         <div className="mx-auto max-w-3xl px-4 py-12 text-center sm:py-16">
           <h2 className="font-display text-[2rem] leading-[1.05] sm:text-6xl sm:leading-[0.95]">
-            TWO ROADS. <span className="text-acid">PICK ONE.</span>
+            STAY THE SECRET. <span className="text-acid">OR DON&apos;T.</span>
           </h2>
           <div className="mt-6 grid gap-3 text-left sm:mt-8 sm:grid-cols-2 sm:gap-4">
             <div className="rounded-lg border border-white/10 bg-black/40 p-4 sm:p-5">
-              <p className="font-display text-lg text-white/50 sm:text-xl">ROAD A</p>
+              <p className="font-display text-lg text-white/50 sm:text-xl">STAY INVISIBLE</p>
               <p className="mt-2 text-[14px] leading-relaxed text-white/55 sm:text-[15px]">
                 <EmotiveText slot="roadA" />
               </p>
             </div>
             <div className="rounded-lg border-2 border-acid bg-acid/10 p-4 sm:p-5">
-              <p className="font-display text-lg text-acid sm:text-xl">ROAD B</p>
+              <p className="font-display text-lg text-acid sm:text-xl">GET HEARD TONIGHT</p>
               <p className="mt-2 text-[14px] leading-relaxed text-white/80 sm:text-[15px]">
                 <EmotiveText slot="roadB" />
               </p>

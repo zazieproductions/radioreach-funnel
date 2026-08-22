@@ -140,8 +140,8 @@ export function SaleTimer({ compact = false }: { compact?: boolean }) {
 
 export function Ticker() {
   const items = [
-    "18,000+ radio station contacts",
-    "1,940+ independent artists inside",
+    "Stop dying unheard — 18,000+ contacts",
+    "1,940+ independent artists already inside",
     "$20 one-time payment · no subscription",
   ];
   return (

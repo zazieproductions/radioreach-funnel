@@ -113,10 +113,10 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
         </p>
 
         <p className="mt-3 font-display text-[1.15rem] uppercase leading-tight sm:text-2xl">
-          Unlock the remaining <span className="text-acid">18,000+ contacts</span>
+          These are the people who could have <span className="text-acid">played you last night</span>
         </p>
         <p className="mt-1 font-mono text-[11px] leading-snug text-white/50 sm:text-[12px]">
-          Organized by station, location, role, phone, and email
+          18,000+ names · station, location, role, phone, and email
         </p>
 
         <button

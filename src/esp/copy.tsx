@@ -27,6 +27,7 @@ import type { EmotionalMode } from "./types";
 
 export type SlotKey =
   | "heroEyebrow"
+  | "heroHeadline"
   | "heroSub"
   | "ctaLabel"
   | "ctaTrust"
@@ -49,36 +50,75 @@ type SlotVariants = { default: ReactNode } & Partial<Record<EmotionalMode, React
 export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   /* — hero eyebrow badge — */
   heroEyebrow: {
-    default: "For unsigned artists, producers & podcasters who are done being ignored",
+    default: "For unsigned artists, producers & podcasters who are done being invisible",
     calm: "For unsigned artists, producers & podcasters who want a clear path",
     aspire: "For unsigned artists, producers & podcasters serious about being heard",
+    urgency: "For unsigned artists, producers & podcasters watching the window close",
+  },
+
+  /* — hero headline (PAS: problem + knife + way out) — */
+  heroHeadline: {
+    default: (
+      <>
+        THEY&apos;RE SPINNING SOMEONE <span className="text-blood">WORSE THAN YOU.</span>
+        <span className="mt-2 block text-[0.55em] tracking-wide text-white/90">
+          GET THE NAMES. GET HEARD TONIGHT.
+        </span>
+      </>
+    ),
+    calm: (
+      <>
+        YOUR MUSIC ISN&apos;T THE PROBLEM. <span className="text-blood">ACCESS IS.</span>
+        <span className="mt-2 block text-[0.55em] tracking-wide text-white/90">
+          GET THE NAMES. START WHEN YOU&apos;RE READY.
+        </span>
+      </>
+    ),
+    aspire: (
+      <>
+        YOU&apos;RE TOO GOOD TO STILL BE <span className="text-blood">INVISIBLE.</span>
+        <span className="mt-2 block text-[0.55em] tracking-wide text-white/90">
+          THIS IS HOW THE SERIOUS ONES GET HEARD.
+        </span>
+      </>
+    ),
+    urgency: (
+      <>
+        EVERY QUIET NIGHT, SOMEONE WORSE <span className="text-blood">GETS THE SPIN.</span>
+        <span className="mt-2 block text-[0.55em] tracking-wide text-white/90">
+          GET THE NAMES. GET HEARD TONIGHT.
+        </span>
+      </>
+    ),
   },
 
   /* — hero subheadline — */
   heroSub: {
     default: (
       <>
-        You finished the record. Now get <span className="font-bold text-acid">18,000+ radio station contacts</span>{" "}
+        You finished the record. Now it sits unheard while a weaker song gets the spin — they had names,
+        you had Google. Get <span className="font-bold text-acid">18,000+ radio station contacts</span>{" "}
         organized by station, city, role, phone, and email — one instant download for independent artists.
       </>
     ),
     calm: (
       <>
-        You finished the record. No platforms. No monthly bills. Just{" "}
+        You finished the record. No platforms. No monthly bills. Just the names that end the guessing —{" "}
         <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by station,
         city, role, phone, and email in one download.
       </>
     ),
     aspire: (
       <>
-        Turn your next release into a real outreach plan with{" "}
+        Serious artists don&apos;t wait to be discovered. They reach the people who decide. Turn your next
+        release into a real outreach plan with{" "}
         <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by station,
         city, role, phone, and email.
       </>
     ),
     urgency: (
       <>
-        Every week the record sits is another week lost to research. Start tonight with{" "}
+        Every week the record sits is another week someone worse gets the spin. Start tonight with{" "}
         <span className="font-bold text-acid">18,000+ radio station contacts</span> organized by station,
         city, role, phone, and email.
       </>
@@ -87,7 +127,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
 
   /* — hero CTA box label — */
   ctaLabel: {
-    default: "One-time access:",
+    default: "Stop dying unheard:",
     calm: "One-time price — no subscription, no fine print:",
     aspire: "Join 1,940+ artists inside:",
     urgency: "Start your outreach tonight:",
@@ -103,16 +143,18 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
 
   /* — problem section label — */
   problemLabel: {
-    default: "Let's be honest about what's happening",
+    default: "The problem. The cost. The way out.",
     calm: "Let's simplify what's happening",
     aspire: "Here's what separates the artists who get played",
+    urgency: "This is what another quiet week actually costs",
   },
 
   /* — problem section headline (red half) — */
   problemHeadline: {
-    default: "IT'S THE CONTACT LIST.",
+    default: "IT'S INVISIBILITY.",
     calm: "IT'S THE CONTACT LIST.",
     aspire: "IT'S WHO YOU KNOW.",
+    urgency: "IT'S ANOTHER DEAD RELEASE.",
   },
 
   /* — problem section, first paragraph — */
@@ -120,30 +162,31 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
     default: (
       <>
         Somewhere tonight, an artist with half your ability is getting spun on a station in a city
-        they've never visited. Not because their song is better. Because someone{" "}
-        <span className="font-semibold text-white hl">handed them a phone number.</span>
+        they&apos;ve never visited. Not because their song is better. Because someone{" "}
+        <span className="font-semibold text-white hl">handed them a phone number</span> — and you
+        are still the best-kept secret in a scene that will not come looking for you.
       </>
     ),
     calm: (
       <>
         Somewhere tonight, an artist with half your ability is getting spun on a station in a city
-        they've never visited. Not because their song is better. Because someone{" "}
-        <span className="font-semibold text-white hl">handed them a phone number.</span> That's the
+        they&apos;ve never visited. Not because their song is better. Because someone{" "}
+        <span className="font-semibold text-white hl">handed them a phone number.</span> That&apos;s the
         whole gap — no algorithm, no luck. Just access.
       </>
     ),
     aspire: (
       <>
-        The artists in rotation aren't more talented than you. They're better connected. Somewhere
-        tonight, one of them is getting spun in a city they've never visited because someone{" "}
+        The artists in rotation aren&apos;t more talented than you. They&apos;re better connected. Somewhere
+        tonight, one of them is getting spun in a city they&apos;ve never visited because someone{" "}
         <span className="font-semibold text-white hl">handed them a phone number.</span> Talent got
         you the record. Access gets it played.
       </>
     ),
     urgency: (
       <>
-        Right now, while you're reading this, an artist with half your ability is getting spun on a
-        station in a city they've never visited — because someone{" "}
+        Right now, while you&apos;re reading this, an artist with half your ability is getting spun on a
+        station in a city they&apos;ve never visited — because someone{" "}
         <span className="font-semibold text-white hl">handed them a phone number.</span> Every day
         without it, that gap widens, and your release gets colder.
       </>
@@ -154,26 +197,26 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   problemP3: {
     default: (
       <>
-        That's not a marketing problem. That's an <b>access</b> problem. And access is the one
-        thing that can be handed to you.
+        That is not a talent problem. That is an <b>access</b> problem — and access is the one
+        thing that can be handed to you in the next 90 seconds.
       </>
     ),
     calm: (
       <>
-        That's not a marketing problem, and it's not a talent problem. It's a gap in your contact
+        That&apos;s not a marketing problem, and it&apos;s not a talent problem. It&apos;s a gap in your contact
         list — and that gap closes in one download.
       </>
     ),
     aspire: (
       <>
-        That's not a marketing problem. That's an <b>access</b> problem — and access is the one
+        That&apos;s not a marketing problem. That&apos;s an <b>access</b> problem — and access is the one
         thing that can be handed to you. Tonight, if you want it.
       </>
     ),
     urgency: (
       <>
-        That's not a marketing problem. That's an <b>access</b> problem. And every week it stays
-        unsolved, your release loses momentum you don't get back.
+        That&apos;s not a marketing problem. That&apos;s an <b>access</b> problem. And every week it stays
+        unsolved, your release loses momentum you don&apos;t get back.
       </>
     ),
   },
@@ -182,13 +225,13 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   mathBox: {
     default: (
       <>
-        <b className="text-white">The math nobody wants you to do:</b> professional radio databases
+        <b className="text-white">The math that ends the excuse:</b> professional radio databases
         from enterprise data providers run{" "}
         <span className="font-bold text-blood">$300–$500/year</span> and are built for corporate
         marketing departments. This is the same caliber of data — 18,000+ contacts, 10K+ verified
-        emails — for <span className="font-bold text-acid">$20</span>. That's{" "}
-        <b className="text-white">0.11¢ per contact.</b> Priced for someone currently deciding
-        between a mastering session and groceries. I know, because I was.
+        emails — for <span className="font-bold text-acid">$20</span>. That&apos;s{" "}
+        <b className="text-white">0.11¢ per contact.</b> Less than a streaming month. Priced for
+        someone currently deciding between a mastering session and groceries. I know, because I was.
       </>
     ),
     calm: (
@@ -197,18 +240,18 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         enterprise data providers run{" "}
         <span className="font-bold text-blood">$300–$500/year</span> and are built for corporate
         marketing departments. This is the same caliber of data — 18,000+ contacts, 10K+ verified
-        emails — for <span className="font-bold text-acid">$20</span>, one time. That's{" "}
+        emails — for <span className="font-bold text-acid">$20</span>, one time. That&apos;s{" "}
         <b className="text-white">0.11¢ per contact.</b> No subscription, no upsell maze, and a
-        30-day money-back guarantee if it's not for you.
+        30-day money-back guarantee if it&apos;s not for you.
       </>
     ),
     aspire: (
       <>
         <b className="text-white">The math serious artists do:</b> professional radio databases run{" "}
         <span className="font-bold text-blood">$300–$500/year</span> and are built for corporate
-        marketing departments. You're being offered the same caliber of data — 18,000+ contacts,
+        marketing departments. You&apos;re being offered the same caliber of data — 18,000+ contacts,
         10K+ verified emails — for <span className="font-bold text-acid">$20</span>, one time.{" "}
-        <b className="text-white">That's the edge the artists in rotation already paid for.</b>
+        <b className="text-white">That&apos;s the edge the artists in rotation already paid for.</b>
       </>
     ),
     urgency: (
@@ -231,9 +274,10 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
 
   /* — testimonials headline — */
   proofHeadline: {
-    default: "ARTISTS WHO STOPPED WAITING",
+    default: "ARTISTS WHO REFUSED TO STAY INVISIBLE",
     calm: "REAL ARTISTS. REAL REPLIES.",
     aspire: "ARTISTS WHO GOT HEARD",
+    urgency: "ARTISTS WHO STOPPED WAITING",
   },
 
   /* — guarantee paragraph — */
@@ -251,7 +295,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   /* — final CTA, road A — */
   roadA: {
     default:
-      "Keep researching one station at a time, checking roles and copying contact details into your own spreadsheet before outreach can begin.",
+      "Stay the secret. Keep researching one station at a time, guessing at inboxes, and watching a weaker record get the spin you wanted.",
     calm:
       "Keep building the list yourself. It costs nothing but the time you could otherwise spend on your release and your pitch.",
     aspire:
@@ -263,7 +307,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   /* — final CTA, road B — */
   roadB: {
     default:
-      "Pay $20 — less than a streaming subscription. Open the file in 90 seconds. Email 20 real music directors in your city tonight. Wake up to replies.",
+      "Pay $20 — less than a streaming subscription. Open the file in 90 seconds. Email 20 real music directors in your city tonight. Wake up as the artist they finally heard.",
     calm:
       "Pay $20 once — less than a streaming subscription. Open the file in 90 seconds. Email 20 real music directors in your city tonight. Simple as that.",
     aspire:
@@ -282,13 +326,13 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
 
   /* — exit-intent dialog — */
   exitTitle: {
-    default: "SKIP MONTHS OF CONTACT RESEARCH",
+    default: "LEAVE, AND YOU STAY THE SECRET",
     calm: "TAKE ONE LAST LOOK AT WHAT'S INCLUDED",
     aspire: "TURN YOUR NEXT RELEASE INTO A REAL OUTREACH PLAN",
     urgency: "START OUTREACH INSTEAD OF ANOTHER NIGHT OF SEARCHING",
   },
   exitBody: {
-    default: "Get 18,000+ organized radio station entries for one $20 payment.",
+    default: "Someone worse than you already has the names. $20 puts 18,000+ of them in your hands tonight.",
     calm: "Review the sample, the guarantee, and the exact deliverables before you decide.",
     aspire: "The Vault gives you the research starting point; your music and pitch do the rest.",
     urgency: "One click gets you the organized contact resource. Airplay is never guaranteed.",
