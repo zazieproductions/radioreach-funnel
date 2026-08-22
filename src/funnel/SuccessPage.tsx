@@ -199,7 +199,7 @@ export default function SuccessPage() {
           await navigator.clipboard.writeText(publicSalesUrl);
           setShareStatus("Public sales page copied!");
         } catch {
-          setShareStatus("Copy failed — visit radioreach.us");
+          setShareStatus("Copy failed. Visit radioreach.us");
         }
       }
     }

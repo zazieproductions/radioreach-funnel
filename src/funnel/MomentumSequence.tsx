@@ -38,25 +38,25 @@ const STEPS: SequenceStep[] = [
         value: "college",
         label: "College radio",
         acknowledgment:
-          "Got it — most artists chasing college radio lose hours inside department pages instead of reaching the people programming the shows.",
+          "Got it. most artists chasing college radio lose hours inside department pages instead of reaching the people programming the shows.",
       },
       {
         value: "specialty",
         label: "Specialty shows",
         acknowledgment:
-          "Got it — specialty radio runs on fit. The right host matters more than another hundred generic inboxes.",
+          "Got it. specialty radio runs on fit. The right host matters more than another hundred generic inboxes.",
       },
       {
         value: "local",
         label: "Local stations",
         acknowledgment:
-          "Smart — local is your warmest angle. Your name, shows, and story already mean something there.",
+          "Smart. local is your warmest angle. Your name, shows, and story already mean something there.",
       },
       {
         value: "multiple",
         label: "Multiple markets",
         acknowledgment:
-          "Good — you’re building a campaign, not buying a lottery ticket. Work it market by market and stack proof as you go.",
+          "Good. You’re building a campaign, not buying a lottery ticket. Work it market by market and stack proof as you go.",
       },
     ],
   },
@@ -70,7 +70,7 @@ const STEPS: SequenceStep[] = [
         value: "no_replies",
         label: "No replies",
         acknowledgment:
-          "Understood — silence usually means the pitch hit the wrong inbox before it ever had a chance to be heard.",
+          "Understood. silence usually means the pitch hit the wrong inbox before it ever had a chance to be heard.",
       },
       {
         value: "wrong_contact",
@@ -82,7 +82,7 @@ const STEPS: SequenceStep[] = [
         value: "generic_forms",
         label: "Generic submission forms",
         acknowledgment:
-          "Right — a form makes your release look like everybody else’s. Direct, relevant outreach gives it a human on the other end.",
+          "Right. a form makes your release look like everybody else’s. Direct, relevant outreach gives it a human on the other end.",
       },
       {
         value: "other",
@@ -108,7 +108,7 @@ const STEPS: SequenceStep[] = [
         value: "guessing",
         label: "Guessing who to email",
         acknowledgment:
-          "Done. Your next campaign starts with named roles and organized contacts — not another info@ coin toss.",
+          "Done. Your next campaign starts with named roles and organized contacts; not another info@ coin toss.",
       },
       {
         value: "waiting",
@@ -316,7 +316,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-acid sm:text-[11px]">
                 {complete
                   ? "Your access is ready to unlock"
-                  : `Step ${stepIndex + 1} of ${MOMENTUM_TOTAL_STEPS} — ${PROGRESS_LANGUAGE[stepIndex]}`}
+                  : `Step ${stepIndex + 1} of ${MOMENTUM_TOTAL_STEPS}; ${PROGRESS_LANGUAGE[stepIndex]}`}
               </p>
               <span className="tnum shrink-0 font-mono text-[11px] text-white/35">
                 {Math.round((visibleProgress / MOMENTUM_TOTAL_STEPS) * 100)}%
@@ -372,7 +372,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                   onClick={finishUnlocking}
                   className="cta mt-5 w-full rounded-xl bg-acid px-4 py-4 font-display text-[1.1rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-2xl"
                 >
-                  Finish Unlocking My Contacts — $20 →
+                  Finish Unlocking My Contacts for $20 →
                   <span className="mt-1 block font-sans text-[10px] font-bold normal-case tracking-normal opacity-65 sm:text-[11px]">
                     One-time payment · instant access · 30-day guarantee
                   </span>
@@ -438,7 +438,7 @@ export default function MomentumSequence({ onCta }: { onCta: () => void }) {
                         <span>{acknowledgment}</span>
                       </p>
                       <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.16em] text-acid/55">
-                        Saved — organizing your access around that…
+                        Saved. Organizing your access around that…
                       </p>
                     </div>
                   ) : (

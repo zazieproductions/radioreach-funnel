@@ -41,7 +41,7 @@ function OtoShell({ kicker, children }: { kicker: string; children: React.ReactN
   return (
     <div className="min-h-screen bg-ink pb-16">
       <p className="bg-acid py-2 text-center text-[11px] font-black uppercase tracking-[0.16em] text-ink">
-        Order confirmed — one last offer before your downloads
+        Order confirmed. One last offer before your downloads
       </p>
       <p className="bg-blood py-1.5 text-center text-[11px] font-black uppercase tracking-[0.16em]">
         {kicker}
@@ -52,7 +52,7 @@ function OtoShell({ kicker, children }: { kicker: string; children: React.ReactN
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   OTO 1 — AIRPLAY ACCELERATOR
+   OTO 1; AIRPLAY ACCELERATOR
 ═══════════════════════════════════════════════════════════════════════════ */
 
 export function Upsell1({
@@ -65,7 +65,7 @@ export function Upsell1({
   const decline = onDecline;
 
   return (
-    <OtoShell kicker="Special offer — Step 2 of 3 · this page is never shown again">
+    <OtoShell kicker="Special offer: Step 2 of 3 · this page is never shown again">
       <div>
         <p className="text-center text-[11px] font-black uppercase tracking-[0.28em] text-acid">
           Step 2 of 3 · Your download unlocks after this page
@@ -82,7 +82,7 @@ export function Upsell1({
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-[1.05rem] leading-[1.62] text-white/75 sm:text-lg">
           18,000+ contacts are worthless if your email gets deleted in 1.4 seconds. Add the{" "}
-          <span className="hl font-semibold">AIRPLAY ACCELERATOR</span> — the scripts, the
+          <span className="hl font-semibold">AIRPLAY ACCELERATOR</span>. The scripts, the
           campaign calendar, the follow-ups, and 4,812 bonus curator contacts.
         </p>
 
@@ -93,11 +93,11 @@ export function Upsell1({
         <div className="mt-7 rounded-xl border-2 border-acid/50 bg-panel p-4 sm:mt-8 sm:p-6">
           <p className="font-display text-xl leading-tight sm:text-2xl">WHAT GETS ADDED TO YOUR ORDER RIGHT NOW:</p>
           <ul className="mt-5 space-y-3 text-[15px]">
-            <Check><b>4,812 bonus curator contacts</b> — Spotify playlist curators, music blogs, college radio hosts, podcast bookers. <span className="text-white/50">($297 value)</span></Check>
-            <Check><b>The 6-Week Airplay Campaign Calendar</b> — exactly who to email on which day, pre-release to add-date follow-up. <span className="text-white/50">($149 value)</span></Check>
-            <Check><b>The "Local Artist" Angle Swipe File</b> — 11 subject lines with open rates attached. <span className="text-white/50">($97 value)</span></Check>
-            <Check><b>Follow-Up Sequence That Isn't Annoying</b> — the 3-touch cadence that doubled replies. <span className="text-white/50">($79 value)</span></Check>
-            <Check><b>One personal pitch review</b> — send your email, we'll rewrite it. Capped at 25/month. <span className="text-white/50">($200 value)</span></Check>
+            <Check><b>4,812 bonus curator contacts</b>: Spotify playlist curators, music blogs, college radio hosts, podcast bookers. <span className="text-white/50">($297 value)</span></Check>
+            <Check><b>The 6-Week Airplay Campaign Calendar</b>: exactly who to email on which day, pre-release to add-date follow-up. <span className="text-white/50">($149 value)</span></Check>
+            <Check><b>The "Local Artist" Angle Swipe File</b>: 11 subject lines with open rates attached. <span className="text-white/50">($97 value)</span></Check>
+            <Check><b>Follow-Up Sequence That Isn't Annoying</b>: the 3-touch cadence that doubled replies. <span className="text-white/50">($79 value)</span></Check>
+            <Check><b>One personal pitch review</b>: send your email, we'll rewrite it. Capped at 25/month. <span className="text-white/50">($200 value)</span></Check>
           </ul>
 
           <div className="mt-6 flex items-end justify-between border-t border-white/10 pt-5">
@@ -115,7 +115,7 @@ export function Upsell1({
             onClick={() => onAccept(37)}
             className="cta mt-6 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.1rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:py-5 sm:text-2xl"
           >
-            YES — ADD THE ACCELERATOR TO MY ORDER
+            YES, ADD THE ACCELERATOR TO MY ORDER
             <span className="mt-1 block text-[11px] font-sans font-bold tracking-normal">
               One click. Card already on file. No re-entry.
             </span>
@@ -125,7 +125,7 @@ export function Upsell1({
             onClick={decline}
             className="mt-5 block w-full text-[12px] leading-relaxed text-white/45 underline underline-offset-4 hover:text-white/75"
           >
-            No thanks — I'll figure out what to write on my own and hope the program director doesn't delete it
+            No thanks. I'll figure out what to write on my own and hope the program director doesn't delete it
           </button>
         </div>
 
@@ -142,7 +142,7 @@ export function Upsell1({
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   OTO 2 — ADVANCED UPWORK PROPOSALS COURSE
+   OTO 2; ADVANCED UPWORK PROPOSALS COURSE
 ═══════════════════════════════════════════════════════════════════════════ */
 
 const PARTS = [
@@ -169,7 +169,7 @@ const PARTS = [
     lessons: 9,
     value: "$700",
     blurb:
-      "The core of the course. The P.A.I.D. method — Problem, Angle, Insight, Deliverable — tested across 600+ live proposals in every major freelance category.",
+      "The core of the course. The P.A.I.D. method: Problem, Angle, Insight, and Deliverable. It was tested across 600+ live proposals in every major freelance category.",
     list: [
       "Why 96% of proposals get deleted in under 4 seconds",
       "The P.A.I.D. framework explained end-to-end",
@@ -194,7 +194,7 @@ const PARTS = [
       "Anchoring high without scaring the client",
       "The lowball response script (word for word)",
       "Scope creep: catching it before you sign",
-      "The counter-offer sequence — 2.4× average uplift",
+      "The counter-offer sequence: 2.4× average uplift",
       "Discovery call structure that closes on the call",
       "When to walk away (and how to do it profitably)",
     ],
@@ -231,7 +231,7 @@ export function Upsell2({
   const decline = onDecline;
 
   return (
-    <OtoShell kicker="One more thing — this offer disappears when you leave this page">
+    <OtoShell kicker="One more thing. This offer disappears when you leave this page">
       <div>
         <p className="text-center text-[11px] font-black uppercase tracking-[0.28em] text-acid">
           Step 3 of 3 · Final upgrade available
@@ -251,7 +251,7 @@ export function Upsell2({
                 ADVANCED UPWORK PROPOSALS
               </p>
               <p className="mt-0.5 font-mono text-[12px] text-acid">
-                Tips to 10X Client Responses Fast — FULL COURSE
+                Tips to 10X Client Responses Fast: FULL COURSE
               </p>
             </div>
           </div>
@@ -274,11 +274,11 @@ export function Upsell2({
 
         <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-[1.05rem] leading-[1.62] text-white/75 sm:mt-5 sm:text-lg">
           Radio airplay is your credibility. Your <b className="text-white">income</b> comes from
-          clients — sync deals, scoring, beat licensing, podcast music, game audio, mixing,
+          clients: sync deals, scoring, beat licensing, podcast music, game audio, mixing,
           mastering. This is the complete{" "}
           <span className="hl font-semibold">4-part, {TOTAL_LESSONS}-lesson system</span> for
           10×-ing your Upwork response rate. Built on music freelance data, but the framework works
-          in <b className="text-white">any niche you apply it to</b> — design, writing, video, dev.
+          in <b className="text-white">any niche you apply it to</b>: design, writing, video, dev.
         </p>
 
         {/* terminal-style "course loading" flavour */}
@@ -375,7 +375,7 @@ export function Upsell2({
               <p className="font-display text-3xl text-white/30 line-through decoration-blood decoration-2">$2,000</p>
             </div>
             <div className="text-right">
-              <p className="text-[11px] uppercase tracking-widest text-acid mb-1">Your price — today only</p>
+              <p className="text-[11px] uppercase tracking-widest text-acid mb-1">Your price today</p>
               <p className="font-display text-5xl text-acid">$50</p>
             </div>
           </div>
@@ -400,7 +400,7 @@ export function Upsell2({
           onClick={() => onAccept(50)}
           className="cta mt-6 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase leading-tight tracking-wide text-ink sm:text-2xl"
         >
-          YES — ADD THE FULL COURSE FOR $50
+          YES, ADD THE FULL COURSE FOR $50
           <span className="mt-1 block text-[11px] font-sans font-bold tracking-normal">
             One click · card on file · instant access · 4 parts · {TOTAL_LESSONS} lessons · $2,000 value
           </span>
@@ -410,7 +410,7 @@ export function Upsell2({
           onClick={decline}
             className="mt-5 block w-full text-[12px] leading-relaxed text-white/45 underline underline-offset-4 hover:text-white/75"
           >
-            No thanks — I'll keep applying to Upwork jobs with a generic proposal and wondering why nobody replies
+            No thanks. I'll keep applying to Upwork jobs with a generic proposal and wondering why nobody replies
         </button>
 
         <p className="mt-6 text-center text-[11px] text-white/25">
@@ -422,7 +422,7 @@ export function Upsell2({
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   OTO 3 — 20,000 FONTS MEGA BUNDLE · THE ARCANE TYPE VAULT
+   OTO 3; 20,000 FONTS MEGA BUNDLE · THE ARCANE TYPE VAULT
 ═══════════════════════════════════════════════════════════════════════════ */
 
 const FONT_CATS = [
@@ -448,7 +448,7 @@ export function Upsell3({
   const decline = onDecline;
 
   return (
-    <OtoShell kicker="Final offer — the type vault closes when you leave">
+    <OtoShell kicker="Final offer. The type vault closes when you leave">
       <div>
         <p className="text-center text-[11px] font-black uppercase tracking-[0.28em] text-acid">
           Bonus unlock · Last page before your downloads
@@ -463,7 +463,7 @@ export function Upsell3({
                 20,000 FONTS MEGA BUNDLE (A–Z)
               </p>
               <p className="mt-0.5 font-mono text-[12px] text-acid">
-                The Arcane Type Vault — Logos · Branding · Posters
+                The Arcane Type Vault: Logos · Branding · Posters
               </p>
             </div>
           </div>
@@ -478,14 +478,14 @@ export function Upsell3({
           You're about to email 18,000+ program directors. The first thing most of them do is{" "}
           <b className="text-white">look at your cover art</b>. Amateur type is the fastest way to
           get filed under "bedroom project." Grab{" "}
-          <span className="hl font-semibold">20,000 professional fonts</span> — one download,
+          <span className="hl font-semibold">20,000 professional fonts</span>. One download,
           lifetime use, every cover, poster and merch drop you'll ever make.
         </p>
 
         {/* type specimen strip */}
         <div className="mt-8 overflow-hidden rounded-xl border border-white/10 bg-black/60">
           <div className="border-b border-white/10 px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-white/35">
-            specimen preview — 10 of 20,000
+            specimen preview: 10 of 20,000
           </div>
           <div className="divide-y divide-white/5">
             {[
@@ -520,9 +520,9 @@ export function Upsell3({
             ))}
           </div>
           <div className="border-t border-white/10 px-5 py-4 space-y-2 text-[14px]">
-            <Check><b>Commercial license included</b> — use on covers, merch, client work, logos. No per-project fees.</Check>
-            <Check><b>.OTF + .TTF for every face</b> — works in Photoshop, Illustrator, Figma, Canva, Procreate, Word.</Check>
-            <Check><b>Sorted A–Z into labelled folders</b> — no 20,000-file dump. Find a face in under a minute.</Check>
+            <Check><b>Commercial license included</b>: use on covers, merch, client work, logos. No per-project fees.</Check>
+            <Check><b>.OTF + .TTF for every face</b>: works in Photoshop, Illustrator, Figma, Canva, Procreate, Word.</Check>
+            <Check><b>Sorted A–Z into labelled folders</b>: no 20,000-file dump. Find a face in under a minute.</Check>
           </div>
         </div>
 
@@ -563,7 +563,7 @@ export function Upsell3({
           onClick={() => onAccept(29)}
           className="cta mt-6 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase leading-tight tracking-wide text-ink sm:text-2xl"
         >
-          YES — ADD 20,000 FONTS FOR $29
+          YES, ADD 20,000 FONTS FOR $29
           <span className="mt-1 block text-[11px] font-sans font-bold tracking-normal">
             One click · card on file · commercial license · lifetime access
           </span>
@@ -573,7 +573,7 @@ export function Upsell3({
           onClick={decline}
             className="mt-5 block w-full text-[12px] leading-relaxed text-white/45 underline underline-offset-4 hover:text-white/75"
           >
-            No thanks — I'll keep making covers in the default font and hope nobody notices
+            No thanks. I'll keep making covers in the default font and hope nobody notices
         </button>
 
         <p className="mt-6 text-center text-[11px] text-white/25">
@@ -585,7 +585,7 @@ export function Upsell3({
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   DOWNSELL — AIRPLAY ACCELERATOR LITE
+   DOWNSELL; AIRPLAY ACCELERATOR LITE
 ═══════════════════════════════════════════════════════════════════════════ */
 
 export function Downsell({
@@ -598,7 +598,7 @@ export function Downsell({
   const decline = onDecline;
 
   return (
-    <OtoShell kicker="Last call — a smaller version of the same offer">
+    <OtoShell kicker="Last call. A smaller version of the same offer">
       <div>
         <p className="text-center text-[11px] font-black uppercase tracking-[0.28em] text-blood">
           Hold on. Was it the price?
@@ -608,7 +608,7 @@ export function Downsell({
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-center font-serif text-lg text-white/75">
           I'd rather you have the scripts than have my $37. Here's the <b className="text-white">Lite</b>{" "}
-          version — the swipe file, the calendar, and 1,900 of the curator contacts — for{" "}
+          version; the swipe file, the calendar, and 1,900 of the curator contacts; for{" "}
           <span className="hl font-semibold">3 payments of $6</span>.
         </p>
 
@@ -624,7 +624,7 @@ export function Downsell({
             <Check>1,900 curator + blog contacts (of the 4,812)</Check>
             <li className="flex gap-3 text-white/35">
               <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-white/10 text-[12px]">✕</span>
-              <span>Personal pitch review — not included at this price</span>
+              <span>Personal pitch review. Not included at this price</span>
             </li>
           </ul>
 
@@ -640,13 +640,13 @@ export function Downsell({
             onClick={() => onAccept(18)}
             className="cta mt-6 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
           >
-            OK — ADD THE LITE VERSION FOR $6 TODAY
+            OK; ADD THE LITE VERSION FOR $6 TODAY
           </button>
           <button
             onClick={decline}
             className="mt-5 block w-full text-[12px] text-white/45 underline underline-offset-4 hover:text-white/75"
           >
-            No — I'm certain I want to send cold emails with no template and no plan
+            No. I'm certain I want to send cold emails with no template and no plan
           </button>
         </div>
       </div>
@@ -676,18 +676,18 @@ export function ThankYou({
   const [copied, setCopied] = useState(false);
 
   const downloads: [string, string, string][] = [
-    ["📁", "Radio Reach Vault — 18,000+ entries", "PDF + tables · 412 pages"],
+    ["📁", "Radio Reach Vault: 18,000+ entries", "PDF + tables · 412 pages"],
     ["✉️", "Detailed contact information", "Organized by station, location, role, phone, and email"],
     ...(hasContracts ? [["📄", "The Indie Music Contract Kit", "6 Agreement Templates + Plain-English Usage Guide"] as [string, string, string]] : []),
     ...(hasAu ? [["🇦🇺", "Australian Radio Contact List", "Major national and regional AU contacts"] as [string, string, string]] : []),
-    ...(hasUpwork ? [["🎓", "Advanced Upwork Proposals — Full Course", `4 parts · ${TOTAL_LESSONS} lessons · lifetime access`] as [string, string, string]] : []),
-    // ...(hasFonts ? [["🔤", "20,000 Fonts Mega Bundle — Arcane Type Vault", "A–Z folders · .OTF + .TTF · commercial license"] as [string, string, string]] : []),
+    ...(hasUpwork ? [["🎓", "Advanced Upwork Proposals: Full Course", `4 parts · ${TOTAL_LESSONS} lessons · lifetime access`] as [string, string, string]] : []),
+    // ...(hasFonts ? [["🔤", "20,000 Fonts Mega Bundle; Arcane Type Vault", "A–Z folders · .OTF + .TTF · commercial license"] as [string, string, string]] : []),
   ];
 
   return (
     <div className="min-h-screen bg-ink">
       <div className="bg-green-600 py-2 text-center text-[11px] font-black uppercase tracking-[0.2em]">
-        ✅ Payment complete — your files are unlocked
+        ✅ Payment complete; your files are unlocked
       </div>
       <div className="mx-auto max-w-2xl px-4 py-12 text-center">
         <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-acid font-display text-3xl text-ink">
@@ -699,7 +699,7 @@ export function ThankYou({
         <p className="mt-3 font-serif text-lg text-white/75">
           Order total <b className="text-acid">${total.toFixed(2)}</b>. Your receipt and download
           links are on their way. Open the file, filter to your city, and email{" "}
-          <b className="text-white">20 people tonight</b> — momentum dies if you "start Monday."
+          <b className="text-white">20 people tonight</b>. Momentum dies if you "start Monday."
         </p>
 
         <div className="mt-8 space-y-3 text-left">
@@ -724,7 +724,7 @@ export function ThankYou({
           <p className="font-display text-xl text-acid">ONE ASK BEFORE YOU GO</p>
           <p className="mt-2 text-[15px] leading-relaxed text-white/70">
             Use this like a human. Personalize every email. Reference a show, a segment, a song they
-            actually played. The database opens the door — your manners keep it open for the next
+            actually played. The database opens the door; your manners keep it open for the next
             independent artist who buys this. 🫂
           </p>
           <button

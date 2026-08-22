@@ -20,7 +20,7 @@ const VISIBLE = 7;
 export default function TerminalPreview({ onCta }: { onCta: () => void }) {
   const [typed, setTyped] = useState(0);
 
-  // Progressive reveal. No scrollIntoView — the page never moves on its own.
+  // Progressive reveal. No scrollIntoView; the page never moves on its own.
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
@@ -54,7 +54,7 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
         <span className="text-white/25">$ </span>head -7 radio_reach_vault.csv
       </p>
 
-      {/* table — scrolls inside itself, never the page */}
+      {/* table; scrolls inside itself, never the page */}
       <div className="scroll-x" role="region" aria-label="Scrollable contact sample" tabIndex={0}>
         <table className="w-full min-w-[540px] font-mono text-[12px] sm:min-w-[560px]">
           <caption className="sr-only">
@@ -105,7 +105,7 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
         Swipe table to explore →
       </p>
 
-      {/* unlock gate — in flow, so it can never overlap content */}
+      {/* unlock gate; in flow, so it can never overlap content */}
       <div className="border-t border-white/10 bg-[#0b0f0b] px-3 py-4 text-center sm:px-4 sm:py-5">
         <p className="tnum font-mono text-[11px] tracking-wide text-green-400/60">
           <span className="text-white/30">showing</span> 7 / 18,000+
@@ -124,7 +124,7 @@ export default function TerminalPreview({ onCta }: { onCta: () => void }) {
           onClick={onCta}
           className="cta mt-4 min-h-14 w-full rounded-lg bg-acid px-5 py-3.5 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-7 sm:py-4 sm:text-lg"
         >
-          Get full access — $20
+          Get full access; $20
         </button>
       </div>
     </div>

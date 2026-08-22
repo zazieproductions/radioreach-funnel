@@ -42,7 +42,7 @@ const FAQS = [
   ],
   [
     "Are these radio station contacts scraped from Google?",
-    "No. 10,372 of the emails are individually verified deliverable addresses tied to a real human — program directors, music directors, and station decision-makers. The remaining entries include station lines and city data. If it were scraped you'd be paying $0 and getting bounces.",
+    "No. 10,372 of the emails are individually verified deliverable addresses tied to a real human; program directors, music directors, and station decision-makers. The remaining entries include station lines and city data. If it were scraped you'd be paying $0 and getting bounces.",
   ],
   [
     "What format is the radio station contact list delivered in?",
@@ -50,15 +50,15 @@ const FAQS = [
   ],
   [
     "Will contacting radio stations guarantee airplay?",
-    "The database gets you in the room. Your music and your pitch close it. This is meant for targeted, relevant, human outreach — not spam. Be personal. Be respectful. That's what works.",
+    "The database gets you in the room. Your music and your pitch close it. This is meant for targeted, relevant, human outreach; not spam. Be personal. Be respectful. That's what works.",
   ],
   [
     "Why is the RadioReach radio contact list only $20?",
-    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $20 is the launch rate — it goes to $49 once the founder slots are gone.",
+    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $20 is the launch rate; it goes to $49 once the founder slots are gone.",
   ],
   [
     "Does RadioReach have a refund policy?",
-    "Yes — a 30-day action-based money-back guarantee. Put it to work: contact at least five relevant stations, keep a simple record of your outreach, and if you decide it isn't for you, email me within 30 days with your receipt and a short note about what happened. No airplay or replies required — just an honest attempt. The full terms are on the refund policy page.",
+    "Yes; a 30-day action-based money-back guarantee. Put it to work: contact at least five relevant stations, keep a simple record of your outreach, and if you decide it isn't for you, email me within 30 days with your receipt and a short note about what happened. No airplay or replies required. Just an honest attempt. The full terms are on the refund policy page.",
   ],
 ];
 
@@ -106,7 +106,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
   // Every CTA in the page funnels through here, so each click can be
   // logged as a conversion event tagged with the mode the visitor
-  // was in — the data we'll later use to see which states convert.
+  // was in; the data we'll later use to see which states convert.
   const handleCta = (label = "cta") => {
     espLogConversion("cta_click", { label, experience: trafficContext.experience });
     trackCustom("SalesCtaClicked", {
@@ -136,7 +136,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         label={<EmotiveText slot="stickyLabel" />}
       />
 
-      {/* lucky winner top banner — founder bundle */}
+      {/* lucky winner top banner; founder bundle */}
       {hasWinningCoupon && luckyCoupon ? (
         <div className="bg-gradient-to-r from-acid via-yellow-300 to-[#7c5cff] px-3 py-2 text-center">
           <p className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-2 text-[11px] font-black uppercase tracking-[0.12em] text-ink sm:gap-3 sm:text-xs">
@@ -223,7 +223,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               onClick={() => handleCta("hero")}
               className="cta mt-4 min-h-14 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
             >
-              Get Instant Access — $20
+              Get Instant Access for $20
               <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
                 Secure checkout · download after payment
               </span>
@@ -253,14 +253,14 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           {/* Terminal preview */}
           <div id="sample" className="mt-8 w-full sm:mt-10">
             <p className="mb-3 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/60 sm:text-[11px] sm:tracking-[0.2em]">
-              ↓ live sample — 7 of 18,000+ entries
+              ↓ live sample; 7 of 18,000+ entries
             </p>
             <TerminalPreview onCta={() => handleCta("terminal")} />
           </div>
         </div>
       </section>
 
-      {/* THE PROBLEM — agitation */}
+      {/* THE PROBLEM; agitation */}
       <section className="defer-render border-y border-white/10 bg-panel">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:py-14">
           <SectionLabel>
@@ -300,7 +300,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               <ul className="space-y-2.5 text-[15px] leading-snug">
                 <Check>18,000+ entries, ready in the next 90 seconds</Check>
                 <Check>Organized by station, location, role, phone, and email</Check>
-                <Check>Program &amp; music directors — the people who decide</Check>
+                <Check>Program &amp; music directors, the people who decide</Check>
                 <Check>Sorted city by city so you start where you're strongest</Check>
                 <Check>Named decision-makers, so your email starts with "Hi [name]"</Check>
               </ul>
@@ -321,7 +321,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           {[
-            ["01", "START LOCAL", "Pitch your hometown stations first. You're not a stranger — you're the local act. Warmest leads on earth."],
+            ["01", "START LOCAL", "Pitch your hometown stations first. You're not a stranger; you're the local act. Warmest leads on earth."],
             ["02", "PITCH YOUR ROUTE", "Email every station in a tour city 3 weeks before the date. Spins + interviews + ticket sales, stacked."],
             ["03", "STACK CREDITS", "Regional airplay is proof. Proof opens bigger markets. Bigger markets open doors labels pretend are locked."],
           ].map(([n, t, d]) => (
@@ -334,10 +334,10 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         </div>
       </section>
 
-      {/* AFFILIATE GAMIFICATION — PlaylistPush secret slots.
+      {/* AFFILIATE GAMIFICATION; PlaylistPush secret slots.
           Sales page only (never mid-checkout): the machine reveals the
           affiliate code FR2AZEF as a "hidden industry secret". The promo
-          code IS the affiliate — no outbound link, visitors copy it and
+          code IS the affiliate; no outbound link, visitors copy it and
           enter it at PlaylistPush checkout. Feature flagged with a runtime
           kill switch like the Momentum sequence. */}
       {isSecretSlotsEnabled() && <SecretSlotsSection />}
@@ -384,7 +384,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             </div>
           </div>
 
-          {/* Founder bundle teaser — pre-selected upsells */}
+          {/* Founder bundle teaser; pre-selected upsells */}
           <div className={`mt-6 rounded-xl border-2 p-4 sm:p-5 ${hasWinningCoupon ? "border-acid bg-acid/10" : "border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40"}`}>
             <div className="flex items-start gap-3">
               <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-lg ${hasWinningCoupon ? "bg-acid text-ink" : "bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white"}`}>
@@ -392,21 +392,21 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               </span>
               <div className="flex-1">
                 <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">
-                  {hasWinningCoupon ? "Jackpot unlocked" : "Bonus — spin to unlock founder price"}
+                  {hasWinningCoupon ? "Jackpot unlocked" : "Bonus: spin to unlock founder price"}
                 </p>
-                <p className="mt-1 font-display text-lg leading-none sm:text-xl">FOUNDER'S BUNDLE — BOTH ADD-ONS</p>
+                <p className="mt-1 font-display text-lg leading-none sm:text-xl">FOUNDER'S BUNDLE: BOTH ADD-ONS</p>
                 <div className="mt-2 grid gap-2">
                   <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2">
-                    <span className="text-[13px] font-bold text-white">📄 Indie Contract Kit <span className="font-normal text-white/50">— 6 templates + guide</span></span>
+                    <span className="text-[13px] font-bold text-white">📄 Indie Contract Kit <span className="font-normal text-white/50">: 6 templates + guide</span></span>
                     <span className="text-right"><span className="block text-[11px] line-through text-white/30">$25</span><span className="block font-display text-sm leading-none text-acid">$9</span></span>
                   </div>
                   <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2">
-                    <span className="text-[13px] font-bold text-white">🇦🇺 AU Radio List <span className="font-normal text-white/50">— 2,847 contacts</span></span>
+                    <span className="text-[13px] font-bold text-white">🇦🇺 AU Radio List <span className="font-normal text-white/50">: 2,847 contacts</span></span>
                     <span className="text-right"><span className="block text-[11px] line-through text-white/30">$29</span><span className="block font-display text-sm leading-none text-acid">$12</span></span>
                   </div>
                 </div>
                 <p className="mt-2 text-[13px] leading-snug text-white/60">
-                  Normally <span className="line-through">$54</span> together —{" "}
+                  Normally <span className="line-through">$54</span> together:{" "}
                   {hasWinningCoupon ? (
                     <>
                       <b className="text-acid">yours for $21 (save $33)</b> with code <b className="font-mono text-white">{luckyCoupon.code}</b> • waiting at checkout
@@ -424,7 +424,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                       onClick={onClaimWheel}
                       className="cta rounded-full bg-acid px-4 py-2 text-xs font-black uppercase tracking-widest text-ink"
                     >
-                      Go to checkout — $21 bundle →
+                      Go to checkout for the $21 bundle →
                     </button>
                   ) : (
                     <button
@@ -432,7 +432,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                       onClick={() => onOpenWheel?.()}
                       className="cta rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-4 py-2 text-xs font-black uppercase tracking-widest text-white"
                     >
-                      🎡 Spin the wheel — free
+                      🎡 Spin the wheel for free
                     </button>
                   )}
                   <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white/50">
@@ -656,7 +656,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                   Radio Promotion Glossary
                 </strong>
                 <span className="mt-1 block text-sm text-white/55">
-                  40+ radio terms in plain English — adds, spins, rotation, NACC.
+                  40+ radio terms in plain English; adds, spins, rotation, NACC.
                 </span>
               </a>
 
@@ -668,7 +668,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                   All Free Guides →
                 </strong>
                 <span className="mt-1 block text-sm text-white/55">
-                  Genre playbooks, EPK building, comparisons, and answers — the
+                  Genre playbooks, EPK building, comparisons, and answers; the
                   complete resource library.
                 </span>
               </a>
@@ -741,7 +741,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             onClick={() => handleCta("final")}
             className="cta mt-7 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-8 sm:px-6 sm:py-5 sm:text-3xl"
           >
-            Give Me Instant Access — $20
+            Give Me Instant Access for $20
           </button>
           <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
             Secure checkout · Instant download · 30-day money-back guarantee · No subscription, ever
@@ -815,7 +815,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
       </footer>
 
-      {/* Dev-only overlay — visible only with ?esp=debug */}
+      {/* Dev-only overlay; visible only with ?esp=debug */}
       {espDebug && <DebugPanel />}
     </div>
   );

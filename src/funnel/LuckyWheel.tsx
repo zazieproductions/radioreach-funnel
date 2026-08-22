@@ -23,7 +23,7 @@ const RAINBOW_PROGRESS =
   "linear-gradient(90deg,#FACC15,#FB923C,#F472B6,#22D3EE)";
 
 
-// audio — soft, not harsh
+// audio; soft, not harsh
 let _audioCtx: AudioContext | null = null;
 function getAudio() {
   if (typeof window === "undefined") return null;
@@ -173,13 +173,13 @@ export function LuckyWheelModal({
     setSpinning(true);
     getAudio();
     const NEAR_MISS_INDEX = 0; // 10% OFF
-    // Whole turns only — fractional turns would rotate the landing position
+    // Whole turns only; fractional turns would rotate the landing position
     // away from the winning slice (see rotationToLandOn). Randomness comes
     // from the 5-or-6 turn count and the jitter.
     const spins = 5 + Math.round(Math.random());
     const jitter = (Math.random() - 0.5) * 2.5;
     const targetNearMiss = rotationToLandOn(NEAR_MISS_INDEX, spins, jitter);
-    // One more notch clockwise from the near-miss lands on JACKPOT —
+    // One more notch clockwise from the near-miss lands on JACKPOT:
     // it is the slice immediately counter-clockwise of the near-miss.
     const targetJackpot = targetNearMiss + clockwiseNudge(NEAR_MISS_INDEX, JACKPOT_INDEX);
 
@@ -263,7 +263,7 @@ export function LuckyWheelModal({
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-[520px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0F0F12] shadow-[0_24px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.06)] animate-[modalIn_0.32s_cubic-bezier(0.16,1,0.3,1)]"
       >
-        {/* top bar — rainbow wash */}
+        {/* top bar; rainbow wash */}
         <div className="relative flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.18]"
@@ -307,9 +307,9 @@ export function LuckyWheelModal({
               </p>
             </div>
 
-            {/* wheel stage — premium, not cluttered */}
+            {/* wheel stage; premium, not cluttered */}
             <div className="relative mx-auto mt-6 flex justify-center">
-              {/* pointer — sleek */}
+              {/* pointer; sleek */}
               <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-[1px]">
                 <div className="relative">
                   <div className="h-0 w-0 border-l-[11px] border-r-[11px] border-t-[18px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_6px_12px_rgba(0,0,0,0.4)]" />
@@ -331,7 +331,7 @@ export function LuckyWheelModal({
                 >
                   <div className="h-full w-full rounded-full bg-[#0F0F12] p-[6px]">
                     <div className="relative h-full w-full rounded-full bg-[#0F0F12] shadow-[inset_0_2px_12px_rgba(0,0,0,0.5)]">
-                      {/* lights — very subtle, 16 dots, slow */}
+                      {/* lights; very subtle, 16 dots, slow */}
                       <div className="pointer-events-none absolute inset-[-9px] rounded-full" aria-hidden>
                         {Array.from({ length: 16 }).map((_, i) => (
                           <span
@@ -366,7 +366,7 @@ export function LuckyWheelModal({
                             return <line key={i} x1="50" y1="50" x2={x2} y2={y2} stroke="rgba(255,255,255,0.14)" strokeWidth="0.6" />;
                           })}
                         </svg>
-                        {/* labels — clean, single line where possible */}
+                        {/* labels; clean, single line where possible */}
                         {SEGMENTS.map((seg, i) => {
                           const angle = i * SEGMENT_ANGLE + SEGMENT_ANGLE / 2;
                           const isJack = seg.isJackpot;
@@ -396,7 +396,7 @@ export function LuckyWheelModal({
                         })}
                       </div>
 
-                      {/* center hub — rainbow border */}
+                      {/* center hub; rainbow border */}
                       <div
                         className="absolute left-1/2 top-1/2 grid h-[84px] w-[84px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full p-[2px] shadow-[0_8px_24px_rgba(0,0,0,0.5)] sm:h-[92px] sm:w-[92px]"
                         style={{ background: RAINBOW_CONIC }}
@@ -429,7 +429,7 @@ export function LuckyWheelModal({
                       Spinning...
                     </>
                   ) : (
-                    <>Tap to spin — free</>
+                    <>Tap to spin for free</>
                   )}
                 </span>
               </button>
