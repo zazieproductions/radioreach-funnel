@@ -18,6 +18,10 @@ export type StorefrontProduct = {
   description: string;
   includes?: string[];
   checkoutBadge?: string;
+  /** Optional headline shown above the product name on the checkout card. */
+  checkoutHeadline?: string;
+  /** Optional restrained value line under the description on the checkout card. */
+  checkoutValueLine?: string;
 };
 
 export const STORE_COPY = {
@@ -91,11 +95,13 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     name: "RadioReach Indie Artist Contract Info Guide (PDF)",
     shortName: "Contract Info Guide",
     price: 10,
-    compareAt: 10,
     stripePriceIdEnv: "STRIPE_PRICE_CONTRACT_GUIDE",
     r2BundleKey: "products/contract-guide/radioreach-indie-artist-contract-info-guide.pdf",
     description: "Understand contracts, catch red flags, protect your rights, and negotiate with confidence.",
     checkoutBadge: "Instant PDF Access",
+    checkoutHeadline: "Protect Your Music Before You Sign",
+    checkoutValueLine:
+      "Learn how to review label, producer, publishing, management, distribution, and collaboration agreements in plain English.",
   },
 };
 

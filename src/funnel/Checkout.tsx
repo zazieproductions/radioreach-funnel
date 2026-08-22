@@ -23,6 +23,9 @@ const CONTRACTS_PRICE = PRODUCTS.contract_bundle.price;
 const AU_PRICE = PRODUCTS.australia_addon.price;
 const CONTRACT_GUIDE_PRICE = PRODUCTS.contract_guide.price;
 
+/** "$10" for whole-dollar prices, "$3.95" otherwise — matches Stripe totals. */
+const usd = (n: number) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
+
 export default function Checkout({
   onComplete,
   luckyCoupon,
@@ -164,7 +167,7 @@ export default function Checkout({
             <section className="rounded-xl border border-white/10 bg-panel p-4 sm:p-6">
               <p className="font-display text-2xl">YOUR ORDER</p>
               <p className="mt-1 text-sm text-white/55">
-                The Vault is included. Add either optional extra only if it fits your plans.
+                The Vault is included. Optional add-ons are off by default — add one only if it fits your plans.
               </p>
 
               {hasWinningCoupon && luckyCoupon ? (
@@ -300,22 +303,40 @@ export default function Checkout({
                   </span>
                 </label>
 
-                {/* Contract Info Guide - Available to all users */}
-                <label className="flex min-h-14 items-start gap-3 rounded-xl border border-acid/40 bg-black/20 p-3.5 sm:p-4 cursor-pointer hover:bg-black/30">
+                {/* Contract Info Guide — optional for everyone, one copy, off by default */}
+                <label
+                  className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${
+                    contractGuide
+                      ? "border-acid/50 bg-acid/[0.06]"
+                      : "border-white/15 bg-black/20 hover:border-acid/40 hover:bg-black/30"
+                  }`}
+                >
                   <input
                     type="checkbox"
                     checked={contractGuide}
                     onChange={(e) => setContractGuide(e.target.checked)}
-                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
+                    aria-label="Add the RadioReach Indie Artist Contract Info Guide"
+                    className="mt-1 h-6 w-6 shrink-0 accent-yellow-400"
                   />
-                  <div className="space-y-1 pr-2 w-full">
-                    <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_guide.name}</span>
-                    <span className="block text-sm font-bold text-acid">{PRODUCTS.contract_guide.description}</span>
-                    <span className="block text-sm">
-                      <b className="text-acid">${PRODUCTS.contract_guide.price.toFixed(2)}</b>
+                  <span className="w-full space-y-1.5 pr-2">
+                    <span className="inline-flex items-center rounded-full border border-acid/40 bg-acid/10 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.16em] text-acid">
+                      {PRODUCTS.contract_guide.checkoutBadge}
                     </span>
-                    <span className="block text-[12px] text-white/45"><Stars /> {PRODUCTS.contract_guide.checkoutBadge}</span>
-                  </div>
+                    <span className="block font-display text-lg uppercase leading-tight text-white">
+                      {PRODUCTS.contract_guide.checkoutHeadline}
+                    </span>
+                    <span className="block text-sm font-bold text-white/80">{PRODUCTS.contract_guide.name}</span>
+                    <span className="block text-sm text-white/65">{PRODUCTS.contract_guide.description}</span>
+                    <span className="block text-[12px] leading-relaxed text-white/45">
+                      {PRODUCTS.contract_guide.checkoutValueLine}
+                    </span>
+                    <span className="block pt-1">
+                      <b className="text-base text-acid">Add for {usd(PRODUCTS.contract_guide.price)}</b>
+                      <span className="ml-2 text-[10px] font-bold uppercase tracking-wider text-white/40">
+                        one-time · no subscription
+                      </span>
+                    </span>
+                  </span>
                 </label>
 
               </div>
