@@ -9,6 +9,7 @@ import { LuckyWheelModal } from "./funnel/LuckyWheel";
 const Checkout = lazy(() => import("./funnel/Checkout"));
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
 const LabGallery = lazy(() => import("./lab/LabGallery"));
+const CustomLeadsPage = lazy(() => import("./funnel/CustomLeadsPage"));
 
 const Upsell1 = lazy(() =>
   import("./funnel/Upsells").then((m) => ({ default: m.Upsell1 }))
@@ -35,9 +36,16 @@ function LoadingScreen() {
 }
 
 export default function App() {
-  const hash = window.location.hash || "";
+  const [hash, setHash] = useState(() => window.location.hash || "");
   const routeSuccess = hash.startsWith("#/success");
   const routeLab = hash.startsWith("#/lab");
+  const routeCustomLeads = hash.startsWith("#/custom-leads");
+
+  useEffect(() => {
+    const onHashChange = () => setHash(window.location.hash || "");
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   const [stage, setStage] = useState<Stage>("sales");
   const [total, setTotal] = useState(20);
@@ -97,6 +105,14 @@ export default function App() {
     return (
       <Suspense fallback={<LoadingScreen />}>
         <LabGallery />
+      </Suspense>
+    );
+  }
+
+  if (routeCustomLeads) {
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        <CustomLeadsPage onBack={() => { window.location.hash = "#top"; }} />
       </Suspense>
     );
   }
