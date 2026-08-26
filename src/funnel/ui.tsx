@@ -175,6 +175,7 @@ const LINKS = [
   { href: "#inside", label: "What's inside" },
   { href: "#proof", label: "Results" },
   { href: "#faq", label: "FAQ" },
+  { href: "#/custom-leads", label: "Custom outreach" },
 ];
 
 export function TopNav({ onCta }: { onCta: () => void }) {
