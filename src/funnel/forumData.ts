@@ -62,13 +62,6 @@ export const CATEGORIES: Record<
   meta: { label: "RadioReach news", blurb: "Release notes from the founder", hue: 330 },
 };
 
-export const FORUM_STATS = {
-  since: "Jun 2017",
-  members: "4,182",
-  threads: "3,914",
-  posts: "51,203",
-};
-
 /* ── Personas ─────────────────────────────────────────────── */
 
 export const USERS: Record<string, ForumUser> = {
@@ -242,7 +235,7 @@ export const USERS: Record<string, ForumUser> = {
 export const THREADS: ForumThread[] = [
   {
     id: "t-welcome",
-    title: "READ FIRST: welcome to the community (rules, search tips, and 9 years of answers)",
+    title: "READ FIRST: welcome to the community (rules and search tips)",
     category: "meta",
     views: 61208,
     pinned: true,
@@ -299,7 +292,7 @@ three rules:
         date: "2017-08-19",
         time: "20:02",
         votes: 640,
-        body: `In the spirit of pinning something that will outlive us all: the single piece of advice that has not changed across nine years of this board, three editions of the directory, and roughly eleven thousand "got my first reply!!" threads.
+        body: `In the spirit of pinning something that will outlive us all: the single piece of advice that has not changed across the whole life of this board, three editions of the directory, and every "got my first reply!!" thread ever posted.
 
 **Pitch the show, not the station.**
 
@@ -1188,7 +1181,7 @@ So convince me this isn't the same graveyard with better kerning. Specifically:
         date: "2024-09-15",
         time: "08:41",
         votes: 288,
-        body: `Welcome. You have asked question #2 correctly, which puts you ahead of most skeptics: you asked for sender numbers. This board is seven years of exactly those, unmoderated in your favor, including the threads where the answer was unflattering.
+        body: `Welcome. You have asked question #2 correctly, which puts you ahead of most skeptics: you asked for sender numbers. This board is years of exactly those, unmoderated in your favor, including the threads where the answer was unflattering.
 
 Start with these. The 2018 skeptic's corner thread (asked by a radio promoter, answered with a process, audited by him for a year). The 2022 verification pass thread (1,412 replacements, median fix 4.1 days). And, I would insist on this one, the "PSA: don't mail-merge 900 stations" thread, in which the vendor's own forum hosts a month-by-month teardown of a user's disaster. Scraped-trash vendors do not keep that thread pinned.
 
@@ -1229,7 +1222,7 @@ Verdict: it is not the same graveyard. The fonts are still suspiciously good. Ma
         date: "2024-12-03",
         time: "22:40",
         votes: 149,
-        body: `this is now the fifth "skeptic converts, posts receipts" thread and my favorite genre on the board.
+        body: `another "skeptic converts, posts receipts" thread. my favorite genre on the board.
 
 welcome to the calm side. batches of 20.`,
       },
@@ -1367,7 +1360,7 @@ gigi, save the press-kit pdf energy for when a host asks for "the longer bio." y
 
 We've moved boards. Everything from the original 2017 to 2019 board (the one that ran on enthusiasm and a $4/month VPS) has been imported into this archive, read-only. Replies, votes, and formatting survived the migration. Some image attachments did not; where an image is gone, you'll see the original caption, which is often funnier.
 
-Why read-only: the old threads are the closest thing this community has to institutional memory, nine hundred "first reply!!" posts included. They stay exactly as they were, warts and arguments and all. If you have something to add to an old thread, quote it in a new one and link back. The old-timers will find it. They always do.
+Why read-only: the old threads are the closest thing this community has to institutional memory, the "first reply!!" posts included. They stay exactly as they were, warts and arguments and all. If you have something to add to an old thread, quote it in a new one and link back. The old-timers will find it. They always do.
 
 If a link 404s, post it in Site & bugs and I'll re-point it. ❤️`,
       },

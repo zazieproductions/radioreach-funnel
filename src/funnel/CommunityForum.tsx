@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   CATEGORIES,
-  FORUM_STATS,
   THREADS,
   USERS,
   formatCount,
@@ -15,6 +14,7 @@ import {
   type ForumThread,
   type ThreadCategory,
 } from "./forumData";
+import { generateSimReply } from "./simReplies";
 
 /* ─────────────────────────────────────────────────────────────
    RadioReach Community: simulated forum (concept build)
@@ -27,10 +27,27 @@ import {
 
 const VOTES_KEY = "rr_forum_votes_v1";
 const REPLIES_KEY = "rr_forum_replies_v1";
+const THREADS_KEY = "rr_forum_threads_v1";
 const GUEST_KEY = "rr_forum_guest_v1";
 
 type VoteMap = Record<string, true>;
-type GuestReply = { threadId: string; body: string; date: string; time: string };
+/** Guest-authored and simulated replies, persisted so the forum grows locally. */
+type GuestReply = {
+  threadId: string;
+  body: string;
+  date: string;
+  time: string;
+  author?: string;
+};
+/** Guest-created threads, persisted the same way. */
+type UserThread = {
+  id: string;
+  title: string;
+  category: ThreadCategory;
+  body: string;
+  date: string;
+  time: string;
+};
 
 function readJSON<T>(key: string, fallback: T): T {
   try {
@@ -261,6 +278,7 @@ function PostCard({
   onReply,
   onLink,
   highlighted,
+  guestName,
 }: {
   thread: ForumThread;
   post: ForumPost;
@@ -271,9 +289,12 @@ function PostCard({
   onReply: () => void;
   onLink: () => void;
   highlighted: boolean;
+  guestName: string;
 }) {
   const user = USERS[post.author] ?? USERS.guest;
   const role = ROLE_BADGE[user.role ?? "member"];
+  const isGuest = post.author === "guest";
+  const shownName = isGuest ? guestName : user.id;
 
   if (post.removed) {
     return (
@@ -318,8 +339,8 @@ function PostCard({
             <Avatar user={user} size={38} />
             <div className="min-w-0">
               <p className="flex items-center gap-1.5 truncate text-sm font-bold text-white">
-                <span className="truncate">{user.id}</span>
-                {role && (
+                <span className="truncate">{shownName}</span>
+                {role && !isGuest && (
                   <span className={`shrink-0 rounded px-1.5 py-0.5 text-[9px] font-black tracking-wider ${role.cls}`}>
                     {role.label}
                   </span>
@@ -332,16 +353,21 @@ function PostCard({
               </p>
             </div>
           </div>
-          {user.flair && <p className="mt-2 text-[11px] leading-snug text-white/45">{user.flair}</p>}
+          {isGuest ? (
+            <p className="mt-2 text-[11px] leading-snug text-white/45">that's you (demo guest)</p>
+          ) : (
+            user.flair && <p className="mt-2 text-[11px] leading-snug text-white/45">{user.flair}</p>
+          )}
           <p className="mt-2 text-[11px] text-white/35">
-            Joined {user.joined} · {formatCount(user.posts)} posts
+            {isGuest ? "Joined today" : `Joined ${user.joined}`} ·{" "}
+            {isGuest ? "1 post" : `${formatCount(user.posts)} posts`}
           </p>
-          {user.online && (
+          {!isGuest && user.online && (
             <p className="mt-1 flex items-center gap-1.5 text-[11px] text-green-400">
               <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> online now
             </p>
           )}
-          {user.signature && (
+          {!isGuest && user.signature && (
             <p className="mt-3 border-t border-white/10 pt-2 text-[11px] italic text-white/30">
               {user.signature}
             </p>
@@ -352,8 +378,8 @@ function PostCard({
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:hidden">
             <Avatar user={user} size={30} />
-            <p className="text-sm font-bold text-white">{user.id}</p>
-            {role && (
+            <p className="text-sm font-bold text-white">{shownName}</p>
+            {role && !isGuest && (
               <span className={`rounded px-1.5 py-0.5 text-[9px] font-black tracking-wider ${role.cls}`}>
                 {role.label}
               </span>
@@ -430,6 +456,9 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
   const [guestReplies, setGuestReplies] = useState<GuestReply[]>(() =>
     readJSON<GuestReply[]>(REPLIES_KEY, []),
   );
+  const [userThreads, setUserThreads] = useState<UserThread[]>(() =>
+    readJSON<UserThread[]>(THREADS_KEY, []),
+  );
   const [guest] = useState(guestHandle);
 
   const [openThreadId, setOpenThreadId] = useState<string | null>(null);
@@ -441,8 +470,27 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
   const [flash, setFlash] = useState<string | null>(null);
   const [watching, setWatching] = useState(false);
   const [linkTarget, setLinkTarget] = useState<number | null>(null);
+
+  /* new-thread composer */
+  const [composerOpen, setComposerOpen] = useState(false);
+  const [newTitle, setNewTitle] = useState("");
+  const [newBody, setNewBody] = useState("");
+  const [newCat, setNewCat] = useState<ThreadCategory>("start");
+
+  /* simulated regular answering a fresh guest post */
+  const [typingUser, setTypingUser] = useState<string | null>(null);
+
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const listTopRef = useRef<HTMLDivElement>(null);
+  const newTitleRef = useRef<HTMLInputElement>(null);
+  const simTimers = useRef<number[]>([]);
+
+  useEffect(
+    () => () => {
+      simTimers.current.forEach((t) => window.clearTimeout(t));
+    },
+    [],
+  );
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -454,14 +502,23 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
     setLinkTarget(null);
   }, [openThreadId]);
 
-  /* threads with any locally-posted guest replies merged in */
+  /* threads: shipped archive + guest-created threads, then any locally
+     posted replies (guest or simulated) merged into each */
   const threads = useMemo(() => {
-    if (!guestReplies.length) return THREADS;
-    return THREADS.map((t) => {
+    const mine: ForumThread[] = userThreads.map((u) => ({
+      id: u.id,
+      title: u.title,
+      category: u.category,
+      views: 1,
+      posts: [
+        { author: "guest", date: u.date, time: u.time, votes: 0, body: u.body },
+      ],
+    }));
+    return [...THREADS, ...mine].map((t) => {
       const extras = guestReplies
         .filter((r) => r.threadId === t.id)
         .map<ForumPost>((r) => ({
-          author: "guest",
+          author: r.author ?? "guest",
           date: r.date,
           time: r.time,
           votes: 0,
@@ -469,7 +526,7 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
         }));
       return extras.length ? { ...t, posts: [...t.posts, ...extras] } : t;
     });
-  }, [guestReplies]);
+  }, [guestReplies, userThreads]);
 
   /* Resolved against the merged list so freshly-posted guest replies appear
      inside the open thread immediately (no reopen needed). */
@@ -541,11 +598,12 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
 
   const submitReply = () => {
     if (!openThread || !draft.trim()) return;
+    const text = draft.trim();
     const now = new Date();
     const pad = (n: number) => String(n).padStart(2, "0");
     const reply: GuestReply = {
       threadId: openThread.id,
-      body: draft.trim(),
+      body: text,
       date: `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`,
       time: `${pad(now.getHours())}:${pad(now.getMinutes())}`,
     };
@@ -553,9 +611,67 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
     setGuestReplies(next);
     writeJSON(REPLIES_KEY, next);
     setDraft("");
-    setFlash("Posted. (Demo replies are stored in your browser only.)");
+    setFlash("Posted. (Saved in this browser.)");
     window.setTimeout(() => setFlash(null), 4000);
+    scheduleSimReply(openThread.id, text, openThread.title);
   };
+
+  /** Create a new thread as the guest; it persists and joins the real list. */
+  const submitThread = () => {
+    const title = newTitle.trim();
+    const body = newBody.trim();
+    if (!title || !body) return;
+    const now = new Date();
+    const pad = (n: number) => String(n).padStart(2, "0");
+    const ut: UserThread = {
+      id: `u-${now.getTime()}`,
+      title,
+      category: newCat,
+      body,
+      date: `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`,
+      time: `${pad(now.getHours())}:${pad(now.getMinutes())}`,
+    };
+    const next = [ut, ...userThreads];
+    setUserThreads(next);
+    writeJSON(THREADS_KEY, next);
+    setNewTitle("");
+    setNewBody("");
+    setNewCat("start");
+    setComposerOpen(false);
+    setPostOrder("chrono");
+    setOpenThreadId(ut.id);
+    scheduleSimReply(ut.id, body, title);
+  };
+
+  /** A regular "answers" the fresh post: typing indicator, then a reply
+      in that persona's voice, persisted like any other post. */
+  function scheduleSimReply(threadId: string, text: string, title: string) {
+    const sim = generateSimReply(text, title);
+    const typingStarts = 900 + Math.random() * 1600;
+    const postsAt = typingStarts + 2600 + Math.random() * 2600;
+    simTimers.current.push(
+      window.setTimeout(() => setTypingUser(sim.author), typingStarts),
+    );
+    simTimers.current.push(
+      window.setTimeout(() => {
+        setTypingUser(null);
+        const now = new Date();
+        const pad = (n: number) => String(n).padStart(2, "0");
+        setGuestReplies((prev) => {
+          const reply: GuestReply = {
+            threadId,
+            body: sim.body,
+            date: `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`,
+            time: `${pad(now.getHours())}:${pad(now.getMinutes())}`,
+            author: sim.author,
+          };
+          const next = [...prev, reply];
+          writeJSON(REPLIES_KEY, next);
+          return next;
+        });
+      }, postsAt),
+    );
+  }
 
   /* ── thread detail ─────────────────────────────────────── */
   if (openThread) {
@@ -615,7 +731,7 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
                 onClick={() => quotePost(t.posts[0])}
                 className="font-bold text-white/80"
               >
-                {t.posts[0].author}
+                {t.posts[0].author === "guest" ? guest : t.posts[0].author}
               </button>{" "}
               in <span style={{ color: `hsl(${category.hue} 70% 70%)` }}>{category.label}</span>
             </span>
@@ -668,6 +784,7 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
                   onReply={() => replyTo(post)}
                   onLink={() => linkPost(realIndex)}
                   highlighted={linkTarget === realIndex}
+                  guestName={guest}
                 />
               );
             })}
@@ -681,6 +798,24 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
               </p>
             ) : (
               <>
+                {typingUser && (
+                  <p
+                    aria-live="polite"
+                    className="mb-4 flex items-center gap-2 rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-[13px] text-white/60"
+                  >
+                    <Avatar user={USERS[typingUser] ?? USERS.guest} size={20} />
+                    <span className="font-bold text-white/80">{typingUser}</span> is typing
+                    <span className="inline-flex gap-0.5 pb-0.5" aria-hidden>
+                      {[0, 1, 2].map((i) => (
+                        <span
+                          key={i}
+                          className="h-1 w-1 animate-bounce rounded-full bg-current"
+                          style={{ animationDelay: `${i * 160}ms` }}
+                        />
+                      ))}
+                    </span>
+                  </p>
+                )}
                 <label
                   htmlFor="reply-box"
                   className="text-xs font-black uppercase tracking-[0.16em] text-white/50"
@@ -689,7 +824,8 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
                 </label>
                 <p className="mt-1 text-xs text-white/35">
                   Posting as <span className="font-mono text-acid">{guest}</span> · read the rules
-                  first: numbers welcome, no blasting.
+                  first: numbers welcome, no blasting. The regulars answer; your posts save to this
+                  browser and stay here on every visit.
                 </p>
                 <textarea
                   id="reply-box"
@@ -787,29 +923,33 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
 
       {/* stats strip */}
       <div className="border-b border-white/10 bg-panel">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-3 py-4 sm:px-4">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-3 px-3 py-4 sm:px-4">
           <div className="min-w-0 flex-1">
             <h1 className="font-display text-2xl leading-none tracking-wide sm:text-4xl">
               THE COMMUNITY <span className="text-acid">ARCHIVE</span>
             </h1>
             <p className="mt-1.5 text-[13px] text-white/45">
-              Every thread since {FORUM_STATS.since}. The arguments, the receipts, the locked ones.
+              Every question, argument, and receipt from the board. Ask something; the regulars
+              answer.
             </p>
           </div>
-          <dl className="grid grid-cols-3 gap-4 text-center sm:gap-8">
-            {[
-              ["Members", FORUM_STATS.members],
-              ["Threads", FORUM_STATS.threads],
-              ["Posts", FORUM_STATS.posts],
-            ].map(([label, value]) => (
-              <div key={label}>
-                <dt className="order-2 text-[10px] font-black uppercase tracking-[0.14em] text-white/40">
-                  {label}
-                </dt>
-                <dd className="tnum font-display text-lg text-acid sm:text-2xl">{value}</dd>
-              </div>
-            ))}
-          </dl>
+          <div className="flex flex-col items-start gap-1.5 sm:items-end">
+            <button
+              type="button"
+              onClick={() => {
+                setComposerOpen((o) => !o);
+                if (!composerOpen) {
+                  window.setTimeout(() => newTitleRef.current?.focus(), 50);
+                }
+              }}
+              className="cta rounded-lg bg-acid px-4 py-2.5 text-sm font-black uppercase tracking-wide text-ink"
+            >
+              {composerOpen ? "Close composer" : "＋ New thread"}
+            </button>
+            <p className="text-[11px] text-white/35">
+              posts as <span className="font-mono">{guest}</span> · saved in this browser
+            </p>
+          </div>
         </div>
       </div>
 
@@ -852,7 +992,7 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
               ))}
             </div>
             <p className="ml-auto text-[11px] text-white/30">
-              Showing featured threads from the {FORUM_STATS.threads}-thread archive
+              {filtered.length} of {threads.length} threads
             </p>
           </div>
         </div>
@@ -860,11 +1000,82 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
 
       {/* threads */}
       <div ref={listTopRef} className="mx-auto max-w-5xl px-3 pb-24 pt-4 sm:px-4">
+        {/* new-thread composer */}
+        {composerOpen && (
+          <div className="mb-4 rounded-xl border border-acid/30 bg-panel p-4 sm:p-5">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-white/50">
+              Start a new thread
+            </p>
+            <p className="mt-1 text-xs text-white/35">
+              Posting as <span className="font-mono text-acid">{guest}</span> · saved to this
+              browser, and a regular usually answers within a minute or two.
+            </p>
+            <input
+              ref={newTitleRef}
+              aria-label="Thread title"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              placeholder="Thread title. Be specific: genre + the actual question"
+              className="mt-3 w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] text-white placeholder:text-white/30 focus:border-acid/60 focus:outline-none"
+            />
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              {(Object.keys(CATEGORIES) as ThreadCategory[]).map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setNewCat(c)}
+                  className={`rounded-full border px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
+                    newCat === c
+                      ? "border-acid bg-acid text-ink"
+                      : "border-white/15 text-white/55 hover:border-white/40 hover:text-white"
+                  }`}
+                >
+                  {CATEGORIES[c].label}
+                </button>
+              ))}
+            </div>
+            <textarea
+              aria-label="Thread body"
+              rows={5}
+              value={newBody}
+              onChange={(e) => setNewBody(e.target.value)}
+              placeholder="What's the situation? Genre, region, what you've tried, what you're stuck on…"
+              className="mt-2.5 w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2.5 text-[15px] leading-relaxed text-white placeholder:text-white/30 focus:border-acid/60 focus:outline-none"
+            />
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-[11px] text-white/30">
+                Blank lines separate paragraphs. Quote lines start with "&gt; ".
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setComposerOpen(false);
+                    setNewTitle("");
+                    setNewBody("");
+                    setNewCat("start");
+                  }}
+                  className="rounded-lg border border-white/15 px-4 py-2.5 text-sm font-bold text-white/60 hover:text-white"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={submitThread}
+                  disabled={!newTitle.trim() || !newBody.trim()}
+                  className="cta rounded-lg bg-acid px-5 py-2.5 text-sm font-black uppercase tracking-wide text-ink disabled:opacity-40"
+                >
+                  Post thread
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         {filtered.length === 0 ? (
           <div className="rounded-xl border border-white/10 bg-panel p-10 text-center">
             <p className="font-display text-xl">NO THREADS MATCH.</p>
             <p className="mt-2 text-sm text-white/45">
-              Nine years of answers are in here somewhere. Try different words.
+              The answer is probably in here somewhere. Try different words.
             </p>
             <button
               type="button"
@@ -923,6 +1134,11 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
                           >
                             {category.label}
                           </span>
+                          {t.posts[0].author === "guest" && (
+                            <span className="rounded-full bg-acid/15 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-acid">
+                              Yours
+                            </span>
+                          )}
                         </div>
                         <p className="mt-1.5 font-serif text-[16px] font-bold leading-snug text-white group-hover:text-acid sm:text-[17px]">
                           {t.title}
@@ -932,7 +1148,9 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
                           {t.posts[0].body.length > 160 ? "…" : ""}
                         </p>
                         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-white/35">
-                          <span className="font-bold text-white/55">{t.posts[0].author}</span>
+                          <span className="font-bold text-white/55">
+                            {t.posts[0].author === "guest" ? guest : t.posts[0].author}
+                          </span>
                           <span>{formatForumDate(threadCreated(t))}</span>
                           <span aria-hidden>·</span>
                           <span>
@@ -944,7 +1162,9 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
                           </span>
                           <span className="ml-auto flex items-center gap-1.5">
                             {USERS[last] && <Avatar user={USERS[last]} size={18} />}
-                            <span className="font-bold text-white/50">{last}</span>
+                            <span className="font-bold text-white/50">
+                              {last === "guest" ? guest : last}
+                            </span>
                             <span aria-hidden>·</span>
                             <span>{formatForumDate(threadActivity(t))}</span>
                           </span>
@@ -992,7 +1212,7 @@ function ForumHeader({
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search 9 years of threads…"
+              placeholder="Search the archive…"
               className="w-36 rounded-lg border border-white/15 bg-black/40 py-2 pl-8 pr-3 text-[13px] text-white placeholder:text-white/30 focus:border-acid/60 focus:outline-none sm:w-64"
             />
             <svg

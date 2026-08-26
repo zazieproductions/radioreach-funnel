@@ -577,16 +577,16 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
       {/* COMMUNITY ARCHIVE TEASER → simulated forum */}
       <section id="community" className="defer-render border-y border-white/10 bg-[#0b0b0e]">
         <div className="mx-auto max-w-5xl px-4 py-10 sm:py-16">
-          <SectionLabel>The community archive · since Jun 2017</SectionLabel>
+          <SectionLabel>The community archive</SectionLabel>
           <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
-            NINE YEARS OF QUESTIONS, ARGUMENTS,{" "}
-            <span className="text-acid">AND RECEIPTS.</span>
+            ASKED. ARGUED.{" "}
+            <span className="text-acid">ANSWERED.</span>
           </h2>
           <p className="mt-4 max-w-2xl font-serif text-[1.02rem] leading-[1.65] text-white/70 sm:text-lg sm:leading-relaxed">
-            Since June 2017, RadioReach users have been comparing send logs with each other and
-            with the music directors on the receiving end. 51,000 posts of numbers, station-side
-            intel, recovered disasters, and the occasional thread we had to lock. It's the least
-            polished part of this product. Go read it before you buy.
+            RadioReach users compare send logs with each other and with the music directors on
+            the receiving end. Numbers, station-side intel, recovered disasters, and the occasional
+            thread we had to lock. It's the least polished part of this product. Go read it before
+            you buy. Then start your own thread: the regulars answer.
           </p>
 
           <div className="mt-6 grid gap-3 sm:mt-8">
@@ -662,7 +662,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <p className="text-[12px] leading-snug text-white/40">
               Guest access · no email required
               <br className="hidden sm:block" />
-              3,914 threads · back to June 2017
+              Start a thread · saves in your browser
             </p>
           </div>
         </div>
