@@ -1,0 +1,1417 @@
+/* ─────────────────────────────────────────────────────────────
+   RadioReach Community: simulated archive (concept build)
+
+   A fictional-but-true-to-life forum archive spanning Jun 2017 →
+   present. Every persona, thread, and number below is invented for
+   demonstration; each user types in a deliberately distinct register
+   (manic, dry, antagonistic, internet-slang, formal, analytical).
+────────────────────────────────────────────────────────────── */
+
+export type ForumRole = "staff" | "moderator" | "founding" | "member";
+
+export type ForumUser = {
+  id: string;
+  joined: string;
+  posts: number;
+  role?: ForumRole;
+  flair?: string;
+  signature?: string;
+  hue: number;
+  online?: boolean;
+};
+
+export type ForumPost = {
+  author: string;
+  date: string;
+  time?: string;
+  edited?: string;
+  votes: number;
+  body: string;
+  solved?: boolean;
+  staffAnswer?: boolean;
+  removed?: boolean;
+};
+
+export type ThreadCategory =
+  | "start"
+  | "pitching"
+  | "airplay"
+  | "stations"
+  | "tech"
+  | "meta";
+
+export type ForumThread = {
+  id: string;
+  title: string;
+  category: ThreadCategory;
+  views: number;
+  pinned?: boolean;
+  locked?: boolean;
+  posts: ForumPost[];
+};
+
+export const CATEGORIES: Record<
+  ThreadCategory,
+  { label: string; blurb: string; hue: number }
+> = {
+  start: { label: "Getting started", blurb: "First list, first pitch, first send", hue: 96 },
+  pitching: { label: "Pitching & outreach", blurb: "Subject lines, follow-ups, etiquette", hue: 45 },
+  airplay: { label: "Airplay & results", blurb: "Replies, adds, spins, charts, numbers", hue: 12 },
+  stations: { label: "From the other inbox", blurb: "Music directors and DJs on receiving ends", hue: 200 },
+  tech: { label: "Files & data", blurb: "Editions, formats, merges, verification", hue: 268 },
+  meta: { label: "RadioReach news", blurb: "Release notes from the founder", hue: 330 },
+};
+
+/* ── Personas ─────────────────────────────────────────────── */
+
+export const USERS: Record<string, ForumUser> = {
+  zazie: {
+    id: "zazie",
+    joined: "Jun 2017",
+    posts: 1142,
+    role: "staff",
+    flair: "Founder, RadioReach",
+    hue: 52,
+  },
+  mod_marissa: {
+    id: "mod_marissa",
+    joined: "Jun 2017",
+    posts: 3877,
+    role: "moderator",
+    flair: "Volunteer moderator",
+    hue: 152,
+  },
+  dial_turner: {
+    id: "dial_turner",
+    joined: "Jun 2017",
+    posts: 2318,
+    role: "founding",
+    flair: "AM side of the dial, since '86",
+    signature: "Neil, northern Ohio. More transmitters than friends.",
+    hue: 24,
+  },
+  vinylghost: {
+    id: "vinylghost",
+    joined: "Jun 2017",
+    posts: 3004,
+    role: "founding",
+    flair: "reads your pitch twice if it's good",
+    hue: 190,
+  },
+  dlb_promotions: {
+    id: "dlb_promotions",
+    joined: "May 2017",
+    posts: 941,
+    flair: "indie promo shop, 14 yrs",
+    signature: "D. Buck, Buck Promo. Small shop, big spreadsheets.",
+    hue: 6,
+  },
+  BeccaNoncomm: {
+    id: "BeccaNoncomm",
+    joined: "Feb 2018",
+    posts: 812,
+    flair: "Music Director, 3kW non-comm FM",
+    hue: 320,
+  },
+  PastorMike_KTLW: {
+    id: "PastorMike_KTLW",
+    joined: "Mar 2018",
+    posts: 388,
+    flair: "Gospel FM, Georgia",
+    signature: "Blessings, Mike (KTLW volunteer desk)",
+    hue: 44,
+  },
+  BASSLINEBENJI: {
+    id: "BASSLINEBENJI",
+    joined: "Nov 2018",
+    posts: 1206,
+    flair: "UKG / bass, London",
+    hue: 122,
+  },
+  RaviCassette: {
+    id: "RaviCassette",
+    joined: "Jan 2019",
+    posts: 274,
+    flair: "Bengaluru, IN",
+    hue: 28,
+  },
+  "808sNoHeartbreak": {
+    id: "808sNoHeartbreak",
+    joined: "Jun 2019",
+    posts: 653,
+    flair: "trap / hip-hop, Atlanta",
+    hue: 272,
+  },
+  night_shift_nd: {
+    id: "night_shift_nd",
+    joined: "Oct 2019",
+    posts: 519,
+    flair: "2am to 6am, college FM, ND",
+    hue: 218,
+  },
+  quietframe: {
+    id: "quietframe",
+    joined: "Apr 2020",
+    posts: 447,
+    flair: "ambient / modern classical",
+    signature: "qf. chart math, no vibes.",
+    hue: 174,
+  },
+  clare_mont: {
+    id: "clare_mont",
+    joined: "Apr 2020",
+    posts: 386,
+    flair: "singer-songwriter",
+    hue: 342,
+  },
+  sadgirlsynth: {
+    id: "sadgirlsynth",
+    joined: "Feb 2021",
+    posts: 231,
+    flair: "synthwave, asking for a friend",
+    hue: 290,
+  },
+  tourvan_diaries: {
+    id: "tourvan_diaries",
+    joined: "May 2021",
+    posts: 174,
+    flair: "drummer, 4-piece punk, 2003 Econoline",
+    hue: 76,
+  },
+  PedroLagosta: {
+    id: "PedroLagosta",
+    joined: "Aug 2021",
+    posts: 208,
+    flair: "São Paulo, BR",
+    hue: 16,
+  },
+  JurgenDE: {
+    id: "JurgenDE",
+    joined: "Jan 2021",
+    posts: 312,
+    flair: "Hamburg, DE, sends with timers",
+    hue: 204,
+  },
+  sydney_syd: {
+    id: "sydney_syd",
+    joined: "Mar 2022",
+    posts: 149,
+    flair: "community radio, NSW",
+    hue: 100,
+  },
+  mwolfe_artist: {
+    id: "mwolfe_artist",
+    joined: "Sep 2024",
+    posts: 63,
+    flair: "skeptical by default",
+    hue: 240,
+  },
+  the_q_factor: {
+    id: "the_q_factor",
+    joined: "Jan 2024",
+    posts: 91,
+    flair: "asks the dumb questions so you don't have to",
+    hue: 58,
+    online: true,
+  },
+  gigi_waves: {
+    id: "gigi_waves",
+    joined: "Nov 2025",
+    posts: 12,
+    flair: "bedroom pop, month three",
+    hue: 312,
+    online: true,
+  },
+  guest: {
+    id: "guest",
+    joined: "today",
+    posts: 0,
+    hue: 210,
+  },
+};
+
+/* ── Threads (featured from the archive) ──────────────────── */
+
+export const THREADS: ForumThread[] = [
+  {
+    id: "t-welcome",
+    title: "READ FIRST: welcome to the community (rules and search tips)",
+    category: "meta",
+    views: 61208,
+    pinned: true,
+    posts: [
+      {
+        author: "zazie",
+        date: "2017-06-02",
+        time: "18:14",
+        votes: 812,
+        edited: "edited 11 Jan 2026, 4th revision",
+        body: `hey. zazie here. i built the first version of this thing in a google sheet because i was tired of paying $400 a year for data i could not afford, and a few of you found it and started asking questions. that was about 15,700 contacts ago.
+
+this board is the record of everything since. what worked, what didn't, the arguments, the numbers. before you post, search first. odds are a music director already answered your exact question, probably more bluntly than i would.
+
+three rules:
+
+- **no blasting.** if your plan is "send one email to 18,000 people," this is not the place for you and honestly not the product either. targeted. relevant. human.
+- **no promo services in help threads.** post your results, not your rates. mods remove these on sight.
+- **numbers welcome, vibes optional.** "i sent 60 and got 9 replies" beats "this thing rules!!" both are fine. one is useful.`,
+      },
+      {
+        author: "mod_marissa",
+        date: "2017-06-03",
+        time: "09:41",
+        votes: 296,
+        edited: "edited 2 Feb 2024",
+        body: `Adding the moderator notes, since this gets asked constantly:
+
+1. Report, don't argue. The report button reaches all three of us; the quote button reaches an audience.
+2. Vendor accounts get one intro post in RadioReach news, then participate like a human. Drive-by links get removed.
+3. Threads from the old board (2017 to 2019) are read-only after the migration. If a link 404s, check the archive notice thread.
+4. I lock threads when they loop. It's not personal. I promise it's not personal. ❤️`,
+      },
+      {
+        author: "vinylghost",
+        date: "2017-06-04",
+        time: "01:12",
+        votes: 188,
+        body: `search first. then search again with different words. then post.
+
+(please. the subject line question has been asked three times already. it's day two.)`,
+      },
+    ],
+  },
+  {
+    id: "t-one-pitch-rule",
+    title: "The one-pitch rule that hasn't changed since 2017 (station-side verified)",
+    category: "pitching",
+    views: 48117,
+    pinned: true,
+    posts: [
+      {
+        author: "dial_turner",
+        date: "2017-08-19",
+        time: "20:02",
+        votes: 640,
+        body: `In the spirit of pinning something that will outlive us all: the single piece of advice that has not changed across the whole life of this board, three editions of the directory, and every "got my first reply!!" thread ever posted.
+
+**Pitch the show, not the station.**
+
+A station is a building with a transmitter. A show is a person with a taste and a timeslot. "Dear KTLW" goes to nobody. "Dear Mike, your Saturday night gospel block is the only place my mother and I agree on the car radio" goes to Mike.
+
+Everything else (the streaming link instead of attachments, the two-sentence bio, the genre in the subject line) is scaffolding around that one idea.
+
+In my experience, which is longer than I would like to admit, the artists who internalize this get replies within three sends. The ones who do not send two hundred emails and receive a letter from their email provider's legal department.`,
+      },
+      {
+        author: "BeccaNoncomm",
+        date: "2018-02-11",
+        time: "14:33",
+        votes: 512,
+        body: `Station-side confirmation, for whatever my inbox is worth. The pitches that get opened here are the ones that clearly took ninety seconds to write. You can feel the difference immediately. Genre in the subject line, one link, name spelled right.
+
+> "Dear Becca" gets opened. "Dear Music Director" gets opened, with less enthusiasm. "Dear Sir/Madam," and it is 2026 and I am neither.
+
+The directory gives you the name. That is most of the battle.`,
+      },
+      {
+        author: "808sNoHeartbreak",
+        date: "2019-08-02",
+        time: "23:57",
+        votes: 121,
+        body: `okay so i skipped this thread for TWO YEARS because it looked like a lecture. it IS a lecture 😭 it is also the exact reason my reply rate went from 1 in 40 to 1 in 9.
+
+one link. their name. genre in the subject. that's it. that's the whole thing.
+
+pinning this in my soul`,
+      },
+      {
+        author: "sadgirlsynth",
+        date: "2021-06-11",
+        time: "03:40",
+        votes: 58,
+        body: `the lecture is the whole product tbh (said with love)
+
+also neil has never once been wrong on this forum. i went back and checked. every post. not once`,
+      },
+    ],
+  },
+  {
+    id: "t-big-sheet",
+    title: "v0.9 \"the Big Sheet\" is at 2,300 contacts. what should i verify next?",
+    category: "meta",
+    views: 21844,
+    posts: [
+      {
+        author: "zazie",
+        date: "2017-06-14",
+        time: "22:40",
+        votes: 233,
+        body: `the sheet passed 2,300 entries tonight. mostly US/CA FM plus non-comm, city by city, because that is how i was searching when i built the thing for myself.
+
+question for the four of you using this: what do i check next? i can verify a few hundred emails a week by hand. formats? college? syndicated shows?
+
+also: it is still just a sheet. it will become something better, i promise. right now it's free, so the complaints department is also free, which feels fair.`,
+      },
+      {
+        author: "dial_turner",
+        date: "2017-06-15",
+        time: "07:55",
+        votes: 198,
+        body: `Congratulations on the milestone. My vote, for what it is worth from the AM side of the dial: **formats before geography.** Every directory on earth is city-sorted; almost none of them answer "who actually programs bluegrass at two in the afternoon on a Tuesday."
+
+> mostly US/CA FM + non-comm
+
+And please, do not forget the little 1kW daytimers. We answer our email. Sometimes we are the only ones who do.`,
+      },
+      {
+        author: "dlb_promotions",
+        date: "2017-06-15",
+        time: "16:12",
+        votes: 45,
+        body: `Full transparency: I run a small promo shop, eleven years in, and my first reaction to "2,300 verified contacts in a Google Sheet" was a groan you could hear from the transmitter site. Everyone says verified. Everyone means "we bought a list in 2011."
+
+But I spot-checked 40 entries at random against my own book. Thirty-seven matched current staff. Two were better than mine. One was a station that went dark in May. So, thirty-eight, depending on how you score the dark one.
+
+I'm watching this thread. Grudgingly.`,
+      },
+      {
+        author: "zazie",
+        date: "2017-06-15",
+        time: "17:31",
+        votes: 167,
+        body: `> One was a station that went dark in May
+
+found it and removed it while you were typing that, actually. license surrender. third dark one this month.
+
+this is the whole product honestly. not "we have contacts." "a person notices when a station goes dark." that's the moat. it's me and a very patient spreadsheet.`,
+      },
+    ],
+  },
+  {
+    id: "t-filter-sheet",
+    title: "SOLVED: filtering the Big Sheet by format without murdering Google Sheets",
+    category: "tech",
+    views: 11209,
+    posts: [
+      {
+        author: "night_shift_nd",
+        date: "2019-10-08",
+        time: "04:19",
+        votes: 87,
+        body: `3am shift brain here, bear with me. when i filter the sheet by format and then by state, sheets eats the filter and gives me everything back?? is there a way to make a "college + ambient friendly" view that doesnt die every time
+
+(sorry if this is a dumb question. the sun is coming up and i have oppinions about spreadsheets now lol)`,
+      },
+      {
+        author: "vinylghost",
+        date: "2019-10-08",
+        time: "08:47",
+        votes: 204,
+        body: `copy the tab. filter the copy. leave the master alone.
+
+that's it. that's the whole trick. stop filtering the master like an animal.`,
+      },
+      {
+        author: "night_shift_nd",
+        date: "2019-10-09",
+        time: "02:03",
+        votes: 64,
+        body: `oh.
+
+oh my god.
+
+three months. three months of re-filtering. thank you ghost 🙏`,
+      },
+      {
+        author: "zazie",
+        date: "2019-10-10",
+        time: "13:20",
+        votes: 142,
+        edited: "edited 4 Nov 2019, the 260-pager shipped",
+        body: `update for posterity, since this thread now ranks in search: the 260-pager edition (2019) ships with **format + state as separate tabs**, so the copy-the-tab trick is now a pre-done-for-you trick.
+
+the big sheet lives on as the source of truth. the pdf is the reading copy. if you're still hand-filtering the sheet for genre in 2019, i have failed you, and the new edition is my apology.`,
+      },
+      {
+        author: "night_shift_nd",
+        date: "2019-11-02",
+        time: "05:11",
+        votes: 58,
+        solved: true,
+        body: `marking solved. for the record the real answer was "copy the tab" and the emotional answer was the pdf. both correct.
+
+(it is 5:11am. everything is possible now. goodnight)`,
+      },
+    ],
+  },
+  {
+    id: "t-verified-meaning",
+    title: "What does \"verified deliverable\" actually mean? (skeptic's corner)",
+    category: "tech",
+    views: 26873,
+    posts: [
+      {
+        author: "dlb_promotions",
+        date: "2018-03-06",
+        time: "11:02",
+        votes: 176,
+        body: `Since I'm the resident skeptic, let me ask the question everyone DMs me to ask: what does "verified deliverable" actually **mean** in this shop? Because in my industry it means "bounce rate under 15% and nobody has complained recently," which is a low bar shaped like a lie.
+
+Specifically:
+
+- Verified how? SMTP handshake? A human opened the inbox?
+- Verified **when**? A 2016 verification is a 2026 liability.
+- What happens when one bounces anyway?`,
+      },
+      {
+        author: "zazie",
+        date: "2018-03-06",
+        time: "12:48",
+        votes: 421,
+        staffAnswer: true,
+        body: `fair questions. straight answers, in order.
+
+- **verified how:** every email gets an SMTP-level deliverability check, and a human (me, mostly, plus two contract reviewers since 2019) confirms the address maps to a named person at the station. md, pd, or show host. station mainlines that go to nobody get labeled as such. no label, no count.
+- **verified when:** on a rolling basis, full passes roughly every 18 months. an email's last-verified date ships **in the data**, so you can judge staleness yourself. i'm not going to tell you "trust me" when i can tell you "check the column."
+- **when one bounces:** email me the bounce. i replace it or strike the entry, and replacements go into the next patch notes thread. bounces reported by users are fixed within a week. usually faster.
+
+10,372 of the current entries are person-verified deliverable. the rest are station lines and city data, marked accordingly. the number is the number.`,
+      },
+      {
+        author: "BeccaNoncomm",
+        date: "2018-03-07",
+        time: "09:15",
+        votes: 203,
+        body: `Receiving-end perspective on the "verified when" question. My station changed music directors in November. The old address kept working (forwarded) for four months, which is long enough for a lazy list to look "verified" while delivering to someone who now works at a brewery.
+
+The lists that survive here are the ones that re-check. It is genuinely that boring and that important.`,
+      },
+      {
+        author: "dlb_promotions",
+        date: "2019-03-01",
+        time: "10:30",
+        votes: 244,
+        edited: "edited 3 Mar 2019",
+        body: `One year later, credit where due. I've reported six bounces in twelve months. Every one was replaced or struck inside a week, and one fix (a PD who moved stations but stayed in-market) was better than what I had.
+
+I still think "verified" is a marketing word in general. Here it appears to be an actual process. There's a wrap thread with my full numbers if anyone wants the receipts.`,
+      },
+    ],
+  },
+  {
+    id: "t-md-deletes",
+    title: "I'm a music director. Here's what makes me delete your email in two seconds.",
+    category: "stations",
+    views: 53921,
+    posts: [
+      {
+        author: "BeccaNoncomm",
+        date: "2018-09-14",
+        time: "16:26",
+        votes: 1198,
+        body: `Every few months someone asks what the view looks like from the MD desk, so here's mine. I run music for a 3kW non-comm in a mid-size market. I get forty to seventy submissions a week. Here is the two-second triage, in order:
+
+- **Attachments.** Delete. No, I will not open "FINAL_master_v3(2).mp3" from a stranger. One streaming link. One.
+- **"Dear Sir/Madam," "Dear Radio Station," "Dear Team."** Delete. You had my name; the directory you used even sells it to you.
+- **No genre anywhere in the subject.** I program three specialty blocks. "New single out now!" tells me nothing. "Alt-country, 2:14, for the Saturday roots block" gets read at lunch.
+- **A paragraph about your journey.** Delete-ish. One sentence about why *my* station, then the link.
+- **The BCC tell.** If it's obvious I'm one of four hundred, I'm the delete key with feelings.
+
+The bar is on the floor, everyone. That's the good news. Clear subject, my name, one link, one honest sentence. You're already ahead of sixty a week.`,
+      },
+      {
+        author: "PastorMike_KTLW",
+        date: "2018-09-15",
+        time: "08:40",
+        votes: 214,
+        body: `Good evening, all. I coordinate the music log at a gospel FM in Georgia (volunteer desk, Saturdays, two listening ears and one coffee pot).
+
+Becca's list matches ours exactly, with one addition for the church side of the dial: please do not assume we program only worship. We carry traditional gospel, southern gospel, and a Sunday blues hour that scandalizes the deacon board. Read the block descriptions before you send.
+
+Blessings on your work, and thank you, Becca. This belongs printed and taped to every artist's monitor.`,
+      },
+      {
+        author: "dlb_promotions",
+        date: "2018-09-16",
+        time: "10:02",
+        votes: 61,
+        body: `+1 from the promo side. Pin this one.`,
+      },
+      {
+        author: "808sNoHeartbreak",
+        date: "2019-06-21",
+        time: "01:33",
+        votes: 156,
+        body: `WAIT. no attachments EVER?? 😭 my whole strategy was a 12MB zip with the stems-
+
+okay. okay. rereading everything. one link. ONE LINK.
+
+the amount of time i spent renaming files instead of writing one good sentence... brb emailing apologies to literally everyone`,
+      },
+      {
+        author: "BeccaNoncomm",
+        date: "2019-06-21",
+        time: "12:05",
+        votes: 289,
+        body: `@808sNoHeartbreak the apology emails would also get deleted (gently). Fix the next one.
+
+For the record, the two-second triage isn't cruelty. It's arithmetic. Seventy submissions, a day job, and a volunteer board. The pitches that respect my time get *hours* of it. The good ones really do.`,
+      },
+      {
+        author: "tourvan_diaries",
+        date: "2021-05-30",
+        time: "19:44",
+        votes: 97,
+        body: `found this thread three weeks into doing literally everything on the list. definately the attachements part. DEFINATELY.
+
+anyone else reading this in shame: welcome. bring a helmet.`,
+      },
+    ],
+  },
+  {
+    id: "t-nonnative",
+    title: "Non-native English pitching: will it hurt my chances?",
+    category: "pitching",
+    views: 14750,
+    posts: [
+      {
+        author: "RaviCassette",
+        date: "2019-02-04",
+        time: "06:20",
+        votes: 193,
+        body: `Respected members,
+
+I am writing from Bengaluru. My band records rock music in English and in Kannada. My question is honest and slightly embarrassing: my English is functional but not elegant. When I write to American or UK stations, I take forty minutes for one email, and still it reads, I suspect, stiff.
+
+Will the music director delete the email because of imperfect grammar? Kindly advise. I have the directory since one month, and I have sent only nine emails, because of this fear only.
+
+Ravi`,
+      },
+      {
+        author: "dial_turner",
+        date: "2019-02-04",
+        time: "14:37",
+        votes: 341,
+        body: `Ravi: nine thoughtful emails sent in a month of care is not a failure. It is the strategy, executed slowly.
+
+To your question. Nobody in forty years of radio has ever added a record because the pitch had faultless grammar. They add it because the song fit the show and the writer was brief and kind. Brief and kind translate from every language on earth.
+
+Write it in your own voice. If your voice is formal, let it be formal. Formality reads as respect, and respect gets read.`,
+      },
+      {
+        author: "BeccaNoncomm",
+        date: "2019-02-05",
+        time: "10:12",
+        votes: 388,
+        body: `Direct answer from the delete-key side: no. I care that the link works, that the genre is in the subject, and that your one sentence about my station is specific. That is the entire test.
+
+Half the native-speaker pitches I receive cannot pass it. Your forty-minute email probably can. Send the ninth, then the tenth.`,
+      },
+      {
+        author: "zazie",
+        date: "2019-02-05",
+        time: "11:44",
+        votes: 226,
+        staffAnswer: true,
+        body: `one tactical thing: a line like "apologies, English is my third language" does more good than harm. but you honestly don't need it. what you wrote above is better structured than most of my own inbox.
+
+also: nine sent is a real number. post the replies when they land. this board runs on receipts.`,
+      },
+      {
+        author: "RaviCassette",
+        date: "2019-03-11",
+        time: "05:58",
+        votes: 297,
+        solved: true,
+        edited: "edited 11 Mar 2019",
+        body: `Small update, with gratitude. Twenty-four emails sent now. Five replies. One is from a US college station; the host plays a Kannada-language song on his world music hour and says the listeners "will be curious." Two are from UK.
+
+My English did not change. My fear changed. Thank you, all.
+
+Marking solved. The answer is no, it will not hurt. Being long and vague hurts. Grammar is innocent.`,
+      },
+      {
+        author: "PedroLagosta",
+        date: "2022-03-08",
+        time: "23:17",
+        votes: 96,
+        body: `Friends, I feel this thread in my chest!! My English also takes forty minutes!! We are many. We are sending anyway!!`,
+      },
+    ],
+  },
+  {
+    id: "t-pd-replied-panic",
+    title: "got a reply from a PD... now what?? (panicking slightly)",
+    category: "pitching",
+    views: 19206,
+    posts: [
+      {
+        author: "808sNoHeartbreak",
+        date: "2019-07-18",
+        time: "02:41",
+        votes: 231,
+        body: `YOOO okay so a program director at an actual commercial station (actual!! commercial!! somewhat!!) replied to my pitch and said "send me the bio and your best two tracks"
+
+and i have been staring at the reply for SIX HOURS because what if i pick the wrong two tracks. there is no undo button on a first impression. do i send three?? do i explain why those two?? do i call him?? (i will not call him.)
+
+help`,
+      },
+      {
+        author: "vinylghost",
+        date: "2019-07-18",
+        time: "07:59",
+        votes: 402,
+        body: `send what he asked for. two tracks. the bio. nothing else.
+
+answer within a day. thank him once. do not call him.
+
+you're not negotiating a treaty. you're emailing a man about songs.`,
+      },
+      {
+        author: "dial_turner",
+        date: "2019-07-18",
+        time: "18:20",
+        votes: 188,
+        body: `To add one consideration to the correct brevity above: he said "your best two," which means *the two that most sound like what his station plays*, not necessarily your two favorite. Check his playlist first if it is online. Ten minutes of research beats three weeks of regret.
+
+And congratulations. Savor it briefly, then answer him tonight.`,
+      },
+      {
+        author: "808sNoHeartbreak",
+        date: "2019-07-25",
+        time: "23:10",
+        votes: 356,
+        solved: true,
+        edited: "edited 25 Jul 2019",
+        body: `UPDATE because this board demands receipts: sent exactly two tracks + short bio the same night. he added one of them to the saturday night local mix show. ONE ADD. first ever 😭
+
+the track he picked was the one i almost didn't send. anyway. "send what he asked for" is now tatooed on my brain, spelled correctly.
+
+marking solved. ghost is a prophet.`,
+      },
+    ],
+  },
+  {
+    id: "t-2018-wrap",
+    title: "My 2018 wrap: 214 emails, 31 replies, 9 adds, 1 chart position (full numbers)",
+    category: "airplay",
+    views: 33468,
+    posts: [
+      {
+        author: "dlb_promotions",
+        date: "2018-12-29",
+        time: "15:07",
+        votes: 528,
+        body: `Since I've been the skeptic on this board since 2017, here is my shop's first full year running the RadioReach directory alongside my legacy book. One client (Americana duo, sophomore album, no tour support). All numbers auditable from my send logs:
+
+- **Emails sent:** 214. Not two thousand. See every thread ever: targeted beats volume.
+- **Replies:** 31 (14.5%)
+- **Adds:** 9 stations, 6 markets
+- **Specialty shows:** 14 airings across 5 of those adds
+- **Chart:** top 40 on the Americana chart for 7 weeks, peak #31
+- **Cost per add:** $2.22 against the directory price. My legacy book's last auditable year came in at $19 per add.
+
+The interesting number is the small one. **214.** I used to send two thousand and get fewer adds. The directory's format and state tabs made targeting cheap enough that volume became a choice, and volume turned out to be the thing hurting us.
+
+Draw your own conclusions. Mine cost me a year of being wrong in public.`,
+      },
+      {
+        author: "vinylghost",
+        date: "2018-12-29",
+        time: "17:33",
+        votes: 167,
+        body: `a promoter posting cost-per-add math in public. 2018 keeps surprising.
+
+good numbers. the 214 is the headline. nobody believes the 214 part and that's the whole problem with this industry.`,
+      },
+      {
+        author: "zazie",
+        date: "2018-12-30",
+        time: "09:02",
+        votes: 204,
+        body: `screenshotting this thread for the days i doubt everything.
+
+darren, two years ago you groaned loud enough to hear from the transmitter site (your words). thank you for the receipts, and for being wrong in public first. it made it easier for everyone else to trust the numbers.`,
+      },
+    ],
+  },
+  {
+    id: "t-2020-worth-it",
+    title: "Is radio promo even worth it right now? (April 2020) [LOCKED]",
+    category: "airplay",
+    views: 41877,
+    locked: true,
+    posts: [
+      {
+        author: "clare_mont",
+        date: "2020-04-14",
+        time: "21:18",
+        votes: 289,
+        body: `My album was supposed to come out in May. It is April 2020. My release show is a webcam now, and my tour is a cancelled tour.
+
+Honest question, no doom, no drama: is pitching radio right now pointless? Are music directors even listening? I have the directory and sixty well-researched stations picked out, and I cannot tell whether sending is tone-deaf or exactly the thing to do. I would genuinely value views from both sides.`,
+      },
+      {
+        author: "dlb_promotions",
+        date: "2020-04-15",
+        time: "08:44",
+        votes: 176,
+        body: `From the shop side: half my clients paused campaigns. The stations that answer their own phones (small markets, non-comms, community) are still programming. The corporate clusters are running syndicated voicetrack and their MDs are furloughed.
+
+Translation: it has never mattered more *which* stations you email. The 2020 lesson is the 2017 lesson with a mask on. The little signals are live. The big towers are on autopilot.`,
+      },
+      {
+        author: "vinylghost",
+        date: "2020-04-15",
+        time: "11:20",
+        votes: 148,
+        body: `people are listening more, not less. they're home. the car radio became the kitchen radio.
+
+send the sixty. skip the release-show paragraph. one line acknowledging the year is plenty. everyone knows what year it is.`,
+      },
+      {
+        author: "dlb_promotions",
+        date: "2020-04-15",
+        time: "13:02",
+        votes: -34,
+        edited: "edited 15 Apr 2020",
+        body: `[post removed by moderator: this paragraph named a competitor's clients. Rule 3. The data point about cluster voicetracking stands. Marissa]`,
+        removed: true,
+      },
+      {
+        author: "BeccaNoncomm",
+        date: "2020-04-16",
+        time: "10:31",
+        votes: 402,
+        body: `MD desk, live from the spare bedroom: we are listening. Our submission count *dropped* sixty percent this month, which means the people still sending are getting more attention per email than at any point in my eight years here.
+
+Community radio did not stop. The phone-in show about what people are cooking did not stop. Send the sixty, Clare. Play the webcam show for us when restrictions lift and we'll have you on.`,
+      },
+      {
+        author: "clare_mont",
+        date: "2020-06-02",
+        time: "19:45",
+        votes: 331,
+        solved: true,
+        edited: "edited 2 Jun 2020",
+        body: `Solved, with results, because this board raised me right. Sent all sixty across three weeks. Eleven replies. Four adds. One on-air interview, my first, with a station nine hundred miles from anywhere I have played.
+
+And Becca's station did have me on, phone line and all, in May. The interview that replaced my release show reached more people than the show would have. I still do not quite believe that sentence.
+
+To anyone finding this thread in a future bad year: send the thoughtful version of the email. The signals are live.`,
+      },
+      {
+        author: "mod_marissa",
+        date: "2020-06-03",
+        time: "08:15",
+        votes: 95,
+        body: `Locking this one. It circled back into the promoter-services argument at reply #48, and we've had that argument four times this spring. The thread's question was answered beautifully; the argument lives in its own thread if you must.
+
+Clare, that last paragraph belongs on a poster. ❤️`,
+      },
+    ],
+  },
+  {
+    id: "t-nacc-playbook",
+    title: "Charting on NACC: my full playbook using the directory (numbers, weeks, mistakes)",
+    category: "airplay",
+    views: 28710,
+    posts: [
+      {
+        author: "quietframe",
+        date: "2020-10-05",
+        time: "09:00",
+        votes: 613,
+        body: `Chart math, no vibes. Modern classical / ambient album, Aug 28 release, self-released, no publicist. Directory edition: 12k. Everything below is from my own logs.
+
+**The plan (8 weeks, ~130 emails):**
+
+1. Week -2: forty non-comm adds emailed. Genre + show name in subject. One link. No attachments.
+2. Week 0 (release): follow-up only to openers. Twelve sent. Added reporting-week note.
+3. Weeks 1 to 6: eighty more stations, twenty per week, sorted by the directory's state tabs along my (cancelled) tour route.
+4. Follow-ups capped at one per station. Ever.
+
+**Results:**
+
+- 22 replies (17%), 11 consistent reporters
+- Debut #198, peak #77, four weeks on the chart
+- Two heavy rotations, one live-session invite
+- Zero chart points from the twenty stations I emailed *against* type early on (mistake, kept for honesty)
+
+What actually mattered, ranked: show-level targeting, then one-link emails, then tour-route geography, then everything else. My $0 publicist version of this campaign would have cost $1,800 and covered fewer stations.
+
+Happy to answer specifics below.
+
+qf`,
+      },
+      {
+        author: "JurgenDE",
+        date: "2021-01-09",
+        time: "20:14",
+        votes: 141,
+        body: `Please check my understanding of step 3, because I believe I have been doing the follow-up timing wrong:
+
+1. You email 20 new stations per week, but the follow-up to a week -2 station happens in week 0?
+2. No second follow-up at all, even if opened but unanswered?
+
+I have been sending two follow-ups, at day 7 and day 14. My reply rate on follow-up #2 is 3%. Your single-follow-up rule suggests I should stop. The data appears to agree with you and to disagree with me, which is annoying.`,
+      },
+      {
+        author: "quietframe",
+        date: "2021-01-10",
+        time: "07:42",
+        votes: 233,
+        body: `Your reading of step 3 is correct. One follow-up, about ten days out, one line: "sharing again in case release week slipped past, link." Then stop.
+
+The 3% on follow-up #2 is real, but look at what it buys. Replies born of annoyance convert to adds far below cold pitches (my logs, plus several threads here). The stations that wanted you answered by day ten. Silence past that is an answer with excellent manners.
+
+Stop at one. Spend the saved hours on the next twenty stations.
+
+qf`,
+      },
+      {
+        author: "sadgirlsynth",
+        date: "2021-04-01",
+        time: "03:14",
+        votes: 88,
+        body: `"silence past that is an answer with excellent manners"
+
+framing this and hanging it above the synthesizer. also ran a stripped version of the playbook for my EP: 68 emails, 9 replies, 3 adds, no chart entry, zero regrets. the math is the math.`,
+      },
+      {
+        author: "PedroLagosta",
+        date: "2021-08-23",
+        time: "01:52",
+        votes: 73,
+        body: `+1. Friends, the man gave us a manual. Saving this whole thread!!`,
+      },
+    ],
+  },
+  {
+    id: "t-country-year",
+    title: "One year of small-market country radio: what actually moved the needle",
+    category: "airplay",
+    views: 22145,
+    posts: [
+      {
+        author: "dial_turner",
+        date: "2021-05-12",
+        time: "19:30",
+        votes: 387,
+        body: `A year of this board asking for a deep dive on the small-market country side, so here it is, from the Americana and country-traditional trenches.
+
+**What moved the needle (in order of actually selling tickets and streams):**
+
+- **The 1kW daytimers and the AM gospel/country hybrids.** Nobody pitches them. They remember you. Two of them had me on for full interviews because I was the only songwriter who had emailed all spring.
+- **Trading favours with the local press.** The twenty-minute interview on that first little daytimer became the excuse to email the neighboring town's station. Small markets read each other's papers.
+- **The Friday afternoon show blocks.** Country radio's listener numbers peak Friday PM. Every add I got was a Friday or Saturday block. Ask which block you are being added to; it is in the directory's show-notes column more often than you would think.
+
+**What didn't:**
+
+- The corporate clusters. One add from forty emails. Never again.
+- Any email that led with streaming numbers. Small-market MDs would rather hear you'll call in on the request line.
+
+Year total: 96 emails, 23 replies, 12 adds, 4 interviews, 1 wedding invitation (long story; the DJ's daughter).`,
+      },
+      {
+        author: "PedroLagosta",
+        date: "2021-08-19",
+        time: "23:51",
+        votes: 96,
+        body: `Friends!! Friends. The wedding invitation is the most country-radio thing I have ever read on this forum, and I include my own posts.
+
+Question from the south hemisphere: does the "nobody pitches them" effect work the same for the small interior stations of Brazil? The directory has maybe 200 of them, and I suspect some have never been pitched by anyone. I may be about to become a big fish in a very calm pond.`,
+      },
+      {
+        author: "dial_turner",
+        date: "2021-08-20",
+        time: "14:05",
+        votes: 155,
+        body: `Pedro: in my experience the effect is universal, and the pond is calmer than you think. The 1kW daytimer effect is really the "someone finally read the about page" effect, and that has no border.
+
+Report back with your numbers. The board eats receipts.`,
+      },
+    ],
+  },
+  {
+    id: "t-rate-limits",
+    title: "PSA: don't mail-merge 900 stations in one batch. A sequence of regrettable events.",
+    category: "tech",
+    views: 18852,
+    posts: [
+      {
+        author: "tourvan_diaries",
+        date: "2023-04-11",
+        time: "17:59",
+        votes: 419,
+        body: `ok so we absolutely boned this up and im posting it so nobody else does. timeline of the disaster:
+
+- 9:04am: drummer (me) discovers mail merge. "we can hit EVERY country station in the south in ONE AFTERNOON"
+- 9:30am: merge set up. 912 recipients, one (1) template, first name field filled from the directory
+- 9:41am: send
+- 9:44am: first bounce wave. then the second wave. our ESP freezes the account for "suspicious volume"
+- 11:20am: account suspended. every automated thing we had (bandcamp updates!! merch receipts!!) dead
+- 3 days later: reinstated on a "you're on a watch" basis. deliverability wrecked for a month after. open rates halved.
+
+the thing that hurts the most: 912 emails got us TWO replies, and one was a station guy telling us the merge was broken and every email said "hey \[First Name\]". 400 people got literally "hey \[First Name\]". the well: poisoned. definately by us.
+
+anyway. batches of 20. warm domain. test send to your own email FIRST. learn from my morning lmaooo (crying)`,
+      },
+      {
+        author: "JurgenDE",
+        date: "2023-04-11",
+        time: "20:36",
+        votes: 377,
+        body: `Please check the following, because this outcome was fully predictable, and I say that as a friend:
+
+1. A cold domain sending 900 emails in one batch will trip every rate monitor in the northern hemisphere. This is not bad luck. It is arithmetic.
+2. Sensible ceilings for a new sender: 20 to 30 per day for two weeks, then 50 per day. My own lists cap at 50 regardless of age. The directory's tabs exist precisely so that "900 in an afternoon" is never the plan.
+3. The "\[First Name\]" bug means the merge test was skipped. There is no version of a 900-person send where you skip the test send. None.
+
+This is not difficult, but it is necessary. The batches-of-20 advice above is correct. Read it twice.`,
+      },
+      {
+        author: "vinylghost",
+        date: "2023-04-12",
+        time: "06:15",
+        votes: 233,
+        body: `read it twice. then read the 2021 thread where i said the same thing. then the 2019 one.
+
+(not aimed at you personally, tourvan. aimed at the next 400 people who will do this anyway. this post will outlive us all.)`,
+      },
+      {
+        author: "zazie",
+        date: "2023-04-12",
+        time: "12:40",
+        votes: 248,
+        staffAnswer: true,
+        body: `adding the shop-side note, since this thread will get searched: this failure mode is exactly why the product is a directory and not a send platform. i could add a blast button in a weekend. i won't. the blast is how you turn 18,000 good contacts into 912 burnt ones.
+
+the sending tool is your email client and your manners. keep batches small, personalize the first line, and you will never meet your email provider's security team.
+
+tourvan, thanks for the write-up. genuinely. threads like this do more than any FAQ i could write.`,
+      },
+      {
+        author: "dlb_promotions",
+        date: "2023-04-13",
+        time: "09:18",
+        votes: 122,
+        body: `Promo-shop voice for the archive: the "3 days suspended, month of wrecked deliverability" line is the real cost, and it compounds. My book's value dropped about forty percent for a client after one overeager intern did exactly this on their band domain. Their *band* domain. Fans stopped getting merch receipts.
+
+The directory cannot stop you from merging 912 people. Nothing can. That is what the rules thread is for.`,
+      },
+    ],
+  },
+  {
+    id: "t-2022-verification",
+    title: "The 2022 verification pass is done: 1,412 emails replaced. Numbers inside.",
+    category: "meta",
+    views: 24931,
+    posts: [
+      {
+        author: "zazie",
+        date: "2022-11-08",
+        time: "10:00",
+        votes: 486,
+        body: `verification pass #2 is complete. the boring numbers, as always:
+
+- **38,114** addresses checked across every tab
+- **1,412** replaced (staff changes, mostly. the great 2021/2022 MD shuffle)
+- **596** struck entirely (stations dark, shows cancelled, domains gone)
+- **117** station mainlines relabeled after someone actually called them (thank you, PastorMike)
+- turnaround on user-reported bounces this cycle: **4.1 days median**
+
+every replaced address carries its own last-verified date in the data. if you bought an edition before this pass, email me the receipt and you get the fresh file free. that's always been the deal and it always will be.
+
+next pass: 2024, or six months after the next industry apocalypse, whichever comes first.`,
+      },
+      {
+        author: "PastorMike_KTLW",
+        date: "2022-11-09",
+        time: "07:22",
+        votes: 108,
+        body: `Happy to make the calls. Some of those station lines had been answered by the same secretary for nineteen years, and she deserves accurate labeling more than anyone.
+
+For the church side of the ledger: the southern gospel tab is in the finest shape I have seen it, and I say that as someone who checks it suspiciously every season, like a man testing a fence. Blessings on the pass.`,
+      },
+      {
+        author: "dlb_promotions",
+        date: "2022-11-10",
+        time: "11:41",
+        votes: 173,
+        body: `The 4.1-day median is the number I would underline. My legacy vendor's support queue has been "reviewing" a bounce report of mine since August.
+
+Credit where due, again. It stopped being grudging around 2019, but the record deserves saying out loud.`,
+      },
+      {
+        author: "mwolfe_artist",
+        date: "2024-09-20",
+        time: "16:55",
+        votes: 41,
+        edited: "edited 20 Sep 2024",
+        body: `Found this thread while deciding whether to buy. "Email me the receipt and you get the fresh file free" sounded like marketing, so, for any archive searchers like me: I emailed about a 2019 receipt I found in an old laptop's downloads folder. Got the current edition the same afternoon.
+
+So that part is real. Posting because I went looking for a catch and could not find one, which was annoying.`,
+      },
+    ],
+  },
+  {
+    id: "t-au-addon",
+    title: "AU/NZ add-on first impressions: Melbourne and Brisbane results",
+    category: "airplay",
+    views: 15903,
+    posts: [
+      {
+        author: "sydney_syd",
+        date: "2022-03-30",
+        time: "09:12",
+        votes: 152,
+        body: `hey mate, sydney checking in. first weekend with the AU/NZ add-on, couple of notes for the board:
+
+- the community radio layer is the gold here. 200+ stations, the volunteer MDs read their own email, and half of them program a local-originals hour that *legally requires* aussie content. there is a quota, friends. a QUOTA.
+- sorted by my (hypothetical, financially tragic) tour route: melbourne, canberra, sydney, brisbane. 43 stations fit in one spreadsheet filter.
+- sunday arvo send, 14 emails out, 5 replies by tuesday. FIVE. never had that hit rate on the US side, and i blame the time zones for making me look punctual.
+
+any other aussies on here, chime in. i suspect we're about six people and a magpie`,
+      },
+      {
+        author: "PedroLagosta",
+        date: "2022-04-02",
+        time: "01:33",
+        votes: 89,
+        body: `FRIENDS. Pedro from São Paulo again, hijacking politely to report the same effect from the southern half of the americas (see dial_turner's country thread, I promised receipts):
+
+the interior stations of Brazil. 60 emails over three weeks. 19 replies!! Stations that told me, literally, "nobody has ever emailed us from São Paulo with a polite pitch." One station in Goiás played my song every Friday for a MONTH because I was the entire new-music supply.
+
+the calm pond is real. swim in the calm pond.`,
+      },
+      {
+        author: "zazie",
+        date: "2022-04-04",
+        time: "22:19",
+        votes: 118,
+        staffAnswer: true,
+        body: `two things.
+
+1) syd is right about the quota. the add-on's AU tabs mark the stations with local-content requirements. it is the single best return-per-email pocket in the whole directory, and i will keep saying it until it stops being true.
+
+2) pedro's "i was the entire new-music supply" is now my answer to every "is radio promo dead" thread for the rest of my life.`,
+      },
+    ],
+  },
+  {
+    id: "t-epk-needed",
+    title: "do i need a pro bio/EPK before i start emailing stations??",
+    category: "start",
+    views: 26484,
+    posts: [
+      {
+        author: "the_q_factor",
+        date: "2024-01-09",
+        time: "13:37",
+        votes: 118,
+        body: `sorry if this is a dumb question (i've read the welcome thread twice, i promise): do i need a professional-looking EPK before i email my first stations? photos, pdf, the whole press kit thing??
+
+because right now i have: one good photo, one bandcamp link, and a bio that my sister called "a LinkedIn profile for a band."
+
+i don't want to blow first impressions on 60 stations if the answer is yes. do i pause outreach and build the kit first? how much is enough?? thank you!!`,
+      },
+      {
+        author: "clare_mont",
+        date: "2024-01-09",
+        time: "18:52",
+        votes: 296,
+        body: `Not a dumb question. It is *the* question, and the answer is smaller than the internet makes it feel.
+
+What a music director actually needs from a first email: one streaming link that works, one photo they could use if they feature you, and two sentences about the project that sound like a person. That is the whole kit at minimum viable weight.
+
+The fancy PDF version matters later, for interviews and feature coverage, when someone asks. Build it while you are sending, not before. The outreach teaches you what belongs in the bio; every reply will teach you more than a fortnight of polishing ever could.
+
+(Also, your sister's line is funny. Keep a version of it. "A LinkedIn profile for a band" would absolutely make me keep reading.)`,
+      },
+      {
+        author: "quietframe",
+        date: "2024-01-10",
+        time: "08:15",
+        votes: 241,
+        body: `The minimum viable EPK, in descending order of actual impact:
+
+1. One link. Streaming, public, no login wall, tested on a phone on cellular.
+2. Two-sentence bio.
+3. One usable photo. Landscape if possible; station sites crop.
+4. Genre and hometown in the email itself, not behind a link.
+
+Everything else (the PDF, the logo, the press section with your cousin's blog) has never once changed a first-reply decision in my logs. It changes interview outcomes. Send now. Build the rest during the send.`,
+      },
+      {
+        author: "the_q_factor",
+        date: "2024-02-14",
+        time: "20:08",
+        votes: 167,
+        solved: true,
+        body: `update, five weeks later, because this board runs on receipts: sent 58 emails with the minimum viable kit (bandcamp link, two sentences, one landscape photo).
+
+9 replies. 2 adds. an MD asked for "the longer bio," which did not exist yet, so i wrote it in 40 minutes knowing exactly what she asked about. which is the whole point i didn't understand in january!!
+
+sister's line stayed in the bio. the MD quoted it back to me on air 😭 marking solved!!`,
+      },
+    ],
+  },
+  {
+    id: "t-skeptic-2024",
+    title: "Color me unconvinced: isn't this just another scraped database with good fonts?",
+    category: "meta",
+    views: 29107,
+    posts: [
+      {
+        author: "mwolfe_artist",
+        date: "2024-09-14",
+        time: "21:26",
+        votes: 214,
+        body: `New here. Skeptical by default. I have paid for two "verified" databases before. Both were scraped trash with 30% bounce rates and fonts that gaslight.
+
+So convince me this isn't the same graveyard with better kerning. Specifically:
+
+1. Who checks the checks? Every claim on the sales page is self-reported.
+2. What is the bounce reality from *senders*, not the vendor?
+3. The $20 price is itself suspicious. Real verification costs money. What is the actual catch?`,
+      },
+      {
+        author: "dial_turner",
+        date: "2024-09-15",
+        time: "08:41",
+        votes: 288,
+        body: `Welcome. You have asked question #2 correctly, which puts you ahead of most skeptics: you asked for sender numbers. This board is years of exactly those, unmoderated in your favor, including the threads where the answer was unflattering.
+
+Start with these. The 2018 skeptic's corner thread (asked by a radio promoter, answered with a process, audited by him for a year). The 2022 verification pass thread (1,412 replacements, median fix 4.1 days). And, I would insist on this one, the "PSA: don't mail-merge 900 stations" thread, in which the vendor's own forum hosts a month-by-month teardown of a user's disaster. Scraped-trash vendors do not keep that thread pinned.
+
+As for the price: the founder has explained it since 2017 in roughly the same words. Some of us have simply watched the receipts accumulate. Search "founder price" and settle in.`,
+      },
+      {
+        author: "zazie",
+        date: "2024-09-15",
+        time: "13:12",
+        votes: 341,
+        staffAnswer: true,
+        body: `fair questions. straight answers, in order.
+
+1. **who checks the checks:** you do, partly by design. every entry ships its last-verified date, so staleness is your call, not my marketing. beyond that: this forum. i can't edit your threads, and marissa (who is not me and not paid) locks mine when they get loopy. the receipts here are the audit.
+2. **bounce reality from senders:** the 2022 cycle thread has promoter numbers. my own inbox sees user-reported bounces at roughly 0.8% a month across active senders. when one lands, it's fixed in about four days. the number is the number, even when it's a bad week.
+3. **the price:** enterprise vendors charge $400 a year because their customers are corporations with procurement departments. mine are musicians. $20 was the 2017 sheet's "buy me a coffee while i verify" price, and it stuck, because a raise would mean refunds eating the difference. the catch is: i also sell add-ons to people who want more, and enough people do.
+
+stay skeptical. post your send numbers either way. the thread where you're proven right would be the most valuable thing on this board.`,
+      },
+      {
+        author: "mwolfe_artist",
+        date: "2024-12-03",
+        time: "19:57",
+        votes: 376,
+        solved: true,
+        edited: "edited 3 Dec 2024",
+        body: `Three months. Time to eat from the takeout box of crow I ordered in September:
+
+- 60 emails sent. Targeted, one-pitch rule, felt absurdly slow, worked anyway.
+- 9 replies, 3 adds, one syndicated blues-show airing that has led to two other stations emailing ME.
+- Bounces: 2. Both reported. Both replaced within three days. I have witnesses in this thread's DMs.
+- The AU add-on: purchased, against my remaining principles, which were already weakened.
+
+Verdict: it is not the same graveyard. The fonts are still suspiciously good. Marking solved, with apologies to Neil for making him link three threads at 8am.`,
+      },
+      {
+        author: "vinylghost",
+        date: "2024-12-03",
+        time: "22:40",
+        votes: 149,
+        body: `another "skeptic converts, posts receipts" thread. my favorite genre on the board.
+
+welcome to the calm side. batches of 20.`,
+      },
+    ],
+  },
+  {
+    id: "t-ai-pitches",
+    title: "Please stop sending me AI-written pitches (from the other side of the inbox)",
+    category: "stations",
+    views: 34722,
+    posts: [
+      {
+        author: "BeccaNoncomm",
+        date: "2025-01-14",
+        time: "11:30",
+        votes: 904,
+        body: `An annual service announcement that I now have to make annually.
+
+The volume of pitches arriving at my desk is the same as last year. The time I spend on them has doubled, because two-thirds now begin with the same warm fog. "I hope this email finds you well." "Your station's commitment to curated storytelling truly resonates." "I was particularly drawn to the vibrant community you have built."
+
+I program a roots-music block in a market whose main tourist attraction is a water tower. Nobody has ever been drawn to the vibrant community. The tell is not the polish (polish is fine). It is that the email says **nothing that could only have been said to my station.**
+
+You are all here because you bought a directory whose entire value is specificity. Please, I am begging: spend the specificity. Name the show. Name the block. One sentence that could not be pasted into the next email.
+
+The artists who do this are getting adds at the same rate they always were. The fog is competing only with itself.`,
+      },
+      {
+        author: "sadgirlsynth",
+        date: "2025-01-14",
+        time: "17:02",
+        votes: 233,
+        body: `"a market whose main tourist attraction is a water tower." becca i would absolutely listen to a roots block from water tower town. is there a directory for vibes.
+
+(op but real: wrote my last three pitches by hand like a victorian and the reply rate doubled. the machine writes faster. the human gets answered.)`,
+      },
+      {
+        author: "mwolfe_artist",
+        date: "2025-01-15",
+        time: "09:48",
+        votes: 121,
+        body: `Genuine question from someone who used the fog format twice in December before knowing better: how can you actually tell? My hand-written pitch and my drafted-with-assistance pitch look pretty similar after editing.
+
+Is it the generic opening, or something subtler? I want to know what I am apologizing for.`,
+      },
+      {
+        author: "BeccaNoncomm",
+        date: "2025-01-15",
+        time: "13:26",
+        votes: 388,
+        body: `It is not subtle, and it is not AI detection. I cannot spot the tool and I do not try. It is that the *specific sentence* is missing. Every good pitch, hand-written or drafted or dictated to a raccoon, contains one sentence that costs the writer something: a detail about the show, a reason this station and not the one next door.
+
+The fog never pays that cost. That is the whole tell.
+
+Editing AI drafts is not the crime. My own show notes get autocorrected into poetry. Sending the fog is the crime. Insert the one expensive sentence and you are fine.`,
+      },
+      {
+        author: "zazie",
+        date: "2025-01-16",
+        time: "20:10",
+        votes: 297,
+        staffAnswer: true,
+        body: `say it louder for the back of the forum.
+
+becca's "one expensive sentence" is the 2025 version of neil's one-pitch rule from 2017, and they are the same rule: **the email should be unable to be sent to anyone else.**
+
+the directory gives you 18,000 reasons to write one expensive sentence. that's the product. the sentence is yours.`,
+      },
+    ],
+  },
+  {
+    id: "t-week-one-2026",
+    title: "Week one with the 18k edition: 40 sent, 5 replies, 2 spins (numbers + what i'd redo)",
+    category: "airplay",
+    views: 6319,
+    posts: [
+      {
+        author: "gigi_waves",
+        date: "2026-02-08",
+        time: "19:44",
+        votes: 84,
+        body: `week one!! i have NUMBERS and also mistakes, posting because every thread here says post the receipts:
+
+the setup: bedroom pop EP, three songs, no label, no publicist, one landscape photo (learned that here). sorted the directory by format + my region, picked 40 stations where the *show* fit, not just the station. wrote every first line by hand. took a whole evening and i complained the entire time ngl.
+
+- sent: 40 (two batches of 20, waited 4 days between. jurgen's ceiling, i obey)
+- opened-ish (replies aren't opens, i know, this is just vibes): 5 replies
+- adds: 2. a sunday morning show in oregon and a college station 90 minutes from my house
+- **SPINS: 2. as in, my song, on the actual radio, TWICE, in week one.** one of the hosts said my track "slaps gently," which is going on the bandcamp page immediately
+
+what i'd redo: i wasted my first two evenings designing a press-kit pdf nobody has asked for (quietframe's thread says this keeps happening. it kept happening). should have sent on day one.
+
+anyway. to the december version of me who almost bought a $1,200 promo package: hi. we're fine. it cost $20 and one honest evening.`,
+      },
+      {
+        author: "BASSLINEBENJI",
+        date: "2026-02-09",
+        time: "01:18",
+        votes: 47,
+        body: `RIGHT. "slaps gently" is top-5 feedback ever posted on this board, absolute scenes 😂 two spins in week one for a self release is a mad ratio innit. took us 6 weeks to get there on the UKG EP and i thought we'd won the lottery
+
+do NOT skimp on the follow-up now btw. one polite nudge at ~10 days to the silent ones, quietframe's rule. the second wave is where the college adds came from for us. big up yourself gigi, this is the way`,
+      },
+      {
+        author: "zazie",
+        date: "2026-02-09",
+        time: "09:33",
+        votes: 58,
+        body: `"slaps gently" is the first bandcamp blurb in history to be fact-checked against a broadcast log and pass.
+
+keep posting the weekly numbers gigi. week three is where the graph gets interesting, and this board lives on the graph.`,
+      },
+      {
+        author: "the_q_factor",
+        date: "2026-02-10",
+        time: "22:51",
+        votes: 29,
+        body: `two years ago i was the "sorry if this is a dumb question" person and now i'm the person linking my own solved threads to newcomers 😭 the circle of life happens fast here
+
+gigi, save the press-kit pdf energy for when a host asks for "the longer bio." you'll write it in 40 minutes and it'll be better than anything you'd have built in december. ask me how i know 👋`,
+      },
+    ],
+  },
+  {
+    id: "t-archive-notice",
+    title: "Archive notice: threads from the old board (2017 to 2019) are now read-only",
+    category: "meta",
+    views: 13904,
+    posts: [
+      {
+        author: "mod_marissa",
+        date: "2020-01-06",
+        time: "12:00",
+        votes: 178,
+        body: `Housekeeping, pinned for the archaeologists.
+
+We've moved boards. Everything from the original 2017 to 2019 board (the one that ran on enthusiasm and a $4/month VPS) has been imported into this archive, read-only. Replies, votes, and formatting survived the migration. Some image attachments did not; where an image is gone, you'll see the original caption, which is often funnier.
+
+Why read-only: the old threads are the closest thing this community has to institutional memory, the "first reply!!" posts included. They stay exactly as they were, warts and arguments and all. If you have something to add to an old thread, quote it in a new one and link back. The old-timers will find it. They always do.
+
+If a link 404s, post it in Site & bugs and I'll re-point it. ❤️`,
+      },
+      {
+        author: "vinylghost",
+        date: "2020-01-07",
+        time: "03:44",
+        votes: 92,
+        body: `"often funnier" is doing a lot of work in that sentence and we both know it.
+
+good migration. the old board's greatest thread (the 41 subject-line answers) survives. the culture continues.`,
+      },
+    ],
+  },
+];
+
+/* ── Helpers ──────────────────────────────────────────────── */
+
+export function threadReplies(t: ForumThread) {
+  return Math.max(0, t.posts.length - 1);
+}
+
+export function threadVotes(t: ForumThread) {
+  return t.posts.reduce((sum, p) => sum + p.votes, 0);
+}
+
+export function threadCreated(t: ForumThread) {
+  return t.posts[0]?.date ?? "";
+}
+
+export function threadActivity(t: ForumThread) {
+  return t.posts[t.posts.length - 1]?.date ?? "";
+}
+
+export function lastPoster(t: ForumThread) {
+  return t.posts[t.posts.length - 1]?.author ?? "";
+}
+
+const MONTHS = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+export function formatForumDate(date: string, time?: string) {
+  const [y, m, d] = date.split("-");
+  const month = MONTHS[Number(m) - 1] ?? m;
+  return `${Number(d)} ${month} ${y}${time ? ` · ${time}` : ""}`;
+}
+
+export function formatCount(n: number) {
+  if (n >= 10000) return `${(n / 1000).toFixed(0)}k`;
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+  return String(n);
+}

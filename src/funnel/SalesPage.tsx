@@ -574,6 +574,100 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         </div>
       </section>
 
+      {/* COMMUNITY ARCHIVE TEASER → simulated forum */}
+      <section id="community" className="defer-render border-y border-white/10 bg-[#0b0b0e]">
+        <div className="mx-auto max-w-5xl px-4 py-10 sm:py-16">
+          <SectionLabel>The community archive</SectionLabel>
+          <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
+            ASKED. ARGUED.{" "}
+            <span className="text-acid">ANSWERED.</span>
+          </h2>
+          <p className="mt-4 max-w-2xl font-serif text-[1.02rem] leading-[1.65] text-white/70 sm:text-lg sm:leading-relaxed">
+            RadioReach users compare send logs with each other and with the music directors on
+            the receiving end. Numbers, station-side intel, recovered disasters, and the occasional
+            thread we had to lock. It's the least polished part of this product. Go read it before
+            you buy. Then start your own thread: the regulars answer.
+          </p>
+
+          <div className="mt-6 grid gap-3 sm:mt-8">
+            {[
+              {
+                cat: "From the other inbox",
+                hue: 200,
+                title:
+                  "I'm a music director. Here's what makes me delete your email in two seconds.",
+                meta: "1.2k upvotes · 4 voices · 53.9k views · Sep 2018",
+                snippet:
+                  "“The bar is on the floor, everyone. That's the good news. Clear subject, my name, one link, one honest sentence…”",
+                who: "BeccaNoncomm",
+              },
+              {
+                cat: "RadioReach news",
+                hue: 330,
+                title:
+                  "Color me unconvinced: isn't this just another scraped database with good fonts?",
+                meta: "Solved · 612 upvotes · 5 voices · 29.1k views · Sep 2024",
+                snippet:
+                  "“Three months. Time to eat from the takeout box of crow I ordered in September: 60 sent, 9 replies, 3 adds… bounces: 2, both replaced within three days.”",
+                who: "mwolfe_artist",
+              },
+              {
+                cat: "Airplay & results",
+                hue: 12,
+                title: "Week one with the 18k edition: 40 sent, 5 replies, 2 spins",
+                meta: "84 upvotes · 4 voices · 6.3k views · Feb 2026",
+                snippet:
+                  "“SPINS: 2. As in, my song, on the actual radio, twice, in week one. One of the hosts said my track ‘slaps gently’…”",
+                who: "gigi_waves",
+              },
+            ].map((t) => (
+              <a
+                key={t.title}
+                href="#/community"
+                onClick={() => trackCustom("CommunityPreviewClicked", { thread: t.title.slice(0, 40) })}
+                className="group rounded-xl border border-white/10 bg-panel p-4 transition-colors hover:border-acid/40 sm:p-5"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <span
+                    className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
+                    style={{ background: `hsl(${t.hue} 45% 18%)`, color: `hsl(${t.hue} 70% 72%)` }}
+                  >
+                    {t.cat}
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-white/35">
+                    {t.meta}
+                  </span>
+                </div>
+                <p className="mt-2 font-serif text-[16px] font-bold leading-snug text-white group-hover:text-acid sm:text-[17px]">
+                  {t.title}
+                </p>
+                <p className="mt-1.5 line-clamp-2 text-[13px] leading-relaxed text-white/45">
+                  {t.snippet}
+                </p>
+                <p className="mt-2 text-[11px] text-white/35">
+                  reply from <span className="font-bold text-white/60">{t.who}</span>
+                </p>
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-7 flex flex-wrap items-center gap-4">
+            <a
+              href="#/community"
+              onClick={() => trackCustom("CommunityArchiveOpened", { placement: "community_section" })}
+              className="cta rounded-lg bg-acid px-6 py-3.5 font-display text-base uppercase tracking-wide text-ink sm:text-lg"
+            >
+              Open the community archive <span aria-hidden>→</span>
+            </a>
+            <p className="text-[12px] leading-snug text-white/40">
+              Guest access · no email required
+              <br className="hidden sm:block" />
+              Start a thread · saves in your browser
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* WHO IT'S FOR */}
       <section className="defer-render border-y border-white/10 bg-panel">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:py-14">

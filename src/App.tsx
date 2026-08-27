@@ -10,6 +10,7 @@ const Checkout = lazy(() => import("./funnel/Checkout"));
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
 const LabGallery = lazy(() => import("./lab/LabGallery"));
 const CustomLeadsPage = lazy(() => import("./funnel/CustomLeadsPage"));
+const CommunityForum = lazy(() => import("./funnel/CommunityForum"));
 
 const Upsell1 = lazy(() =>
   import("./funnel/Upsells").then((m) => ({ default: m.Upsell1 }))
@@ -40,6 +41,7 @@ export default function App() {
   const routeSuccess = hash.startsWith("#/success");
   const routeLab = hash.startsWith("#/lab");
   const routeCustomLeads = hash.startsWith("#/custom-leads");
+  const routeCommunity = hash.startsWith("#/community");
 
   useEffect(() => {
     const onHashChange = () => setHash(window.location.hash || "");
@@ -113,6 +115,17 @@ export default function App() {
     return (
       <Suspense fallback={<LoadingScreen />}>
         <CustomLeadsPage onBack={() => { window.location.hash = "#top"; }} />
+      </Suspense>
+    );
+  }
+
+  // Simulated community archive: a concept surface of illustrative user
+  // threads. Reachable from the sales page's community teaser section and
+  // the top nav. Guest threads and replies persist in localStorage.
+  if (routeCommunity) {
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        <CommunityForum onBack={() => { window.location.hash = "#top"; }} />
       </Suspense>
     );
   }
