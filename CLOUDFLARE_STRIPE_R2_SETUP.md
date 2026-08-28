@@ -115,7 +115,7 @@ Example keys:
 - `upsells/advanced-upwork-proposals-course.zip`
 - `upsells/arcane-type-vault.zip`
 - `products/contract-guide/radioreach-indie-artist-contract-info-guide.pdf` (single-file PDF, same key contract)
-- `courses/frequency-dominion/frequency-dominion-course.zip`
+- `courses/frequency-dominion/frequency-dominion-course.zip` ← rebuilt from tracked source with `npm run build:fd` (content lives in `src/course/*` + `fulfillment/courses/frequency-dominion/src/`)
 
 ## Admin guide — add a new product
 
