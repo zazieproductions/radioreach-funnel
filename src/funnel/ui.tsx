@@ -20,18 +20,21 @@ export function useCountdown(seconds: number, key = "zp_deadline") {
   const [left, setLeft] = useState(seconds);
 
   useEffect(() => {
-    let end = Number(sessionStorage.getItem(key));
-    if (!end || Number.isNaN(end) || end < Date.now()) {
-      end = Date.now() + seconds * 1000;
+    const stored = Number(sessionStorage.getItem(key));
+    const end =
+      !stored || Number.isNaN(stored) || stored < Date.now()
+        ? Date.now() + seconds * 1000
+        : stored;
+    if (!stored || Number.isNaN(stored) || stored < Date.now()) {
       sessionStorage.setItem(key, String(end));
     }
     const tick = () => {
       const diff = Math.max(0, Math.floor((end - Date.now()) / 1000));
       setLeft(diff);
-      if (diff === 0) {
-        end = Date.now() + seconds * 1000;
-        sessionStorage.setItem(key, String(end));
-      }
+      // Deliberately no re-arm here: once a window expires it stays expired
+      // for the rest of this tab instead of silently resetting forever.
+      // A "deadline" that never actually arrives reads as fake and exposes
+      // the offer to FTC/misleading-claim risk. Let it land on zero.
     };
     tick();
     const t = setInterval(tick, 1000);
@@ -42,14 +45,32 @@ export function useCountdown(seconds: number, key = "zp_deadline") {
     h: Math.floor(left / 3600),
     m: Math.floor((left % 3600) / 60),
     s: left % 60,
+    expired: left <= 0,
     pad: (n: number) => String(n).padStart(2, "0"),
   };
 }
 
-/** Fixed-width, tabular digits; cannot cause layout shift as it ticks. */
+/** Fixed-width, tabular digits; cannot cause layout shift as it ticks.
+ *  When the per-tab window genuinely expires it swaps to a flat "ended"
+ *  state instead of a frozen 00:00:00 — so the countdown never reads as
+ *  a fake deadline that silently restarts. */
 export function FlipClock({ seconds = 897, size = "md" }: { seconds?: number; size?: "sm" | "md" }) {
-  const { h, m, s, pad } = useCountdown(seconds);
+  const { h, m, s, pad, expired } = useCountdown(seconds);
   const digit = size === "sm" ? "text-lg sm:text-2xl" : "text-[1.35rem] sm:text-3xl";
+
+  if (expired) {
+    return (
+      <div
+        className="rounded-md border border-white/10 bg-black/60 px-4 py-2 text-center"
+        role="status"
+        aria-label="This offer window has ended"
+      >
+        <p className="font-display text-[1rem] uppercase tracking-[0.14em] text-blood sm:text-xl">
+          Offer window ended
+        </p>
+      </div>
+    );
+  }
 
   const Unit = ({ v, l }: { v: string; l: string }) => (
     <div className="flex flex-col items-center">

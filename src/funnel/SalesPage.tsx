@@ -56,7 +56,7 @@ const FAQS = [
   ],
   [
     "Why is the RadioReach radio contact list only $25?",
-    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $25 is the launch rate. It goes to $50 once the founder slots are gone.",
+    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $25 is the current launch rate — a one-time payment, no subscription. It's held for you for the window shown on this page in your browser tab, so the price you see is the price you get when you check out.",
   ],
   [
     "Does RadioReach have a refund policy?",
@@ -710,9 +710,82 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
       {/* FAQ */}
       <section id="faq" className="defer-render mx-auto max-w-3xl px-4 pb-10 sm:pb-16">
-        {/* Organic visitors keep the resource cluster; paid-social visitors
-            stay on the purchase path instead of being offered seven exits. */}
-        {!trafficContext.paidSocial && (
+        <SectionLabel>Objections, handled</SectionLabel>
+        <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
+        <div className="mt-5 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-panel sm:mt-6">
+          {FAQS.map(([q, a], i) => {
+            const isOpen = openFaq === i;
+            return (
+              <div key={q}>
+                <h3>
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${i}`}
+                    id={`faq-btn-${i}`}
+                    className="pressable flex w-full items-center justify-between gap-3 p-4 text-left hover:bg-white/5 sm:gap-4 sm:p-5"
+                  >
+                    <span className="font-bold leading-snug">{q}</span>
+                    <span aria-hidden className="grid h-8 w-8 shrink-0 place-items-center font-display text-xl leading-none text-acid">
+                      {isOpen ? "−" : "+"}
+                    </span>
+                  </button>
+                </h3>
+                <div
+                  id={`faq-panel-${i}`}
+                  role="region"
+                  aria-labelledby={`faq-btn-${i}`}
+                  hidden={!isOpen}
+                >
+                  <p className="px-4 pb-4 text-[14px] leading-[1.65] text-white/65 sm:px-5 sm:pb-5 sm:text-[15px] sm:leading-relaxed">{a}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section
+        data-esp-zone="cta"
+        className="defer-render border-t border-white/10 bg-gradient-to-b from-blood/20 to-ink"
+      >
+        <div className="mx-auto max-w-3xl px-4 py-12 text-center sm:py-16">
+          <h2 className="font-display text-[2rem] leading-[1.05] sm:text-6xl sm:leading-[0.95]">
+            TWO ROADS. <span className="text-acid">PICK ONE.</span>
+          </h2>
+          <div className="mt-6 grid gap-3 text-left sm:mt-8 sm:grid-cols-2 sm:gap-4">
+            <div className="rounded-lg border border-white/10 bg-black/40 p-4 sm:p-5">
+              <p className="font-display text-lg text-white/50 sm:text-xl">ROAD A</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-white/55 sm:text-[15px]">
+                <EmotiveText slot="roadA" />
+              </p>
+            </div>
+            <div className="rounded-lg border-2 border-acid bg-acid/10 p-4 sm:p-5">
+              <p className="font-display text-lg text-acid sm:text-xl">ROAD B</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-white/80 sm:text-[15px]">
+                <EmotiveText slot="roadB" />
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => handleCta("final")}
+            className="cta mt-7 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-8 sm:px-6 sm:py-5 sm:text-3xl"
+          >
+            Give Me Instant Access for $25
+          </button>
+          <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
+            Secure checkout · Instant download · 30-day money-back guarantee · No subscription, ever
+          </p>
+        </div>
+      </section>
+
+      {/* FREE GUIDES — moved below the final CTA so the SEO exit path
+          no longer interrupts the close. Organic visitors still find it;
+          paid-social visitors skip it entirely (fewer exits pre-purchase). */}
+      {!trafficContext.paidSocial && (
         <section className="mx-auto max-w-4xl py-8 sm:py-12">
           <div className="rounded-xl border border-white/10 bg-black/30 p-4 sm:p-8">
             <p className="text-[10px] font-black uppercase tracking-[0.14em] text-acid sm:text-xs sm:tracking-[0.18em]">
@@ -817,79 +890,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             </div>
           </div>
         </section>
-        )}
-
-        <SectionLabel>Objections, handled</SectionLabel>
-        <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-4xl">QUESTIONS YOU'RE ABOUT TO ASK</h2>
-        <div className="mt-5 divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-panel sm:mt-6">
-          {FAQS.map(([q, a], i) => {
-            const isOpen = openFaq === i;
-            return (
-              <div key={q}>
-                <h3>
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-panel-${i}`}
-                    id={`faq-btn-${i}`}
-                    className="pressable flex w-full items-center justify-between gap-3 p-4 text-left hover:bg-white/5 sm:gap-4 sm:p-5"
-                  >
-                    <span className="font-bold leading-snug">{q}</span>
-                    <span aria-hidden className="grid h-8 w-8 shrink-0 place-items-center font-display text-xl leading-none text-acid">
-                      {isOpen ? "−" : "+"}
-                    </span>
-                  </button>
-                </h3>
-                <div
-                  id={`faq-panel-${i}`}
-                  role="region"
-                  aria-labelledby={`faq-btn-${i}`}
-                  hidden={!isOpen}
-                >
-                  <p className="px-4 pb-4 text-[14px] leading-[1.65] text-white/65 sm:px-5 sm:pb-5 sm:text-[15px] sm:leading-relaxed">{a}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* FINAL CTA */}
-      <section
-        data-esp-zone="cta"
-        className="defer-render border-t border-white/10 bg-gradient-to-b from-blood/20 to-ink"
-      >
-        <div className="mx-auto max-w-3xl px-4 py-12 text-center sm:py-16">
-          <h2 className="font-display text-[2rem] leading-[1.05] sm:text-6xl sm:leading-[0.95]">
-            TWO ROADS. <span className="text-acid">PICK ONE.</span>
-          </h2>
-          <div className="mt-6 grid gap-3 text-left sm:mt-8 sm:grid-cols-2 sm:gap-4">
-            <div className="rounded-lg border border-white/10 bg-black/40 p-4 sm:p-5">
-              <p className="font-display text-lg text-white/50 sm:text-xl">ROAD A</p>
-              <p className="mt-2 text-[14px] leading-relaxed text-white/55 sm:text-[15px]">
-                <EmotiveText slot="roadA" />
-              </p>
-            </div>
-            <div className="rounded-lg border-2 border-acid bg-acid/10 p-4 sm:p-5">
-              <p className="font-display text-lg text-acid sm:text-xl">ROAD B</p>
-              <p className="mt-2 text-[14px] leading-relaxed text-white/80 sm:text-[15px]">
-                <EmotiveText slot="roadB" />
-              </p>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={() => handleCta("final")}
-            className="cta mt-7 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-8 sm:px-6 sm:py-5 sm:text-3xl"
-          >
-            Give Me Instant Access for $25
-          </button>
-          <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
-            Secure checkout · Instant download · 30-day money-back guarantee · No subscription, ever
-          </p>
-        </div>
-      </section>
+      )}
 
       {/* FTC DISCLAIMER */}
       <section className="defer-render border-t border-white/10 bg-black/60 px-4 py-8 sm:py-10">
