@@ -663,6 +663,7 @@ export function ThankYou({
   hasContracts,
   hasAu,
   hasContractGuide,
+  hasAccelerator,
   hasUpwork,
   // hasFonts,
   onRestart,
@@ -671,6 +672,7 @@ export function ThankYou({
   hasContracts?: boolean;
   hasAu?: boolean;
   hasContractGuide?: boolean;
+  hasAccelerator?: boolean;
   hasUpwork?: boolean;
   // hasFonts?: boolean;
   onRestart: () => void;
@@ -680,6 +682,7 @@ export function ThankYou({
   const downloads: [string, string, string][] = [
     ["📁", "Radio Reach Vault: 18,000+ entries", "PDF + tables · 412 pages"],
     ["✉️", "Detailed contact information", "Organized by station, location, role, phone, and email"],
+    ...(hasAccelerator ? [["🎯", "Airplay Accelerator", "4,812 curator contacts · campaign calendar · swipe file · follow-ups"] as [string, string, string]] : []),
     ...(hasContracts ? [["📄", "The Indie Music Contract Kit", "6 Agreement Templates + Plain-English Usage Guide"] as [string, string, string]] : []),
     ...(hasAu ? [["🇦🇺", "Australian Radio Contact List", "Major national and regional AU contacts"] as [string, string, string]] : []),
     ...(hasContractGuide ? [["📄", "RadioReach Indie Artist Contract Info Guide (PDF)", "Instant PDF Access"] as [string, string, string]] : []),

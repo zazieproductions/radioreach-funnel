@@ -50,11 +50,12 @@ export default function App() {
   }, []);
 
   const [stage, setStage] = useState<Stage>("sales");
-  const [total, setTotal] = useState(20);
+  const [total, setTotal] = useState(25);
   const [addons, setAddons] = useState<Addons>({
     contracts: false,
     au: false,
     contractGuide: false,
+    accelerator: false,
   });
   const [hasUpwork, setHasUpwork] = useState(false);
 
@@ -209,13 +210,14 @@ export default function App() {
             hasContracts={addons.contracts}
             hasAu={addons.au}
             hasContractGuide={addons.contractGuide}
+            hasAccelerator={addons.accelerator}
             hasUpwork={hasUpwork}
             onRestart={() => {
               sessionStorage.clear();
               clearLuckyCoupon();
               setLuckyCoupon(null);
-              setTotal(20);
-              setAddons({ contracts: false, au: false, contractGuide: false });
+              setTotal(25);
+              setAddons({ contracts: false, au: false, contractGuide: false, accelerator: false });
               setHasUpwork(false);
               setStage("sales");
             }}

@@ -100,7 +100,12 @@ const { createRoot } = await import("react-dom/client");
 const { act } = React;
 const { default: Checkout } = await import("../src/funnel/Checkout");
 
-type Addons = { contracts: boolean; au: boolean; contractGuide: boolean };
+type Addons = {
+  contracts: boolean;
+  au: boolean;
+  contractGuide: boolean;
+  accelerator: boolean;
+};
 
 let container: HTMLElement;
 let root: import("react-dom/client").Root;
@@ -274,7 +279,7 @@ test("onComplete passes the same add-on state used by the funnel", async () => {
 
   assert.deepEqual(completed, {
     total: 35,
-    addons: { contracts: false, au: false, contractGuide: true },
+    addons: { contracts: false, au: false, contractGuide: true, accelerator: false },
   });
 
   // Removing first, then syncing, reports no guide.
@@ -284,7 +289,7 @@ test("onComplete passes the same add-on state used by the funnel", async () => {
   });
   assert.deepEqual(completed, {
     total: 25,
-    addons: { contracts: false, au: false, contractGuide: false },
+    addons: { contracts: false, au: false, contractGuide: false, accelerator: false },
   });
 });
 
@@ -309,10 +314,22 @@ test("existing add-ons remain untouched and off by default", async () => {
   const labels = checkboxes.map((c) => c.getAttribute("aria-label"));
   assert.ok(labels.includes("Radio Reach Vault included"), "vault checkbox present");
 
-  // Contract Kit + AU list exist and stay disabled without a jackpot (existing behavior).
+  // Contract Kit + AU list exist and are purchasable by everyone — founder
+  // pricing is never gated behind the jackpot wheel.
   const text = visibleText(container);
   assert.ok(text.includes("The Indie Music Contract Kit"), "contract kit present");
   assert.ok(text.includes("Australian Radio Stations Contact List"), "AU list present");
+  const contracts = container.querySelector<HTMLInputElement>(
+    'input[type="checkbox"][aria-label="Add the Indie Music Contract Kit"]'
+  );
+  const au = container.querySelector<HTMLInputElement>(
+    'input[type="checkbox"][aria-label="Add the Australian Radio Stations contact list"]'
+  );
+  assert.ok(contracts, "contracts checkbox present");
+  assert.ok(au, "au checkbox present");
+  assert.equal(contracts!.disabled, false, "contract kit available without jackpot");
+  assert.equal(au!.disabled, false, "AU list available without jackpot");
+  assert.ok(!text.includes("Spin to reveal"), "no gating copy remains");
 
   const guide = findGuideCheckbox(container);
   assert.equal(guide.checked, false);
@@ -320,4 +337,41 @@ test("existing add-ons remain untouched and off by default", async () => {
     (s) => s.textContent === "$25.00"
   );
   assert.ok(totalSpans.length >= 2, "unchanged base total");
+});
+
+test("accelerator order bump is available to all buyers and off by default", async () => {
+  const text = visibleText(container);
+  assert.ok(text.includes("You have the list. Now who writes the pitch?"), "bump headline");
+  assert.ok(text.includes("Airplay Accelerator"), "product name");
+  assert.ok(text.includes("Add for $37"), "price label");
+
+  const bump = container.querySelector<HTMLInputElement>(
+    'input[type="checkbox"][aria-label="Add the Airplay Accelerator campaign kit"]'
+  );
+  assert.ok(bump, "accelerator checkbox present");
+  assert.equal(bump.checked, false, "accelerator is not preselected");
+  assert.equal(bump.disabled, false, "accelerator is available to all users");
+
+  // Selecting it raises the total by $37 → $62.
+  await act(async () => {
+    bump.click();
+  });
+  assert.equal(bump.checked, true, "accelerator selected");
+  const totals = Array.from(container.querySelectorAll("span")).filter(
+    (s) => s.textContent === "$62.00"
+  );
+  assert.ok(totals.length >= 2, "mobile and desktop totals include the bump");
+
+  // The funnel state sync carries the accelerator flag.
+  const sync = Array.from(container.querySelectorAll("button")).find(
+    (b) => b.textContent?.trim() === "sync"
+  ) as HTMLButtonElement;
+  assert.ok(sync, "state sync callback exists");
+  await act(async () => {
+    sync.click();
+  });
+  assert.deepEqual(completed, {
+    total: 62,
+    addons: { contracts: false, au: false, contractGuide: false, accelerator: true },
+  });
 });

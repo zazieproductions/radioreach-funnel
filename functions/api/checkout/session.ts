@@ -4,6 +4,12 @@ import { getStripe } from "../../_lib/stripe";
 
 type MomentumInput = Record<string, unknown>;
 
+/** Client-assigned A/B bucket tag; free-form but tightly bounded. */
+function normalizeFunnelVariant(input?: unknown) {
+  const variant = String(input ?? "");
+  return /^[a-z0-9_-]{1,24}$/i.test(variant) ? variant : "";
+}
+
 function normalizeMomentum(input?: MomentumInput) {
   const status = String(input?.sequence_status || "");
   const steps = String(input?.sequence_steps || "0");
@@ -36,6 +42,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       bundleId?: string;
       utm?: Record<string, string>;
       momentum?: MomentumInput;
+      funnelVariant?: string;
     };
 
     const rawItems = Array.isArray(body.items) ? body.items : [];
@@ -78,6 +85,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       utm_campaign: body.utm?.utm_campaign || "",
       utm_term: body.utm?.utm_term || "",
       utm_content: body.utm?.utm_content || "",
+      funnel_variant: normalizeFunnelVariant(body.funnelVariant),
       ...momentum,
     };
     const session = await stripe.checkout.sessions.create({

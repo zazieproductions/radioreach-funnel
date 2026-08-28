@@ -9,8 +9,14 @@ import {
   getLuckyCouponRemainingMs,
   type LuckyCoupon,
 } from "../lib/luckyCoupon";
+import { funnelVariantParams } from "../lib/funnelVariant";
 
-export type Addons = { contracts: boolean; au: boolean; contractGuide: boolean };
+export type Addons = {
+  contracts: boolean;
+  au: boolean;
+  contractGuide: boolean;
+  accelerator: boolean;
+};
 
 type Props = {
   onComplete: (total: number, addons: Addons) => void;
@@ -22,6 +28,7 @@ const BASE = PRODUCTS.vault_core.price;
 const CONTRACTS_PRICE = PRODUCTS.contract_bundle.price;
 const AU_PRICE = PRODUCTS.australia_addon.price;
 const CONTRACT_GUIDE_PRICE = PRODUCTS.contract_guide.price;
+const ACCELERATOR_PRICE = PRODUCTS.airplay_accelerator.price;
 
 /** "$10" for whole-dollar prices, "$3.95" otherwise — matches Stripe totals. */
 const usd = (n: number) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
@@ -32,10 +39,12 @@ export default function Checkout({
   onOpenWheel,
 }: Props) {
   // Price-message match: a visitor who clicked a $25 offer lands on a $25 cart.
-  // Even after a jackpot, optional products require an explicit opt-in.
+  // Founder add-on pricing is available to everyone; the jackpot reveal only
+  // adds celebration — it never gates the ability to buy.
   const [contracts, setContracts] = useState(false);
   const [au, setAu] = useState(false);
   const [contractGuide, setContractGuide] = useState(false);
+  const [accelerator, setAccelerator] = useState(false);
   const [nowMs, setNowMs] = useState(() => Date.now());
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
@@ -55,26 +64,29 @@ export default function Checkout({
     ? formatRemainingMs(Math.max(0, luckyCoupon.expiresAt - nowMs))
     : "";
 
-  useEffect(() => {
-    if (hasWinningCoupon) return;
-    setContracts(false);
-    setAu(false);
-    setContractGuide(false);
-  }, [hasWinningCoupon]);
-
   const total =
-    BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0) + (contractGuide ? CONTRACT_GUIDE_PRICE : 0);
+    BASE +
+    (contracts ? CONTRACTS_PRICE : 0) +
+    (au ? AU_PRICE : 0) +
+    (contractGuide ? CONTRACT_GUIDE_PRICE : 0) +
+    (accelerator ? ACCELERATOR_PRICE : 0);
+  // Honest compare-at math: sum of (anchor − price) for every selected item.
   const saved =
-    29 + (contracts ? 16 : 0) + (au ? 17 : 0);
+    (PRODUCTS.vault_core.compareAt ?? BASE) -
+    BASE +
+    (contracts ? (PRODUCTS.contract_bundle.compareAt ?? CONTRACTS_PRICE) - CONTRACTS_PRICE : 0) +
+    (au ? (PRODUCTS.australia_addon.compareAt ?? AU_PRICE) - AU_PRICE : 0) +
+    (accelerator ? (PRODUCTS.airplay_accelerator.compareAt ?? ACCELERATOR_PRICE) - ACCELERATOR_PRICE : 0);
 
   const items = useMemo(
     () => [
       "vault_core" as const,
+      ...(accelerator ? (["airplay_accelerator"] as const) : []),
       ...(contracts ? (["contract_bundle"] as const) : []),
       ...(au ? (["australia_addon"] as const) : []),
       ...(contractGuide ? (["contract_guide"] as const) : []),
     ],
-    [contracts, au, contractGuide]
+    [accelerator, contracts, au, contractGuide]
   );
 
   const bundleId = useMemo(() => items.join("+"), [items]);
@@ -83,13 +95,15 @@ export default function Checkout({
     trackCustom("CheckoutCartConfigured", {
       value: total,
       currency: "USD",
-      core_only: !contracts && !au && !contractGuide,
+      core_only: !contracts && !au && !contractGuide && !accelerator,
+      airplay_accelerator: accelerator,
       contract_bundle: contracts,
       australia_addon: au,
       contract_guide: contractGuide,
       num_items: items.length,
+      ...funnelVariantParams(),
     });
-  }, [au, contracts, contractGuide, items.length, total]);
+  }, [accelerator, au, contracts, contractGuide, items.length, total]);
 
   // InitiateCheckout: fires once when the checkout page mounts, with the
   // initial cart contents. Feeds Meta's optimization between PageView and
@@ -102,6 +116,7 @@ export default function Checkout({
       content_type: "product",
       num_items: items.length,
       ...momentumAttribution,
+      ...funnelVariantParams(),
     });
     // Intentionally mount-only: cart tweaks shouldn't re-fire the event.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -172,7 +187,7 @@ export default function Checkout({
 
               {hasWinningCoupon && luckyCoupon ? (
                 <div className="mt-4 rounded-xl border border-acid/30 bg-gradient-to-r from-acid/10 via-orange-400/5 to-fuchsia-400/10 p-3 text-[12px] text-white/70">
-                  <p className="font-black uppercase tracking-[0.12em] text-acid">🎉 Jackpot pricing unlocked</p>
+                  <p className="font-black uppercase tracking-[0.12em] text-acid">🎉 Jackpot winner — founder bundle highlighted</p>
                   <p className="mt-1">
                     Contract Kit <span className="line-through text-white/35">$25</span> <b className="text-white">$9</b> + AU List{" "}
                     <span className="line-through text-white/35">$29</span> <b className="text-white">$12</b>. Select either or both below. <b>Nothing was pre-added.</b>
@@ -180,16 +195,16 @@ export default function Checkout({
                   <p className="mt-1 font-mono text-[10px] text-white/45">{luckyCoupon.code} · held for {remainingStr}</p>
                 </div>
               ) : (
-                <div className="mt-4 rounded-xl border border-fuchsia-400/25 bg-gradient-to-r from-orange-400/10 via-fuchsia-400/10 to-cyan-400/10 p-3 text-center">
-                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-fuchsia-300">Founder add-on prices are hidden</p>
-                  <p className="mt-1 text-sm font-bold text-white">Spin once to reveal your preset checkout jackpot.</p>
-                  <p className="mt-1 text-[11px] text-white/45">Free · no email · optional items stay unchecked</p>
+                <div className="mt-4 rounded-xl border border-white/10 bg-black/30 p-3 text-center">
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-white/45">Founder pricing is live</p>
+                  <p className="mt-1 text-sm font-bold text-white">Launch prices on every add-on — no spin required.</p>
+                  <p className="mt-1 text-[11px] text-white/45">Optional · everything stays unchecked · add only what fits your plans</p>
                   <button
                     type="button"
                     onClick={() => onOpenWheel?.()}
-                    className="cta mt-3 rounded-full bg-white px-5 py-2.5 text-xs font-black uppercase tracking-wider text-zinc-900"
+                    className="cta mt-3 rounded-full border border-white/20 bg-white/5 px-5 py-2.5 text-xs font-black uppercase tracking-wider text-white hover:border-acid hover:text-acid"
                   >
-                    🎡 Spin to reveal discount
+                    🎡 Optional: spin for the jackpot reveal
                   </button>
                 </div>
               )}
@@ -212,14 +227,54 @@ export default function Checkout({
                   <p className="text-[10px] text-white/35">Tap to add or remove</p>
                 </div>
 
+                {/* Airplay Accelerator — the campaign kit. The one product that
+                    multiplies the core promise (the list is useless without a
+                    pitch), so it leads the add-on stack. Off by default. */}
+                <label
+                  className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border-2 p-3.5 transition sm:p-4 ${
+                    accelerator
+                      ? "border-acid bg-acid/[0.07]"
+                      : "border-white/20 bg-black/30 hover:border-acid/50 hover:bg-acid/[0.04]"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={accelerator}
+                    onChange={(e) => setAccelerator(e.target.checked)}
+                    aria-label="Add the Airplay Accelerator campaign kit"
+                    className="mt-1 h-6 w-6 shrink-0 accent-yellow-400"
+                  />
+                  <span className="w-full space-y-1.5 pr-2">
+                    <span className="inline-flex items-center rounded-full border border-acid/40 bg-acid/10 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.16em] text-acid">
+                      {PRODUCTS.airplay_accelerator.checkoutBadge} · best seller
+                    </span>
+                    <span className="block font-display text-lg uppercase leading-tight text-white">
+                      {PRODUCTS.airplay_accelerator.checkoutHeadline}
+                    </span>
+                    <span className="block text-sm font-bold text-white/80">
+                      <span className="text-acid">{PRODUCTS.airplay_accelerator.name}:</span>{" "}
+                      everything that turns contacts into spins
+                    </span>
+                    <span className="block text-sm text-white/65">{PRODUCTS.airplay_accelerator.description}</span>
+                    <span className="block text-[12px] leading-relaxed text-white/45">
+                      {PRODUCTS.airplay_accelerator.checkoutValueLine}
+                    </span>
+                    <span className="block pt-1">
+                      <b className="text-base text-acid">Add for {usd(PRODUCTS.airplay_accelerator.price)}</b>
+                      <span className="ml-2 text-[11px] font-bold text-white/35 line-through">${PRODUCTS.airplay_accelerator.compareAt} value</span>
+                      <span className="ml-2 text-[10px] font-bold uppercase tracking-wider text-white/40">
+                        one-time · instant download
+                      </span>
+                    </span>
+                  </span>
+                </label>
+
                 {/* Contract Kit; jackpot styling when winner */}
                 <label
-                  className={`relative flex min-h-14 items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
-                    hasWinningCoupon
-                      ? contracts
-                        ? "cursor-pointer border-emerald-500/30 bg-gradient-to-br from-emerald-500/[0.09] via-emerald-500/[0.04] to-transparent shadow-[0_8px_24px_rgba(16,185,129,0.08)]"
-                        : "cursor-pointer border-acid/30 bg-black/30"
-                      : "cursor-not-allowed border-white/10 bg-black/20 opacity-60"
+                  className={`relative flex min-h-14 cursor-pointer items-start gap-3 overflow-hidden rounded-xl border p-3.5 transition sm:p-4 ${
+                    contracts
+                      ? "border-acid/50 bg-acid/[0.06]"
+                      : "border-white/15 bg-black/20 hover:border-acid/40 hover:bg-black/30"
                   }`}
                 >
                   {hasWinningCoupon && (
@@ -230,9 +285,9 @@ export default function Checkout({
                   <input
                     type="checkbox"
                     checked={contracts}
-                    disabled={!hasWinningCoupon}
                     onChange={(e) => setContracts(e.target.checked)}
-                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 disabled:cursor-not-allowed sm:mt-1"
+                    aria-label="Add the Indie Music Contract Kit"
+                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <div className="space-y-1 pr-2 w-full">
                     <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_bundle.name}</span>
@@ -256,11 +311,8 @@ export default function Checkout({
                       This is an educational template kit, not legal advice.
                     </span>
                     <span className="block text-sm mt-2">
-                      {hasWinningCoupon ? (
-                        <><span className="mr-2 text-white/35 line-through">${PRODUCTS.contract_bundle.compareAt}</span><b className="text-acid">JACKPOT ${PRODUCTS.contract_bundle.price.toFixed(2)}</b></>
-                      ) : (
-                        <b className="text-white/45">🔒 Spin to reveal founder price</b>
-                      )}
+                      <span className="mr-2 text-white/35 line-through">${PRODUCTS.contract_bundle.compareAt}</span>
+                      <b className="text-acid">{hasWinningCoupon ? "JACKPOT " : ""}${PRODUCTS.contract_bundle.price.toFixed(2)}</b>
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Saved me from a nightmare split deal." Jordan Meacham</span>
                   </div>
@@ -268,12 +320,10 @@ export default function Checkout({
 
                 {/* AU addon; jackpot styling when winner */}
                 <label
-                  className={`relative flex min-h-14 items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
-                    hasWinningCoupon
-                      ? au
-                        ? "cursor-pointer border-emerald-500/30 bg-gradient-to-br from-emerald-500/[0.09] via-emerald-500/[0.04] to-transparent shadow-[0_8px_24px_rgba(16,185,129,0.08)]"
-                        : "cursor-pointer border-acid/30 bg-black/30"
-                      : "cursor-not-allowed border-white/10 bg-black/20 opacity-60"
+                  className={`relative flex min-h-14 cursor-pointer items-start gap-3 overflow-hidden rounded-xl border p-3.5 transition sm:p-4 ${
+                    au
+                      ? "border-acid/50 bg-acid/[0.06]"
+                      : "border-white/15 bg-black/20 hover:border-acid/40 hover:bg-black/30"
                   }`}
                 >
                   {hasWinningCoupon && (
@@ -284,20 +334,17 @@ export default function Checkout({
                   <input
                     type="checkbox"
                     checked={au}
-                    disabled={!hasWinningCoupon}
                     onChange={(e) => setAu(e.target.checked)}
-                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 disabled:cursor-not-allowed sm:mt-1"
+                    aria-label="Add the Australian Radio Stations contact list"
+                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <span className="space-y-1 pr-2 w-full">
                     <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.australia_addon.name}</span>
                     <span className="block text-sm font-bold text-acid">2,847 AU station contacts · 1,612 verified emails</span>
                     <span className="block text-sm text-white/65">{PRODUCTS.australia_addon.description}</span>
                     <span className="block text-sm">
-                      {hasWinningCoupon ? (
-                        <><span className="mr-2 text-white/35 line-through">${PRODUCTS.australia_addon.compareAt}</span><b className="text-acid">JACKPOT ${PRODUCTS.australia_addon.price.toFixed(2)}</b></>
-                      ) : (
-                        <b className="text-white/45">🔒 Spin to reveal founder price</b>
-                      )}
+                      <span className="mr-2 text-white/35 line-through">${PRODUCTS.australia_addon.compareAt}</span>
+                      <b className="text-acid">{hasWinningCoupon ? "JACKPOT " : ""}${PRODUCTS.australia_addon.price.toFixed(2)}</b>
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." Dee R.</span>
                   </span>
@@ -353,7 +400,7 @@ export default function Checkout({
                 </span>
               </summary>
               <div className="border-t border-white/10 p-4">
-                <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
+                <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} accelerator={accelerator} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
               </div>
             </details>
 
@@ -367,7 +414,7 @@ export default function Checkout({
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
               <p className="mb-4 font-display text-xl uppercase">Order summary</p>
-              <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
+              <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} accelerator={accelerator} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
             </section>
 
             <section className="hidden rounded-xl border border-acid/40 bg-acid/5 p-5 text-[13px] leading-relaxed text-white/70 lg:block">
@@ -402,7 +449,7 @@ export default function Checkout({
       </div>
 
       {/* callback for demo flow compatibility */}
-      <button type="button" onClick={() => onComplete(total, { contracts, au, contractGuide })} className="sr-only">
+      <button type="button" onClick={() => onComplete(total, { contracts, au, contractGuide, accelerator })} className="sr-only">
         sync
       </button>
 
@@ -431,6 +478,7 @@ function OrderSummaryRows({
   contracts,
   au,
   contractGuide,
+  accelerator,
   saved,
   total,
   coupon,
@@ -440,6 +488,7 @@ function OrderSummaryRows({
   contracts: boolean;
   au: boolean;
   contractGuide: boolean;
+  accelerator: boolean;
   saved: number;
   total: number;
   coupon?: LuckyCoupon | null;
@@ -453,6 +502,13 @@ function OrderSummaryRows({
         was={`$${PRODUCTS.vault_core.compareAt}`}
         now={`$${PRODUCTS.vault_core.price.toFixed(2)}`}
       />
+      {accelerator && (
+        <SummaryRow
+          label={PRODUCTS.airplay_accelerator.shortName}
+          was={`$${PRODUCTS.airplay_accelerator.compareAt}`}
+          now={`$${PRODUCTS.airplay_accelerator.price.toFixed(2)}`}
+        />
+      )}
       {contracts && (
         <SummaryRow
           label={PRODUCTS.contract_bundle.shortName}
