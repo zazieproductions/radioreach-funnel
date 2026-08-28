@@ -1,5 +1,0 @@
-import type { StereoBuffer } from "../signal-rot/types";
-export interface TruePeakReport {dbtp:number;linear:number;perChannelDbtp:[number,number];oversampling:number;kernelTaps:number;overs:boolean}
-function sinc(x:number){return Math.abs(x)<1e-12?1:Math.sin(Math.PI*x)/(Math.PI*x)}
-function channelPeak(ch:Float32Array,factor:number,taps:number){let peak=0,half=taps/2;for(let i=0;i<ch.length-1;i++)for(let phase=0;phase<factor;phase++){const t=i+phase/factor;let y=0,norm=0;for(let k=-half+1;k<=half;k++){const j=i+k;if(j<0||j>=ch.length)continue;const d=t-j,w=.5+.5*Math.cos(Math.PI*d/half),h=sinc(d)*w;y+=ch[j]*h;norm+=h;}peak=Math.max(peak,Math.abs(y/Math.max(1e-12,norm)));}return peak;}
-export function analyzeTruePeak(buffer:StereoBuffer,factor=4,taps=16):TruePeakReport{const l=channelPeak(buffer.left,factor,taps),r=channelPeak(buffer.right,factor,taps),p=Math.max(l,r),db=(x:number)=>20*Math.log10(Math.max(1e-12,x));return {dbtp:db(p),linear:p,perChannelDbtp:[db(l),db(r)],oversampling:factor,kernelTaps:taps,overs:p>1};}
