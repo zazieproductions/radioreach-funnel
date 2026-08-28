@@ -10,7 +10,7 @@ import {
   type LuckyCoupon,
 } from "../lib/luckyCoupon";
 
-export type Addons = { contracts: boolean; au: boolean; contractGuide: boolean };
+export type Addons = { contracts: boolean; au: boolean; contractGuide: boolean; course: boolean };
 
 type Props = {
   onComplete: (total: number, addons: Addons) => void;
@@ -36,6 +36,13 @@ export default function Checkout({
   const [contracts, setContracts] = useState(false);
   const [au, setAu] = useState(false);
   const [contractGuide, setContractGuide] = useState(false);
+  const [course, setCourse] = useState(() => {
+    try {
+      return sessionStorage.getItem("radioreach:want-course") === "1";
+    } catch {
+      return false;
+    }
+  });
   const [nowMs, setNowMs] = useState(() => Date.now());
   const momentumAttribution = useMemo(() => getMomentumAttribution(), []);
 
@@ -62,8 +69,13 @@ export default function Checkout({
     setContractGuide(false);
   }, [hasWinningCoupon]);
 
+  const COURSE_PRICE = PRODUCTS.frequency_dominion.price;
   const total =
-    BASE + (contracts ? CONTRACTS_PRICE : 0) + (au ? AU_PRICE : 0) + (contractGuide ? CONTRACT_GUIDE_PRICE : 0);
+    BASE +
+    (contracts ? CONTRACTS_PRICE : 0) +
+    (au ? AU_PRICE : 0) +
+    (contractGuide ? CONTRACT_GUIDE_PRICE : 0) +
+    (course ? COURSE_PRICE : 0);
   const saved =
     29 + (contracts ? 16 : 0) + (au ? 17 : 0);
 
@@ -73,8 +85,9 @@ export default function Checkout({
       ...(contracts ? (["contract_bundle"] as const) : []),
       ...(au ? (["australia_addon"] as const) : []),
       ...(contractGuide ? (["contract_guide"] as const) : []),
+      ...(course ? (["frequency_dominion"] as const) : []),
     ],
-    [contracts, au, contractGuide]
+    [contracts, au, contractGuide, course]
   );
 
   const bundleId = useMemo(() => items.join("+"), [items]);
@@ -87,9 +100,10 @@ export default function Checkout({
       contract_bundle: contracts,
       australia_addon: au,
       contract_guide: contractGuide,
+      frequency_dominion: course,
       num_items: items.length,
     });
-  }, [au, contracts, contractGuide, items.length, total]);
+  }, [au, contracts, contractGuide, course, items.length, total]);
 
   // InitiateCheckout: fires once when the checkout page mounts, with the
   // initial cart contents. Feeds Meta's optimization between PageView and
@@ -339,6 +353,46 @@ export default function Checkout({
                   </span>
                 </label>
 
+                <label
+                  className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3.5 sm:p-4 ${
+                    course
+                      ? "border-acid/50 bg-acid/[0.06]"
+                      : "border-white/15 bg-black/20 hover:border-acid/40 hover:bg-black/30"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={course}
+                    onChange={(e) => {
+                      setCourse(e.target.checked);
+                      try {
+                        sessionStorage.setItem("radioreach:want-course", e.target.checked ? "1" : "0");
+                      } catch {
+                        /* ignore */
+                      }
+                    }}
+                    aria-label="Add Frequency Dominion course"
+                    className="mt-1 h-6 w-6 shrink-0 accent-yellow-400"
+                  />
+                  <span className="w-full space-y-1.5 pr-2">
+                    <span className="inline-flex items-center rounded-full border border-acid/40 bg-acid/10 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.16em] text-acid">
+                      {PRODUCTS.frequency_dominion.checkoutBadge}
+                    </span>
+                    <span className="block font-display text-lg uppercase leading-tight text-white">
+                      {PRODUCTS.frequency_dominion.checkoutHeadline}
+                    </span>
+                    <span className="block text-sm font-bold text-white/80">{PRODUCTS.frequency_dominion.name}</span>
+                    <span className="block text-sm text-white/65">{PRODUCTS.frequency_dominion.description}</span>
+                    <span className="block text-[12px] leading-relaxed text-white/45">
+                      {PRODUCTS.frequency_dominion.checkoutValueLine}
+                    </span>
+                    <span className="block pt-1">
+                      <span className="mr-2 text-white/35 line-through">${PRODUCTS.frequency_dominion.compareAt}</span>
+                      <b className="text-base text-acid">Add for {usd(PRODUCTS.frequency_dominion.price)}</b>
+                    </span>
+                  </span>
+                </label>
+
               </div>
             </section>
 
@@ -353,7 +407,7 @@ export default function Checkout({
                 </span>
               </summary>
               <div className="border-t border-white/10 p-4">
-                <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
+                <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} course={course} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
               </div>
             </details>
 
@@ -367,7 +421,7 @@ export default function Checkout({
 
             <section className="hidden rounded-xl border border-white/10 bg-panel p-5 lg:block">
               <p className="mb-4 font-display text-xl uppercase">Order summary</p>
-              <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
+              <OrderSummaryRows contracts={contracts} au={au} contractGuide={contractGuide} course={course} saved={saved} total={total} coupon={luckyCoupon} remainingStr={remainingStr} hasWinningCoupon={hasWinningCoupon} />
             </section>
 
             <section className="hidden rounded-xl border border-acid/40 bg-acid/5 p-5 text-[13px] leading-relaxed text-white/70 lg:block">
@@ -402,7 +456,7 @@ export default function Checkout({
       </div>
 
       {/* callback for demo flow compatibility */}
-      <button type="button" onClick={() => onComplete(total, { contracts, au, contractGuide })} className="sr-only">
+      <button type="button" onClick={() => onComplete(total, { contracts, au, contractGuide, course })} className="sr-only">
         sync
       </button>
 
@@ -431,6 +485,7 @@ function OrderSummaryRows({
   contracts,
   au,
   contractGuide,
+  course,
   saved,
   total,
   coupon,
@@ -440,6 +495,7 @@ function OrderSummaryRows({
   contracts: boolean;
   au: boolean;
   contractGuide: boolean;
+  course: boolean;
   saved: number;
   total: number;
   coupon?: LuckyCoupon | null;
@@ -475,6 +531,13 @@ function OrderSummaryRows({
         <SummaryRow
           label={PRODUCTS.contract_guide.shortName}
           now={`$${PRODUCTS.contract_guide.price.toFixed(2)}`}
+        />
+      )}
+      {course && (
+        <SummaryRow
+          label={PRODUCTS.frequency_dominion.shortName}
+          was={`$${PRODUCTS.frequency_dominion.compareAt}`}
+          now={`$${PRODUCTS.frequency_dominion.price.toFixed(2)}`}
         />
       )}
       {hasWinningCoupon && coupon && (

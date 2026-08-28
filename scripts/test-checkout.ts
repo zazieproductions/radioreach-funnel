@@ -86,6 +86,7 @@ function makeEnv(overrides: Record<string, string | undefined> = {}, kv = new Fa
     STRIPE_PRICE_AIRPLAY_ACCELERATOR: "price_airplay_accelerator",
     STRIPE_PRICE_UPWORK_COURSE: "price_upwork_course",
     STRIPE_PRICE_CONTRACT_GUIDE: CONTRACT_GUIDE_PRICE,
+    STRIPE_PRICE_FREQUENCY_DOMINION: "price_frequency_dominion",
     STRIPE_PRICE_FONT_VAULT: "price_font_vault",
     STRIPE_PUBLISHABLE_KEY: "pk_test_fake",
     PUBLIC_APP_URL: "http://localhost:8788",
@@ -163,6 +164,21 @@ test("main product with the contract guide adds exactly one $10 line item", asyn
   assert.equal(create.metadata?.bundle_id, "vault_core+contract_guide");
   assert.equal(create.payment_intent_data?.metadata?.product_keys, "vault_core,contract_guide");
   assert.equal(create.payment_intent_data?.metadata?.bundle_id, "vault_core+contract_guide");
+});
+
+test("frequency dominion course maps to its Stripe price and metadata", async () => {
+  const env = makeEnv();
+  stripeState.lastCreate = null;
+  const { response } = await postSession(env, {
+    items: ["vault_core", "frequency_dominion"],
+  });
+  assert.equal(response.status, 200);
+  const create = stripeState.lastCreate as CreateArgs;
+  assert.deepEqual(create.line_items, [
+    { price: "price_vault_core", quantity: 1 },
+    { price: "price_frequency_dominion", quantity: 1 },
+  ]);
+  assert.equal(create.metadata?.product_keys, "vault_core,frequency_dominion");
 });
 
 test("all optional add-ons can be combined in one session", async () => {

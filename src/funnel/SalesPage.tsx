@@ -668,6 +668,34 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
         </div>
       </section>
 
+      {/* FREQUENCY DOMINION — backend course */}
+      <section id="course" className="defer-render border-y border-acid/30 bg-gradient-to-b from-acid/10 to-ink">
+        <div className="mx-auto max-w-3xl px-4 py-10 sm:py-16">
+          <SectionLabel>The $97 operating system</SectionLabel>
+          <h2 className="font-display text-[1.7rem] leading-[1.1] sm:text-5xl sm:leading-tight">
+            THE VAULT IS THE LIST.{" "}
+            <span className="text-acid">FREQUENCY DOMINION IS THE CAMPAIGN.</span>
+          </h2>
+          <p className="mt-4 font-serif text-[1.05rem] leading-[1.65] text-white/75 sm:text-lg">
+            6 modules. 24 lessons. War-room workbooks. Subject lines, a 90-word pitch, a 21-day calendar, and the follow-up cadence that turns silence into adds. Preview every lesson free. Stack it at checkout for $97 (normally $997).
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href="#/course"
+              className="cta rounded-lg bg-acid px-6 py-3.5 font-display text-base uppercase tracking-wide text-ink"
+            >
+              See the course →
+            </a>
+            <a
+              href="#/course/classroom"
+              className="rounded-lg border border-white/20 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white/70 hover:border-acid hover:text-acid"
+            >
+              Open classroom preview
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* WHO IT'S FOR */}
       <section className="defer-render border-y border-white/10 bg-panel">
         <div className="mx-auto max-w-3xl px-4 py-10 sm:py-14">

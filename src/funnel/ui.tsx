@@ -173,6 +173,7 @@ export function Ticker() {
 
 const LINKS = [
   { href: "#inside", label: "What's inside" },
+  { href: "#course", label: "Course" },
   { href: "#proof", label: "Results" },
   { href: "#/community", label: "Community" },
   { href: "#faq", label: "FAQ" },

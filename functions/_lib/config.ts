@@ -29,7 +29,11 @@ export const ALLOWED_PRODUCTS = {
     bundleKey: "products/contract-guide/radioreach-indie-artist-contract-info-guide.pdf",
     name: "RadioReach Indie Artist Contract Info Guide (PDF)",
   },
-
+  frequency_dominion: {
+    envPriceVar: "STRIPE_PRICE_FREQUENCY_DOMINION",
+    bundleKey: "courses/frequency-dominion/frequency-dominion-course.zip",
+    name: "Frequency Dominion: 21-Day Radio Campaign Course",
+  },
 } as const;
 
 export type AllowedProductKey = keyof typeof ALLOWED_PRODUCTS;
