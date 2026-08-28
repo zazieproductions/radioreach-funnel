@@ -1,0 +1,4 @@
+Station,Score,G1-Contact,G2-Proof-Live,G3-Audio-Package,G4-Pitch-Variant,G5-Local-Story,G6-Warroom-Row,G7-Receipt,Blocker,Owner,Due,Load-Order,Firing-Date
+KXYZ,84,PASS,PASS,PASS,PASS,PASS,PASS,PASS,None,Artist,2026-05-10,1,2026-05-12
+WCXN,74,FAIL,PASS,PASS,PASS,PASS,PASS,PASS,Contact unverified,Artist,2026-05-11,2,2026-05-14
+WEB1,59,PASS,PASS,PASS,PASS,FAIL,PASS,PASS,No local story,Artist,2026-05-11,3,2026-05-14

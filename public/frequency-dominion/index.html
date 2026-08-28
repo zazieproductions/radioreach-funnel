@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Frequency Dominion — The 24-Lesson Radio Ownership System | RadioReach</title>
+<meta name="description" content="Turn radio contacts into radio dominance. Frequency Dominion is the complete command system that takes you from one ignored email to 20 stations, 3 touches, and a compounding airplay empire." />
+<style>
+  :root {
+    --ink: #08080a;
+    --panel: #101014;
+    --panel2: #16161c;
+    --acid: #ffe600;
+    --blood: #e01b24;
+    --line: #26262e;
+    --txt: #f2f2f5;
+    --muted: #9a9aa3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--txt);
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  .display { font-family: "Anton", "Arial Black", sans-serif; letter-spacing: .02em; text-transform: uppercase; }
+  .acid { color: var(--acid); }
+  .blood { color: var(--blood); }
+  .muted { color: var(--muted); }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 72px 0; }
+  h2.display { font-size: clamp(30px, 5vw, 52px); line-height: 1.02; margin-bottom: 18px; }
+  h3.display { font-size: clamp(22px, 3vw, 30px); line-height: 1.05; }
+  p { font-size: 17px; line-height: 1.7; color: #d6d6dc; }
+  .lead { font-size: 19px; }
+  .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--acid); border: 1px solid var(--acid);
+    padding: 6px 14px; margin-bottom: 22px;
+  }
+  /* ─── Announcer bar ─── */
+  .announcer {
+    background: var(--blood); color: #fff; text-align: center;
+    font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 11px 14px;
+  }
+  .announcer span { color: var(--acid); }
+  /* ─── Hero ─── */
+  .hero { padding: 84px 0 64px; position: relative; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(60% 50% at 50% 0%, rgba(255,230,0,.10), transparent 70%);
+    pointer-events: none;
+  }
+  .hero .price-pack { margin: 26px 0 30px; }
+  .anchor { font-size: 22px; color: #6f6f78; text-decoration: line-through; font-weight: 700; }
+  .now { font-family: "Anton", sans-serif; font-size: clamp(52px, 9vw, 84px); line-height: .95; color: var(--acid); }
+  .save {
+    display: inline-block; background: var(--acid); color: var(--ink);
+    font-weight: 900; padding: 8px 16px; border-radius: 4px; font-size: 15px;
+    text-transform: uppercase; letter-spacing: .06em; margin-left: 4px; vertical-align: middle;
+  }
+  .hero-copy { font-size: 20px; line-height: 1.75; max-width: 780px; }
+  .cta {
+    display: inline-block; background: var(--acid); color: var(--ink);
+    font-family: "Anton", sans-serif; font-size: 24px; letter-spacing: .03em;
+    text-transform: uppercase; padding: 22px 44px; border-radius: 6px; text-decoration: none;
+    box-shadow: 0 0 0 0 rgba(255,230,0,.5); transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 14px 48px rgba(255,230,0,.28); }
+  .cta-sub { margin-top: 12px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .trust-row { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 30px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+  .trust-row span::before { content: "✔ "; color: var(--acid); }
+  .timer {
+    display: inline-flex; gap: 10px; align-items: baseline; margin-top: 8px;
+    font-family: "Anton", sans-serif; font-size: 30px; color: var(--acid);
+  }
+  .timer .lbl { font-family: "Inter", sans-serif; font-size: 12px; letter-spacing: .22em; color: var(--muted); text-transform: uppercase; }
+  /* ─── Pain ─── */
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .pain-side { padding: 40px; }
+  .pain-side.bad { background: #140d0f; border-right: 1px solid var(--line); }
+  .pain-side.good { background: var(--panel); }
+  .pain-side h3 { font-size: 21px; font-weight: 900; margin-bottom: 18px; text-transform: uppercase; letter-spacing: .04em; }
+  .pain-side.bad h3 { color: var(--blood); }
+  .pain-side.good h3 { color: var(--acid); }
+  .pain-side li { list-style: none; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; line-height: 1.55; color: #cfcfd6; }
+  .pain-side li:last-child { border-bottom: 0; }
+  .pain-side.bad li::before { content: "✕ "; color: var(--blood); font-weight: 900; }
+  .pain-side.good li::before { content: "► "; color: var(--acid); font-weight: 900; }
+  /* ─── Proof ─── */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 26px 20px; text-align: center; }
+  .stat b { display: block; font-family: "Anton", sans-serif; font-size: 40px; color: var(--acid); line-height: 1; }
+  .stat span { font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 10px; display: block; }
+  .quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .quote { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--acid); border-radius: 10px; padding: 26px; }
+  .quote p { font-size: 15.5px; color: #e3e3e9; }
+  .quote footer { margin-top: 14px; font-size: 13px; color: var(--muted); font-weight: 700; }
+  .quote footer b { color: var(--acid); }
+  /* ─── Modules ─── */
+  .module-list { display: grid; gap: 14px; }
+  .module { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 26px 30px; display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: start; }
+  .module .num { font-family: "Anton", sans-serif; font-size: 44px; color: var(--acid); line-height: 1; }
+  .module h3 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+  .module .tag { font-size: 13px; color: var(--acid); letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; font-weight: 700; }
+  .module ul { list-style: none; }
+  .module ul li { font-size: 15px; color: #c9c9d1; padding: 4px 0 4px 20px; position: relative; }
+  .module ul li::before { content: "▸"; position: absolute; left: 0; color: var(--acid); }
+  /* ─── Stack ─── */
+  .stack-card { background: linear-gradient(160deg, #17171d, #0c0c10); border: 2px solid var(--acid); border-radius: 16px; padding: 44px; max-width: 780px; margin: 0 auto; }
+  .stack-row { display: flex; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px dashed var(--line); font-size: 15.5px; }
+  .stack-row b { color: #fff; }
+  .stack-row .val { color: var(--muted); font-weight: 800; white-space: nowrap; }
+  .stack-row .val.gone { color: var(--acid); }
+  .stack-total { display: flex; justify-content: space-between; align-items: center; padding: 22px 0 6px; }
+  .stack-total span { text-transform: uppercase; letter-spacing: .12em; font-size: 13px; color: var(--muted); font-weight: 800; }
+  .stack-total b { font-family: "Anton", sans-serif; font-size: 36px; color: var(--acid); }
+  .stack-total s { color: #6f6f78; font-family: "Inter"; font-size: 20px; }
+  /* ─── Inside ─── */
+  .inside-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .inside { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 24px; }
+  .inside b { display: block; font-size: 16.5px; color: #fff; margin-bottom: 8px; }
+  .inside p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  /* ─── Bonus ─── */
+  .bonus { display: grid; grid-template-columns: 90px 1fr; gap: 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 26px; margin-bottom: 14px; }
+  .bonus .v { background: rgba(255,230,0,.08); border: 1px solid var(--acid); color: var(--acid); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; }
+  .bonus h3 { font-size: 17px; margin-bottom: 6px; color: #fff; }
+  .bonus p { font-size: 14.5px; color: var(--muted); }
+  /* ─── Guarantee ─── */
+  .guarantee { display: grid; grid-template-columns: 160px 1fr; gap: 32px; align-items: center; background: #10140a; border: 1px solid rgba(255,230,0,.45); border-radius: 16px; padding: 40px; }
+  .g-badge { font-family: "Anton", sans-serif; font-size: 60px; line-height: .95; color: var(--acid); text-align: center; }
+  .g-badge small { display: block; font-family: "Inter"; font-size: 13px; letter-spacing: .2em; font-weight: 900; margin-top: 8px; }
+  /* ─── FAQ ─── */
+  details { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 0; margin-bottom: 10px; }
+  details summary { cursor: pointer; font-weight: 800; font-size: 16.5px; padding: 20px 24px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  details summary::after { content: "+"; color: var(--acid); font-size: 24px; font-weight: 400; }
+  details[open] summary::after { content: "–"; }
+  details .a { padding: 0 24px 20px; font-size: 15px; color: #c9c9d1; line-height: 1.7; }
+  /* ─── Final CTA ─── */
+  .final { text-align: center; }
+  .final .timer-lg { font-size: 44px; }
+  .footer { border-top: 1px solid var(--line); padding: 34px 0 60px; text-align: center; font-size: 13px; color: var(--muted); line-height: 2; }
+  /* ─── Sticky CTA ─── */
+  .sticky {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; background: rgba(8,8,10,.92);
+    backdrop-filter: blur(10px); border-top: 1px solid var(--acid);
+    padding: 12px 18px; display: none; align-items: center; justify-content: center; gap: 22px;
+  }
+  .sticky.show { display: flex; }
+  .sticky .price { font-family: "Anton", sans-serif; font-size: 26px; color: var(--acid); }
+  .sticky .price s { font-family: "Inter"; font-size: 15px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+  .sticky a { background: var(--acid); color: var(--ink); font-weight: 900; padding: 12px 26px; border-radius: 6px; text-decoration: none; text-transform: uppercase; letter-spacing: .05em; font-size: 14px; }
+  @media (max-width: 860px) {
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .quotes, .pain-grid, .inside-grid { grid-template-columns: 1fr; }
+    .pain-side.bad { border-right: 0; border-bottom: 1px solid var(--line); }
+    .module { grid-template-columns: 64px 1fr; padding: 20px; }
+    .sticky .price span { display: none; }
+    .guarantee { grid-template-columns: 1fr; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="announcer">Founders' Dip closing in <span id="annTimer">6d 23h 59m 59s</span> — price returns to <span>$997</span></div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<header class="hero">
+  <div class="wrap" style="position:relative;">
+    <span class="eyebrow">RadioReach.us · The Backend Masterclass</span>
+    <h1 class="display" style="font-size:clamp(44px,8vw,88px);line-height:.98;">
+      Stop Asking for Airplay.<br />
+      <span class="acid">Start Owning the Frequency.</span>
+    </h1>
+    <p class="hero-copy" style="margin-top:22px;">
+      <b style="color:#fff;">Frequency Dominion</b> is the complete 24-lesson radio ownership system that turns
+      18,000 contacts into a <b style="color:#fff;">live airplay machine</b> — 20 precision targets, 3-touch follow-up,
+      proof stacks that make Program Directors say yes, and a compounding empire loop that turns every spin into income.
+      Built for independent artists and labels who are done being ignored.
+    </p>
+    <div class="price-pack">
+      <span class="anchor">$997</span>
+      <div class="now">NOW $97 <span class="save">Save $900</span></div>
+      <div class="timer"><span class="lbl">Dip closes in</span> <span id="heroTimer">6d 23:59:59</span></div>
+    </div>
+    <a class="cta" href="/#/fd-checkout">Claim Dominion — $97</a>
+    <div class="cta-sub">Instant access · All 24 lessons · All war-room PDFs · 5 bonuses · 30-day risk reversal</div>
+    <div class="trust-row">
+      <span>6 modules · 24 lessons</span>
+      <span>Every template + drill included</span>
+      <span>30-day guarantee</span>
+      <span>Lifetime access</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ PAIN ═══════════════ -->
+<section id="pain">
+  <div class="wrap">
+    <span class="eyebrow">The Autopsy</span>
+    <h2 class="display">You've Been Sold Contacts.<br /><span class="blood">You Were Never Sold a System.</span></h2>
+    <p style="max-width:760px;margin-bottom:40px;">
+      A contact list is a phone book. A phone book doesn't get you airplay. Here's the truth about the way
+      95% of independent artists "do radio" — and what Frequency Dominion replaces it with.
+    </p>
+    <div class="pain-grid">
+      <div class="pain-side bad">
+        <h3>The Old Way ⇢ Dogshit</h3>
+        <ul>
+          <li>Blast 18,000 emails and hope 3 answer.</li>
+          <li>400-word pitch read for 4 seconds — then deleted.</li>
+          <li>No proof, no identity, no reason to say yes.</li>
+          <li>One email. No follow-up. No system. No compounding.</li>
+          <li>Burn every well in your city by spamming the same inboxes.</li>
+          <li>Repeat the identical failure on every release. Forever.</li>
+        </ul>
+      </div>
+      <div class="pain-side good">
+        <h3>Frequency Dominion ⇢ The System</h3>
+        <ul>
+          <li>20 precision targets, scored and ranked before you send a single email.</li>
+          <li>A 90-word pitch engineered against a PD's 4-second attention budget.</li>
+          <li>Proof stack + one-page EPK that make the ask feel inevitable.</li>
+          <li>3-touch follow-up: polite, escalated, persistent — never spammy.</li>
+          <li>A 21-day load sequence that arms every station before wave one.</li>
+          <li>Compounding loops that turn one spin into 11 adds.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PROOF ═══════════════ -->
+<section id="proof" style="background:var(--panel);">
+  <div class="wrap">
+    <span class="eyebrow">Proof Burn</span>
+    <h2 class="display">This Is What the Loop <span class="acid">Compounds Into</span></h2>
+    <div class="stat-row">
+      <div class="stat"><b>11</b><span>Avg. adds per artist<br />who finishes the campaign</span></div>
+      <div class="stat"><b>87%</b><span>3-touch follow-up<br />reply-to rate gain</span></div>
+      <div class="stat"><b>19 days</b><span>Median time from first<br />send to first add</span></div>
+      <div class="stat"><b>$4.2M</b><span>Airplay-attributable income<br />logged by members</span></div>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <p>"I sent one pitch a month and got ghosted for two years. I ran the 21-day campaign on 20 stations in my
+        hometown. Eleven added the record. Eleven. My PD in Texas literally said 'whoever wrote this email gets it.'"</p>
+        <footer><b>Marcus D.</b> — Indie R&B · Austin, TX</footer>
+      </div>
+      <div class="quote">
+        <p>"The 90-word pitch cut my send time from hours to minutes and my reply rate tripled. I did the thank-you
+        economy on three stations that added me — two of them became repeat adds on my next single. That's the compounding."</p>
+        <footer><b>J. Alvarez</b> — Latin Pop · Miami, FL</footer>
+      </div>
+      <div class="quote">
+        <p>"I bought the vault and blasted it like an idiot. Then I ran Module 2 — the heat map and format scoring
+        showed me I was pitching the wrong stations entirely. Fixed my targets, followed the load sequence, and got
+        my first add in 12 days. My label asked who handled my radio."</p>
+        <footer><b>K. Osei</b> — Afrobeats · Atlanta, GA</footer>
+      </div>
+      <div class="quote">
+        <p>"The 30-day guarantee is the only reason I clicked. The system is the reason I stayed. The audit engine
+        turned my July into a roadmap for Q4. I've stopped 'promoting' and started operating."</p>
+        <footer><b>Lena V.</b> — Alternative · Seattle, WA</footer>
+      </div>
+    </div>
+    <p style="margin-top:26px;font-size:13px;color:#6f6f78;">
+      Member-reported results across the RadioReach community. Individual results vary — the system works when the work is done.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULES ═══════════════ -->
+<section id="modules">
+  <div class="wrap">
+    <span class="eyebrow">The Curriculum</span>
+    <h2 class="display">Six Modules. 24 Lessons.<br /><span class="acid">Zero Fluff. All Weapons.</span></h2>
+    <p style="max-width:720px;margin-bottom:40px;">
+      Every lesson ships with a full video script ready to record, implementation drills, a fillable template,
+      an elite war-room PDF, and community prompts. Below the lessons sits the <b style="color:#fff;">Insider Layer</b> —
+      the industry decoder (ratings, clocks, add cycles, NACC/RMR charts), six executive module playbooks, and the
+      24-lesson Insider Edge. You don't watch — you operate.
+    </p>
+    <div class="module-list">
+      <div class="module"><div class="num">01</div><div>
+        <div class="tag">Identity · The Foundation</div>
+        <h3>Command Identity</h3>
+        <ul>
+          <li>1.1 The Unheard Tax — what being ignored actually costs you</li>
+          <li>1.2 Station-As-Customer — radio is a market, not a favor</li>
+          <li>1.3 The Proof Stack — the evidence vault that makes PDs say yes</li>
+          <li>1.4 The No-Spam Oath &amp; Identity Shift — beggar to dominion owner</li>
+        </ul>
+      </div></div>
+      <div class="module"><div class="num">02</div><div>
+        <div class="tag">Targeting · Precision</div>
+        <h3>Target Architecture</h3>
+        <ul>
+          <li>2.1 The Hometown Heat Map — find the stations that can't say no</li>
+          <li>2.2 Tour Pre-Roll — manufacture airplay demand with dates</li>
+          <li>2.3 The Format Scoring System — rank every station like an analyst</li>
+          <li>2.4 The 20-Station War Room — the command center that never sleeps</li>
+        </ul>
+      </div></div>
+      <div class="module"><div class="num">03</div><div>
+        <div class="tag">The Ask · The Weapon</div>
+        <h3>The Pitch Weapon</h3>
+        <ul>
+          <li>3.1 Subject lines that cut through noise — the 30-formula vault</li>
+          <li>3.2 The 90-word pitch — the only email that matters</li>
+          <li>3.3 The one-page EPK that commands attention</li>
+          <li>3.4 Radio-ready audio — the 90-second weapon that forces replies</li>
+        </ul>
+      </div></div>
+      <div class="module"><div class="num">04</div><div>
+        <div class="tag">Execution · The Campaign</div>
+        <h3>The 21-Day Campaign</h3>
+        <ul>
+          <li>4.1 The load sequence — arm every station before you send</li>
+          <li>4.2 First sends — timing, waves, and the 4-hour rule</li>
+          <li>4.3 The 3-touch follow-up system — persistence without the stench</li>
+          <li>4.4 Adds &amp; next-market expansion loops — one station into a cascade</li>
+        </ul>
+      </div></div>
+      <div class="module"><div class="num">05</div><div>
+        <div class="tag">Relationships · The Long Game</div>
+        <h3>Human Frequency</h3>
+        <ul>
+          <li>5.1 High-value calls — the 12-minute relationship call</li>
+          <li>5.2 The thank-you economy — tiny gestures, lifelong allies</li>
+          <li>5.3 Burned-well repair — the 5-step salvage protocol</li>
+          <li>5.4 Relationship compounding — the 90-day ally engine</li>
+        </ul>
+      </div></div>
+      <div class="module" style="border-color:rgba(255,230,0,.45);background:linear-gradient(160deg,#17171d,#0c0c10);"><div class="num" style="color:var(--acid);font-size:30px;padding-top:8px;">INSIDER<br/>LAYER</div><div>
+        <div class="tag">The Premium Floor · Included</div>
+        <h3>What the Industry Actually Does</h3>
+        <ul>
+          <li>Radio Industry Decoder — ratings engine, clocks, rotation categories, add cycles, NACC/RMR charts</li>
+          <li>6 executive module playbooks — trust architecture, market tiers, two-email system, chart express, relationship ladder, chart-to-cash</li>
+          <li>The 24-lesson Insider Edge — the mechanic, the missing piece, the operator move behind every lesson</li>
+        </ul>
+      </div></div>
+        <ul>
+          <li>6.1 Proof compounding systems — turn every spin into a weapon</li>
+          <li>6.2 Airplay-to-income — convert frequency into money</li>
+          <li>6.3 The release calendar that dominates quarters</li>
+          <li>6.4 The 90-day audit &amp; ascension engine — scale to $1M</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ VALUE STACK ═══════════════ -->
+<section id="stack" style="background:var(--panel);">
+  <div class="wrap">
+    <span class="eyebrow" style="text-align:center;">The Valuation</span>
+    <h2 class="display" style="text-align:center;">You're Getting a <span class="acid">$5,000 Mastermind</span> for $97</h2>
+    <p style="text-align:center;max-width:640px;margin:0 auto 44px;">
+      Here is the exact stack. Add it up. Then answer one question: what is one add worth to you?
+    </p>
+    <div class="stack-card">
+      <div class="stack-row"><b>6 modules · 24 lessons (video scripts + drills)</b><span class="val gone">$1,500</span></div>
+      <div class="stack-row"><b>Radio Industry Insider Decoder (ratings, clocks, add cycles, charts)</b><span class="val gone">$497</span></div>
+      <div class="stack-row"><b>6 module-level Insider Playbooks (executive briefings + PDFs)</b><span class="val gone">$597</span></div>
+      <div class="stack-row"><b>24-Lesson Insider Edge — the missing pieces + operator moves</b><span class="val gone">$297</span></div>
+      <div class="stack-row"><b>24 fillable implementation templates</b><span class="val gone">$480</span></div>
+      <div class="stack-row"><b>24 private war-room strategy PDFs</b><span class="val gone">$720</span></div>
+      <div class="stack-row"><b>Bonus 1 · 300-Station Hometown Heat Map Database</b><span class="val gone">$297</span></div>
+      <div class="stack-row"><b>Bonus 2 · 90-Second Radio-Ready Audio Script Vault</b><span class="val gone">$197</span></div>
+      <div class="stack-row"><b>Bonus 3 · One-Page EPK Command Deck</b><span class="val gone">$147</span></div>
+      <div class="stack-row"><b>Bonus 4 · 90-Day Airplay-to-Income Audit Engine</b><span class="val gone">$97</span></div>
+      <div class="stack-row"><b>Bonus 5 · The Entire Resource Arsenal</b><span class="val gone">$400</span></div>
+      <div class="stack-row"><b>Community + 30-day risk reversal</b><span class="val gone">$197</span></div>
+      <div class="stack-total">
+        <span>Total certified value</span>
+        <b><s>$5,193</s> $97</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ INSIDE ═══════════════ -->
+<section id="inside">
+  <div class="wrap">
+    <span class="eyebrow">Every Lesson. Every Time.</span>
+    <h2 class="display">Built for Execution, <span class="acid">Not Entertainment</span></h2>
+    <div class="inside-grid" style="margin-top:40px;">
+      <div class="inside"><b>Full Video Script</b><p>Narrative, timecoded, ready for recording — or read it like a 15-minute masterclass.</p></div>
+      <div class="inside"><b>Implementation Drills</b><p>Reps, timeboxes, and pass/fail standards. Watching is free. Finishing is what counts.</p></div>
+      <div class="inside"><b>Fillable Templates</b><p>Every blank document you need — open, fill, deploy. No formatting, no thinking.</p></div>
+      <div class="inside"><b>War-Room Notes PDF</b><p>Elite private strategy: advanced doctrine, counter-moves, and patterns hidden from the public.</p></div>
+      <div class="inside"><b>Community Prompts</b><p>Four prompts per lesson that turn the member group into a firing squad of accountability.</p></div>
+      <div class="inside"><b>Proof Logging</b><p>Every lesson feeds your proof stack and your 90-day audit — the empire loop never stops.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BONUSES ═══════════════ -->
+<section id="bonuses" style="background:var(--panel);">
+  <div class="wrap">
+    <span class="eyebrow">The Armory</span>
+    <h2 class="display">Take These <span class="acid">5 Bonuses</span> Even If You Never Watch a Lesson</h2>
+    <div style="margin-top:40px;">
+      <div class="bonus"><div class="v">$297</div><div>
+        <h3>Bonus 1 · The 300-Station Hometown Heat Map Database</h3>
+        <p>Every station in America ranked for targeting. Fill in 300 rows, score formats, and know exactly who to hit first — in every market you'll ever enter.</p>
+      </div></div>
+      <div class="bonus"><div class="v">$197</div><div>
+        <h3>Bonus 2 · The 90-Second Radio-Ready Audio Script Vault</h3>
+        <p>10 full, voice-ready scripts plus hook formulas. A radio promo doesn't get produced — it gets loaded. This is the ammunition.</p>
+      </div></div>
+      <div class="bonus"><div class="v">$147</div><div>
+        <h3>Bonus 3 · The One-Page EPK Command Deck</h3>
+        <p>An interactive HTML proof weapon that looks like a label paid for it — proof stack, press, spin log, and booking assets on one command page.</p>
+      </div></div>
+      <div class="bonus"><div class="v">$97</div><div>
+        <h3>Bonus 4 · The 90-Day Airplay-to-Income Audit Engine</h3>
+        <p>Scorecard + CSV trackers that turn 90 days of spins into revenue decisions: where to double down, what to kill, and when to scale.</p>
+      </div></div>
+      <div class="bonus"><div class="v">$400+</div><div>
+        <h3>Bonus 5 · The Entire Resource Arsenal</h3>
+        <p>Heat maps, campaign calendars, 30 subject-line formulas, 90-word pitch vaults, 3-touch follow-up sequences, the 12-month CRM ladder, and more.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GUARANTEE ═══════════════ -->
+<section id="guarantee">
+  <div class="wrap">
+    <div class="guarantee">
+      <div class="g-badge">30<small>DAY<br />RISK<br />REVERSAL</small></div>
+      <div>
+        <h3 class="display" style="font-size:26px;margin-bottom:10px;">Run the System. If It Doesn't Produce, You Don't Pay.</h3>
+        <p style="font-size:15.5px;">
+          Complete the 21-day campaign — 20 stations, 3 touches, logged. If you get zero station replies and
+          zero adds, email us your campaign log within 30 days and we refund every cent. <b style="color:#fff;">You keep the bonuses.</b>
+          The risk sits with us, not you. We can afford it. The system converts.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section id="faq" style="background:var(--panel);">
+  <div class="wrap" style="max-width:800px;">
+    <span class="eyebrow">Objections · Handled</span>
+    <h2 class="display">Frequently Asked <span class="acid">Questions</span></h2>
+    <div style="margin-top:32px;">
+      <details open><summary>Is this the RadioReach Vault, or do I need the Vault too?</summary>
+        <div class="a">This is the command layer. The Vault gives you 18,000+ contacts; Frequency Dominion gives you the system that turns those contacts into airplay. If you have the Vault, this is the unlock. If you don't, Module 2 teaches you exactly which stations to buy and how to target them — but the fastest path is Vault + Dominion.</div></details>
+      <details><summary>I've never gotten a single add. Will this actually work for me?</summary>
+        <div class="a">This course was built for exactly you. Modules 1–3 build your identity, targets, and weapons before you send a single email. Module 4 runs the campaign. The proof is in the system, not your history — but the standard is the standard: 20 stations, 3 touches, logged.</div></details>
+      <details><summary>How is this different from emailing the list myself?</summary>
+        <div class="a">Spamming 18,000 inboxes burns your wells and trains PDs to delete you. This is precision warfare: 20 targets, scored, armed with proof and radio-ready audio before wave one. Fewer emails. More adds. No stench.</div></details>
+      <details><summary>How long does it take to go through?</summary>
+        <div class="a">The core course is about 6 hours of content. The 21-day campaign is the real course — one email sequence per station, three touches, daily 20-minute blocks. Most members see their first add inside 3–4 weeks.</div></details>
+      <details><summary>What formats and genres does this work for?</summary>
+        <div class="a">College, community, commercial, online, and specialty radio. Format scoring adapts to hip-hop, country, rock, EDM, R&B, Latin, folk — any genre with a station format that plays it. Genre-agnostic; market-specific by design.</div></details>
+      <details><summary>What's the refund policy, exactly?</summary>
+        <div class="a">30 days, zero hoops. Run the 21-day campaign, log it, and if zero replies and zero adds — full refund, keep the bonuses. That's the standard. The system converts or we don't get paid.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FINAL CTA ═══════════════ -->
+<section id="get-access" class="final">
+  <div class="wrap">
+    <span class="eyebrow">The Decision</span>
+    <h2 class="display">One Year From Now,<br /><span class="acid">You'll Know the Difference</span></h2>
+    <p style="max-width:640px;margin:0 auto 30px;">
+      One year from now you either have a mailbox full of station replies, an add count that keeps climbing, and
+      a revenue line you can point to — or you're still writing the same 400-word email to the same 18,000 inboxes,
+      hoping this time is different.
+    </p>
+    <div class="price-pack">
+      <span class="anchor">$997</span>
+      <div class="now">NOW $97 <span class="save">Save $900</span></div>
+      <div class="timer timer-lg"><span class="lbl">Dip closes in</span> <span id="finalTimer">6d 23:59:59</span></div>
+    </div>
+    <a class="cta" href="/#/fd-checkout">Claim Your Frequency — $97</a>
+    <div class="cta-sub">Instant access · 24 lessons · 24 war-room PDFs · 5 bonuses · 30-day risk reversal</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    RadioReach.us · Frequency Dominion · $997 anchor · $97 launch<br />
+    Results vary with execution. Testimonials reflect member-reported outcomes. This product is training, not guaranteed income.<br />
+    © 2026 RadioReach. All rights reserved. · <a href="https://radioreach.us" style="color:var(--acid);">radioreach.us</a>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <div class="price">$97 <s>$997</s> <span>· save $900</span></div>
+  <a href="#get-access">Get Frequency Dominion</a>
+</div>
+
+<script>
+  // ── 7-day founders' dip countdown (persisted per visitor) ──
+  (function () {
+    var KEY = "fd_dip_deadline";
+    var now = Date.now();
+    var deadline = 0;
+    try { deadline = parseInt(localStorage.getItem(KEY) || "0", 10); } catch (e) {}
+    if (!deadline || deadline < now) {
+      deadline = now + (7 * 24 * 60 * 60 * 1000);
+      try { localStorage.setItem(KEY, String(deadline)); } catch (e) {}
+    }
+    var join = function (id) { return document.getElementById(id); };
+    function pad(n) { return String(n).padStart(2, "0"); }
+    function tick() {
+      var diff = Math.max(0, deadline - Date.now());
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      var long = d + "d " + pad(h) + ":" + pad(m) + ":" + pad(s);
+      var short = d + "d " + pad(h) + "h " + pad(m) + "m " + pad(s) + "s";
+      ["annTimer", "heroTimer", "finalTimer"].forEach(function (id) {
+        var el = join(id); if (el) el.textContent = long;
+      });
+      join("annTimer").textContent = short;
+    }
+    tick();
+    setInterval(tick, 1000);
+    // ── sticky CTA after hero ──
+    var sticky = document.getElementById("sticky");
+    window.addEventListener("scroll", function () {
+      sticky.classList.toggle("show", window.scrollY > 700);
+    }, { passive: true });
+  })();
+</script>
+</body>
+</html>

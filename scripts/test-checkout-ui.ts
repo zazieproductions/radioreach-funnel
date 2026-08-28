@@ -274,7 +274,7 @@ test("onComplete passes the same add-on state used by the funnel", async () => {
 
   assert.deepEqual(completed, {
     total: 35,
-    addons: { contracts: false, au: false, contractGuide: true },
+    addons: { contracts: false, au: false, contractGuide: true, course: false },
   });
 
   // Removing first, then syncing, reports no guide.
@@ -284,7 +284,7 @@ test("onComplete passes the same add-on state used by the funnel", async () => {
   });
   assert.deepEqual(completed, {
     total: 25,
-    addons: { contracts: false, au: false, contractGuide: false },
+    addons: { contracts: false, au: false, contractGuide: false, course: false },
   });
 });
 

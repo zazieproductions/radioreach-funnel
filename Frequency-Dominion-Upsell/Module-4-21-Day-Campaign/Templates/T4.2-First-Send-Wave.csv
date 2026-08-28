@@ -1,0 +1,4 @@
+Station,Wave,Date,Local-Send-Time,Sender,Subject,Opened,Clicked,Replied,Bounced,Diagnostic
+KXYZ,1,2026-05-12,09:10 local,Artist,"Local artist, 450 tickets",Yes,Yes,No,No,Pitch body
+WCXN,1,2026-05-12,09:20 local,Artist,"Your 7pm block, 3:12 edit",Yes,No,Yes,No,Winner — call
+WEB1,2,2026-05-14,09:10 local,Artist,Quick one about the show,No,—,No,No,Rewrite engine

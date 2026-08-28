@@ -106,23 +106,26 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
   },
   frequency_dominion: {
     key: "frequency_dominion",
-    name: "Frequency Dominion: 21-Day Radio Campaign Course",
+    name: "Frequency Dominion: The 24-Lesson Radio Ownership System",
     shortName: "Frequency Dominion",
     price: 97,
     compareAt: 997,
     stripePriceIdEnv: "STRIPE_PRICE_FREQUENCY_DOMINION",
     r2BundleKey: "courses/frequency-dominion/frequency-dominion-course.zip",
-    description: "6 modules, 24 lessons, war-room workbooks, and pitch weapons that turn the Vault into a campaign.",
+    description:
+      "The complete backend course: 6 modules, 24 lessons, industry decoder, 6 executive playbooks, war-room PDFs, heat maps, and the 21-day campaign system.",
     includes: [
-      "24 implementation lessons",
-      "5 printable workbooks",
-      "90-word pitch + 3-touch follow-up swipe file",
-      "21-day campaign calendar",
+      "6 modules · 24 lessons (video scripts + drills)",
       "In-browser classroom with progress tracking",
+      "Radio Industry Insider Decoder + 6 executive playbooks",
+      "24 fillable templates + 24 war-room PDFs + 8 executive PDFs",
+      "Bonus 1–5: heat map DB, audio vault, EPK deck, audit engine, resources",
+      "Lifetime access + community + 30-day risk reversal",
     ],
-    checkoutBadge: "Flagship course",
-    checkoutHeadline: "Don't just own the list. Run the campaign.",
-    checkoutValueLine: "Identity, targeting, pitches, calendar, relationships, and the 90-day empire loop.",
+    checkoutBadge: "Backend flagship",
+    checkoutHeadline: "Stop Asking for Airplay. Own the Frequency.",
+    checkoutValueLine:
+      "The $5,193 stack: 24 lessons, insider layer, 5 bonuses, and the system that turns contacts into a compounding airplay machine.",
   },
 };
 

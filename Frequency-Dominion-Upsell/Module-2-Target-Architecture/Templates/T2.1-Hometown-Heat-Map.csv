@@ -1,0 +1,4 @@
+ID,Station,Callsign,Market,State,Ring,Platform,Format,Decision-Maker,Contact,Score,Status,Story-Angle,Source
+1,[EXAMPLE — replace] Studio station,KXYZ,Home,TX,1,Commercial,Alt,MD Jane,jane@,TBD,Mapped,Local single release,station site
+2,[EXAMPLE — replace] College station,WCXN,Home,TX,1,College,Variety,Music director,md@,TBD,Mapped,Alumni tie,campus site
+3,[EXAMPLE — replace] Online station,WEB,Home,TX,1,Online,Indie,Founder,info@,TBD,Mapped,Genre fit,site

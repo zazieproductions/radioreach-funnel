@@ -133,9 +133,13 @@ radioreach-funnel/
 ├── public/
 │   ├── images/                  # Production artwork and responsive media
 │   ├── resources/               # Search-focused editorial landing pages
+│   ├── frequency-dominion/      # $997→$97 backend upsell sales page (static)
 │   ├── privacy-policy/          # Static privacy policy
 │   └── terms/                   # Static terms page
+├── Frequency-Dominion-Upsell/   # Full 24-lesson backend course (see product catalog)
 ├── scripts/                     # ESP unit/integration test harness and asset tooling
+│   ├── fd_build_pdfs.py         # War-room PDF renderer (fpdf2)
+│   └── fd_generate_assets.py    # Template / heat-map / calendar generator
 ├── src/
 │   ├── config/                  # Storefront catalog and feature controls
 │   ├── esp/                     # Emotional State Proxy engine and adaptive copy
@@ -201,6 +205,7 @@ STRIPE_PRICE_AUSTRALIA_ADDON=price_...
 STRIPE_PRICE_AIRPLAY_ACCELERATOR=price_...
 STRIPE_PRICE_UPWORK_COURSE=price_...
 STRIPE_PRICE_CONTRACT_GUIDE=price_...
+STRIPE_PRICE_FREQUENCY_DOMINION=price_1U9G1V3IYVlqS8V74OpLuVTO
 
 # Application
 PUBLIC_APP_URL=http://localhost:8788
@@ -480,11 +485,12 @@ A modular, three-step one-time-offer flow that maximizes customer value while th
 **Psychology.** The post-purchase window is the highest-trust moment in any commerce flow—the buyer has just committed, their card is on file, and their dopamine is elevated. The OTO sequence leverages this with three escalating offers, each framed as a one-page-only opportunity that "disappears when you leave."
 
 **The ladder.**
-1. **Airplay Accelerator** ($37) — the natural complement to the contact list: scripts, campaign calendar, bonus curator contacts, and a personal pitch review. Framed as "you have the list; now who writes the pitch?"
-2. **Advanced Upwork Proposals Course** ($50) — a 4-part, 30-lesson system for converting airplay credibility into freelance income. Framed as a career expansion, not an upsell.
-3. **20,000 Fonts Mega Bundle** ($29) — the Arcane Type Vault, framed as the missing piece of a professional release: "Your music is ready. Your artwork isn't."
+1. **Frequency Dominion** ($97, anchored at $997) — the flagship backend course: 6 modules, 24 lessons, war-room PDFs, heat maps, the 21-day campaign system, and the empire loop. Source lives in `Frequency-Dominion-Upsell/` (compile `Frequency-Dominion-97-Upsell.zip` per `Frequency-Dominion-Upsell/Resources/ZIP-AND-DELIVERY-GUIDE.md`). Live page: `https://radioreach.us/frequency-dominion/`.
+2. **Airplay Accelerator** ($37) — the natural complement to the contact list: scripts, campaign calendar, bonus curator contacts, and a personal pitch review. Framed as "you have the list; now who writes the pitch?"
+3. **Advanced Upwork Proposals Course** ($50) — a 4-part, 30-lesson system for converting airplay credibility into freelance income. Framed as a career expansion, not an upsell.
+4. **20,000 Fonts Mega Bundle** ($29) — the Arcane Type Vault, framed as the missing piece of a professional release: "Your music is ready. Your artwork isn't."
 
-**Downsell.** If a visitor declines the Accelerator, a payment-plan downsell offers a Lite version at 3 × $6—preserving the sale at a lower price point rather than losing the buyer entirely.
+**Downsell.** If a visitor declines the Accelerator, a payment-plan downsell offers a Lite version at 3 × $6—preserving the sale at a lower price point rather than losing the buyer entirely. Frequency Dominion's risk reversal (run the 21-day campaign, 30-day refund, keep the bonuses) mirrors the same trust architecture.
 
 **Design principles.** Each offer page is a self-contained experience with its own social proof, value stack, curriculum breakdown, and urgency timer. The "this page only" framing is genuine: the offers are not available in the members area, by email, or at checkout. Card-on-file, one-click acceptance means no re-entry friction.
 
