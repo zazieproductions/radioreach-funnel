@@ -224,7 +224,7 @@ export const EXPERIMENTS: readonly LabExperiment[] = [
     principles: ["choice_architecture", "anchoring"],
     stage: "configure",
     mechanism:
-      "Checkout is presented as three tiers: Starter ($49, list only), Vault ($20, everything), Pro ($97, Vault + done-for-you campaign). The $49 tier is a dominated decoy — worse than the Vault on every dimension — which makes the $20 option the obvious, dominant choice while the $97 tier re-anchors the ceiling.",
+      "Checkout is presented as three tiers: Starter ($49, list only), Vault ($25, everything), Pro ($97, Vault + done-for-you campaign). The $49 tier is a dominated decoy — worse than the Vault on every dimension — which makes the $25 option the obvious, dominant choice while the $97 tier re-anchors the ceiling.",
     hypothesis:
       "If a dominated decoy option frames the Vault as the obvious middle choice, then purchase conversion rises, because the Vault becomes the no-regret default instead of a yes/no gamble.",
     prediction: "+7–15% purchase conversion; some AOV lift via Pro tier.",
@@ -357,7 +357,7 @@ export const EXPERIMENTS: readonly LabExperiment[] = [
     principles: ["commitment", "friction"],
     stage: "engage",
     mechanism:
-      "A foot-in-the-door ladder asks two low-cost self-commitments ('Do you have a release this year?' → 'Would you send 5 personal pitches?') before the $20 ask. Each yes is an act of identity: once a visitor says they'd do the outreach, declining the tool that enables it becomes self-inconsistent — consistency pressure does the closing.",
+      "A foot-in-the-door ladder asks two low-cost self-commitments ('Do you have a release this year?' → 'Would you send 5 personal pitches?') before the $25 ask. Each yes is an act of identity: once a visitor says they'd do the outreach, declining the tool that enables it becomes self-inconsistent — consistency pressure does the closing.",
     hypothesis:
       "If visitors commit to two micro-yesses before the CTA, then purchase conversion rises among responders, because the yes-ladder makes the final ask consistent with their stated self.",
     prediction: "Responders convert +15–25% vs control; ~40% answer the ladder.",
@@ -391,17 +391,17 @@ export const EXPERIMENTS: readonly LabExperiment[] = [
   {
     id: "lab_anchoring",
     title: "Anchor the stack, not just the price",
-    pitch: "A $742 stack for $20. Or 5¢ a day.",
+    pitch: "A $742 stack for $25. Or 7¢ a day.",
     principles: ["anchoring", "choice_architecture"],
     stage: "configure",
     mechanism:
-      "Anchoring works through the *order* numbers arrive. Four presentations hold the price at $20 while moving the anchor: (a) bare $20, (b) $742 → $49 → $20 stack (current page), (c) decoy tiers, (d) per-day reframe ('less than 5¢/day'). Each sets a different reference point for the same number.",
+      "Anchoring works through the *order* numbers arrive. Four presentations hold the price at $25 while moving the anchor: (a) bare $25, (b) $742 → $49 → $25 stack (current page), (c) decoy tiers, (d) per-day reframe ('less than 7¢/day'). Each sets a different reference point for the same number.",
     hypothesis:
-      "If the anchor precedes the price and is self-generated (the stack the visitor just read), then perceived value and conversion rise, because $20 is judged against the last large number seen, not the visitor's own prior.",
+      "If the anchor precedes the price and is self-generated (the stack the visitor just read), then perceived value and conversion rise, because $25 is judged against the last large number seen, not the visitor's own prior.",
     prediction: "Stack and decoy presentations outperform bare price by 8–20% on CTA.",
     primaryMetric: "CTA rate per presentation",
     guardrail: "No fabricated anchor values — every anchor maps to real listed line items.",
-    variants: ["bare $20", "$742→$49→$20 stack", "decoy tiers", "per-day reframe"],
+    variants: ["bare $25", "$742→$49→$25 stack", "decoy tiers", "per-day reframe"],
     prototype: "PriceAnchoring",
     dropIn: "Pricing box on SalesPage + checkout summary",
     risk: "low",

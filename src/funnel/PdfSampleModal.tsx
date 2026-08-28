@@ -354,7 +354,7 @@ export default function PdfSampleModal({ isOpen, onClose, onCta }: Props) {
               onClick={handleUnlockClick}
               className="cta hidden sm:inline-flex items-center gap-1.5 rounded-md bg-acid px-3 py-1.5 font-display text-xs uppercase tracking-wider text-ink hover:brightness-110"
             >
-              <span>🔒 Unlock 412 Pages · $20</span>
+              <span>🔒 Unlock 412 Pages · $25</span>
             </button>
 
             {/* Close Button */}
@@ -547,8 +547,8 @@ export default function PdfSampleModal({ isOpen, onClose, onCta }: Props) {
               {/* Price & Primary CTA Button */}
               <div className="mt-4 flex flex-col items-center gap-2">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-xs text-white/40 line-through font-bold">Normally $55</span>
-                  <span className="font-display text-3xl font-black text-acid">$20</span>
+                  <span className="text-xs text-white/40 line-through font-bold">Normally $350</span>
+                  <span className="font-display text-3xl font-black text-acid">$25</span>
                   <span className="text-xs font-bold text-white/70">One-Time · Instant Access</span>
                 </div>
 
@@ -557,7 +557,7 @@ export default function PdfSampleModal({ isOpen, onClose, onCta }: Props) {
                   onClick={handleUnlockClick}
                   className="cta mt-2 w-full rounded-xl bg-acid px-6 py-4 font-display text-lg uppercase tracking-wide text-ink hover:scale-[1.02] active:scale-[0.98] transition shadow-[0_6px_25px_rgba(234,255,0,0.35)]"
                 >
-                  Unlock Full PDF Directory Now — $20 →
+                  Unlock Full PDF Directory Now — $25 →
                 </button>
 
                 <p className="mt-1 text-[11px] text-white/50">
@@ -666,7 +666,7 @@ export default function PdfSampleModal({ isOpen, onClose, onCta }: Props) {
               onClick={handleUnlockClick}
               className="cta rounded-lg bg-acid px-4 py-2 font-display text-xs uppercase tracking-wider text-ink hover:brightness-110 shadow-md"
             >
-              Get Full Access ($20) →
+              Get Full Access ($25) →
             </button>
           </div>
         </div>

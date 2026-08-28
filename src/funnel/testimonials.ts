@@ -44,7 +44,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "R&B / Neo-Soul · Atlanta, GA",
     photo: P(590479),
     text:
-      "$20 for something enterprise vendors quoted me $400/yr for. I spot-checked 30 emails at random against my own research before I trusted it. 28 were live and current. After that I stopped checking and just started sending.",
+      "$25 for something enterprise vendors quoted me $400/yr for. I spot-checked 30 emails at random against my own research before I trusted it. 28 were live and current. After that I stopped checking and just started sending.",
     stat: "Verified 28 of 30",
     verified: "Verified buyer · Mar 2026",
   },

@@ -30,7 +30,7 @@ export default function EndowmentWidget() {
       title="Your vault is already reserved"
       principles={["endowment", "personalization"]}
       variants={["control", "reserved copy + countdown", "reserved + named stamp"]}
-      footer="Control = generic CTA. Treatments frame the same $20 offer as a reserved personal copy with a release countdown — leaving becomes a loss, and named copies feel pre-owned."
+      footer="Control = generic CTA. Treatments frame the same $25 offer as a reserved personal copy with a release countdown — leaving becomes a loss, and named copies feel pre-owned."
     >
       {(variant) => <Reserved variant={variant} />}
     </LabFrame>
@@ -48,7 +48,7 @@ function Reserved({ variant }: { variant: string }) {
         <p className="text-[13px] leading-relaxed text-white/55">
           Control — a standard CTA box. Nothing is reserved; leaving costs nothing.
         </p>
-        <LabCta experiment="lab_endowment" variant={variant} label="Get the contacts — $20" sub="Standard offer" />
+        <LabCta experiment="lab_endowment" variant={variant} label="Get the contacts — $25" sub="Standard offer" />
       </div>
     );
   }
@@ -82,7 +82,7 @@ function Reserved({ variant }: { variant: string }) {
         )}
         {expired && (
           <p className="fade-in mt-3 font-serif text-[13px] leading-relaxed text-white/70">
-            The $20 founder hold on your copy has been released to the next artist in line.
+            The $25 founder hold on your copy has been released to the next artist in line.
           </p>
         )}
 
@@ -125,7 +125,7 @@ function Reserved({ variant }: { variant: string }) {
         <LabCta
           experiment="lab_endowment"
           variant={variant}
-          label={expired ? "Reclaim the founder hold — $20" : "Keep my copy — $20"}
+          label={expired ? "Reclaim the founder hold — $25" : "Keep my copy — $25"}
           sub={stamp ? `Vault #14,203 · ${name.trim()}` : "One-time · lifetime access"}
         />
       </div>

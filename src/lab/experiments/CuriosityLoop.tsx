@@ -105,7 +105,7 @@ function Gaps({ variant }: { variant: string }) {
       <LabCta
         experiment="lab_curiosity_gap"
         variant={variant}
-        label="Stop making mistake #2 — $20"
+        label="Stop making mistake #2 — $25"
         sub="Named contacts, not templates"
       />
     </div>

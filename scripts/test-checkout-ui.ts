@@ -183,10 +183,10 @@ test("add-on card shows the approved copy and is not preselected", async () => {
   assert.ok(!card!.textContent?.includes("★"), "no star decoration on the guide card");
 });
 
-test("base total is $20.00 without the add-on", async () => {
+test("base total is $25.00 without the add-on", async () => {
   const text = visibleText(container);
-  assert.ok(text.includes("$20.00"), "base total shown");
-  assert.ok(!text.includes("$30.00"), "no $30 total before selection");
+  assert.ok(text.includes("$25.00"), "base total shown");
+  assert.ok(!text.includes("$35.00"), "no $35 total before selection");
 
   // Order summary has no guide row initially.
   const shortNameSpans = Array.from(container.querySelectorAll("span")).filter(
@@ -204,10 +204,10 @@ test("selecting the add-on adds $10 to the displayed total", async () => {
 
   assert.equal(guide.checked, true, "checkbox reflects selection");
   const text = visibleText(container);
-  assert.ok(text.includes("$30.00"), "total updates to $30.00");
+  assert.ok(text.includes("$35.00"), "total updates to $35.00");
   // Mobile details + desktop summary both render the total.
   const totals = Array.from(container.querySelectorAll("span")).filter(
-    (s) => s.textContent === "$30.00"
+    (s) => s.textContent === "$35.00"
   );
   assert.ok(totals.length >= 2, "mobile and desktop totals both updated");
 
@@ -224,7 +224,7 @@ test("removing the add-on restores the base total", async () => {
   await act(async () => {
     guide.click();
   });
-  assert.ok(visibleText(container).includes("$30.00"), "added");
+  assert.ok(visibleText(container).includes("$35.00"), "added");
 
   await act(async () => {
     guide.click();
@@ -232,8 +232,8 @@ test("removing the add-on restores the base total", async () => {
 
   assert.equal(guide.checked, false, "removed");
   const text = visibleText(container);
-  assert.ok(text.includes("$20.00"), "back to base total");
-  assert.ok(!text.includes("$30.00"), "no add-on total remains");
+  assert.ok(text.includes("$25.00"), "back to base total");
+  assert.ok(!text.includes("$35.00"), "no add-on total remains");
   const shortNameSpans = Array.from(container.querySelectorAll("span")).filter(
     (s) => s.textContent === "Contract Info Guide"
   );
@@ -253,7 +253,7 @@ test("clicking the card label toggles the add-on", async () => {
     true,
     "label activation selects the add-on (clickable card behavior)"
   );
-  assert.ok(visibleText(container).includes("$30.00"));
+  assert.ok(visibleText(container).includes("$35.00"));
 });
 
 test("onComplete passes the same add-on state used by the funnel", async () => {
@@ -273,7 +273,7 @@ test("onComplete passes the same add-on state used by the funnel", async () => {
   });
 
   assert.deepEqual(completed, {
-    total: 30,
+    total: 35,
     addons: { contracts: false, au: false, contractGuide: true },
   });
 
@@ -283,7 +283,7 @@ test("onComplete passes the same add-on state used by the funnel", async () => {
     sync.click();
   });
   assert.deepEqual(completed, {
-    total: 20,
+    total: 25,
     addons: { contracts: false, au: false, contractGuide: false },
   });
 });
@@ -317,7 +317,7 @@ test("existing add-ons remain untouched and off by default", async () => {
   const guide = findGuideCheckbox(container);
   assert.equal(guide.checked, false);
   const totalSpans = Array.from(container.querySelectorAll("span")).filter(
-    (s) => s.textContent === "$20.00"
+    (s) => s.textContent === "$25.00"
   );
   assert.ok(totalSpans.length >= 2, "unchanged base total");
 });

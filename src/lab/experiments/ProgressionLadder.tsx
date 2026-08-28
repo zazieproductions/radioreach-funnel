@@ -60,7 +60,7 @@ function Ladder({ variant }: { variant: string }) {
         <LabCta
           experiment="lab_progression_ladder"
           variant={variant}
-          label="Claim the Vault — $20"
+          label="Claim the Vault — $25"
           sub="Straight CTA, no ladder"
         />
       </div>
@@ -165,7 +165,7 @@ function Ladder({ variant }: { variant: string }) {
       <LabCta
         experiment="lab_progression_ladder"
         variant={variant}
-        label={next ? `Keep climbing — Vault $20` : "Founder price locked — Claim $20"}
+        label={next ? `Keep climbing — Vault $25` : "Founder price locked — Claim $25"}
         sub={next ? `${rank.unlock} unlocked · ${next.unlock} next` : "All bonuses unlocked"}
       />
     </div>

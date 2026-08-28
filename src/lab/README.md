@@ -25,7 +25,7 @@ src/lab/
 │   ├── AchievementToasts.tsx     # named micro-behavior rewards
 │   ├── CuriosityLoop.tsx         # teased answers, chained open loops
 │   ├── RevealSequence.tsx        # staggered flip reveal + story framing
-│   ├── PriceAnchoring.tsx        # same $20, four reference frames + decoy
+│   ├── PriceAnchoring.tsx        # same $25, four reference frames + decoy
 │   ├── EndowmentWidget.tsx       # reserved personal copy + countdown
 │   ├── CommitmentLadder.tsx      # foot-in-the-door micro-yesses
 │   ├── VisualSalience.tsx        # six CTA attention budgets + dwell timing
@@ -60,7 +60,7 @@ next to their prototypes.
 | Personalization | Echo answers into checkout | configure | `EndowmentWidget` |
 | Commitment & consistency | Foot-in-the-door yes-ladder | engage | `CommitmentLadder` |
 | Endowment | Reserved personal copy | attention | `EndowmentWidget` |
-| Anchoring | $742→$49→$20 stack, per-day reframe | configure | `PriceAnchoring` |
+| Anchoring | $742→$49→$25 stack, per-day reframe | configure | `PriceAnchoring` |
 
 ## Flag & QA
 
@@ -119,7 +119,7 @@ for a `sendBeacon`/`fetch` — call sites don't change.
 
 - **Price, product facts, and offer terms never change.** Experiments vary
   presentation, framing, sequence, and reward structure only. The anchoring and
-  decoy prototypes keep $20 = $20 in every variant; anchors map to real line
+  decoy prototypes keep $25 = $25 in every variant; anchors map to real line
   items, and a decoy tier only ships if the SKU is real and purchasable.
 - **No dark patterns.** Curiosity gaps close in one tap and never re-lock;
   commitment ladders keep a visible skip path; the endowment countdown frames a

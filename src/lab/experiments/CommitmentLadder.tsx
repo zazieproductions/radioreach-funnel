@@ -2,7 +2,7 @@
    PROTOTYPE — CommitmentLadder (commitment & consistency + friction)
    ─────────────────────────────────────────────────────────────
    A foot-in-the-door ladder: two low-cost self-commitments before
-   the $20 ask. Each yes is an act of identity — once a visitor
+   the $25 ask. Each yes is an act of identity — once a visitor
    says they'd do the outreach, declining the tool that enables it
    becomes self-inconsistent. Consistency pressure, not pressure
    tactics, does the closing: the final CTA merely echoes back
@@ -44,7 +44,7 @@ function Ladder({ variant }: { variant: string }) {
         <p className="text-[13px] leading-relaxed text-white/55">
           Control — the CTA stands alone. No commitments requested.
         </p>
-        <LabCta experiment="lab_commitment_ladder" variant={variant} label="Get the contacts — $20" sub="Straight ask" />
+        <LabCta experiment="lab_commitment_ladder" variant={variant} label="Get the contacts — $25" sub="Straight ask" />
       </div>
     );
   }
@@ -115,7 +115,7 @@ function Ladder({ variant }: { variant: string }) {
           <LabCta
             experiment="lab_commitment_ladder"
             variant={variant}
-            label={bothYes ? "Then here are your contacts — $20" : "Get the contacts — $20"}
+            label={bothYes ? "Then here are your contacts — $25" : "Get the contacts — $25"}
             sub={bothYes ? "Consistent with your plan" : "Instant access · lifetime"}
           />
           <button type="button" onClick={() => setSkipped(true)} className="mx-auto block text-[11px] text-white/30 underline underline-offset-4 hover:text-white/60">
@@ -129,7 +129,7 @@ function Ladder({ variant }: { variant: string }) {
           <p className="text-[12px] text-white/50">
             Skipped the ladder — straight to the offer. (The skip rate is tracked as the ladder's attention cost.)
           </p>
-          <LabCta experiment="lab_commitment_ladder" variant={variant} label="Get the contacts — $20" sub="No questions asked" />
+          <LabCta experiment="lab_commitment_ladder" variant={variant} label="Get the contacts — $25" sub="No questions asked" />
         </div>
       )}
     </div>

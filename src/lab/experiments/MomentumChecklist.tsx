@@ -22,7 +22,7 @@ import { labLogAction, labLogMilestone } from "../log";
 
 const STEPS = [
   { id: "found", label: "Found the contacts", detail: "18,000+ entries, sorted city by city" },
-  { id: "price", label: "Price locked", detail: "Founder rate $20 — held for this session" },
+  { id: "price", label: "Price locked", detail: "Founder rate $25 — held for this session" },
   { id: "prepared", label: "Copy prepared", detail: "Your download is packaged and waiting" },
   { id: "pay", label: "Pay", detail: "The only step left" },
 ];
@@ -67,7 +67,7 @@ function Checklist({ variant }: { variant: string }) {
         <p className="text-[13px] leading-relaxed text-white/55">
           Control — the payment step starts at zero. No progress visible.
         </p>
-        <LabCta experiment="lab_perceived_momentum" variant={variant} label="Enter payment — $20" sub="A fresh 100% in front of you" />
+        <LabCta experiment="lab_perceived_momentum" variant={variant} label="Enter payment — $25" sub="A fresh 100% in front of you" />
       </div>
     );
   }
@@ -127,7 +127,7 @@ function Checklist({ variant }: { variant: string }) {
           experiment="lab_perceived_momentum"
           variant={variant}
           onClick={finishPay}
-          label={done.pay ? "Done — $20 ✓" : "Finish the last step — $20"}
+          label={done.pay ? "Done — $25 ✓" : "Finish the last step — $25"}
           sub={done.pay ? "Checklist complete" : `${Math.round(pct * 100)}% already done for you`}
         />
       </div>

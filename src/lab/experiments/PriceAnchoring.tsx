@@ -1,17 +1,17 @@
 /* ─────────────────────────────────────────────────────────────
    PROTOTYPE — PriceAnchoring (anchoring + choice architecture)
    ─────────────────────────────────────────────────────────────
-   The price never moves: $20 in every variant. Only the
+   The price never moves: $25 in every variant. Only the
    *reference points* change — anchoring is about the order numbers
    arrive in, not the number itself.
 
-   • bare $20            — no anchor; the visitor supplies their own
-   • $742→$49→$20 stack  — today's page; the stack the visitor just
+   • bare $25            — no anchor; the visitor supplies their own
+   • $742→$49→$25 stack  — today's page; the stack the visitor just
                            read becomes the anchor
-   • decoy tiers         — a dominated $49 tier makes $20 the obvious
+   • decoy tiers         — a dominated $49 tier makes $25 the obvious
                            no-regret choice while $97 re-anchors the
                            ceiling (decoy effect)
-   • per-day reframe     — "5¢ a day" reframes the same $20 against
+   • per-day reframe     — "7¢ a day" reframes the same $25 against
                            daily coffee money instead of one-time cost
 
    Guardrail note: every anchor maps to real line items; the decoy
@@ -27,8 +27,8 @@ export default function PriceAnchoring() {
       experiment="lab_anchoring"
       title="Anchor the stack, not just the price"
       principles={["anchoring", "choice_architecture"]}
-      variants={["bare $20", "$742→$49→$20 stack", "decoy tiers", "per-day reframe"]}
-      footer="Same product, same $20, four reference frames. The demo button logs a conversion probe per presentation so the winning anchor can be picked by the same metric the live test would use."
+      variants={["bare $25", "$742→$49→$25 stack", "decoy tiers", "per-day reframe"]}
+      footer="Same product, same $25, four reference frames. The demo button logs a conversion probe per presentation so the winning anchor can be picked by the same metric the live test would use."
     >
       {(variant) => <Offer variant={variant} />}
     </LabFrame>
@@ -40,7 +40,7 @@ function Offer({ variant }: { variant: string }) {
     labLogConversion("lab_anchoring", variant, "offer_click", { offer: label });
   }
 
-  if (variant === "bare $20") {
+  if (variant === "bare $25") {
     return (
       <div className="mx-auto max-w-sm text-center">
         <p className="font-display text-2xl uppercase text-white">Radio Reach Vault</p>
@@ -50,14 +50,14 @@ function Offer({ variant }: { variant: string }) {
           onClick={() => pick("bare")}
           className="cta mt-4 w-full rounded-lg bg-acid px-4 py-4 font-display text-2xl text-ink"
         >
-          $20
+          $25
         </button>
         <p className="mt-2 text-[11px] text-white/40">No anchor. The visitor's own prior sets the reference.</p>
       </div>
     );
   }
 
-  if (variant === "$742→$49→$20 stack") {
+  if (variant === "$742→$49→$25 stack") {
     const stack = [
       ["18,000+ entries", "$297"],
       ["Verified deliverable emails", "$149"],
@@ -87,10 +87,10 @@ function Offer({ variant }: { variant: string }) {
           onClick={() => pick("stack")}
           className="cta mt-3 w-full rounded-lg bg-acid px-4 py-4 font-display text-xl uppercase text-ink"
         >
-          Claim it — <span className="line-through opacity-50">$49</span> $20
+          Claim it — <span className="line-through opacity-50">$49</span> $25
         </button>
         <p className="mt-2 text-center text-[11px] text-white/40">
-          The stack you just read becomes the anchor for $20.
+          The stack you just read becomes the anchor for $25.
         </p>
       </div>
     );
@@ -101,7 +101,7 @@ function Offer({ variant }: { variant: string }) {
       <div className="mx-auto grid max-w-md gap-2.5">
         {[
           { id: "starter", name: "Starter", price: "$49", badge: null, popular: false, body: "Email list only · 4,000 entries · no PDF" },
-          { id: "vault", name: "Vault", price: "$20", badge: "MOST CHOSEN", popular: true, body: "Everything in Starter + full PDF + contracts + AU list + lifetime access" },
+          { id: "vault", name: "Vault", price: "$25", badge: "MOST CHOSEN", popular: true, body: "Everything in Starter + full PDF + contracts + AU list + lifetime access" },
           { id: "pro", name: "Pro", price: "$97", badge: null, popular: false, body: "Vault + done-for-you campaign setup" },
         ].map((t) => (
           <button
@@ -127,7 +127,7 @@ function Offer({ variant }: { variant: string }) {
           </button>
         ))}
         <p className="text-center text-[11px] text-white/40">
-          $49 is dominated by $20 on every dimension — the decoy that makes the middle door obvious.
+          $49 is dominated by $25 on every dimension — the decoy that makes the middle door obvious.
         </p>
       </div>
     );
@@ -137,24 +137,24 @@ function Offer({ variant }: { variant: string }) {
   return (
     <div className="mx-auto max-w-sm text-center">
       <p className="font-display text-2xl uppercase text-white">
-        Less than <span className="text-acid">5¢ a day</span>
+        Less than <span className="text-acid">7¢ a day</span>
       </p>
       <p className="mt-1 font-serif text-sm leading-relaxed text-white/60">
-        A year of radio contacts for less than the cost of one coffee — $20 once, lifetime access.
+        A year of radio contacts for less than the cost of one coffee — $25 once, lifetime access.
       </p>
       <div className="mx-auto mt-4 flex max-w-xs items-center justify-center gap-3 rounded-xl border border-white/10 bg-black/40 px-4 py-3">
         <span className="text-[11px] text-white/45">One-time</span>
-        <span className="font-display text-3xl text-acid">$20</span>
-        <span className="text-[11px] text-white/45">≈ 5.5¢/day over a year</span>
+        <span className="font-display text-3xl text-acid">$25</span>
+        <span className="text-[11px] text-white/45">≈ 6.8¢/day over a year</span>
       </div>
       <button
         type="button"
         onClick={() => pick("per_day")}
         className="cta mt-4 w-full rounded-lg bg-acid px-4 py-4 font-display text-xl uppercase text-ink"
       >
-        Start for 5¢ a day
+        Start for 7¢ a day
       </button>
-      <p className="mt-2 text-[11px] text-white/40">Same $20 — anchored to coffee money instead of cost.</p>
+      <p className="mt-2 text-[11px] text-white/40">Same $25 — anchored to coffee money instead of cost.</p>
     </div>
   );
 }

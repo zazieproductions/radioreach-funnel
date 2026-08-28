@@ -180,14 +180,14 @@ function Vault({ variant }: { variant: string }) {
         <span className="font-display text-sm uppercase leading-tight text-white/80 sm:text-base">
           {openedCount} of {DRAWERS.length} drawers open
         </span>
-        <span className="font-display text-lg text-acid sm:text-xl">$20</span>
+        <span className="font-display text-lg text-acid sm:text-xl">$25</span>
       </div>
 
       <div className="p-3.5 sm:p-4">
         <LabCta
           experiment="lab_unlockable_drawers"
           variant={variant}
-          label={openedCount < DRAWERS.length ? "Open the rest after purchase — $20" : "Everything's open. Claim it — $20"}
+          label={openedCount < DRAWERS.length ? "Open the rest after purchase — $25" : "Everything's open. Claim it — $25"}
           sub="Unlocks persist in the vault forever"
         />
       </div>

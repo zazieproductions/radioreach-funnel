@@ -186,7 +186,7 @@ export function LabFrame({
 export function LabCta({
   experiment,
   variant,
-  label = "Claim the Vault — $20",
+  label = "Claim the Vault — $25",
   sub,
   onClick,
   className = "",

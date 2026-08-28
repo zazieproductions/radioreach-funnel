@@ -131,7 +131,7 @@ export default function TerminalPreview({
             onClick={onCta}
             className="cta min-h-12 w-full rounded-lg bg-acid px-5 py-3 font-display text-base uppercase tracking-wide text-ink sm:w-auto sm:px-7 sm:text-lg"
           >
-            Get full access; $20
+            Get full access; $25
           </button>
           {onOpenPdf && (
             <button

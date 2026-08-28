@@ -5,7 +5,7 @@
 
 ## Goal
 
-Reduce the gap between a $20 Meta ad promise and the first mobile checkout decision. The pass uses the useful parts of direct-response frameworks—clear promise, specific mechanism, visible proof, risk reversal, and one dominant action—without fabricated scarcity, hidden additions, or guaranteed-outcome claims.
+Reduce the gap between a $25 Meta ad promise and the first mobile checkout decision. The pass uses the useful parts of direct-response frameworks—clear promise, specific mechanism, visible proof, risk reversal, and one dominant action—without fabricated scarcity, hidden additions, or guaranteed-outcome claims.
 
 ## Simulated buyer journey
 
@@ -15,7 +15,7 @@ The simulation used a first-time independent artist arriving from Facebook or In
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Existing experience | 2 | 3 | 2 | 2 | 2 | 11/25 |
 | More urgency, countdowns, and preselected bundle | 2 | 3 | 1 | 1 | 3 | 10/25 |
-| **Clear $20 offer, sample, core-only cart, truthful reassurance** | **5** | **5** | **5** | **5** | **5** | **25/25** |
+| **Clear $25 offer, sample, core-only cart, truthful reassurance** | **5** | **5** | **5** | **5** | **5** | **25/25** |
 | Short page with proof removed | 4 | 4 | 2 | 5 | 5 | 20/25 |
 
 The third treatment was selected. The scores identify likely direction and must not be described as real A/B-test lift.
@@ -25,7 +25,7 @@ The third treatment was selected. The scores identify likely direction and must 
 | Buyer thought | Previous risk | Applied answer |
 | --- | --- | --- |
 | “What is this?” | Category-led headline required interpretation. | Outcome-led headline plus a one-sentence product definition. |
-| “Is it really $20?” | Checkout opened at $41 because both optional products were preselected. | Core-only cart starts at exactly $20; optional add-ons are off by default. |
+| “Is it really $25?” | Checkout opened at $41 because both optional products were preselected. | Core-only cart starts at exactly $25; optional add-ons are off by default. |
 | “Will I be subscribed?” | Reassurance was below the main decision. | “One payment. No subscription” appears in the first CTA card and sticky bar. |
 | “What do I actually receive?” | Specifics were spread across the page. | Three scan cards and a direct “See a sample” link appear above the fold. |
 | “Can I inspect it first?” | Sample was present but not offered as a low-commitment action. | Secondary sample anchor directly below the primary CTA. |
@@ -46,7 +46,7 @@ The third treatment was selected. The scores identify likely direction and must 
 The page detects paid-social context from `fbclid`, `utm_source` (`facebook`, `instagram`, or `meta`), and paid-social medium values. It emits:
 
 - `LandingExperienceViewed` with experience, device, and paid-social context.
-- `SalesCtaClicked` with CTA placement, experience, device, and $20 value.
+- `SalesCtaClicked` with CTA placement, experience, device, and $25 value.
 - `CheckoutCartConfigured` whenever optional selections change, including core-only state and total.
 
 Use verified Stripe purchases as the primary outcome. Compare purchase rate and revenue per landing-page view for `mobile_meta_impulse_v1`; use checkout initiation, core-only share, and cart configuration only as diagnostics. Do not declare a winner until traffic volume and attribution quality are sufficient.

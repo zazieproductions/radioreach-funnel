@@ -203,11 +203,11 @@ The outreach teaches you what belongs in the bio. Polishing first is just procra
     ],
   },
   {
-    keys: ["price", "cost", "$20", "refund", "money back", "guarantee"],
+    keys: ["price", "cost", "$25", "refund", "money back", "guarantee"],
     replies: [
       {
         author: "zazie",
-        body: `$20 once. and the 30-day put-it-to-work guarantee is real: contact five relevant stations, keep a simple record, and if it isn't for you, email me within 30 days with your receipt and a short note. no airplay required. just an honest attempt.`,
+        body: `$25 once. and the 30-day put-it-to-work guarantee is real: contact five relevant stations, keep a simple record, and if it isn't for you, email me within 30 days with your receipt and a short note. no airplay required. just an honest attempt.`,
       },
     ],
   },

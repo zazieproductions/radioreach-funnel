@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export type Stage = "sales" | "checkout" | "oto1" | "oto2" | "downsell" | "thanks";
 
 const STEPS: { id: Stage; label: string; note: string }[] = [
-  { id: "sales",    label: "1 · Sales page",  note: "Radio Reach Vault: $20" },
+  { id: "sales",    label: "1 · Sales page",  note: "Radio Reach Vault: $25" },
   { id: "checkout", label: "2 · Checkout",    note: "Contracts $9 · AU list $12" },
   { id: "oto1",     label: "3 · Upsell 1 (Future)",    note: "Airplay Accelerator: $37" },
   { id: "oto2",     label: "4 · Upsell 2 (Future)",    note: "Upwork course: $50" },

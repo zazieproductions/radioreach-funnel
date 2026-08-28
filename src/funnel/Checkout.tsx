@@ -31,7 +31,7 @@ export default function Checkout({
   luckyCoupon,
   onOpenWheel,
 }: Props) {
-  // Price-message match: a visitor who clicked a $20 offer lands on a $20 cart.
+  // Price-message match: a visitor who clicked a $25 offer lands on a $25 cart.
   // Even after a jackpot, optional products require an explicit opt-in.
   const [contracts, setContracts] = useState(false);
   const [au, setAu] = useState(false);
@@ -151,7 +151,7 @@ export default function Checkout({
         <div className="mb-5 text-center sm:mb-6">
           <p className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">COMPLETE YOUR SECURE ORDER</p>
           <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-white/60">
-            Your Vault is $20. Optional add-ons are off by default, so the price you saw is the price you start with.
+            Your Vault is $25. Optional add-ons are off by default, so the price you saw is the price you start with.
           </p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] font-bold uppercase tracking-wider text-white/50">
             <span>✓ Instant download</span><span>✓ No subscription</span><span>✓ 30-day guarantee</span>

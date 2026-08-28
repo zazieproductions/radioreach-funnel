@@ -264,7 +264,7 @@ test("collectionStats: pct, remaining, near-complete kick", () => {
 /* — anchoring presentation helpers (price math never changes) — */
 
 test("anchorStack keeps the price last; perDayFrame is honest", () => {
-  assert.deepEqual(anchorStack(20, [742, 49]), ["$742", "$49", "$20"]);
+  assert.deepEqual(anchorStack(25, [742, 49]), ["$742", "$49", "$25"]);
   assert.equal(perDayFrame(20, 365), "$0.05/day");
   assert.equal(perDayFrame(1, 365), "less than 1¢/day");
 });

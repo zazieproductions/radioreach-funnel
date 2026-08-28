@@ -48,7 +48,7 @@ function Form({ variant }: { variant: string }) {
         <LabCta
           experiment="lab_friction"
           variant={variant}
-          label="Buy now — $20"
+          label="Buy now — $25"
           sub="🔒 Stripe checkout · instant download · 30-day refund"
         />
         <p className="mt-2 text-[11px] text-white/40">
@@ -122,7 +122,7 @@ function Form({ variant }: { variant: string }) {
       <LabCta
         experiment="lab_friction"
         variant={variant}
-        label={`Continue to payment — $20${variant === "control" ? "" : ""}`}
+        label={`Continue to payment — $25${variant === "control" ? "" : ""}`}
         sub={variant === "control" ? "3 fields" : "1 field · Stripe handles the rest"}
       />
     </div>
