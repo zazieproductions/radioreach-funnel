@@ -11,12 +11,12 @@ Confirm the folder `Frequency-Dominion-Upsell/` contains all required assets:
 - `SALES-PAGE.html` — the $997 → $97 upsell page (host separately; see Step 4)
 - `Course-Overview.md` + `Course-Overview.pdf` — doctrine + module map
 - `Module-1-Command-Identity/` … `Module-6-Empire-Loop/` — 4 lessons each (24 total), each with:
-  - `Lessons/Lesson-X.Y-*.md` — video script + drills + prompts
-  - `Templates/TX.Y-*.csv` / `.md` — fillable implementation template
-  - `War-Room-Notes/War-Room-*.pdf` — elite private strategy PDF
-  - `Community-Prompts/*.md` — group engagement prompts
-- `Bonuses/Bonus-1…5/` — heat map DB, audio script vault, EPK deck, audit engine, resources index
-- `Resources/` — heat maps, calendars, pitch vaults, follow-up sequences, audit checklist
+  - `Lessons/Lesson-X.Y-*.md` — masterclass blueprints + operational drills + community prompts
+  - `Templates/TX.Y-*.pdf` + `.md` — professional PDF action worksheets & digital templates
+  - `War-Room-Notes/War-Room-*.pdf` — 24 operator war-room masterclass dossiers (typeset print PDFs)
+  - `Community-Prompts/*.md` — peer calibration & group drill prompts
+- `Bonuses/Bonus-1…5/` — 300-station heat map DB (PDF), 90-sec audio script vault (PDF), 1-page EPK command deck (PDF + responsive HTML), 90-day audit engine (PDF), master resource arsenal (PDF)
+- `Resources/` — heat map database (PDF), calendars (PDF), pitch vaults (PDF), follow-up sequences (PDF), audit checklist (PDF), executive insider briefings (8 PDFs)
 
 ## STEP 2 — COMPILE THE ZIP (from the repo root)
 

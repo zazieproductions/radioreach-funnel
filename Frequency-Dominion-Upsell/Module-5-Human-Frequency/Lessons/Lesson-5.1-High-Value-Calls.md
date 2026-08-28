@@ -1,70 +1,65 @@
 # 5.1 High-Value Calls — The 12-Minute Relationship Call
 
-> **THE ONE-LINE TRUTH:** One 12-minute call does more than twelve emails. The call is the closest thing radio has to a handshake — and it's where aliases, adds, and repeat placements are actually made.
+> **THE ONE-LINE TRUTH:** One disciplined 12-minute phone conversation accomplishes more than twenty unread emails. The call is not a sales pitch — it is an elite relationship reconnaissance mission.
 
-## VIDEO SCRIPT (ready to record · runtime ≈ 09:00)
+## MASTERCLASS DIRECTIVE & STRATEGIC BLUEPRINT
 
-**[0:00 – 0:50] COLD OPEN — phone on a desk, face to camera.**
-"Twelve minutes. That's all a radio conversation needs. Not because the decision is quick — because after twelve minutes, the *relationship* is decided. Everything after that is logistics. Today: how to run a 12-minute call that turns a contact into an ally."
+### Strategic Foundation & Operational Reality
+In an era where every independent artist hides behind automated software, DMs, and generic email blasts, picking up the telephone has become a superpower. A phone call humanizes you instantly. It cuts through digital noise, establishes instant vocal rapport, and signals profound professional confidence.
 
-**[0:50 – 2:20] WHEN TO CALL — the three triggers.**
-"Trigger one: a reply to your pitch with any question or interest. Trigger two: an add — email the thank-you, then offer a call to 'make the add work even better for the station.' Trigger three: a calendar opening — a show date, a release, a milestone. Never cold-call from the void. Every call is a *response to momentum*. The call after a win is the only call that feels like a favor to them, not a demand from you."
+However, cold calling a busy commercial program director without an operational protocol is professional suicide. If you call uninvited, ramble for 10 minutes about your creative vision, and demand that they listen to your song, you will be permanently branded as an obnoxious pest.
 
-**[2:20 – 3:50] THE 12-MINUTE STRUCTURE — screen-share the call sheet.**
-"Minutes 1–2: connection. Their name, their show, one genuine observation about their station. Minutes 3–5: listening. Ask the two questions: 'What are you most excited about this quarter?' and 'What does a new record need to do to fit here?' Minutes 6–8: the offering — one asset, one fit, one ask. Numbers 9–10: the next step — a date, a slot, a recheck, a file. Minutes 11–12: the close — thank them, confirm the next step, get off the phone. Twelve minutes. The call ends before they want it to."
+Dominion operators execute **High-Value Relationship Calls** strictly under defined tactical conditions.
 
-**[3:50 – 5:30] THE CALL SHARKS STOPS — what kills the call.**
-"Killer one: the monologue — if you've talked for 3 minutes straight, you're not in a relationship, you're in a pitch. Killer two: the no-ask — a call that ends without a defined next step is a pleasant waste of both your time. Killer three: the promise you can't keep — 'I'll send it today' when it's not ready costs more than never offering. Killer four: the second ask — one ask per call. Always. If a second ask exists, it goes to the thank-you email."
+### When to Call (The Three Green-Light Triggers)
+Never cold-call a commercial programmer out of the blue. Execute a call strictly when one of these three operational triggers has been met:
+1. **The Warm Dialogue Trigger:** The programmer has opened your pitch, replied via email, or requested assets, but has not yet confirmed an add.
+2. **The Confirmed Tour Hook Trigger:** You are confirmed to perform in their market within 14 days, and you are calling to coordinate on-air ticket giveaways or a studio drop-in during load-in.
+3. **The Published Call-In Hours Window:** College, community, and non-commercial music directors explicitly publish "Music Tracking Hours" (e.g., *Wednesdays 2:00 PM – 4:00 PM EST*) specifically to take calls from independent artists and promoters.
 
-**[5:30 – 7:00] THE CALL SHEET — screen-share template T5.1.**
-"Before every call: 15 minutes of prep. Fill the call sheet: their name, their show's name, the format, one thing you know they play, one observation, your one fit line, your one ask, your next-step plan, the time. Have it open on screen. A call sheet is a map, not a script — it keeps you in the 12-minute structure without sounding rehearsed."
+### The 12-Minute Call Anatomy & Agenda
+A high-value radio call is brief, focused, and respectful of the clock. Execute across five chronological phases:
+- **Phase 1: The 20-Second Opening Hook (0:00 – 0:40):** Name, artist identity, quick reference to recent email or local date, and immediate confirmation of availability: *"Hi Tom — this is Alex from The Replicas. Following up on the Chicago show date and email I sent Tuesday. Do you have three quick minutes between programming clocks?"*
+- **Phase 2: The Sincere Station Commendation (0:40 – 2:00):** Mention a specific recent spin, specialty show feature, or station initiative you genuinely heard and appreciated. Prove you actually listen to their broadcast.
+- **Phase 3: The Discovery Question (2:00 – 5:00):** Ask the critical programming question: *"What specific sonic niche or tempo does your evening block need right now that current label submissions are missing?"* Listen intently. Take verbatim notes.
+- **Phase 4: The Aligned Solution Bridge (5:00 – 9:00):** Connect their stated programming need directly to your record or upcoming live tour date. Offer the tailored solution.
+- **Phase 5: The Frictionless Close & Next Action (9:00 – 12:00):** Agree on one immediate next step. Never force an on-the-spot commitment. Confirm delivery of the requested asset and gracefully exit before 12 minutes elapse.
 
-**[7:00 – 8:10] THE FOLLOW-THROUGH LAW — the call is only half the job.**
-"Within 4 hours of the call: a thank-you email — 'Great talking today. As promised, here's [the asset] and here's the date for [next step].' Within 24 hours: the war-room row updated — status, next date, notes. Within 48 hours: the relationship ledger updated. A call without follow-through is a phone call. A call with follow-through is a relationship."
+## IMPLEMENTATION DRILLS & PASS STANDARDS
 
-**[8:10 – 9:00] CLOSE — module card.**
-"One call, one ally, one repeat. The thank-you economy is next — the cheapest, highest-yield system in the entire course. Tiny gestures. Lifelong allies."
+- **Drill 1 — The 20-Second Phone Opening Script (20 min).** Draft and rehearse your 20-second opening hook aloud. Record yourself on your phone. Refine until your delivery sounds natural, authoritative, and relaxed.
+- **Drill 2 — The Station Call Sheet Pre-Flight (20 min).** Complete the 12-Minute Call Briefing Sheet below for your top warm target station. Document gatekeeper name, direct studio/office line, recent station spins, and local tie-in.
+- **Drill 3 — The Active Listening Rehearsal (15 min).** Practice asking the Discovery Question (*"What is your programming missing right now?"*) without interrupting for 90 seconds of simulated silence.
+- **Drill 4 — The Follow-Up Recap Email Sprint (15 min).** Draft an immediate post-call confirmation email summarizing the conversation and delivering the exact agreed asset within 30 minutes of call conclusion.
 
-## IMPLEMENTATION DRILLS
+## ACTION WORKSHEET & OPERATIONAL PROTOCOL
 
-- **Drill 1 — The Call Triggers Scan (20 min).** Review your war room. Identify every row with a call trigger: reply, add, or milestone. **Pass standard:** a list of 5 potential calls with a specific reason each.
-- **Drill 2 — The Call Sheet (15 min per call).** Fill `Templates/T5.1-12-Minute-Call-Sheet.csv` for each call. **Pass standard:** every field complete — including the one genuine station observation.
-- **Drill 3 — The 12-Minute Rehearsal (15 min).** Record yourself running the 12-minute structure with a friend or the group. **Pass standard:** under 12:30, you listened at least 3 minutes, one ask, one next step, zero monologue.
-- **Drill 4 — The Follow-Through Run (4h).** After the call: thank-you email within 4 hours, war room within 24h, ledger within 48h. **Pass standard:** all three executed and logged.
+**Protocol Document:** `12-MINUTE RELATIONSHIP CALL BRIEFING SHEET`
 
-## FILLABLE TEMPLATE
+Complete the structured table below as part of your lesson implementation. This worksheet directly replaces legacy spreadsheets with a publication-grade execution protocol.
 
-**Template file:** `Templates/T5.1-12-Minute-Call-Sheet.csv` — prep, structure, notes, one ask, next step. The pre-flight check for every relationship call.
+| Target Gatekeeper | Station & Direct Office Phone | Tracking Call Window | 20-Second Opening Hook | Discovery Question Hook | Agreed Next Operational Step |
+| --- | --- | --- | --- | --- | --- |
+| Sarah Jenkins (MD) | WLUW (773-508-8080) | Tuesdays 2:00-4:00 PM CST | Following up on Empty Bottle gig brief | What tempos are missing in evening drive? | Send 30s hook cut by 5:00 PM |
+| Alex Rivera (MD) | WNUR (847-866-9687) | Wednesdays 1:00-3:00 PM CST | Referencing Evanston campus showcase | Looking for upcoming live studio sessions? | Deliver broadcast WAV master |
+| Tom Crawford (PD) | WMSE (414-277-7247) | Thursdays 10:00 AM-Noon CST | Touching base on Cactus Club tour date | How is local ticket reaction tracking? | Deliver listener ticket giveaway pack |
+| Marcus Vance (MD) | Radio K (612-626-4600) | Mondays 3:00-5:00 PM CST | Following up on Twin Cities indie push | Reviewing new college chart entries? | Confirm add on Friday NACC chart |
+| Elena Rostova (MD) | WCSB (216-687-3523) | Tuesdays 1:00-3:00 PM EST | Following up on Cleveland Grog Shop date | Curating local specialty indie block? | Provide custom station ID drop |
 
 ## WAR-ROOM NOTES
 
 <!-- WARROOM:START -->
-**WAR-ROOM NOTES — 5.1 High-Value Calls**
+**WAR-ROOM DIRECTIVE — 5.1 High-Value Calls — The 12-Minute Relationship Call**
 
-**THE CALL IS THE RELATIONSHIP DEFORMATION POINT**
-
-Emails are flat — they can be ignored, deferred, forgotten. A live voice is a *moment*: it activates trust mechanisms (tone, laughter, shared recognition) that no text can. The 12-minute call is the only moment in the relationship where the PD's attention is 100% focused on you, free of inbox gravity. That's why the follow-through matters so much: the call's memory fades within days, but the *transaction completed after the call* (a file, a slot, a date) is permanent.
-
-**THE LISTENING DOOR (WHY 3 MINUTES OF QUESTIONS IS THE MOVE)**
-
-PDs get 200 pitches a day and almost zero questions. The two listening questions — "what are you excited about this quarter?" and "what does a new record need to do to fit?" — flip the power dynamic: you're no longer a supplicant, you're a professional trying to serve *their* goal. The answers you get are targeting gold: the exact programming language, the station's current needs, the decision-maker's actual pain. Operators leave every call with more intel than any email could provide.
-
-**THE ONE-ASK RULE IS A RELATIONSHIP MATH RULE**
-
-Every call deposits trust. Every second ask on the same call withdraws it at double interest. The one-ask-per-call rule keeps the relationship's account in permanent credit — so that by call four, a "repeat the add on the next single" ask is a formality, not a negotiation. There's no faster way to burn a relationship than to treat one call as a closing room. Radio is a repeated game. Play it like one.
-
-**THE 12-MINUTE CEILING IS RESPECT NEGOTIATION**
-
-PDs are busy. When you end a call at 12 minutes — even though they'd have kept going — you signal that you value their time. That respect echoes into every decision they make about your music for months. The call ending *before* they want it to is the most subtle status move in independent music.
-
-**THE PREP IS THE PRODUCT**
-
-A call sheet that names their format, their show, one observation, and one fit line takes 15 minutes — and makes the entire 12-minute call feel like a professional visit rather than a cold pitch. Preparation is the difference between "who is this?" and "this is someone who gets it." The sheet is the map; the call is the walk.
+**THE THREE FATAL MISTAKES OF CALLING MUSIC DIRECTORS**
+1. **Calling on Monday Morning or Friday Afternoon:** These are administrative nightmare hours. Call strictly during published tracking hours or mid-week afternoons (Tuesday through Thursday between 2:00 PM and 4:30 PM local).
+2. **Asking 'Did you listen to my CD/email?':** This puts the programmer on the defensive and makes them feel guilty. Instead, ask: *"Calling to verify you have everything you need for our upcoming show date at [Venue] on [Date]."*
+3. **Overstaying Your Welcome:** The moment the clock strikes 11 or 12 minutes, proactively wrap up: *"Tom, I know you have a programming meeting at the top of the hour. Thank you so much for your time. I'll get that clean WAV over to your inbox within ten minutes."* Exiting early demonstrates immense respect for their professional schedule.
 <!-- WARROOM:END -->
 
-## COMMUNITY PROMPTS
+## FREQUENCY DOMINION COMMUNITY DRILLS
 
-1. **Your call trigger.** Post your strongest current call trigger: reply, add, or milestone. The group helps you draft the opening line.
-2. **The listening questions.** Post your two listening questions. The group checks: are they open, genuine, and non-salesy?
-3. **Your 12-minute result.** Post the outcome of your last relationship call: one ask, next step, follow-through time.
-4. **The call you botched.** Post the story of a call that went wrong and what you'd re-run. The group collects the scars.
+1. Post your recorded 20-Second Phone Opening Hook audio or transcript for feedback.
+2. Share an experience of your first successful radio phone call and what insights you uncovered.
+3. Identify the published music tracking hours for three college or non-comm stations on your target list.
+4. Discuss how you overcame call reluctance and transitioned into high-conviction communication.

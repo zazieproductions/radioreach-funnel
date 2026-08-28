@@ -1,70 +1,65 @@
 # 4.4 Adds & Next-Market Expansion Loops — One Station Into a Cascade
 
-> **THE ONE-LINE TRUTH:** An add is not a win — it's a *seed*. The expansion loop turns one station into eleven, and one market into a map the industry learns to fear.
+> **THE ONE-LINE TRUTH:** An add is not the finish line — it is a live seed. The Expansion Loop converts a single station victory into a domino cascade across neighboring regional markets.
 
-## VIDEO SCRIPT (ready to record · runtime ≈ 09:10)
+## MASTERCLASS DIRECTIVE & STRATEGIC BLUEPRINT
 
-**[0:00 – 0:50] COLD OPEN — face to camera, a chessboard.**
-"You got your first add. Congratulations. Now do the thing almost nobody does: use it. An add is a proof asset, a relationship port, and a key to the next door. If you stop at the add, you've won the opening move and lost the war."
+### Strategic Foundation & Operational Reality
+When amateur artists secure a radio add, they celebrate on social media for 24 hours and consider the campaign finished. This is like striking oil and walking away without drilling a pipeline.
 
-**[0:50 – 2:30] THE POST-ADD PROTOCOL — the 24/48/72-hour sequence.**
-"Twenty-four hours: thank the decision-maker personally — name, station, and the exact reason they added you (Module 5.2). Forty-eight hours: broadcast the win — a screenshot, the playlist slot, a thank-you post tagged to the station. Seventy-two hours: add the station to your ALLY track in the war room and log the add in your proof stack. Three days of protocol per add turns a one-time slot into a relationship that re-adds every release. Skip it and the add is just a line in a spreadsheet."
+In the music broadcasting industry, radio programmers monitor each other relentlessly. Non-comm and college music directors review Spinitron charts and NACC Top 200 reports weekly. Commercial programmers track Mediabase and BDS spin logs. When a recognized tastemaker station in a regional cluster adds a record, every neighboring station in that geographic corridor immediately experiences a drop in perceived risk.
 
-**[2:30 – 4:10] THE CASCADE RULE — one add, three asks.**
-"Every add gives you three legitimate asks, in this order: (1) the sister station ask — '[Station] plays it, would [sister/partner station]?' (2) the repeat-support ask — 'when's the next slot for [single]?' (3) the referral ask — 'who else in the market would fit [song]?' Each is a *casting*, not a favor — because the station already validated you, the next station sees zero risk. One add, three shots at a cascade. Run it. This is how 80% of members' first 5 adds were born."
+Dominion operators execute the **Cascade Expansion Loop**.
 
-**[4:10 – 6:00] THE NEXT-MARKET EXPANSION LOOP — the map grows weekly.**
-"Your first campaign runs hometown. Your second runs the 300-mile ring. Your third runs the tour corridor. The loop: this campaign's adds become the heat map's new A-tier for the next market's campaign. Every add updates the market's score. Every market's campaign updates the proof deck. The loop closes every 21 days — you're never starting from zero, and each campaign is cheaper and hotter than the last. That's the difference between a single push and an empire."
+The instant an add is confirmed at Station 1, that add becomes the lead S-Tier proof weapon to breach Stations 2, 3, 4, and 5 in the surrounding market perimeter.
 
-**[6:00 – 7:40] THE SCALE MATH — when to add stations.**
-"Don't scale until you've converted: campaign one = 20 stations → 5+ adds. Campaign two = 30 stations → 10+ adds. Campaign three = 40 stations → 15+ adds. Each campaign proves the system before you widen it. If you can't hit the minimum, the problem is your targeting or your weapon — not the number of stations. Scaling a broken system just multiplies the breakage. Precision first, then breadth."
+### The Anatomy of the Cascade Expansion Pitch
+When you secure an add at a respected anchor station (e.g., WNUR in Chicago), you immediately dispatch a targeted **Cascade Payload** to adjacent Ring 2 and Ring 3 stations (e.g., WMSE in Milwaukee, WERG in Erie, WLRA in Romeoville):
+- *The Subject Line:* `WNUR Add Cascade: Midwest Indie-Rock (2:58) · For [Target MD Name] / [Target Station]`
+- *The Body Copy (Under 65 Words):* *"Hi [Name] — thought you'd want this for your evening specialty queue: our single '[Track Title]' was added into rotation at WNUR this week following our sold-out Empty Bottle showcase. 2:58 run-time, FCC Clean, driving post-punk. Streaming link & Broadcast WAV: [Link]. Open to bringing this to [Target Station] listeners this week?"*
 
-**[7:40 – 8:40] THE CASCADE LOG — screen-share template T4.4.**
-"Every add becomes a row: add date, station, market, asks made, outcomes, next action. This is the ledger that turns scattered wins into a map with a growth curve. Ten adds after a year? That's a team. Fifty adds? That's a market force. The ledger is the proof of the empire — and the empire's next campaign starts from its own data."
+### The 4-Phase Geographic Expansion Architecture
+1. **Phase 1: The Anchor Add (Ring 1 Foothold):** Secure your primary station add in your home metro. Document the spin with official Spinitron timestamp screenshots.
+2. **Phase 2: The Corridor Cascade (Ring 2/3 Sweep):** Within 48 hours of the anchor add, pitch the 10 closest regional stations in the same broadcast district citing the anchor add as lead validation.
+3. **Phase 3: The Chart Stacking (NACC / Specialty Aggregation):** When 3 to 5 regional stations report spins, aggregate your spin totals to break onto regional college charts (e.g., NACC 200 or Regional Roots Charts).
+4. **Phase 4: The Commercial Specialty Bridge:** Deploy your college chart standing and multi-station broadcast proof to pitch evening specialty spotlight shows on commercial powerhouse stations (e.g., WXRT, KROQ, KNDD).
 
-**[8:40 – 9:10] CLOSE — module card.**
-"You've run the campaign. Now the human layer: the 12-minute call, the thank-you economy, the repair protocols. Because airplay is people — and Module 5 makes the people your allies."
+## IMPLEMENTATION DRILLS & PASS STANDARDS
 
-## IMPLEMENTATION DRILLS
+- **Drill 1 — The Expansion Target Mapping Sprint (25 min).** For your #1 target anchor station, identify five direct geographic or format sibling stations in adjacent markets. Populate the Cascade Expansion Worksheet below.
+- **Drill 2 — The Cascade Pitch Template Construction (20 min).** Draft a customized Cascade Payload referencing your anchor station's confirmed spin. Ensure the copy sits strictly under 65 words.
+- **Drill 3 — The Airplay Receipt Capture Drill (15 min).** Set up real-time Google Alerts and Spinitron tracking for your artist name and song title. Prepare a high-resolution screenshot template for logging on-air proof.
+- **Drill 4 — The Tour Corridor Linkage (20 min).** Map how your cascading radio adds connect directly into your upcoming live performance tour routing.
 
-- **Drill 1 — The Post-Add Protocol Run (per add).** Execute 24/48/72 within each add. **Pass standard:** thank-you sent in 24h, public acknowledgment in 48h, war-room ALLY row in 72h.
-- **Drill 2 — The Three-Ask Draft (60 min).** For each add, draft the sister-station ask, repeat-support ask, and referral ask. **Pass standard:** 3 asks per add, each one line, each naming a real station or slot.
-- **Drill 3 — The Cascade Map (30 min).** Update your heat map with every add's market, score, and partner stations. **Pass standard:** every add reflected in the map, with 3 named cascade targets.
-- **Drill 4 — The 20/30/40 Scale Gate (15 min).** Write your scale gate: the exact add count required before the next campaign's size increase. **Pass standard:** a number, a date, and a trigger — no "someday."
+## ACTION WORKSHEET & OPERATIONAL PROTOCOL
 
-## FILLABLE TEMPLATE
+**Protocol Document:** `CASCADE EXPANSION LOOP TARGETING TRACKER`
 
-**Template file:** `Templates/T4.4-Expansion-Tracker.csv` — add date, market, asks, outcomes, cascade targets. The ledger that builds the map.
+Complete the structured table below as part of your lesson implementation. This worksheet directly replaces legacy spreadsheets with a publication-grade execution protocol.
+
+| Anchor Station Win | Add Confirmation Date | Cascade Target Station | Market & Dial | Cascade Angle & Hook | Deployment Status |
+| --- | --- | --- | --- | --- | --- |
+| WNUR 89.3 (Evanston) | Day 9 Verified Add | WMSE 91.7 FM | Milwaukee, WI | Midwest regional I-94 corridor tie | Cascade Dispatched Day 10 |
+| WNUR 89.3 (Evanston) | Day 9 Verified Add | WICB 91.7 FM | Ithaca, NY | Leading college chart sibling format | Cascade Dispatched Day 10 |
+| WLUW 88.7 (Chicago) | Day 16 Verified Add | WERG 90.5 FM | Erie, PA | Rust Belt independent rock connection | Staged for Wave 3 |
+| WLUW 88.7 (Chicago) | Day 16 Verified Add | WSUM 91.7 FM | Madison, WI | Big Ten campus corridor synergy | Staged for Wave 3 |
+| WMSE 91.7 (Milwaukee) | Day 15 Verified Add | Radio K 100.7 FM | Minneapolis, MN | Twin Cities Midwest powerhouse hook | Staged for Wave 3 |
 
 ## WAR-ROOM NOTES
 
 <!-- WARROOM:START -->
-**WAR-ROOM NOTES — 4.4 Adds & Next-Market Expansion Loops**
+**WAR-ROOM DIRECTIVE — 4.4 Adds & Next-Market Expansion Loops — One Station Into a Cascade**
 
-**THE ADD IS A SALE CLOSED AND A RELATIONSHIP OPENED**
-
-Amateurs treat an add as the finish line. The 24/48/72 protocol treats it as the *first purchase* of a long customer relationship: the thank-you converts a transaction into an ally, the 48h broadcast converts a private win into social proof the *station* benefits from, and the 72h ALLY row converts a one-time event into a permanent asset. Each step compounds the relationship's value. Each step skipped costs the next release's re-add probability.
-
-**THE THREE-ASK PRIORITY (ORDER MATTERS)**
-
-Sister-station ask first: it's the lowest-cost ask and the highest-yield ask, because a format-sibling addition is nearly automatic once one station plays you. Repeat-support ask second: it converts a single slot into ongoing inventory. Referral ask third: it's the deepest trust ask, and it only works if the first two were handled well. Reversing the order burns trust: asking for a referral 48 hours after an add reads as a sales call, not a partnership.
-
-**THE MARKET EXPANSION CURVE (WHEN TO WIDEN)**
-
-Campaign 1 (20 stations): minimum 5 adds. Campaign 2 (30 stations): minimum 10. Campaign 3 (40 stations): minimum 15. The rule is not about station count — it's about system proof. Each stage's add count validates the previous stage's targeting and weapon quality. If campaign 1 yields 2 adds, the answer isn't "more stations," it's "better targeting" (Module 2.3) or "better weapon" (Module 3). Scaling an unproven loop is how artists waste a year sending 80 identical emails.
-
-**THE CASCADE IS A NETWORK EFFECT, NOT A LIST**
-
-The expansion loop's deep secret: station networks are dense. One add in a market unlocks the market's sister stations, partner formats, and program clusters — often 3–5 stations per add. The heat map should be updated not by search but by *relationship traversal*: every add produces 3 named cascade targets fast. A year of cascade farming beats a year of cold contact by an order of magnitude — because the second wave of every market arrives pre-warmed.
-
-**THE 21-DAY LOOP CLOCK**
-
-The expansion loop isn't a one-time process — it's a rhythm: campaign ends → cascade week (asks + protocol) → a week of thank-you economy (Module 5.2) → next campaign arms. The empire grows in 21-day blocks, not in bursts of hope. The loop is the business. The releases are just the heartbeat.
+**LEVERAGING A ROTATION UPGRADE AS A SECONDARY WIN**
+When a station adds your song into light rotation or specialty play, your job at that station is not finished. You now initiate the **Rotation Upgrade Sequence**:
+1. **Monitor On-Air Reaction:** When your track airs, rally your regional community to tweet or text polite appreciation to the station studio line (*"Loved hearing [Artist Name] on the evening drive block!"*).
+2. **The Listener Feedback Receipt:** Within 10 days of the first spin, email the music director a brief note: *"Hi [Name] — thank you again for the spins on [Track Title]. We've seen a 30% spike in local Shazams across [City] and our club date on [Date] just sold out. If listener response warrants, we'd be thrilled to be considered for regular daytime medium rotation."*
+3. Moving from light specialty play to medium daytime rotation increases your weekly broadcast impressions by 400%.
 <!-- WARROOM:END -->
 
-## COMMUNITY PROMPTS
+## FREQUENCY DOMINION COMMUNITY DRILLS
 
-1. **Your first add's 72-hour protocol.** Post the thank-you you sent 24h after your add. The group checks the tone.
-2. **The three asks.** Post your top-3 cascade asks for your best add. The group rates: casting or favor?
-3. **Your scale gate.** Post: current adds, campaign size, trigger for the next size. Numbers only.
-4. **The cascade win.** Post one add that turned into two or three more. The group wants the exact path.
+1. Share your primary Anchor Station add and the five Cascade targets you have mapped around it.
+2. Post your Cascade Pitch copy for critique. Ensure the anchor add is highlighted in the first 10 words.
+3. Celebrate a peer's recent station add by helping them identify adjacent sibling stations to target in their expansion loop.
+4. Discuss your strategy for converting specialty show spins into permanent daytime rotation upgrades.

@@ -5,4 +5,4 @@
 - 4.3 The 3-Touch Follow-Up System — Persistence Without the Stench
 - 4.4 Adds & Next-Market Expansion Loops — One Station Into a Cascade
 
-**Every lesson contains:** full video script, implementation drills, fillable template, war-room notes PDF, and community prompts.
+**Every lesson contains:** Masterclass Directive & Strategic Blueprint, Implementation Drills & Pass Standards, Action Worksheet & Operational Protocol, Confidential War-Room Tactical Directives (in publication-grade PDF), and Community Drills.

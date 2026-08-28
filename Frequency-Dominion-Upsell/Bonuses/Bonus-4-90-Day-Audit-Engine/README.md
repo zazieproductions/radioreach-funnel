@@ -1,3 +1,7 @@
 # Bonus 4 — The 90-Day Airplay-to-Income Audit Engine
 
-Five files: the scorecard (Module 6.4), daily spin log, weekly touch log, and airplay income ledger. Run the audit every 90 days: pull data, score 1–10 per column, name the weakest column, plan the next quarter.
+**Files:** `90-Day-Airplay-to-Income-Audit-Engine.pdf` & `90-Day-Airplay-to-Income-Audit-Engine.md`
+
+The complete operational governance system: 50-point quarterly audit scorecard, daily spin verification log, weekly touch tracker, six-lane revenue attribution ledger, and the ascension roadmap. Formatted in publication-grade PDF and Markdown.
+
+*Frequency Dominion · Bonus 4 · $97 value*

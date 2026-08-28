@@ -5,4 +5,4 @@
 - 6.3 The Release Calendar That Dominates Quarters
 - 6.4 The 90-Day Audit & Ascension Engine — Scale to $1M
 
-**Every lesson contains:** full video script, implementation drills, fillable template, war-room notes PDF, and community prompts.
+**Every lesson contains:** Masterclass Directive & Strategic Blueprint, Implementation Drills & Pass Standards, Action Worksheet & Operational Protocol, Confidential War-Room Tactical Directives (in publication-grade PDF), and Community Drills.

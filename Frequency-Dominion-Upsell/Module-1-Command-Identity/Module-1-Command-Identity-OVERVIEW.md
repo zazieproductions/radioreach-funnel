@@ -5,4 +5,4 @@
 - 1.3 The Proof Stack — Build the Evidence Vault That Makes PDs Say Yes
 - 1.4 The No-Spam Oath & Identity Shift — From Beggar to Frequency Owner
 
-**Every lesson contains:** full video script, implementation drills, fillable template, war-room notes PDF, and community prompts.
+**Every lesson contains:** Masterclass Directive & Strategic Blueprint, Implementation Drills & Pass Standards, Action Worksheet & Operational Protocol, Confidential War-Room Tactical Directives (in publication-grade PDF), and Community Drills.

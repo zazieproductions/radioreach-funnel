@@ -1,75 +1,64 @@
 # 4.2 First Sends — Timing, Waves, and the 4-Hour Rule
 
-> **THE ONE-LINE TRUTH:** When you send matters as much as what you send. Two waves, three days, and a 4-hour failure rule turn a scattergun into a surgical strike.
+> **THE ONE-LINE TRUTH:** When you dispatch a payload matters as much as what is inside it. Two waves, Tuesday/Wednesday morning timing, and the four-hour monitoring window dictate initial conversion.
 
-## VIDEO SCRIPT (ready to record · runtime ≈ 08:40)
+## MASTERCLASS DIRECTIVE & STRATEGIC BLUEPRINT
 
-**[0:00 – 0:50] COLD OPEN — face to camera, stopwatch on screen.**
-"Here's the most underrated piece of your entire campaign: the send date. A Tuesday 9:17am local send gets read. A Friday 6:31pm send gets archived. A Sunday 2am send gets marked. Timing isn't superstition — it's the difference between a message and a burial."
+### Strategic Foundation & Operational Reality
+Dispatched at the wrong hour, the most brilliant pitch email on earth will drown unnoticed beneath hundreds of corporate press releases, label solicitations, and administrative memos.
 
-**[0:50 – 2:20] THE WAVE SYSTEM — two waves, not one big one.**
-"Wave one: your top 10 A-tier stations. Wave two: the next 10. Fire wave one Tuesday, wave two Thursday. Why two waves? Three reasons. One: you protect against a campaign error — if the EPK link is broken, you find out after 10 sends, not 20. Two: first-reply data — wave one's replies tell you exactly which angle was wrong before wave two fires. Three: rhythm — a 15-minute send session per wave keeps your daily 20 minutes honest. One giant send is for spammers. Two waves is for operators."
+Radio programming departments operate on a universal industry cadence:
+- **Monday:** The weekend recovery and programming audit. Music directors compile weekend ratings data, reconcile commercial logs, and handle administrative fires. Cold pitches sent Monday morning are deleted or ignored.
+- **Tuesday Morning (The Sacred Window):** The weekly Music Meeting window. Commercial, AAA, and major non-comm stations review candidates for the weekly add board. Pitches landing between **9:15 AM and 10:30 AM in the station's local time zone** sit right at the top of the inbox when the programmer sits down with their coffee.
+- **Wednesday Morning (The Secondary Window):** College, community, and alternative specialty music directors review new music submissions and update their weekly charts for NACC reporting.
+- **Friday Afternoon (The Cemetery):** Programmers are wrapping up production and heading into weekend shifts. Any pitch sent Friday afternoon is buried under 300 emails by Monday morning.
 
-**[2:20 – 4:00] THE 4-HOUR RULE — the only send-window law.**
-"Every station has a local time zone. Every PD has a reading hour: typically 9am–11am in *their* market. The 4-hour rule: never schedule a send more than 4 hours away from the station's local morning. If their local time is 3am, your send is raw noise. Map every station's timezone. Schedule per station. A station in California gets a 9am Pacific send — computed from your clock, not a batch at your convenience. This one change has produced more opens than any subject line."
+### The Two-Wave Firing Strategy
+Do not dispatch all 20 War Room emails in a single manic morning. Execute in **Two Staggered Waves**:
+- **Wave 1 (Day 1 — Tuesday Morning, 9:30 AM Local):** Target your **Top 10 Tier-1 Stations** (your highest-conviction Ring 1 and Ring 2 targets). These receive maximum focus, immediate monitoring, and real-time dialogue handling.
+- **Wave 2 (Day 3 — Thursday Morning, 9:30 AM Local):** Target your **Remaining 10 Stations** (Tier-2 regional targets and tour corridor targets). Staggering allows you to incorporate any initial technical feedback or diagnostic insights gained from Wave 1.
 
-**[4:00 – 5:50] THE SCREENSHOT PRACTICE — the open-door diagnostics.**
-"Here's the discipline after every wave: within 24 hours, check what actually happened. Opened? Clicked? Replied? Bounced? Each outcome has a meaning. No open = subject or sender problem. Open no reply = pitch problem. Reply = relationship problem solved — you're in. Bounce = the contact data was wrong (the RadioReach vault is real; *your* copy can still have typos). Log every outcome. Never guess. Data replaces ego."
+### The Four-Hour Monitoring Window
+When you hit send on a wave, you do not abandon your workstation. You initiate the **Four-Hour Monitoring Window**.
 
-**[5:50 – 7:20] THE NEVER-SEND LIST — the six death windows.**
-"Never send on: Friday after 11am local (PDs are in weekend mode, your email waits till Monday and dies), Saturday, Sunday (unless a specialty host specifically says so), the night before a holiday Monday, the morning of a major industry event, and the last week of the month at a commercial station (ratings windows — they're busy, and a random pitch is a 'no' by default). Every one of these is a dead inbox. Avoid them and your opens grow without a single new word."
+If a programmer opens your email, clicks the streaming link, and replies with a question or asset request, their buying intent is active at that exact second. A response delivered within 15 minutes converts to an immediate on-air add at 4x the rate of a response sent the following day. Maintain rapid response readiness for clean broadcast WAV deliveries, lyric clarifications, or interview scheduling.
 
-**[7:20 – 8:10] THE DAY-ONE RITUAL — what happens after wave one.**
-"The moment you fire wave one, the campaign begins: Day one — log all 10 sends in the war room. Day two — check opens, log, no reactions yet. Day three — the first follow-up cycle starts per your 3-touch system (next lesson). Day four — you're already executing. The 21-day campaign runs *the moment wave one fires*. That's the whole secret: it's not a launch. It's a march."
+## IMPLEMENTATION DRILLS & PASS STANDARDS
 
-**[8:10 – 8:40] CLOSE — module card.**
-"Wave one is live. Next: the follow-up system — the exact three-touch sequence that turns 20 emails into 11 adds. The hidden engine of the entire campaign."
+- **Drill 1 — Time Zone Synchronization (20 min).** Organize your 20 War Room stations by local time zone (Eastern, Central, Mountain, Pacific). Calculate the exact dispatch time in your home time zone for each station to ensure delivery at 9:30 AM local.
+- **Drill 2 — Wave 1 & Wave 2 Cohort Assignment (15 min).** Assign 10 stations to Wave 1 (Tuesday) and 10 stations to Wave 2 (Thursday) in the First-Send Launch Log below.
+- **Drill 3 — Dispatch Simulation & Template Staging (25 min).** Pre-populate email drafts for all 10 Wave 1 targets with verified subject lines, customized 90-word body copy, and recipient inboxes.
+- **Drill 4 — The Four-Hour Readiness Drill (15 min).** Prepare your rapid-response asset folder on your local desktop: Broadcast WAV, high-res promo image, FCC clean lyrics PDF, and 1-paragraph show date brief ready for instantaneous dispatch.
 
-## IMPLEMENTATION DRILLS
+## ACTION WORKSHEET & OPERATIONAL PROTOCOL
 
-- **Drill 1 — The Wave Grid (30 min).** Split your 20 stations into wave one (top 10) and wave two (next 10), assigned to Tue/Thu. **Pass standard:** a dated wave plan for your exact campaign calendar.
-- **Drill 2 — The Timezone Map (20 min).** Fill the local-send time column for every station on your grid. **Pass standard:** every row has a computed send time in *your* clock, within the 4-hour rule.
-- **Drill 3 — The Six Death Windows Check (10 min).** Verify your wave dates clear all six death windows. **Pass standard:** zero conflicts, or a documented exception.
-- **Drill 4 — The 24-Hour Diagnostic (daily after each wave).** Log opens, clicks, replies, bounces in your war room. **Pass standard:** 100% of sends have an outcome row within 24h.
+**Protocol Document:** `FIRST-SEND DISPATCH LOG & TIME ZONE SCHEDULE`
 
-## FILLABLE TEMPLATE
+Complete the structured table below as part of your lesson implementation. This worksheet directly replaces legacy spreadsheets with a publication-grade execution protocol.
 
-**Template file:** `Templates/T4.2-First-Send-Wave.csv` — wave, date, local send time, subject line, outcome, diagnostic. The launch log.
+| Target Station | Decision Maker | Local Time Zone | Scheduled Dispatch Time | Wave Cohort | Initial Outcome (Day 1-4) |
+| --- | --- | --- | --- | --- | --- |
+| WLUW 88.7 FM | Sarah Jenkins (MD) | Central (CST) | Tuesday 9:30 AM CST | Wave 1 (Priority) | Opened 10:14 AM; Link Clicked |
+| WNUR 89.3 FM | Alex Rivera (MD) | Central (CST) | Tuesday 9:30 AM CST | Wave 1 (Priority) | Replied 11:20 AM; WAV Requested |
+| WMSE 91.7 FM | Tom Crawford (PD) | Central (CST) | Tuesday 9:30 AM CST | Wave 1 (Priority) | Awaiting Touch 2 Follow-Up |
+| WXPN 88.5 FM | Bruce Warren (PD) | Eastern (EST) | Thursday 9:30 AM EST | Wave 2 (Regional) | Opened 9:45 AM; No Reply |
+| KUTX 98.9 FM | Rick McNulty (MD) | Central (CST) | Thursday 9:30 AM CST | Wave 2 (Regional) | Awaiting Touch 2 Follow-Up |
 
 ## WAR-ROOM NOTES
 
 <!-- WARROOM:START -->
-**WAR-ROOM NOTES — 4.2 First Sends**
+**WAR-ROOM DIRECTIVE — 4.2 First Sends — Timing, Waves, and the 4-Hour Rule**
 
-**THE TWO-WAVE ARGUMENT IS A RISK MODEL, NOT A RITUAL**
-
-The dominant risk in any campaign is *unvalidated assets*. Wave one's job is to validate: does the link resolve, does the audio attach, does the pitch open, does the subject convert? By firing the top 10 first, every failure surface is tested on the warmest converts — the ones most likely to forgive a glitch and least likely to be a loss if a link dies. Wave two then fires with lessons learned. One big send doesn't just risk a broken link to 20 stations; it risks your *entire reputation* across the market, because a PD who saw a broken payload remembers it.
-
-**THE 4-HOUR RULE IS A DIAGNOSTIC, TOO**
-
-If a message arrives 9 hours after the PD's local morning, the open rate drops regardless of content — which means you can't attribute a "no open" to your subject line when the real cause was the timestamp. The 4-hour rule keeps your data clean so diagnostic skills work. Timezone discipline isn't courtesy; it's experimental hygiene.
-
-**THE FRIDAY 11AM CUTOFF — WHY IT'S A HARD RULE**
-
-PDs read Monday–Thursday with intent. Friday reads are skimmed, Saturday/Sunday don't exist, and Monday-morning email is a *fresh* inbox — not a stale one. A Friday-afternoon miss becomes a Monday-morning burial: six-days-old, three inches down the queue, zero context. Scheduled sends that respect the inbox behave like journalism, not cold outreach.
-
-**THE OPEN DIAGNOSTIC TREE (MEMORIZE)**
-
-- Low opens, A-tier: subject line → rewrite engine.
-- Low opens, B-tier: sender identity / personalization → add station-specific layer.
-- Opens, zero replies: pitch body → tighten proof ask, kill the fat.
-- Clicks, zero replies: EPK or audio friction → run the 60-second test again.
-- Bounces: contact data → re-verify before re-send.
-- Replies with questions: you're in. Do the 12-minute call (Module 5.1), not another email.
-
-**THE CAMPAIGN CLOCK STARTS AT WAVE ONE**
-
-Most artists treat "campaign" as one event and "follow-up" as an afterthought. Operators treat the first send as *t_minus zero* on a 21-day operation: follow-up touches are pre-dated in the war room before wave one fires. If your touch-two and touch-three dates aren't already on the calendar, you haven't started a campaign — you've sent an email.
+**DIAGNOSTIC TRIAGE: INTERPRETING INITIAL RESULTS**
+Between Day 1 and Day 7, monitor your initial send metrics with clinical detachment:
+1. **Low Open Rates (< 20%):** Indicates your subject line was truncated on mobile, your sender domain triggered a spam quarantine filter, or the gatekeeper's email address is obsolete. Re-verify the contact and test an alternate subject line archetype.
+2. **High Open Rate, Zero Link Clicks (> 50% open, 0% click):** Indicates your subject line worked, but your opening two sentences in the 90-word pitch were boring or irrelevant. Sharpen the hook and tighten the proof line.
+3. **High Link Clicks, Zero Replies:** Indicates the programmer opened the pitch, listened to the song, but either found a format mismatch or felt no urgency to reply. This is the exact scenario designed for the **Touch 2 Asset Drop** in Lesson 4.3.
 <!-- WARROOM:END -->
 
-## COMMUNITY PROMPTS
+## FREQUENCY DOMINION COMMUNITY DRILLS
 
-1. **Your wave grid.** Post your wave-one/wave-two plan with dates. The group checks death-window violations.
-2. **The timezone map.** Post your most exotic send-time calculation. Did you catch the 3-hour offset?
-3. **Diagnostic logs.** Post your 24-hour outcome table after wave one. Data or it didn't happen.
-4. **The lesson learned.** One sentence: what did your first send teach you about your market? Nobody skips this one.
+1. Announce the official dispatch of your Wave 1 payload in the community forum.
+2. Report your 24-hour open and engagement metrics from Wave 1.
+3. Did you receive an immediate reply or asset request during your 4-Hour Monitoring Window? Share the outcome.
+4. Discuss any unexpected delivery bounces and how you resolved the contact data.
