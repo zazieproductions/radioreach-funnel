@@ -1,66 +1,75 @@
 # 6.4 The 90-Day Audit & Ascension Engine — Scale to $1M
 
-> **THE ONE-LINE TRUTH:** What gets measured gets dominated. The 90-day audit is the scoreboard; the ascension engine is the scaling system that turns a local operator into a market force — and a market force into a $1M funnel.
+> **THE ONE-LINE TRUTH:** What gets measured gets dominated. The 90-Day Audit is the executive instrument panel; the Ascension Engine scales a localized radio footprint into a seven-figure independent music enterprise.
 
-## VIDEO SCRIPT (ready to record · runtime ≈ 09:30)
+## MASTERCLASS DIRECTIVE & STRATEGIC BLUEPRINT
 
-**[0:00 – 0:50] COLD OPEN — face to camera, scoreboard on screen.**
-"You've built the identity, the targets, the weapons, the campaign, the relationships, and the revenue lanes. One thing left: the scoreboard. Because here's the truth — you can't compound what you don't measure. The 90-day audit is the instrument panel. The ascension engine is the throttle."
+### Strategic Foundation & Operational Reality
+You have built the identity, the target architecture, the pitch weapons, the 21-day campaign discipline, the human relationship network, and the proof compounding loop. You now possess an operational machine that 99% of musicians and record labels do not understand.
 
-**[0:50 – 2:20] THE 90-DAY AUDIT SCORECARD — on-screen: the five columns.**
-"Every 90 days, one hour, five columns. Column one: momentum — adds, replies, touches logged, proof assets produced. Column two: reach — stations contacted, markets entered, cities covered. Column three: revenue — lane totals, attributed amounts. Column four: relationship — 30/10/10 portfolio health: allies, warm, active. Column five: system — calendar adherence, gates passed, ledger gaps. Score each 1–10. Total out of 50. This is the number that tells you if the machine is *growing or stalling*."
+The final element of the Frequency Dominion operating system is the **Executive Governance Layer**.
 
-**[2:20 – 4:00] THE AUDIT RITUAL — 60 minutes, quarterly.**
-"Minute 1–10: pull the data — ledger, war room, cal. Minute 10–25: score each column honestly. Minute 25–40: the three findings — what worked, what didn't, what's the ONE change. Minute 40–55: the next quarter's plan — the calendar adjustment, the target expansion, the lane focus. Minute 55–60: the commitment — sign the next quarter's operating memo. One hour. Four times a year. This is how a hobby becomes an operation and an operation becomes an empire."
+A business that does not audit its performance metrics cannot compound. Every 90 days, at the conclusion of each quarterly campaign cycle, the Dominion operator conducts a clinical, 60-minute **90-Day Strategic Audit**. You analyze the hard data, identify underperforming variables, double down on high-converting market sectors, and scale your independent music enterprise toward sustainable six- and seven-figure operations.
 
-**[4:00 – 5:50] THE ASCENSION LADDER — the three stages.**
-"Stage one: the Operator — 20 stations, 3-touch campaign, 5–10 adds, first revenue lane. Stage two: the Dominant — 3 releases a year, 20–40 stations per campaign, 20+ adds, 3 active revenue lanes, a visible proof drop every Friday. Stage three: the Empire — 80+ stations across 5 markets, a team (VA, assistant, campaign runner), 10+ adds per release, $100K+ attributable annual revenue. The ladder is not prestige — it's capacity. You ascend when the system's data says you're ready: hit the gate numbers, then scale. Never scale a breaking machine. The gate is the law."
+### The 50-Point Quarterly Audit Scorecard
+The 90-Day Audit evaluates your performance across five core enterprise dimensions, scored from 1 to 10:
+1. **Dimension 1: Momentum & Output (10 Pts Max):** Were all planned execution blocks completed? Did you dispatch all 20 War Room targets? Were 100% of Touch 2 and Touch 3 follow-ups executed on schedule?
+2. **Dimension 2: Reach & Cume Expansion (10 Pts Max):** How many confirmed station adds were achieved? How many gross weekly broadcast impressions were generated? Did you successfully expand into new geographic rings?
+3. **Dimension 3: Revenue & Monetization (10 Pts Max):** What was the gross income attributed across the Six Revenue Lanes? Did live tour guarantees increase? Were PRO and SoundExchange registrations verified?
+4. **Dimension 4: Relational Portfolio Health (10 Pts Max):** Were 100% of adds acknowledged with the Thank-You Economy protocol? Did you mail physical cards? How many stations transitioned into the 30/10/10 Ally Engine?
+5. **Dimension 5: Systems & Technical Compliance (10 Pts Max):** Did any delivery links break? Were all audio masters compliant with LUFS and True Peak specs? Was your tracking ledger maintained daily without gaps?
 
-**[5:50 – 7:30] THE ASCENSION GATES — the honest math.**
-"Gate one: Operator to Dominant — 3 consecutive campaigns at 5+ adds each, 1 revenue lane logging, 90-day audit score 30+. Gate two: Dominant to Empire — 3 releases at 15+ adds each, 3 revenue lanes measured, audit score 40+, and at least one market with 10+ active allies. The gates are not suggestions. If the audit says 24/50, you do not scale — you *repair the weakest column*. Scaling a 24/50 machine multiplies the weakness. Repairing it first multiplies the strength. That's the whole engine."
+### Total Benchmark Targets:
+- **40 – 50 Points:** Elite Operator Execution. High compounding momentum. Accelerate budgets and expand regional corridors.
+- **30 – 39 Points:** Functional Operation. Minor leaks in follow-up or monetization. Tighten execution discipline.
+- **< 30 Points:** System Breakdown. Re-audit Module 1 and Module 4 fundamentals before deploying additional capital.
 
-**[7:30 – 8:40] THE $1M FRAME — the funnel's endgame.**
-"One recurring idea to close: this system is not about radio. It's about proven, compounding, attributable *demand*. Every add is a proof unit. Every proof unit converts into the next lane. When the proof units reach scale (100+ adds, 10+ markets, 5 revenue lanes), the artist doesn't need to ask for the deal — the deal asks. That's what happens when an independent builds a machine instead of a dream. That's the $1M funnel. It works the same way for you as it works for the whole system: build the machine, feed it 90 days at a time, let the compounding do the rest."
+### The Ascension Engine: Scaling to the $1M Enterprise
+Once you achieve consistent regional airplay dominance, you ascend through the **Three Stages of Independence**:
+- **Stage 1: The Operator ($25k – $75k Annual):** Self-executes the 21-day campaign, sells out regional 200–300 cap rooms, collects initial sync and PRO royalties.
+- **Stage 2: The Syndicate ($100k – $350k Annual):** Recruits a dedicated virtual campaign manager or independent radio promoter to run the War Room playbook. Expands tour corridor across 15 markets. Syndicates regular festival appearances.
+- **Stage 3: The Sovereign Enterprise ($500k – $1M+ Annual):** Owns 100% of masters and publishing. Operates an automated release and licensing engine. Monetizes direct-to-consumer patron memberships, recurring catalog sync licenses, high-margin touring, and radio-backed regional brand partnerships.
 
-**[8:40 – 9:30] CLOSE — the graduation card.**
-"You've completed Frequency Dominion. Do the audit this week. Sign the next quarter's memo. Then run the next campaign — and the one after. This isn't the end. It's the first day of the empire. Go dominate."
+## IMPLEMENTATION DRILLS & PASS STANDARDS
 
-## IMPLEMENTATION DRILLS
+- **Drill 1 — The 60-Minute Quarterly Audit Ritual (45 min).** Pull your campaign logs, Spinitron reports, bank statements, and ticketing accounts. Score your performance across all five dimensions using the Scorecard below.
+- **Drill 2 — The Single Bottleneck Identification (15 min).** Identify the single lowest-scoring dimension on your scorecard. Write an explicit, 3-point remediation directive to correct this bottleneck in the upcoming quarter.
+- **Drill 3 — The 90-Day Operating Memo (20 min).** Draft a one-page executive memo summarizing: *Q1 Hard Results, Key Failures, Q2 Targets, and Next Quarter's Resource Allocation.*
+- **Drill 4 — The Ascension Milestone Lock (15 min).** Define your primary 12-month commercial revenue milestone (e.g., $100k gross revenue or 50 verified national station adds) and post your commitment in the community archive.
 
-- **Drill 1 — The 90-Day Data Pull (30 min).** Gather all your data: war room, ledger, proof stack, calendar. **Pass standard:** five columns, every cell populated — zeros are data; blanks are lies.
-- **Drill 2 — The Scorecard (30 min).** Score 1–10 per column in `Templates/T6.4-90-Day-Audit-Scorecard.csv`. **Pass standard:** a total, a one-paragraph narrative, and one named weak column.
-- **Drill 3 — The Ascension Gate Check (15 min).** Compare your numbers to the gate math. **Pass standard:** you know your stage, your gate status, and the exact gate gap.
-- **Drill 4 — The Next Quarter Memo (30 min).** Write the operating memo: calendar dates, target expansion, lane focus, one change, one commitment. **Pass standard:** signed, dated, executed for 90 days.
+## ACTION WORKSHEET & OPERATIONAL PROTOCOL
 
-## FILLABLE TEMPLATE
+**Protocol Document:** `90-DAY AUDIT SCORECARD & ASCENSION DASHBOARD`
 
-**Template file:** `Templates/T6.4-90-Day-Audit-Scorecard.csv` — 5 columns × 1–10, total, findings, next-quarter plan. The instrument panel of the empire. **Bonus 4** ships it with trackers: `Bonuses/Bonus-4-90-Day-Audit-Engine/`.
+Complete the structured table below as part of your lesson implementation. This worksheet directly replaces legacy spreadsheets with a publication-grade execution protocol.
+
+| Evaluation Dimension | Score (1-10) | Quarterly Evidence & Hard Metrics | Operational Deficiency Identified | Next-Quarter Remediation Plan |
+| --- | --- | --- | --- | --- |
+| 1. Momentum & Execution | 9 / 10 | All 20 stations pitched; 100% touches sent | Slight delay on Touch 2 for Wave 2 | Pre-schedule all Touch 2 drafts at launch |
+| 2. Reach & Station Adds | 8 / 10 | 5 confirmed station adds (25% conversion) | Zero adds in Ring 4 distant corridor | Double down on Ring 1 & Ring 2 college hubs |
+| 3. Revenue Attribution | 7 / 10 | $8,400 gross across tickets & sync lead | PRO live performance setlists unlogged | File ASCAP OnStage report for all tour gigs |
+| 4. Relational Health | 9 / 10 | 100% thank-yous sent; 5 physical cards sent | Failed to get DJ phone numbers | Execute Lesson 5.1 Call Sheets next cycle |
+| 5. Systems Compliance | 10 / 10 | Zero link errors, masters 100% compliant | None | Maintain exact audio naming standards |
+| OVERALL QUARTERLY SCORE | 43 / 50 | Elite Operator Tier — Compounding Active | Live concert monetization gap | Scale venue guarantees using radio proof |
 
 ## WAR-ROOM NOTES
 
 <!-- WARROOM:START -->
-**WAR-ROOM NOTES — 6.4 The 90-Day Audit & Ascension Engine**
+**WAR-ROOM DIRECTIVE — 6.4 The 90-Day Audit & Ascension Engine — Scale to $1M**
 
-**THE AUDIT IS THE SYSTEM'S MEMORY**
+**THE ANNUAL OPERATING OATH**
+Dominion is not a temporary promotional sprint; it is an enduring standard of professional conduct. You have discarded the mindset of the supplicant artist begging for validation from an uncaring industry. You are an architect of broadcast distribution, a master of relationship compounding, and the sovereign owner of your creative catalog.
 
-The marketing industry's biggest failure mode is *reactive amnesia*: every launch feels like the first, every mistake repeats, every win is never re-engineered. The 90-day audit is the antidote — a fixed cadence that forces the system to remember: what worked, what failed, what the data says. Four audits a year means four opportunities to correct course. Artists who audit annually run on one correction cycle per year; operators run on four. That's the compounding difference.
-
-**THE WEAKEST-COLUMN RULE (THE ACTUAL SCALING LAW)**
-
-The audit scorecard is deliberately *unbalanced* — it measures five independent systems. Repairing the weakest column first is the second-order optimization that matters: a machine that's 9/10 in momentum, 9/10 in reach, but 2/10 in revenue is a machine burning campaign effort without converting it. The weakest-column rule converts the audit from a report card into a *priority engine*: your next 90 days have exactly one main job. This is how a 24/50 machine becomes a 40/50 machine in two quarters — one column at a time.
-
-**THE ASCENSION GATES ARE LANE-CHANGE CONTROLS, NOT TROPHIES**
-
-The gates (Operator → Dominant → Empire) exist to prevent the classic fatal move: scaling a machine that hasn't proven its conversions. 20 stations at 5 adds = proven targeting. 3 releases at 15 adds = proven weapon + campaign. Portfolio 10+ active allies = proven relationships. Each gate is a *solved system*. Ascending on hope — not on gates — is how artists end up paying for a team that runs a broken machine faster.
-
-**THE $1M FRAME (THE FUNNEL'S ENDGAME)**
-
-Radio is the *most verifiable demand engine an independent artist can build*: every add is publicly checkable, every spin is timestamped, every market is a data point. At scale, this proof is the currency of every seven-figure door: placements, sponsorships, syncs, labels, managers, and ascension offers. The artist's job is not to chase the seven-figure door — it's to build the proof that makes the door open for them. That's the entire course's architecture, and it's the funnel's endgame: the artists who dominate frequency become the funnel's highest-LTV customers, and each one is a live advertisement for the system.
+**THE OPERATOR'S FINAL DIRECTIVE:**
+1. Execute the system without emotional attachment to immediate outcomes.
+2. Treat every gatekeeper as a professional customer worthy of dignity and respect.
+3. Compound every victory into permanent commercial leverage.
+4. Own the frequency.
 <!-- WARROOM:END -->
 
-## COMMUNITY PROMPTS
+## FREQUENCY DOMINION COMMUNITY DRILLS
 
-1. **Your audit score.** Post your 5-column scorecard total and your weakest column. Full honesty or the engine doesn't work.
-2. **Your gate status.** Post your stage, your gate numbers, and the exact gap. Numbers only.
-3. **Your one column.** Post the one column you're repairing this quarter and the plan. The group holds you to it.
-4. **Your graduation memo.** Post your signed next-quarter operating memo: one change, one commitment. This is the course's final assignment.
+1. Post your final 50-Point 90-Day Audit Scorecard and announce your composite score.
+2. Share your primary commercial revenue milestone for the upcoming 12-month ascension cycle.
+3. Reflect on your transformation from an aspiring artist hoping for airplay into a sovereign Frequency Owner.
+4. Commit to supporting your fellow operators in the private Dominion network.

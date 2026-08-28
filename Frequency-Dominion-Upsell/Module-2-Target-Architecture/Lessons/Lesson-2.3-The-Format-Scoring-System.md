@@ -1,70 +1,91 @@
 # 2.3 The Format Scoring System — Rank Every Station Like an Analyst
 
-> **THE ONE-LINE TRUTH:** Format fit is 30% of every radio decision. Artists who score formats stop wasting bullets — with 6 degrees of precision they stop wasting entire months.
+> **THE ONE-LINE TRUTH:** Format fit accounts for 50% of every programming rejection. Scoring stations with mathematical rigor prevents you from wasting A-tier pitches on zero-probability rooms.
 
-## VIDEO SCRIPT (ready to record · runtime ≈ 09:20)
+## MASTERCLASS DIRECTIVE & STRATEGIC BLUEPRINT
 
-**[0:00 – 0:50] COLD OPEN — face to camera.**
-"You've been pitching stations you have no business pitching. A country station with a trap song. A jazz station with a pop single. A Christian station with 'explicit' tags. Every mismatch isn't just a no — it's a burned well and a week of your life. Today you learn to score."
+### Strategic Foundation & Operational Reality
+The most demoralizing experience in music promotion is sending 100 passionate emails and receiving 100 deafening silences. When this happens, artists inevitably conclude that their art is inadequate. In 90% of cases, the music was never the issue; the campaign suffered from catastrophic **format misalignment**.
 
-**[0:50 – 2:10] THE 100-POINT FORMAT SCORECARD — screen-share the six factors.**
-"Six factors. One hundred points. Factor one — Format fit, 30 points: does this song sound like what the station programs? Factor two — Relationship, 15: do you have anyone there? Factor three — Local tie, 10: story, dates, hometown? Factor four — Timing, 10: is there a reason right now? Factor five — Reach, 10: how many listeners? Factor six — Response history, 25: have they replied to you, ever? Add it up. That number is your station score."
+Radio formats are rigid, mathematically optimized consumer products. An Urban Contemporary programmer will not play an Americana folk ballad, no matter how emotionally profound the lyrics are. A Classical public station will not air an 808-heavy trap single.
 
-**[2:10 – 3:30] THE TWELVE-POINT FIT CHECK — the real analyst test.**
-"Before you score, run the 12-point fit check. Tempo window — does your BPM sit in their rotation? Energy — loud or calm, and which does the format want? Lyrics — radio-friendly, no unexplained pauses in the chorus for radio? Length — 3:00–3:45 or the format's edit? Intro — is your first hook inside 12 seconds? Language — explicit or clean edits delivered? Artist name — easy to say on air? Song title — safe to announce? Production — radio-loud master, not bedroom mix? Position — does it slot into a specialty show if not main rotation? Story — can the DJ talk about it for 10 seconds? Proof — can the PD verify you're real? Six of twelve means probably not. Ten of twelve means format fit."
+To eliminate wasted effort, Dominion operators evaluate every prospective station through a clinical **100-Point Format Scoring System** across six weighted factors before a single email is dispatched.
 
-**[3:30 – 5:00] THE FORMAT LIBRARY — what the columns mean, screen-share.**
-"Formats are not genres. A 'Country' station can play a hip-hop crossover. 'AAA' loves a genre-blending record. 'College' will play anything with an edge. 'Specialty' (late-night, local-focus, genre shows) has the highest acceptance rate in radio. Build your format column from the station's own playlist — last 10 songs, energy, era. Judge what they actually play, not what they say they are."
+### The Six Weighted Scoring Factors (100-Point Scale)
+1. **Genre & Sonic Architecture Compatibility (30 Points Max):** Does your song's instrumentation, tempo, vocal production, and dynamic range match the current charting records on the station's playlist?
+   - *30 pts:* Perfect sonic twin of core charting rotation.
+   - *20 pts:* Compatible sub-genre fitting evening specialty blocks.
+   - *10 pts:* Marginal fit requiring specialized programming context.
+   - *0 pts:* Glaring format clash.
+2. **Geographic Proximity & Regional Equity (20 Points Max):** Station proximity to your home market or active tour corridor.
+   - *20 pts:* Ring 1 home city or active local venue market.
+   - *15 pts:* Ring 2 commuter zone (30-90 miles).
+   - *10 pts:* Ring 3 regional tour corridor.
+   - *0 pts:* Distant market with zero tour or regional narrative.
+3. **Verified Individual Human Contact (15 Points Max):** Quality of gatekeeper access.
+   - *15 pts:* Direct email address of named Music Director or specialty show host.
+   - *10 pts:* Direct email of Assistant MD or verified personal social channel.
+   - *5 pts:* General music department inbox (`music@station.org`).
+   - *0 pts:* Generic `info@` or broken online submission form.
+4. **Historical Appetite for Independent Adds (15 Points Max):** Does the station actively add independent, self-released artists, or do they exclusively air major-label syndicated priorities?
+   - *15 pts:* Verified independent artist spins documented on Spinitron / playlist.
+   - *10 pts:* Regular dedicated weekly local/indie music spotlight hour.
+   - *5 pts:* Occasional off-peak independent spins.
+   - *0 pts:* 100% corporate syndication with zero local curation power.
+5. **Broadcast Clock & Daypart Viability (10 Points Max):** Run-time and tempo compliance.
+   - *10 pts:* Run-time between 2:40 and 3:30; immediate vocal entry within 15 seconds.
+   - *5 pts:* Run-time up to 4:00 requiring specialized editing.
+   - *0 pts:* Exceeds 4:30 or features extended instrumental ambient passages.
+6. **Commercial Counter-Programming Value (10 Points Max):** Does your track provide the station with a unique sonic angle to compete against rival stations?
+   - *10 pts:* Fills an unserved niche that drives fresh listener curiosity.
+   - *5 pts:* Standard format entry.
+   - *0 pts:* Redundant clone of heavily saturated charting tracks.
 
-**[5:00 – 6:30] THE SCORING RUN — screen-share template T2.3.**
-"Open the scorecard. For each station on your map: 12-point fit check, then the six factors, then the total. Sort descending. The top 20 become your campaign. The bottom 100 don't get a bullet — they get a 'monitor' status and a recheck in 90 days. This is how you stop guessing."
+### Tier Classification & Resource Allocation
+- **Tier 1 (85 – 100 Points) — Priority Firing Squad:** High-priority A-list targets. Receive customized 3-layer subject lines, tailored audio packages, phone follow-ups, and tour integration.
+- **Tier 2 (70 – 84 Points) — Secondary Wave:** Reliable B-list targets. Receive standard 90-word pitches and 3-touch follow-up sequences.
+- **Tier 3 (50 – 69 Points) — Nurture / Hold Queue:** Log in database for future catalog releases or after S-tier proof has been established.
+- **Tier 4 (< 50 Points) — The Dead Zone:** **DO NOT CONTACT.** Pitching these stations wastes time and damages sender reputation.
 
-**[6:30 – 7:50] THE FIX-VS-FILTER RULE — the executive decision.**
-"Two ways to handle a low score. Fixable: low local tie (book a date), low relationship (visit), low timing (wait for release), low response (new subject line). Unfixable: format mismatch (wrong song for that format), zero reach (dead station), no human (verify later). Fix what's fixable. Filter what isn't. A 62 that can become 82 beats a 84 that is what it is."
+## IMPLEMENTATION DRILLS & PASS STANDARDS
 
-**[7:50 – 9:20] CLOSE — module card.**
-"Scored? Good. Now build the war room — the 20-station command center that turns scores into a planned offense."
+- **Drill 1 — The Playlist Stream Audit (30 min).** Select 10 stations from your Hometown Heat Map. Pull their last 7 days of playlist history via their website or Spinitron. Verify their actual sound versus their marketing slogan.
+- **Drill 2 — The 100-Point Scoring Calibration (30 min).** Score all 10 stations using the Format Scorecard Worksheet below. Calculate total points and assign Tier classifications.
+- **Drill 3 — The Dead Zone Purge (10 min).** Ruthlessly identify and strike any station scoring below 50 points from your active 21-day campaign target list.
+- **Drill 4 — The Tier 1 Tactical Plan (15 min).** For your top 3 scoring stations (90+ points), write a one-sentence justification detailing why their music director cannot afford to ignore your submission.
 
-## IMPLEMENTATION DRILLS
+## ACTION WORKSHEET & OPERATIONAL PROTOCOL
 
-- **Drill 1 — The 12-Point Fit Run (45 min).** Run your single against 12 stations in the winner zone. **Pass standard:** all 12 points filled per station, and you can name the 2 points you can fix this week.
-- **Drill 2 — The Scorecard Sweep (60 min).** Score all 60+ stations on your heat map using `Templates/T2.3-Format-Scorecard.csv`. **Pass standard:** every row scored 0–100 with factors populated. No zeros.
-- **Drill 3 — The Cut (15 min).** Sort descending, split A-tier (75+), B-tier (55–74), C-tier (below). **Pass standard:** 20 A-tier stations identified, each with a fixable/filter tag.
-- **Drill 4 — The Format Library Audit (30 min).** Pull actual last-10-playlists from your top 10 stations and correct your format column. **Pass standard:** zero stations judged on assumptions — every format entry cites a real playlist or website.
+**Protocol Document:** `100-POINT FORMAT FIT SCORECARD`
 
-## FILLABLE TEMPLATE
+Complete the structured table below as part of your lesson implementation. This worksheet directly replaces legacy spreadsheets with a publication-grade execution protocol.
 
-**Template file:** `Templates/T2.3-Format-Scorecard.csv` — 12-point fit check, 6 factors × weights, total score, tier, fix/filter. 100-point precision.
+| Station & Market | Genre Fit (30) | Geo Proximity (20) | Named Contact (15) | Indie Adds (15) | Clock Fit (10) | Counter Prog (10) | Total (100) | Tier Rank |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| WNUR 89.3 FM (Chicago) | 28 | 20 | 15 | 15 | 10 | 8 | 96 | Tier 1 (Priority) |
+| WLUW 88.7 FM (Chicago) | 30 | 20 | 15 | 15 | 10 | 6 | 96 | Tier 1 (Priority) |
+| WMSE 91.7 FM (Milwaukee) | 26 | 15 | 15 | 12 | 10 | 7 | 85 | Tier 1 (Priority) |
+| WXRT 93.1 FM (Commercial AAA) | 22 | 20 | 15 | 8 | 10 | 5 | 80 | Tier 2 (Secondary) |
+| WKQX 101.1 FM (Alt Commercial) | 15 | 20 | 10 | 4 | 10 | 4 | 63 | Tier 3 (Hold) |
 
 ## WAR-ROOM NOTES
 
 <!-- WARROOM:START -->
-**WAR-ROOM NOTES — 2.3 The Format Scoring System**
+**WAR-ROOM DIRECTIVE — 2.3 The Format Scoring System — Rank Every Station Like an Analyst**
 
-**THE SCORECARD IS A RISK MODEL, NOT A POPULARITY CONTEST**
+**SCORE THE PLAYLIST, NOT THE STATION'S ABOUT PAGE**
+Stations frequently brand themselves with aspirational slogans: *"Playing the best new eclectic independent music."* In reality, their daytime programming may be 80% 1990s recurrent rock hits, with only two hours of genuine independent discovery buried at 11:00 PM on Sunday night.
 
-The 30-point format-fit weight is the single largest factor because a format mismatch is the one failure you cannot fix with marketing. The 25-point response-history weight is the second-largest because it measures *your* history with the station — a warm inbox is worth more than a big signal. Reach is deliberately the smallest permanent factor (10 points) because big stations with low fit and zero relationship are where independents go to die. Weighted correctly, the scorecard tells you where the wins live — not where the fame is.
-
-**THE 12-POINT CHECK HAS A SECRET: THE 12-SECOND RULE**
-
-Most PDs make an add/ding decision inside the first 12 seconds of a song. If your hook isn't inside 12 seconds, the format score doesn't matter — the song is out. This is the most commonly failed point on the check and the easiest to fix: cut to the hook, or re-edit the single. Radio edits are not compromises; they're admissions that you understand the customer.
-
-**SPECIALTY IS THE UNDERPRICED ENTRY RAMP**
-
-Late-night, local-focus, and genre-specific shows have the highest acceptance rate in radio because they have *inventory pressure* — they must fill time with new music. A specialty add is worth the same proof as a morning show add and costs 20% of the effort. Strategy: aim the first campaign at specialty + college + community (platform cut), collect 3–5 adds, then convert those into a commercial-format pitch with the proof.
-
-**THE 90-DAY RECHECK DISCIPLINE**
-
-Scores are fingerprints, not bedrock. Formats change, program directors change, your catalog changes. Every 90 days re-score the C-tier and re-scan the market — the station that was mismatched last quarter may have a new night show, a new specialty slot, or a new format. The audit engine in Module 6 runs this loop automatically.
-
-**THE ANALYST'S ONE-LINE RULE (NEVER VIOLATE)**
-
-Never pitch a station whose 12-point fit check you haven't run. One line of arrogance here costs one burned well. The scorecard exists to keep your ego out of the targeting process — let the numbers do the deciding.
+**THE OPERATOR'S RECONNAISSANCE RULE:**
+Never evaluate a station by what they claim to play. Evaluate them exclusively by their **actual broadcast logs over the past 72 hours**.
+1. Look at their 10:00 AM, 2:00 PM, and 8:00 PM logs.
+2. If you see zero independent artists across daytime hours, your pitch belongs exclusively to their evening specialty show host.
+3. Pitching a daytime music director with an underground track when their daytime clock is locked to gold recurrents guarantees instant deletion.
 <!-- WARROOM:END -->
 
-## COMMUNITY PROMPTS
+## FREQUENCY DOMINION COMMUNITY DRILLS
 
-1. **Your top 5 scores.** Post your highest-scoring stations with their scores. The group challenges any score above 80 (suspiciously high = lies).
-2. **Your hardest cut.** Post a station you wanted to pitch but the score said no. The group tells you to trust the math.
-3. **The 12-second test.** Post the timestamp of your first hook. Are you under 12 seconds or are you dead on arrival?
-4. **The fix this week.** One fixable point you're executing. Post the before/after.
+1. Post your highest-scoring station and break down its point tally across the six factors.
+2. Share a station that scored below 50 points and explain why you purged it from your campaign.
+3. What was the biggest surprise you encountered when auditing station play logs on Spinitron?
+4. How many total Tier 1 stations do you currently have locked for your upcoming campaign?

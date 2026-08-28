@@ -90,9 +90,9 @@ Let's be brutal. The old playbook — the contact vault, the "email everyone" ad
 
 ## WHAT'S INSIDE EVERY LESSON
 
-- **Video script (ready to record)** — full narrative with timecodes, on-screen text, and cut-away cues.
+- **Masterclass directive & strategic blueprint** — authoritative operational doctrine, commercial frameworks, and tactical rules of engagement (zero video script meta).
 - **Implementation drills** — reps, timeboxes, and pass/fail standards.
-- **Fillable template** — the exact blank document you complete before the next drill.
+- **Action worksheet & operational protocol** — publication-grade structured tables and field protocols in printable PDF & Markdown.
 - **War-room notes (private strategy PDF)** — the elite-level doctrine, not for redistribution.
 - **Community prompts** — four engagement posts per lesson for the member group.
 
@@ -109,10 +109,10 @@ Access order: decode (day 1) → lesson → lesson's Insider Edge → module pla
 
 ## THE 5 BONUSES
 
-1. **The 300-Station Hometown Heat Map Database** — fillable 300-row targeting scaffold ($297 value)
+1. **The 300-Station Hometown Heat Map Database** — curated 300-station targeting directory in publication-grade PDF & Markdown ($297 value)
 2. **The 90-Second Radio-Ready Audio Script Vault** — 10 full scripts + hook formulas ($197 value)
 3. **The One-Page EPK Command Deck** — interactive fillable HTML proof weapon ($147 value)
-4. **The 90-Day Airplay-to-Income Audit Engine** — scorecard + tracker CSVs ($97 value)
+4. **The 90-Day Airplay-to-Income Audit Engine** — 50-point audit scorecard, spin verification log, weekly touch tracker, and revenue attribution ledger in PDF & Markdown ($97 value)
 5. **The Entire Resource Arsenal** — heat maps, calendars, pitch vaults, follow-up sequences, CRM ladder ($400+ value)
 
 **Total certified value: $5,193 → $97. The Insider Layer alone carries $1,391 of the stack.**
@@ -121,7 +121,7 @@ Access order: decode (day 1) → lesson → lesson's Insider Edge → module pla
 
 ## YOUR FIRST 24 HOURS (DO THIS BEFORE ANYTHING ELSE)
 
-1. Open Module 1. Watch Lesson 1.1.
+1. Open Module 1. Complete Lesson 1.1 Masterclass Dossier.
 2. Run the Unheard Tax audit — 20 minutes. Write your number down.
 3. Build your Proof Stack folder (Lesson 1.3) — even if it's three screenshots and a YouTube link.
 4. Sign the No-Spam Oath (Lesson 1.4). Print it. Read it before every send.

@@ -1,3 +1,7 @@
 # Bonus 5 — The Entire Resource Arsenal
 
-Heat maps, campaign calendars, 30 subject-line formulas, the 90-word pitch vault, 3-touch follow-up sequences, and the 12-month CRM ladder live in the `Resources/` folder of this package.
+**Files:** Master Resource Arsenal PDF + complete suites in `Resources/`
+
+The complete weapon vault: 30 subject-line formulas, 90-word pitch vault, 3-touch follow-up sequences, 21-day campaign calendar, quarterly release calendar, relationship compounding playbook, and 90-day audit checklists. Formatted in publication-grade PDF and Markdown.
+
+*Frequency Dominion · Bonus 5 · $400 value*

@@ -1,4 +1,0 @@
-Station,Market,Tempo,Energy,Lyrics,Length,Intro,Language,Artist-Name,Title-Safe,Production,Slot-Position,Story,Proof,FIT-TOTAL(12),Format-Fit(30),Relationship(15),Local-Tie(10),Timing(10),Reach(10),Response(25),TOTAL(100),Tier,Fix-or-Filter
-KXYZ,Home,OK,High,OK,OK,OK,Clean,OK,OK,OK,OK,OK,OK,10,28,12,9,8,7,20,84,A,Fix timing
-WCXN,Home,OK,Mid,OK,OK,OK,Clean,OK,OK,OK,OK,OK,OK,11,25,10,10,9,5,15,74,B,Fix response
-WEB1,Home,OK,High,OK,OK,OK,Clean,OK,OK,OK,OK,OK,OK,11,26,5,7,8,3,10,59,B,Fix relationship

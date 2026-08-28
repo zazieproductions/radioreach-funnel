@@ -5,4 +5,4 @@
 - 5.3 Burned-Well Repair — The 5-Step Protocol for Salvaged Relationships
 - 5.4 Relationship Compounding — The 90-Day Ally Engine
 
-**Every lesson contains:** full video script, implementation drills, fillable template, war-room notes PDF, and community prompts.
+**Every lesson contains:** Masterclass Directive & Strategic Blueprint, Implementation Drills & Pass Standards, Action Worksheet & Operational Protocol, Confidential War-Room Tactical Directives (in publication-grade PDF), and Community Drills.
