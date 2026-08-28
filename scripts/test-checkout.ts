@@ -76,11 +76,16 @@ class FakeKV {
 // the exact Stripe Price the server must send for `contract_guide`.
 const CONTRACT_GUIDE_PRICE = "price_1U7Iph3IYVlqS8V7hVqL70AH";
 
+// The vault fixture uses the real live price ID ($25) for the same reason:
+// the server must bill the Price object configured in STRIPE_PRICE_VAULT_CORE,
+// never a stale Price or the product's Stripe "default price".
+const VAULT_CORE_PRICE = "price_1U9EOZ3IYVlqS8V7jTxmfIVh";
+
 function makeEnv(overrides: Record<string, string | undefined> = {}, kv = new FakeKV()) {
   return {
     STRIPE_SECRET_KEY: "sk_test_fake",
     STRIPE_WEBHOOK_SECRET: "whsec_fake",
-    STRIPE_PRICE_VAULT_CORE: "price_vault_core",
+    STRIPE_PRICE_VAULT_CORE: VAULT_CORE_PRICE,
     STRIPE_PRICE_CONTRACT_BUNDLE: "price_contract_bundle",
     STRIPE_PRICE_AUSTRALIA_ADDON: "price_australia_addon",
     STRIPE_PRICE_AIRPLAY_ACCELERATOR: "price_airplay_accelerator",
@@ -133,7 +138,7 @@ test("main product without the add-on creates a session with only the vault", as
 
   const create = stripeState.lastCreate as CreateArgs;
   assert.equal(create.mode, "payment");
-  assert.deepEqual(create.line_items, [{ price: "price_vault_core", quantity: 1 }]);
+  assert.deepEqual(create.line_items, [{ price: VAULT_CORE_PRICE, quantity: 1 }]);
   assert.equal(create.metadata?.product_keys, "vault_core");
   assert.equal(create.metadata?.bundle_id, "vault_core");
   assert.equal(create.payment_intent_data?.metadata?.product_keys, "vault_core");
@@ -155,7 +160,7 @@ test("main product with the contract guide adds exactly one $10 line item", asyn
 
   const create = stripeState.lastCreate as CreateArgs;
   assert.deepEqual(create.line_items, [
-    { price: "price_vault_core", quantity: 1 },
+    { price: VAULT_CORE_PRICE, quantity: 1 },
     { price: CONTRACT_GUIDE_PRICE, quantity: 1 },
   ]);
   // Fulfillment / success-page metadata carried on both the session and the
@@ -175,7 +180,7 @@ test("frequency dominion course maps to its Stripe price and metadata", async ()
   assert.equal(response.status, 200);
   const create = stripeState.lastCreate as CreateArgs;
   assert.deepEqual(create.line_items, [
-    { price: "price_vault_core", quantity: 1 },
+    { price: VAULT_CORE_PRICE, quantity: 1 },
     { price: "price_frequency_dominion", quantity: 1 },
   ]);
   assert.equal(create.metadata?.product_keys, "vault_core,frequency_dominion");
@@ -193,7 +198,7 @@ test("all optional add-ons can be combined in one session", async () => {
   assert.equal(response.status, 200);
   const create = stripeState.lastCreate as CreateArgs;
   assert.deepEqual(create.line_items, [
-    { price: "price_vault_core", quantity: 1 },
+    { price: VAULT_CORE_PRICE, quantity: 1 },
     { price: "price_contract_bundle", quantity: 1 },
     { price: "price_australia_addon", quantity: 1 },
     { price: CONTRACT_GUIDE_PRICE, quantity: 1 },

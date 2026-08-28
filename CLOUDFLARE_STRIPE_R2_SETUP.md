@@ -38,7 +38,8 @@ Add all values from `.env.example`.
 For production on `radioreach.us`, set:
 
 - `PUBLIC_APP_URL=https://radioreach.us`
-- all `STRIPE_PRICE_*` values to **live** Price IDs
+- `STRIPE_PRICE_VAULT_CORE=price_1U9EOZ3IYVlqS8V7jTxmfIVh` — the live $25 Vault Price (checkout bills this Price object, not the Stripe product's default price)
+- all other `STRIPE_PRICE_*` values to **live** Price IDs
 - `VITE_STRIPE_PUBLISHABLE_KEY` + `STRIPE_PUBLISHABLE_KEY` to the **live** publishable key
 - `STRIPE_SECRET_KEY` to the **live** secret key
 

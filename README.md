@@ -199,7 +199,7 @@ Create a local `.dev.vars` file for Pages Functions. **Never commit this file.**
 # Stripe
 STRIPE_SECRET_KEY=sk_test_your_key_here
 STRIPE_WEBHOOK_SECRET=whsec_your_local_webhook_secret
-STRIPE_PRICE_VAULT_CORE=price_...
+STRIPE_PRICE_VAULT_CORE=price_1U9EOZ3IYVlqS8V7jTxmfIVh
 STRIPE_PRICE_CONTRACT_BUNDLE=price_...
 STRIPE_PRICE_AUSTRALIA_ADDON=price_...
 STRIPE_PRICE_AIRPLAY_ACCELERATOR=price_...
@@ -259,6 +259,7 @@ Copy the webhook signing secret printed by Stripe into `STRIPE_WEBHOOK_SECRET`, 
 | --- | :---: | --- |
 | `STRIPE_SECRET_KEY` | Yes | Server-side Stripe API access |
 | `STRIPE_WEBHOOK_SECRET` | Yes | Stripe webhook signature verification |
+| `STRIPE_PRICE_VAULT_CORE` | Yes | Live $25 Vault Price ID: `price_1U9EOZ3IYVlqS8V7jTxmfIVh` |
 | `STRIPE_PRICE_*` | Yes | Server-controlled Price IDs for every enabled catalog item |
 | `PUBLIC_APP_URL` | Yes | Canonical application origin and redirect fallback |
 | `APP_SECRET` | Recommended | Dedicated HMAC key for fulfillment tokens |
