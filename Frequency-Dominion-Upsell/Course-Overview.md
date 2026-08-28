@@ -96,6 +96,17 @@ Let's be brutal. The old playbook — the contact vault, the "email everyone" ad
 - **War-room notes (private strategy PDF)** — the elite-level doctrine, not for redistribution.
 - **Community prompts** — four engagement posts per lesson for the member group.
 
+## THE INSIDER LAYER (PREMIUM FLOOR)
+
+Beneath the 24 lessons sits the operator's level — the mechanics the industry uses internally and almost never explains:
+
+- **The Radio Industry Insider Decoder** — how ratings really work (PPM vs. diary, cume/AQH, books and ratings weeks), the clock and rotation categories (power/medium/light/recurrent/gold), real add cycles (Tuesday commercial, weekly college), the college chart machine (NACC 200 + RMR), the promotion industry's four-phase machine, a full glossary, and 10 insider rules.
+- **Six executive module playbooks** — trust architecture, market tiers, the two-email system, the add-cycle clock + impact dates, the relationship ladder + etiquette code, and the chart-to-cash pipeline.
+- **The 24-Lesson Insider Edge** — one sharp upgrade per lesson: the mechanic, the missing piece, and the operator move.
+- **Executive PDFs** of every playbook — branded, printable, confidential.
+
+Access order: decode (day 1) → lesson → lesson's Insider Edge → module playbook (after the module's 4th lesson) → monthly rereads. This layer is why the offer is a mastermind, not a course.
+
 ## THE 5 BONUSES
 
 1. **The 300-Station Hometown Heat Map Database** — fillable 300-row targeting scaffold ($297 value)
@@ -103,6 +114,8 @@ Let's be brutal. The old playbook — the contact vault, the "email everyone" ad
 3. **The One-Page EPK Command Deck** — interactive fillable HTML proof weapon ($147 value)
 4. **The 90-Day Airplay-to-Income Audit Engine** — scorecard + tracker CSVs ($97 value)
 5. **The Entire Resource Arsenal** — heat maps, calendars, pitch vaults, follow-up sequences, CRM ladder ($400+ value)
+
+**Total certified value: $5,193 → $97. The Insider Layer alone carries $1,391 of the stack.**
 
 ---
 

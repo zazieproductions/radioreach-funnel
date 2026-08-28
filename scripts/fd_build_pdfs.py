@@ -213,7 +213,25 @@ def build_overview_pdf():
     return 1
 
 
+def build_insider_pdfs():
+    insider = COURSE / "Resources" / "Insider"
+    out_dir = insider / "Executive-PDFs"
+    out_dir.mkdir(exist_ok=True)
+    n = 0
+    for md_path in sorted(insider.glob("*.md")):
+        if md_path.name == "Insider-Layer-README.md":
+            continue
+        md = md_path.read_text(encoding="utf-8")
+        title_match = re.search(r"^# (.+)$", md, re.M)
+        title = title_match.group(1).strip() if title_match else md_path.stem
+        pdf_path = out_dir / f"{md_path.stem}.pdf"
+        make_pdf(pdf_path, title, "Executive insider briefing - confidential", md)
+        n += 1
+    return n
+
+
 if __name__ == "__main__":
     n = build_module_pdfs()
     build_overview_pdf()
-    print(f"Built {n} war-room PDFs + Course-Overview.pdf")
+    m = build_insider_pdfs()
+    print(f"Built {n} war-room PDFs + Course-Overview.pdf + {m} executive PDFs")
