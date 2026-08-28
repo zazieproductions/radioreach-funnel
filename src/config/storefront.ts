@@ -4,7 +4,8 @@ export type ProductKey =
   | "australia_addon"
   | "airplay_accelerator"
   | "upwork_course"
-  | "contract_guide";
+  | "contract_guide"
+  | "frequency_dominion";
   // | "font_vault";
 
 export type StorefrontProduct = {
@@ -103,11 +104,31 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     checkoutValueLine:
       "Learn how to review label, producer, publishing, management, distribution, and collaboration agreements in plain English.",
   },
+  frequency_dominion: {
+    key: "frequency_dominion",
+    name: "Frequency Dominion: 21-Day Radio Campaign Course",
+    shortName: "Frequency Dominion",
+    price: 97,
+    compareAt: 997,
+    stripePriceIdEnv: "STRIPE_PRICE_FREQUENCY_DOMINION",
+    r2BundleKey: "courses/frequency-dominion/frequency-dominion-course.zip",
+    description: "6 modules, 24 lessons, war-room workbooks, and pitch weapons that turn the Vault into a campaign.",
+    includes: [
+      "24 implementation lessons",
+      "5 printable workbooks",
+      "90-word pitch + 3-touch follow-up swipe file",
+      "21-day campaign calendar",
+      "In-browser classroom with progress tracking",
+    ],
+    checkoutBadge: "Flagship course",
+    checkoutHeadline: "Don't just own the list. Run the campaign.",
+    checkoutValueLine: "Identity, targeting, pitches, calendar, relationships, and the 90-day empire loop.",
+  },
 };
 
 export const CHECKOUT_DEFAULTS = {
   core: "vault_core" as ProductKey,
-  addons: ["contract_bundle", "australia_addon", "contract_guide"] as ProductKey[],
+  addons: ["contract_bundle", "australia_addon", "contract_guide", "frequency_dominion"] as ProductKey[],
   upsells: ["airplay_accelerator", "upwork_course"] as ProductKey[],
 };
 

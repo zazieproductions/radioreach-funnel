@@ -447,6 +447,13 @@ export default function SuccessPage() {
                     </div>
 
                     <a
+                      href="#/course/classroom"
+                      className="inline-flex w-full items-center justify-center rounded-full bg-acid px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-ink transition hover:scale-[1.01]"
+                    >
+                      Open Frequency Dominion classroom
+                    </a>
+
+                    <a
                       href="/"
                       className="inline-flex w-full items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white/80 transition hover:border-white/30 hover:text-white"
                     >
