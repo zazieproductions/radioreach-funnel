@@ -38,9 +38,9 @@ Expected output: one `.zip` (~2–6 MB depending on PDFs), no stray folders, no 
 
 ## STEP 4 — HOST THE SALES PAGE
 
-- Option A (recommended, live upsell): host `SALES-PAGE.html` at `https://radioreach.us/frequency-dominion` (path may be added to the Cloudflare Pages app).
-- Option B (post-purchase upsell): render it as the checkout add-on / post-checkout upsell screen in the existing funnel (`src/funnel/`) with the new Stripe Price ID for $97.
-- **Payment wiring:** create the Stripe price ($97 USD, one-time) and add its Price ID to the server-side allowlist (`functions/` + `src/config/storefront.ts` keys). Never trust a browser-supplied price.
+- Option A (live now): `SALES-PAGE.html` is served at `https://radioreach.us/frequency-dominion/`; its CTAs route to the standalone checkout at `https://radioreach.us/#/fd-checkout` (hash route in the SPA, wired in `src/App.tsx` → `src/funnel/FrequencyDominionCheckout.tsx`).
+- Option B (post-purchase upsell): render it as the checkout add-on / post-checkout upsell screen in the existing funnel (`src/funnel/Upsells.tsx`) with the same product key `frequency_dominion`.
+- **Payment wiring:** the price is live — `price_1U9G1V3IYVlqS8V74OpLuVTO` (product `prod_V9Z9N0argQ58B6`, $97 USD one-time). Configure the server-side env var `STRIPE_PRICE_FREQUENCY_DOMINION` to that Price ID; the product key `frequency_dominion` is wired in `functions/_lib/config.ts` + `src/config/storefront.ts` (R2 key `courses/frequency-dominion-97-upsell.zip`). Never trust a browser-supplied price.
 - **Attribution:** pass `utm_*` + `fd_upsell` metadata into Stripe checkout metadata so the purchase is attributable to this offer (audit requirement).
 
 ## STEP 5 — SEQUENCE & QA

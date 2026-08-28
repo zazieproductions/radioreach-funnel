@@ -4,7 +4,8 @@ export type ProductKey =
   | "australia_addon"
   | "airplay_accelerator"
   | "upwork_course"
-  | "contract_guide";
+  | "contract_guide"
+  | "frequency_dominion";
   // | "font_vault";
 
 export type StorefrontProduct = {
@@ -102,6 +103,28 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     checkoutHeadline: "Protect Your Music Before You Sign",
     checkoutValueLine:
       "Learn how to review label, producer, publishing, management, distribution, and collaboration agreements in plain English.",
+  },
+  frequency_dominion: {
+    key: "frequency_dominion",
+    name: "Frequency Dominion: The 24-Lesson Radio Ownership System",
+    shortName: "Frequency Dominion",
+    price: 97,
+    compareAt: 997,
+    stripePriceIdEnv: "STRIPE_PRICE_FREQUENCY_DOMINION",
+    r2BundleKey: "courses/frequency-dominion-97-upsell.zip",
+    description:
+      "The complete backend course: 6 modules, 24 lessons, insider decoder, 6 executive playbooks, war-room PDFs, heat maps, and the 21-day campaign system.",
+    includes: [
+      "6 modules · 24 lessons (video scripts + drills)",
+      "Radio Industry Insider Decoder + 6 executive playbooks",
+      "24 fillable templates + 24 war-room PDFs",
+      "Bonus 1–5: heat map DB, audio vault, EPK deck, audit engine, resources",
+      "Lifetime access + community + 30-day risk reversal",
+    ],
+    checkoutBadge: "Backend flagship",
+    checkoutHeadline: "Stop Asking for Airplay. Own the Frequency.",
+    checkoutValueLine:
+      "$997 anchor → $97. The $5,193 stack: 24 lessons, insider layer, 5 bonuses, and the system that turns contacts into a compounding airplay machine.",
   },
 };
 
