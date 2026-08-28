@@ -45,31 +45,66 @@ provably-false "founder slots / goes to $50" claim (part of L1's policy risk).
 
 ---
 
-## 2. THE OFFER REINVENTION (next 48 hours — owner decision required)
+## 2. THE OFFER REINVENTION — DECIDED AND SHIPPED (Turn 2)
 
-A $25 impulse buy with an unenforceable $350 anchor is a *scaled-down* offer. Reinvent it:
+**Owner directive received: aim for six figures within the year, stay on paid cold traffic.**
+That directive decided the anchor question: **Option A** — real bundles, real sums, real market
+anchor. $350 is dead everywhere. What shipped:
 
-### 2.1 Fix the anchor so it's defensible (L3)
-Stop saying "Normally **$350**." That's a 93% cut with no reference price anyone believes.
-Either:
-- **(A) Real, price-anchored bundles:** $25 list → $49 "Vault + Pitch Pack" → $79 "Full
-  Launch Stack." Anchor against a *real* comparable: "a radio promoter charges $1,000+/campaign."
-  Concrete, true, defensible — and it raises AOV instead of dragging it down.
-- **(B) If $350 stays:** publish the $350 as an actual prior price with a date, or a live
-  "enterprise rate" the list genuinely sells at. A reference price you can't defend is a liability.
+### 2.1 SHIPPED — The honesty pass (L3 closed)
+Every number on screen now equals what Stripe charges:
+- `AnchorPrice` / sticky bar / hero / PDF modal / value-stack bar: "Normally $350" **deleted** → "$25 one-time".
+- Wheel jackpot theater ($54 → $21, "SAVE $33", struck $25/$29) **deleted** → real "$9 + $12 = $21 together, held 15 min".
+- Checkout's fake "You save $62" row **deleted** → "One-time payment · No subscription".
+- Dead OTO stage machine (`Upsells.tsx`, `FunnelNav.tsx`, ~900 lines incl. the fake $822 / $2,000 value claims) **deleted**.
+- `prices.ts` stripped to real numbers. `compareAt` field removed from the product schema.
 
-### 2.2 Rebuild the entry offer around *outcome*, not *data*
-Lead with the transformation, not the spreadsheet: **"Get your song on the radio in 90 days —
-without a promoter."** The list is the fuel; the *result* is the sale. Reorder the value stack:
-contacts → pitch scripts → campaign calendar → the person who answers. Stack more outcome.
+### 2.2 SHIPPED — The bundle ladder (AOV engine)
+`BUNDLES` in `src/config/storefront.ts`, rendered as "THREE WAYS IN. ONE DECISION." between
+the value stack and Momentum. CTA passes the kit's items → checkout preselects (buyer's own
+click; every row still removable):
+| Kit | Contents | Total (real sum) |
+|---|---|---|
+| The Vault | vault_core | $25 |
+| ★ Vault + Pitch Kit | + contract kit + contract guide | $44 |
+| The Launch Stack | + AU list + Airplay Accelerator | $93 |
+The ONLY anchor used is real market context, labeled as context: "A promoter-run campaign
+typically runs $1,000–$2,500/track." No bundle pretends a discount.
 
-### 2.3 Ascension ladder (kills L4 at the offer level)
-1. **$25** — Vault (keep; it's the loss-leader that buys the list)
-2. **$37** — Airplay Accelerator (already built — raise take-rate)
-3. **$49–$79** — Launch Stack bundle (new)
-4. **$197** — "Artist's Release Blueprint" course (new, evergreen)
-5. **$97/yr** — Continuity: "New Listings + Quarterly Verified Drops" (subscription — this is your
-   seven-figure engine; see §4)
+### 2.3 SHIPPED — Ghost inventory resurrected (biggest leak found this turn)
+The $37 Accelerator and $50 Upwork course were wired to an OTO stage machine **no buyer could
+reach** (real payment redirects to `#/success`; nothing advanced the stage). Result: $0 of
+upsell revenue on the live funnel. Now:
+- `PostPurchaseOffers.tsx` sells both SKUs on the success page — the one page every buyer
+  provably visits — through the same embedded-checkout rail. Zero server changes.
+- Offers only what the order doesn't contain; one offer at a time; real price, no countdown;
+  one-tap decline. Pixel: `PostPurchaseOfferView` / `PostPurchaseOfferStart`; each upsell
+  purchase fires its own verified `Purchase` event (new Stripe session = new dedupe key).
+- Checkout also un-gated: the $9/$12 add-ons are selectable by everyone (they were
+  **disabled** unless the visitor spun the wheel — a paywall on adding revenue), and the
+  Accelerator is a $37 "Campaign upgrade" row on the live checkout.
+
+### 2.4 SHIPPED — Hero outcome framing (partial)
+FAQ "why only $25" and stack copy now sell the outcome and the terms; full hero retitle
+("Get your song on the radio — without a promoter") remains a split-test candidate (§5).
+
+### 2.5 SIX FIGURES IN 12 MONTHS ON COLD PAID — the honest dial table
+Target: **$100K/12mo ≈ $8,300/mo ≈ $275/day.** All numbers are labeled assumptions until
+real Stripe data replaces them:
+
+| Dial | Needed for $100K/yr | Current honest estimate |
+|---|---|---|
+| Front-end AOV (ladder + un-gated add-ons) | $38–45 | $27–30 (ladder just shipped) |
+| Post-purchase attach (Accelerator/Course) | 12–18% of orders | unknown — was 0%, now measurable |
+| Net CR (session → paid order) | 1.6–2.0% | 1.1–1.9% est. |
+| CPC (Meta, music niche) | ≤ $1.00 | $1.00–1.20 est. |
+| Sessions/day at 1.8% CR & $42 AOV | ~365 (~$340/day spend) | — |
+| Break-even ROAS at those numbers | ~1.0 → profitable above | currently below 1.0 est. |
+
+Read the table as: **the three dials that decide the year are AOV, CR, CPC — in that order.**
+The ladder attacks AOV, the un-gated checkout + success-page offers attack attach rate, and
+creative testing attacks CPC. If after 2 weeks of real data the front-end AOV is still <$32,
+the fallback is a real Stripe coupon on the Stack (10-min owner action, see §5).
 
 ---
 
@@ -120,13 +155,12 @@ This is the lever that actually gets you there, in this order:
 
 | Step | Action | Effort |
 |---|---|---|
-| 1 | Ship this branch (rebuild `dist` in your deploy pipeline) | 10 min |
-| 2 | Decide anchor fix: A (real bundles) or B (defensible $350) | 1 decision |
-| 3 | Wire Momentum quiz + download page to an email list (ConvertKit/Mailchimp/email API) | 1 day |
-| 4 | Build 2 assets: Launch Stack bundle + "Artist's Release Blueprint" course skeleton | 2–3 days |
-| 5 | Add the $97/yr continuity SKU in Stripe + hook it into the Ascension sequence | 1–2 days |
-| 6 | Split-test hero CTA copy: "Get on the radio" outcome framing vs current | 1 week of data |
-| 7 | Re-run this model with real Stripe numbers; kill what's below benchmark | ongoing |
+| 1 | Ship this branch (rebuild `dist` in your deploy pipeline) — includes Turn 2: ladder, un-gated checkout, success-page offers, honesty pass, dead-code burn | 10 min |
+| 2 | **Watch the new dials for 14 days** in Stripe + Meta: front-end AOV, ladder mix (`SalesCtaClicked.bundle`), post-purchase attach (`PostPurchaseOfferStart` → 2nd Purchase), net CR, CPC | 0 — dashboards exist |
+| 3 | If front-end AOV < $32 after 2 weeks: create one Stripe coupon (e.g. $14 off the Launch Stack composition) + flip `allow_promotion_codes` or wire the coupon ID in `session.ts`; only then show a strikethrough | 10 min + small PR |
+| 4 | Split-test hero CTA copy: "Get on the radio" outcome framing vs current | 1 week of data |
+| 5 | (When you green-light the list engine — deliberately parked per owner directive) wire Momentum quiz + download page to an ESP, then the §4 ascension sequence | 1 day |
+| 6 | Re-run the §2.5 model with real Stripe numbers; kill what's below benchmark | ongoing |
 
 ---
 

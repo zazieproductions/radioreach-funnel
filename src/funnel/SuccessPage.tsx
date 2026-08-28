@@ -3,6 +3,7 @@ import { createDownloadLinks, verifySession } from "../lib/api";
 import { trackVerifiedPurchase } from "../lib/metaPixel";
 import { TARGET_LABELS, TARGET_STARTING_MOVES } from "../lib/momentumSequence";
 import { espLogConversion, getPersistedMode } from "../esp";
+import PostPurchaseOffers from "./PostPurchaseOffers";
 
 /* Keep purchase logging idempotent across re-verifies/re-mounts. */
 const purchaseLoggedFor = new Set<string>();
@@ -29,6 +30,8 @@ type DeliveryState =
       items: DownloadItem[];
       errors: DownloadError[];
       momentum?: Record<string, string>;
+      /** Keys this order contains — drives what the post-purchase stack offers. */
+      productKeys: string[];
     };
 
 function getSessionIdFromHash() {
@@ -128,6 +131,7 @@ export default function SuccessPage() {
           items: delivery.items || [],
           errors: delivery.errors || [],
           momentum: orderSummary?.momentum || undefined,
+          productKeys: orderSummary?.productKeys || [],
         });
       } catch (err) {
         if (cancelled) return;
@@ -457,6 +461,12 @@ export default function SuccessPage() {
               </div>
             )}
           </section>
+
+          {/* Post-purchase offer stack — sells the previously-unreachable
+              upsell SKUs through the same embedded-checkout rail, only what
+              this order does not already contain. Renders AFTER downloads so
+              delivery is never delayed. */}
+          {state.kind === "ready" && <PostPurchaseOffers ownedKeys={state.productKeys} />}
         </div>
       </div>
     </main>

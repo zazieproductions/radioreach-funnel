@@ -1,10 +1,9 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import SalesPage from "./funnel/SalesPage";
-import type { Addons } from "./funnel/Checkout";
-import type { Stage } from "./funnel/FunnelNav";
 import { trackTipFromReturnUrl } from "./lib/metaPixel";
-import { loadLuckyCoupon, type LuckyCoupon, clearLuckyCoupon } from "./lib/luckyCoupon";
+import { loadLuckyCoupon, type LuckyCoupon } from "./lib/luckyCoupon";
 import { LuckyWheelModal } from "./funnel/LuckyWheel";
+import type { ProductKey } from "./config/storefront";
 
 const Checkout = lazy(() => import("./funnel/Checkout"));
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
@@ -12,18 +11,17 @@ const LabGallery = lazy(() => import("./lab/LabGallery"));
 const CustomLeadsPage = lazy(() => import("./funnel/CustomLeadsPage"));
 const CommunityForum = lazy(() => import("./funnel/CommunityForum"));
 
-const Upsell1 = lazy(() =>
-  import("./funnel/Upsells").then((m) => ({ default: m.Upsell1 }))
-);
-const Upsell2 = lazy(() =>
-  import("./funnel/Upsells").then((m) => ({ default: m.Upsell2 }))
-);
-const Downsell = lazy(() =>
-  import("./funnel/Upsells").then((m) => ({ default: m.Downsell }))
-);
-const ThankYou = lazy(() =>
-  import("./funnel/Upsells").then((m) => ({ default: m.ThankYou }))
-);
+/**
+ * LIVE FUNNEL MODEL
+ *
+ *   sales → checkout ─(embedded Stripe)→ #/success → post-purchase offers
+ *
+ * The old oto1/oto2/downsell/thanks stage machine was unreachable dead code:
+ * real payment redirects straight to #/success. It has been removed; the
+ * upsell SKUs now sell on the success page (PostPurchaseOffers) where every
+ * buyer actually lands.
+ */
+type Stage = "sales" | "checkout";
 
 function LoadingScreen() {
   return (
@@ -50,15 +48,11 @@ export default function App() {
   }, []);
 
   const [stage, setStage] = useState<Stage>("sales");
-  const [total, setTotal] = useState(20);
-  const [addons, setAddons] = useState<Addons>({
-    contracts: false,
-    au: false,
-    contractGuide: false,
-  });
-  const [hasUpwork, setHasUpwork] = useState(false);
+  /** Ladder kit the buyer chose on the sales page (undefined = Vault alone). */
+  const [presetItems, setPresetItems] = useState<ProductKey[]>([]);
 
-  // Lucky wheel global state — jackpot for pre-selected upsells
+  // Lucky wheel global state — jackpot holds the two add-on rows together
+  // at checkout for the winner.
   const [luckyCoupon, setLuckyCoupon] = useState<LuckyCoupon | null>(() => {
     try {
       return loadLuckyCoupon();
@@ -149,7 +143,10 @@ export default function App() {
       case "sales":
         return (
           <SalesPage
-            onCta={() => setStage("checkout")}
+            onCta={(bundleItems) => {
+              setPresetItems(bundleItems ?? []);
+              setStage("checkout");
+            }}
             luckyCoupon={luckyCoupon}
             onOpenWheel={() => openWheel()}
             onClaimWheel={handleWheelClaim}
@@ -159,66 +156,9 @@ export default function App() {
       case "checkout":
         return (
           <Checkout
-            onComplete={(t, a) => {
-              setTotal(t);
-              setAddons(a);
-            }}
+            initialItems={presetItems}
             luckyCoupon={luckyCoupon}
             onOpenWheel={() => openWheel()}
-          />
-        );
-
-      case "oto1":
-        return (
-          <Upsell1
-            onAccept={(p) => {
-              setTotal((t) => t + p);
-              setStage("oto2");
-            }}
-            onDecline={() => setStage("oto2")}
-          />
-        );
-
-      case "oto2":
-        return (
-          <Upsell2
-            onAccept={(p) => {
-              setTotal((t) => t + p);
-              setHasUpwork(true);
-              setStage("thanks");
-            }}
-            onDecline={() => setStage("downsell")}
-          />
-        );
-
-      case "downsell":
-        return (
-          <Downsell
-            onAccept={(p) => {
-              setTotal((t) => t + p);
-              setStage("thanks");
-            }}
-            onDecline={() => setStage("thanks")}
-          />
-        );
-
-      default:
-        return (
-          <ThankYou
-            total={total}
-            hasContracts={addons.contracts}
-            hasAu={addons.au}
-            hasContractGuide={addons.contractGuide}
-            hasUpwork={hasUpwork}
-            onRestart={() => {
-              sessionStorage.clear();
-              clearLuckyCoupon();
-              setLuckyCoupon(null);
-              setTotal(20);
-              setAddons({ contracts: false, au: false, contractGuide: false });
-              setHasUpwork(false);
-              setStage("sales");
-            }}
           />
         );
     }

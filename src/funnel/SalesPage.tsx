@@ -24,6 +24,14 @@ import { LuckyWheelButton } from "./LuckyWheel";
 import SecretSlotsSection from "./SecretSlots";
 import { trackCustom } from "../lib/metaPixel";
 import {
+  BUNDLES,
+  LADDER_ORDER,
+  PROMOTER_ANCHOR,
+  PRODUCTS,
+  bundleTotal,
+  type ProductKey,
+} from "../config/storefront";
+import {
   formatRemainingMs,
   getLuckyCouponRemainingMs,
   type LuckyCoupon,
@@ -65,7 +73,8 @@ const FAQS = [
 ];
 
 type Props = {
-  onCta: () => void;
+  /** Called with the chosen ladder kit's items (or nothing for the Vault alone). */
+  onCta: (bundleItems?: ProductKey[]) => void;
   luckyCoupon?: LuckyCoupon | null;
   onOpenWheel?: () => void;
   onClaimWheel?: () => void;
@@ -122,17 +131,23 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
   // Every CTA in the page funnels through here, so each click can be
   // logged as a conversion event tagged with the mode the visitor
   // was in; the data we'll later use to see which states convert.
-  const handleCta = (label = "cta") => {
+  // `value` is always the real sum of what the click puts in the cart.
+  const handleCta = (label = "cta", bundleItems?: ProductKey[]) => {
+    const ctaValue = (bundleItems ?? ["vault_core"]).reduce(
+      (sum, key) => sum + PRODUCTS[key].price,
+      0
+    );
     espLogConversion("cta_click", { label, experience: trafficContext.experience });
     trackCustom("SalesCtaClicked", {
       placement: label,
       experience: trafficContext.experience,
       paid_social: trafficContext.paidSocial,
       mobile: trafficContext.mobile,
-      value: 20,
+      value: ctaValue,
       currency: "USD",
+      bundle: bundleItems?.join("+") || "vault_core",
     });
-    onCta();
+    onCta(bundleItems);
   };
 
   const hasWinningCoupon =
@@ -160,8 +175,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               JACKPOT UNLOCKED
             </span>
             <span>
-              <span className="font-mono">{luckyCoupon.code}</span> • Founder Bundle{" "}
-              <span className="line-through opacity-60">$54</span> → $21
+              <span className="font-mono">{luckyCoupon.code}</span> • Add-on pair held: $21 together
             </span>
             <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2 py-1 font-mono text-acid">
               ⏳ {remainingStr}
@@ -426,13 +440,13 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <div className="flex items-center justify-between gap-3 bg-acid p-3.5 text-ink sm:p-4">
               <span className="font-display text-base uppercase leading-tight sm:text-lg">Your price today</span>
               <span className="text-right">
-                <span className="block text-[11px] font-bold uppercase tracking-wider opacity-60 line-through">Normally $350</span>
-                <span className="font-display text-3xl">$25</span>
+                <span className="block font-display text-3xl">$25</span>
+                <span className="block text-[11px] font-bold uppercase tracking-wider opacity-70">one-time · no subscription</span>
               </span>
             </div>
           </div>
 
-          {/* Founder bundle teaser; pre-selected upsells */}
+          {/* Founder bundle teaser; wheel jackpot holds both add-on rows */}
           <div className={`mt-6 rounded-xl border-2 p-4 sm:p-5 ${hasWinningCoupon ? "border-acid bg-acid/10" : "border-white/10 bg-gradient-to-br from-[#1a1a22] to-black/40"}`}>
             <div className="flex items-start gap-3">
               <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-lg ${hasWinningCoupon ? "bg-acid text-ink" : "bg-gradient-to-br from-[#ff3b82] to-[#7c5cff] text-white"}`}>
@@ -440,28 +454,28 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               </span>
               <div className="flex-1">
                 <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">
-                  {hasWinningCoupon ? "Jackpot unlocked" : "Bonus: spin to unlock founder price"}
+                  {hasWinningCoupon ? "Jackpot unlocked" : "Bonus: spin to hold both add-ons"}
                 </p>
                 <p className="mt-1 font-display text-lg leading-none sm:text-xl">FOUNDER'S BUNDLE: BOTH ADD-ONS</p>
                 <div className="mt-2 grid gap-2">
                   <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2">
                     <span className="text-[13px] font-bold text-white">📄 Indie Contract Kit <span className="font-normal text-white/50">: 6 templates + guide</span></span>
-                    <span className="text-right"><span className="block text-[11px] line-through text-white/30">$25</span><span className="block font-display text-sm leading-none text-acid">$9</span></span>
+                    <span className="font-display text-sm leading-none text-acid">$9</span>
                   </div>
                   <div className="flex items-center justify-between rounded-lg border border-white/10 bg-black/30 px-3 py-2">
                     <span className="text-[13px] font-bold text-white">🇦🇺 AU Radio List <span className="font-normal text-white/50">: 2,847 contacts</span></span>
-                    <span className="text-right"><span className="block text-[11px] line-through text-white/30">$29</span><span className="block font-display text-sm leading-none text-acid">$12</span></span>
+                    <span className="font-display text-sm leading-none text-acid">$12</span>
                   </div>
                 </div>
                 <p className="mt-2 text-[13px] leading-snug text-white/60">
-                  Normally <span className="line-through">$54</span> together:{" "}
+                  Both together: <b className="text-acid">$21</b> at checkout.{" "}
                   {hasWinningCoupon ? (
                     <>
-                      <b className="text-acid">yours for $21 (save $33)</b> with code <b className="font-mono text-white">{luckyCoupon.code}</b> • waiting at checkout
+                      Your spin holds the pair together with code <b className="font-mono text-white">{luckyCoupon.code}</b> • waiting at checkout
                     </>
                   ) : (
                     <>
-                      <b className="text-white">spin to unlock both add-ons</b> at the founder price
+                      <b className="text-white">Spin once if you want the pair held together</b> — optional, and the prices are the same either way
                     </>
                   )}
                 </p>
@@ -472,7 +486,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                       onClick={onClaimWheel}
                       className="cta rounded-full bg-acid px-4 py-2 text-xs font-black uppercase tracking-widest text-ink"
                     >
-                      Go to checkout for the $21 bundle →
+                      Go to checkout with the $21 pair →
                     </button>
                   ) : (
                     <button
@@ -505,6 +519,96 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           <p className="mt-2 text-center text-[12px] text-white/40">
             <EmotiveText slot="stackNote" />
           </p>
+        </div>
+      </section>
+
+      {/* THE LADDER — three ways to buy, honest sums, no invented "was"
+          prices. Totals are the exact sums Stripe charges; the only anchor
+          used is real market context below the grid. */}
+      <section id="kits" className="defer-render border-b border-white/10 bg-ink">
+        <div className="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+          <SectionLabel>Choose your launch kit</SectionLabel>
+          <h2 className="font-display text-[1.7rem] leading-[1.05] sm:text-5xl sm:leading-tight">
+            THREE WAYS IN. <span className="text-acid">ONE DECISION.</span>
+          </h2>
+          <p className="mt-3 max-w-2xl font-serif text-[0.98rem] leading-[1.6] text-white/70 sm:text-lg">
+            Every kit is the real price of what's in the box — the same prices you'd
+            pay adding pieces one by one. Pick the kit that matches your release.
+          </p>
+
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {LADDER_ORDER.map((key) => {
+              const bundle = BUNDLES[key];
+              const total = bundleTotal(bundle);
+              const isTop = key === "launch_stack";
+              const isMid = key === "pitch_kit";
+              return (
+                <div
+                  key={key}
+                  className={`relative flex flex-col rounded-xl border p-5 ${
+                    isTop
+                      ? "border-2 border-acid bg-acid/[0.07] shadow-[0_0_50px_rgba(255,230,0,0.08)]"
+                      : "border-white/15 bg-black/40"
+                  }`}
+                >
+                  {bundle.badge && (
+                    <span
+                      className={`absolute -top-3 left-4 rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] ${
+                        isTop ? "bg-acid text-ink" : "bg-white/15 text-white/80"
+                      }`}
+                    >
+                      {isMid ? "★ " : ""}
+                      {bundle.badge}
+                    </span>
+                  )}
+                  <p className="font-display text-xl uppercase leading-none">{bundle.name}</p>
+                  <p className="mt-1 text-[13px] font-bold text-white/60">{bundle.tagline}</p>
+
+                  <p className="mt-4">
+                    <span className={`font-display text-5xl ${isTop ? "text-acid" : "text-white"}`}>${total}</span>
+                    <span className="ml-2 align-middle font-sans text-[11px] font-bold uppercase tracking-wider text-white/40">
+                      one-time
+                    </span>
+                  </p>
+
+                  <ul className="mt-4 flex-1 space-y-2.5">
+                    {bundle.bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-2.5 text-[13.5px] leading-snug text-white/80">
+                        <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-[11px] font-black ${isTop ? "bg-acid text-ink" : "bg-white/15 text-white"}`}>
+                          ✓
+                        </span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="mt-4 border-t border-white/10 pt-3 text-[12px] leading-snug text-white/50">
+                    {bundle.forWhom}
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCta(`ladder_${key}`, bundle.items)}
+                    className={`cta tap-target mt-4 w-full rounded-lg px-4 py-4 font-display text-lg uppercase tracking-wide ${
+                      isTop
+                        ? "bg-acid text-ink"
+                        : "border border-white/25 bg-white/5 text-white hover:border-acid hover:text-acid"
+                    }`}
+                  >
+                    Get {bundle.name} — ${total}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 rounded-xl border border-white/10 bg-black/30 p-4 text-center">
+            <p className="text-[13px] leading-relaxed text-white/60">
+              <span className="font-black uppercase tracking-[0.12em] text-acid">Context, not a discount:</span>{" "}
+              {PROMOTER_ANCHOR.line} Every kit above is a one-time payment you run yourself —
+              no retainer, no per-station fees.
+            </p>
+          </div>
         </div>
       </section>
 

@@ -547,7 +547,6 @@ export default function PdfSampleModal({ isOpen, onClose, onCta }: Props) {
               {/* Price & Primary CTA Button */}
               <div className="mt-4 flex flex-col items-center gap-2">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-xs text-white/40 line-through font-bold">Normally $350</span>
                   <span className="font-display text-3xl font-black text-acid">$25</span>
                   <span className="text-xs font-bold text-white/70">One-Time · Instant Access</span>
                 </div>

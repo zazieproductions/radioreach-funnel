@@ -452,7 +452,7 @@ export function LuckyWheelModal({
                 You won <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">AU + KIT</span>
               </h3>
               <p className="mx-auto mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-white/55">
-                Ready at checkout for <span className="font-semibold text-white">$21</span> <span className="line-through opacity-40">$54</span> • <span className="font-mono text-white/70">{firstCoupon.code}</span>
+                Both held for you at checkout: <span className="font-semibold text-white">$21 together</span> • <span className="font-mono text-white/70">{firstCoupon.code}</span>
               </p>
             </div>
 
@@ -462,23 +462,22 @@ export function LuckyWheelModal({
                 <div className="flex items-center justify-between bg-[#0F0F12] px-3.5 py-2.5">
                   <span className="text-sm font-semibold text-white">📄 Indie Contract Kit</span>
                   <span className="text-right">
-                    <span className="block text-[11px] line-through text-white/30">$25</span>
+                    <span className="block text-[11px] text-white/30">one-time</span>
                     <span className="font-display text-[15px] leading-none text-emerald-400">$9</span>
                   </span>
                 </div>
                 <div className="flex items-center justify-between bg-[#0F0F12] px-3.5 py-2.5">
                   <span className="text-sm font-semibold text-white">🇦🇺 AU Radio List</span>
                   <span className="text-right">
-                    <span className="block text-[11px] line-through text-white/30">$29</span>
+                    <span className="block text-[11px] text-white/30">one-time</span>
                     <span className="font-display text-[15px] leading-none text-emerald-400">$12</span>
                   </span>
                 </div>
                 <div className="flex items-center justify-between bg-emerald-500/[0.08] px-3.5 py-3">
                   <span className="text-xs font-black tracking-[0.12em] text-emerald-300">BUNDLE</span>
                   <span className="text-right">
-                    <span className="text-[11px] line-through text-white/30">$54</span>
-                    <span className="ml-2 font-display text-lg leading-none text-white">$21</span>
-                    <span className="ml-2 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-black tracking-widest text-white">SAVE $33</span>
+                    <span className="font-display text-lg leading-none text-white">$21 together</span>
+                    <span className="ml-2 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-black tracking-widest text-white">HELD 15 MIN</span>
                   </span>
                 </div>
               </div>
