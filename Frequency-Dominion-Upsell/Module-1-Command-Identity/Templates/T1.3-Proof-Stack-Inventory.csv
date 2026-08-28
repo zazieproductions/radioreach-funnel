@@ -1,0 +1,4 @@
+Receipt,Date,Source,Medium,Tier,Proof-Line,Market,File-Path,Status
+[EXAMPLE — replace] Spin on college show,2026-01-12,WXYC 89.3,Recording + log,Tier 1,"Played in rotation, Chapel Hill","Chapel Hill, NC",proof/01/xyz.mp3,Logged
+Press feature,2026-01-20,Local blog,Link,Tier 1,Featured + quoted by staff writer,"Austin, TX",proof/01/feature.png,Logged
+Playlist placement,2026-02-01,Indie playlist,Screenshot,Tier 2,"40K followers, 3 tracks",National,proof/02/playlist.png,Logged
