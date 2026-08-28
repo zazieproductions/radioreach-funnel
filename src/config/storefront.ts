@@ -106,24 +106,28 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
   },
   frequency_dominion: {
     key: "frequency_dominion",
-    name: "Frequency Dominion: 21-Day Radio Campaign Course",
+    name: "Frequency Dominion: The 24-Lesson Radio Ownership System",
     shortName: "Frequency Dominion",
     price: 97,
     compareAt: 997,
     stripePriceIdEnv: "STRIPE_PRICE_FREQUENCY_DOMINION",
     r2BundleKey: "courses/frequency-dominion/frequency-dominion-course.zip",
-    description: "6 modules, 24 spoken lessons (~3h of VO), a complete worked example, filled workbooks, and pitch weapons that turn the Vault into a campaign.",
+    description:
+      "The complete backend course: 6 modules, 24 deep-dive lessons (~3h of VO scripts), a full worked example, the Radio Industry Insider Decoder, 6 executive playbooks, war-room PDFs, heat maps, and the 21-day campaign system.",
     includes: [
-      "24 teleprompter-ready VO scripts (~25,700 words)",
+      "6 modules · 24 teleprompter-ready VO scripts (~25,700 words) + drills",
+      "In-browser classroom: day-of-campaign mode + drill-gated progress",
       "Complete worked example: 20-station war room + honest 21-day log",
-      "10 workbooks — 5 templates + 5 filled example versions",
-      "9-piece swipe file (subject lines → client email)",
-      "Printable 21-day calendar, EPK one-sheet, send-log CSVs",
-      "Classroom: day-of-campaign mode + drill-gated progress",
+      "10 workbooks + 9-piece swipe file (templated AND filled)",
+      "Radio Industry Insider Decoder + 6 executive playbooks + 8 executive PDFs",
+      "24 fillable templates + 24 war-room PDFs + printable calendar/EPK pack",
+      "Bonus 1–5: heat map DB, audio vault, EPK deck, audit engine, resources",
+      "Lifetime access + community + 30-day risk reversal",
     ],
-    checkoutBadge: "Flagship course",
-    checkoutHeadline: "Don't just own the list. Run the campaign.",
-    checkoutValueLine: "Identity, targeting, pitches, calendar, relationships, and the 90-day empire loop.",
+    checkoutBadge: "Backend flagship",
+    checkoutHeadline: "Stop Asking for Airplay. Own the Frequency.",
+    checkoutValueLine:
+      "The $5,193 stack: 24 lessons, insider layer, 5 bonuses, and the system that turns contacts into a compounding airplay machine.",
   },
 };
 

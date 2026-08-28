@@ -1,0 +1,7 @@
+Block,Element,Copy,Asset,Link,Approved,Notes
+1,Photo,Live stage shot,proof/photo-live.jpg,,No,Needs crop
+2,Name + genre line,Artist Name — dark indie pop,text,,No,One genre only
+3,Three receipts,"2,100 streams · 450 tickets · 3 press",text,links,No,Refresh quarterly
+4,Music,90-sec promo + radio edit,audio files,drive,No,Under 10MB
+5,Press + logos,"3 logos, verifiable",logos.png,,No,Verify sources
+6,Logistics,"contact, city, dates, socials",text,,No,Mobile-check

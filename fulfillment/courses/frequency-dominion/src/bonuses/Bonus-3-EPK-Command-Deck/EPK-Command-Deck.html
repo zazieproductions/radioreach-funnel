@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EPK Command Deck — [ARTIST NAME] | RadioReach</title>
+<style>
+  :root {
+    --ink: #08080a; --panel: #101014; --panel2: #17171f; --acid: #ffe600;
+    --blood: #e01b24; --line: #2a2a34; --txt: #f2f2f5; --muted: #9a9aa3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--ink); color: var(--txt); font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 48px 22px 80px; }
+  .deck { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: 0 30px 90px rgba(0,0,0,.6); }
+  /* header */
+  .head { background: linear-gradient(135deg, #131318, #0a0a0d); border-bottom: 1px solid var(--acid); padding: 34px 38px; position: relative; }
+  .head::after { content: "RADIOREACH EPK"; position: absolute; top: 24px; right: 34px; font-size: 10px; letter-spacing: .3em; color: var(--muted); font-weight: 800; }
+  .head h1 { font-size: clamp(34px, 8vw, 72px); line-height: .95; letter-spacing: -.01em; }
+  .head .genre { margin-top: 12px; font-size: 14px; letter-spacing: .24em; text-transform: uppercase; color: var(--acid); font-weight: 800; }
+  .head .location { margin-top: 8px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  /* photo */
+  .photo { width: 100%; aspect-ratio: 16/8.2; background: var(--panel2) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%2317171f"/><text x="50" y="54" font-family="Arial" font-size="11" fill="%23333" text-anchor="middle">LIVE PHOTO — 1600×820</text></svg>') center/cover no-repeat; display: flex; align-items: flex-end; }
+  .photo span { display: none; }
+  /* blocks */
+  .blocks { padding: 8px 38px 44px; }
+  .block { padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .block:last-child { border-bottom: 0; }
+  .block h2 { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); font-weight: 900; margin-bottom: 14px; }
+  .block h2 b { color: var(--acid); }
+  .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .proof { background: var(--panel2); border: 1px solid var(--line); border-radius: 12px; padding: 18px 16px; }
+  .proof b { display: block; font-size: 26px; color: var(--acid); }
+  .proof span { font-size: 12px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; font-weight: 700; margin-top: 6px; display: block; }
+  .music-links { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .music { background: var(--panel2); border: 1px solid var(--line); border-radius: 12px; padding: 18px; font-size: 14px; }
+  .music b { color: var(--acid); display: block; margin-bottom: 6px; }
+  .logo-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .logo { border: 1px dashed var(--line); color: var(--muted); border-radius: 10px; padding: 10px 18px; font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+  .logistics { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; font-size: 14px; line-height: 1.8; }
+  .logistics a { color: var(--acid); text-decoration: none; font-weight: 700; }
+  .logistics a:hover { text-decoration: underline; }
+  /* toolbar */
+  .toolbar { position: fixed; left: 50%; transform: translateX(-50%); bottom: 18px; display: flex; gap: 10px; background: rgba(10,10,13,.92); border: 1px solid var(--acid); border-radius: 40px; padding: 10px 14px; backdrop-filter: blur(10px); z-index: 50; }
+  .toolbar button { background: transparent; border: 0; color: var(--txt); font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; padding: 8px 14px; border-radius: 30px; }
+  .toolbar button:hover { color: var(--acid); }
+  .toolbar .primary { background: var(--acid); color: var(--ink); }
+  .toolbar .primary:hover { color: var(--ink); opacity: .9; }
+  /* edit mode */
+  body.edit [data-edit] { outline: 1px dashed rgba(255,230,0,.35); outline-offset: 4px; cursor: text; }
+  body.edit [data-edit]:hover { outline-color: var(--acid); }
+  body.edit [data-edit]:focus { outline: 2px solid var(--acid); background: rgba(255,230,0,.04); }
+  /* mobile + print */
+  @media (max-width: 640px) { .proof-grid, .music-links, .logistics { grid-template-columns: 1fr; } .head { padding: 26px 22px; } .blocks { padding: 8px 22px 90px; } .photo { aspect-ratio: 16/10; } }
+  @media print {
+    body { background: #fff; color: #111; }
+    .wrap { padding: 0; max-width: none; }
+    .deck { border: 0; box-shadow: none; border-radius: 0; background: #fff; }
+    .head, .block h2 b, .proof b { color: #0a0a0a; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .head { background: #111 !important; color: #fff; -webkit-print-color-adjust: exact; }
+    .toolbar { display: none; }
+    .proof, .music, .logo { background: #f4f4f6; border: 1px solid #ccc; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="deck">
+    <header class="head">
+      <h1 data-edit>[ARTIST NAME]</h1>
+      <div class="genre" data-edit>[ONE GENRE — e.g. DARK INDIE POP]</div>
+      <div class="location" data-edit>[CITY, STATE] · [COUNTRY]</div>
+    </header>
+    <div class="photo" data-edit title="Replace this background URL with a live stage photo (1600×820, no crop problem)"></div>
+
+    <div class="blocks">
+      <!-- BLOCK 3 · PROOF -->
+      <section class="block">
+        <h2><b>01</b> · THE PROOF — <span data-edit>THIRD-PARTY ONLY</span></h2>
+        <div class="proof-grid">
+          <div class="proof"><b data-edit>[2,100]</b><span data-edit>LOCAL STREAMS</span></div>
+          <div class="proof"><b data-edit>[450]</b><span data-edit>TICKETS SOLD</span></div>
+          <div class="proof"><b data-edit>[3]</b><span data-edit>PRESS FEATURES</span></div>
+        </div>
+      </section>
+
+      <!-- BLOCK 4 · MUSIC -->
+      <section class="block">
+        <h2><b>02</b> · THE MUSIC — ONE CLICK, NO PLAYER HUNT</h2>
+        <div class="music-links">
+          <div class="music"><b>90-SECOND RADIO PROMO</b><span data-edit>[LINK to your 90-sec MP3/WAV — under 10MB]</span></div>
+          <div class="music"><b>RADIO EDIT (CLEAN · 3:12)</b><span data-edit>[LINK to clean radio edit — -14 LUFS, true peak &lt; -1 dBTP]</span></div>
+        </div>
+      </section>
+
+      <!-- BLOCK 5 · PRESS -->
+      <section class="block">
+        <h2><b>03</b> · PRESS &amp; LOGOS — <span data-edit>VERIFIABLE ONLY</span></h2>
+        <div class="logo-row">
+          <div class="logo" data-edit>[PRESS LOGO 1]</div>
+          <div class="logo" data-edit>[PRESS LOGO 2]</div>
+          <div class="logo" data-edit>[PRESS LOGO 3]</div>
+        </div>
+      </section>
+
+      <!-- BLOCK 6 · LOGISTICS -->
+      <section class="block">
+        <h2><b>04</b> · LOGISTICS</h2>
+        <div class="logistics">
+          <div>
+            <b>Contact:</b><br /><span data-edit>[booking@artist.com]</span><br />
+            <b>Phone:</b> <span data-edit>[+1 555 000 0000]</span><br />
+            <b>City:</b> <span data-edit>[City, State]</span>
+          </div>
+          <div>
+            <b>Streaming:</b><br /><a href="#" data-edit>[linktree.url]</a><br />
+            <b>Socials:</b> <a href="#" data-edit>[@artist]</a><br />
+            <b>Tour dates:</b> <a href="#" data-edit>[dates.url]</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="toolbar">
+  <button id="editBtn">✎ Edit</button>
+  <button id="resetBtn">Reset</button>
+  <button class="primary" id="printBtn">🖨 Save as PDF</button>
+</div>
+
+<script>
+  // EPK Command Deck — inline content editing + print-to-PDF
+  var KEY = "fd_epk_deck_v1";
+  var editBtn = document.getElementById("editBtn");
+  var resetBtn = document.getElementById("resetBtn");
+  var printBtn = document.getElementById("printBtn");
+
+  function editableEls() { return document.querySelectorAll("[data-edit]"); }
+
+  function load() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+      editableEls().forEach(function (el) {
+        var id = el.getAttribute("data-edit");
+        var text = el.tagName === "A" ? (saved.links && saved.links[id]) : saved[id];
+        if (typeof text === "string" && text) {
+          if (el.tagName === "A") { el.href = text.indexOf("http") === 0 ? text : "#"; el.textContent = text; }
+          else el.textContent = text;
+        }
+      });
+    } catch (e) { /* fresh deck */ }
+  }
+  function save() {
+    var out = {}, links = {};
+    editableEls().forEach(function (el) {
+      var id = el.getAttribute("data-edit");
+      if (el.tagName === "A") links[id] = el.textContent; else out[id] = el.textContent;
+    });
+    try { localStorage.setItem(KEY, JSON.stringify(out)); } catch (e) {}
+  }
+
+  editBtn.addEventListener("click", function () {
+    var on = document.body.classList.toggle("edit");
+    editableEls().forEach(function (el) { el.setAttribute("contenteditable", on ? "true" : "false"); });
+    editBtn.textContent = on ? "✓ Done" : "✎ Edit";
+    if (on) elseSaveListener();
+  });
+
+  function elseSaveListener() {
+    editableEls().forEach(function (el) {
+      el.addEventListener("blur", save);
+    });
+  }
+
+  resetBtn.addEventListener("click", function () {
+    if (!confirm("Reset this deck to the template? Your edits will be cleared.")) return;
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    location.reload();
+  });
+
+  printBtn.addEventListener("click", function () { window.print(); });
+
+  // Set every editable to save on blur immediately (even outside edit mode, harmless)
+  editableEls().forEach(function (el) { el.addEventListener("blur", save); });
+  load();
+</script>
+</body>
+</html>

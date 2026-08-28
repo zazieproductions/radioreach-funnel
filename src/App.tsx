@@ -14,6 +14,9 @@ const CommunityForum = lazy(() => import("./funnel/CommunityForum"));
 const CourseSalesPage = lazy(() => import("./course/CourseSalesPage"));
 const CourseClassroom = lazy(() => import("./course/CourseClassroom"));
 
+const FrequencyDominionCheckout = lazy(() =>
+  import("./funnel/FrequencyDominionCheckout")
+);
 const Upsell1 = lazy(() =>
   import("./funnel/Upsells").then((m) => ({ default: m.Upsell1 }))
 );
@@ -46,6 +49,7 @@ export default function App() {
   const routeCommunity = hash.startsWith("#/community");
   const routeClassroom = hash.startsWith("#/course/classroom");
   const routeCourse = hash.startsWith("#/course");
+  const routeFdCheckout = hash.startsWith("#/fd-checkout");
 
   useEffect(() => {
     const onHashChange = () => setHash(window.location.hash || "");
@@ -102,6 +106,16 @@ export default function App() {
     return (
       <Suspense fallback={<LoadingScreen />}>
         <SuccessPage />
+      </Suspense>
+    );
+  }
+
+  // Standalone checkout for the Frequency Dominion backend course
+  // (reached from /frequency-dominion/).
+  if (routeFdCheckout) {
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        <FrequencyDominionCheckout />
       </Suspense>
     );
   }

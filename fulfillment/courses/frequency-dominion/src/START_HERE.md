@@ -29,6 +29,11 @@
 | `epk/` | EPK one-sheet HTML — template + filled example (open → print to PDF) |
 | `logs/` | Send-log CSV headers + a 22-row example from the worked campaign |
 | `sequences/` | Self-nurture email + SMS copy (Day 0 → Day 21) — you are the operator |
+| `insider/` | Radio Industry Insider Decoder, 6 module Insider Playbooks, Per-Lesson Insider Edge + 8 executive PDFs |
+| `templates/` | 24 fillable per-lesson templates (T1.1–T6.4) — CSV + markdown, one per lesson |
+| `war-room-notes/` | 24 printable war-room note PDFs, one per lesson |
+| `bonuses/` | Bonus 1–5: heat-map seed database, 90-second audio script vault, EPK command deck, 90-day audit engine, resources hub |
+| `resources/` | 30 subject-line formulas, 90-word pitch vault, 3-touch sequences, relationship playbook, audit checklist, calendars, course overview |
 | `assets/` | Course cover (Frequency Dominion) |
 
 ## Rules that keep this legal and useful
