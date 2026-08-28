@@ -16,6 +16,7 @@ import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 
 import { COURSE, MODULES, allLessons, courseStats } from "../src/course/curriculum";
+import { EMAIL_SEQUENCE, SMS_SEQUENCE } from "../src/course/lifecycle";
 import { EXAMPLE_DISCLAIMER, exampleFor } from "../src/course/workedExample";
 import {
   ARTIST,
@@ -95,6 +96,7 @@ write(
 | \`calendar/\` | 21-day calendar as markdown **and** printable HTML one-pager (print CSS) |
 | \`epk/\` | EPK one-sheet HTML — template + filled example (open → print to PDF) |
 | \`logs/\` | Send-log CSV headers + a 22-row example from the worked campaign |
+| \`sequences/\` | Self-nurture email + SMS copy (Day 0 → Day 21) — you are the operator |
 | \`assets/\` | Course cover (${COURSE.name}) |
 
 ## Rules that keep this legal and useful
@@ -147,8 +149,13 @@ const moduleIntros: Record<string, string> = {
   m6: "Module 06 is the loop: the proof ledger, airplay→income routing, the T-minus release calendar, and the 90-day review.",
 };
 
+/** Module folders keep the original zip's paths (drop a leading "The ") so any
+ *  existing reference to the legacy structure still resolves after a rebuild. */
+const moduleSlug = (m: { n: string; title: string }) =>
+  `${m.n}-${m.title.replace(/^The /i, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+
 for (const m of MODULES) {
-  const slug = `${m.n}-${m.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+  const slug = moduleSlug(m);
   write(
     `${slug}/00-MODULE.md`,
     `# MODULE ${m.n} — ${m.title.toUpperCase()}
@@ -388,6 +395,35 @@ ${CLIENT_EMAIL.body.join("\n\n")}
 | T-minus | Date | Action |
 |---------|------|--------|
 ${RELEASE_MAP.map((r) => `| ${r.t} | ${r.date} | ${r.action} |`).join("\n")}
+`
+);
+
+/* ── Sequences (carried forward from the original zip, now generated
+      from src/course/lifecycle.ts so operator copy stays in sync) ── */
+
+write(
+  "sequences/email-and-sms.md",
+  `# Self-nurture / operator sequences
+
+The buyer lifecycle copy from the RadioReach console — use it to keep yourself
+on the cadence, or as the seed of your own mailing-list automation. These are
+written to the artist (you), from purchase day forward.
+
+## Email (from purchase)
+
+${EMAIL_SEQUENCE.map(
+  (e) =>
+    `**Day ${e.day} — ${e.name}**\nSubject: ${e.subject}\n${e.body}`
+).join("\n\n")}
+
+## SMS
+
+${SMS_SEQUENCE.map((s) => `- ${s.trigger}: ${s.text}`).join("\n")}
+
+---
+
+*These sequences run against your own campaign calendar. Nothing here is sent
+automatically by RadioReach — you are the operator.*
 `
 );
 

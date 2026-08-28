@@ -28,6 +28,7 @@
 | `calendar/` | 21-day calendar as markdown **and** printable HTML one-pager (print CSS) |
 | `epk/` | EPK one-sheet HTML — template + filled example (open → print to PDF) |
 | `logs/` | Send-log CSV headers + a 22-row example from the worked campaign |
+| `sequences/` | Self-nurture email + SMS copy (Day 0 → Day 21) — you are the operator |
 | `assets/` | Course cover (Frequency Dominion) |
 
 ## Rules that keep this legal and useful
