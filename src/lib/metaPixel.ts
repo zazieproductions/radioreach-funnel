@@ -4,6 +4,8 @@
 // browser before being handed to fbq, per Meta's manual advanced matching spec:
 // https://developers.facebook.com/docs/meta-pixel/advanced/advanced-matching
 
+import { getFunnelVariant } from "./funnelVariant";
+
 declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;
@@ -88,13 +90,22 @@ export function trackCustom(event: string, params: Record<string, unknown> = {})
 /**
  * Track a completed tip when Stripe redirects back with
  * ?tip=thanks&tip_amount=<cents>&tip_session=<cs_...>.
+ * The params may live in the real query string (legacy tip flow) or inside
+ * the hash-route query when returning straight to the success page.
  * Deduplicated per tip session via localStorage + eventID.
  */
 export function trackTipFromReturnUrl() {
   if (typeof window === "undefined") return;
 
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("tip") !== "thanks") return;
+  const search = new URLSearchParams(window.location.search);
+  const hash = window.location.hash || "";
+  const hashQuery = hash.includes("?")
+    ? new URLSearchParams(hash.split("?")[1])
+    : new URLSearchParams();
+
+  if (search.get("tip") !== "thanks" && hashQuery.get("tip") !== "thanks") return;
+
+  const params = search.get("tip") === "thanks" ? search : hashQuery;
 
   const sessionId = params.get("tip_session") || "";
   const cents = Number(params.get("tip_amount"));
@@ -162,6 +173,7 @@ export async function trackVerifiedPurchase(opts: {
       content_type: "product",
       num_items: opts.contentIds.length,
       ...opts.attribution,
+      funnel_variant: getFunnelVariant(),
     },
     opts.sessionId
   );

@@ -79,6 +79,10 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     stripePriceIdEnv: "STRIPE_PRICE_AIRPLAY_ACCELERATOR",
     r2BundleKey: "upsells/airplay-accelerator.zip",
     description: "Curator contacts, campaign calendar, swipe file, follow-up sequence, and pitch review.",
+    checkoutBadge: "Campaign kit",
+    checkoutHeadline: "You have the list. Now who writes the pitch?",
+    checkoutValueLine:
+      "4,812 curator contacts, the 6-week campaign calendar, 11 subject lines with real open rates, and the 3-touch follow-up sequence that doubled replies.",
   },
   upwork_course: {
     key: "upwork_course",

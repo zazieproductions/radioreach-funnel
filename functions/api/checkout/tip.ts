@@ -3,10 +3,15 @@ import { getStripe } from "../../_lib/stripe";
 
 const ALLOWED_TIPS = new Set([300, 500, 1000, 2000]);
 
+// Tips may only redirect back to the buyer's verified success page (keeps
+// download links one click away) or the site root. Nothing off-origin.
+const RETURN_TO_PATTERN = /^\/#\/success\?session_id=cs_[A-Za-z0-9_]+$/;
+
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   try {
     const body = (await request.json().catch(() => ({}))) as {
       amount?: number;
+      returnTo?: string;
     };
 
     const amount = Number(body.amount);
@@ -17,6 +22,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         { status: 400 }
       );
     }
+
+    const returnTo =
+      typeof body.returnTo === "string" && RETURN_TO_PATTERN.test(body.returnTo)
+        ? body.returnTo
+        : null;
 
     const stripe = getStripe(env);
     const origin = new URL(request.url).origin;
@@ -36,8 +46,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
           quantity: 1,
         },
       ],
-      success_url: `${origin}/?tip=thanks&tip_amount=${amount}&tip_session={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/`,
+      success_url: returnTo
+        ? `${origin}${returnTo}&tip=thanks&tip_amount=${amount}&tip_session={CHECKOUT_SESSION_ID}`
+        : `${origin}/?tip=thanks&tip_amount=${amount}&tip_session={CHECKOUT_SESSION_ID}`,
+      cancel_url: returnTo ? `${origin}${returnTo}` : `${origin}/`,
       metadata: {
         payment_type: "tip",
       },

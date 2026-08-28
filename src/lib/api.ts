@@ -1,5 +1,6 @@
 import type { ProductKey } from "../config/storefront";
 import type { MomentumAttribution } from "./momentumSequence";
+import { getFunnelVariant } from "./funnelVariant";
 
 export type CheckoutSelection = {
   items: ProductKey[];
@@ -16,7 +17,12 @@ export async function createEmbeddedCheckoutSession(payload: CheckoutSelection) 
   const res = await fetch("/api/checkout/session", {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      ...payload,
+      // Stamp the deterministic client bucket onto the session so Stripe
+      // metadata and KV order records can be segmented by variant.
+      funnelVariant: getFunnelVariant(),
+    }),
   });
 
   const data = (await res.json()) as CreateSessionResponse;

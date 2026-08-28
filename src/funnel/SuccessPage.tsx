@@ -1,8 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import { createDownloadLinks, verifySession } from "../lib/api";
-import { trackVerifiedPurchase } from "../lib/metaPixel";
+import { track, trackCustom, trackVerifiedPurchase } from "../lib/metaPixel";
+import { funnelVariantParams } from "../lib/funnelVariant";
 import { TARGET_LABELS, TARGET_STARTING_MOVES } from "../lib/momentumSequence";
 import { espLogConversion, getPersistedMode } from "../esp";
+
+// The post-purchase Accelerator offer pulls the embedded Stripe checkout
+// only when the buyer opts in, keeping the success bundle light.
+const EmbeddedCheckout = lazy(() => import("./EmbeddedStripeCheckout"));
 
 /* Keep purchase logging idempotent across re-verifies/re-mounts. */
 const purchaseLoggedFor = new Set<string>();
@@ -61,6 +66,120 @@ function PersonalizedStartingMove({ momentum }: { momentum?: Record<string, stri
       <p className="mt-3 text-[11px] uppercase tracking-[0.16em] text-white/35">
         Carried through from your access plan
       </p>
+    </div>
+  );
+}
+
+/**
+ * Real post-purchase offer for the Airplay Accelerator. Shown only to buyers
+ * whose paid order does not already include it. Accepting opens a second,
+ * embedded Stripe checkout for exactly one product — a real payment, never a
+ * "card on file" promise the stack cannot keep. Downloads above stay unlocked.
+ */
+function PostPurchaseOffer({ eligible }: { eligible: boolean }) {
+  const [open, setOpen] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const viewedRef = useRef(false);
+
+  useEffect(() => {
+    if (!eligible || viewedRef.current) return;
+    viewedRef.current = true;
+    trackCustom("PostPurchaseOfferViewed", {
+      product: "airplay_accelerator",
+      value: 37,
+      currency: "USD",
+      ...funnelVariantParams(),
+    });
+  }, [eligible]);
+
+  if (!eligible || dismissed) return null;
+
+  return (
+    <div className="mt-8 rounded-2xl border-2 border-acid/40 bg-gradient-to-b from-acid/[0.07] to-transparent p-5 sm:p-6">
+      <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-acid">
+        Complete your campaign · optional
+      </p>
+      <h3 className="mt-2 font-display text-xl uppercase leading-tight text-white sm:text-2xl">
+        You have the list. Now who writes the pitch?
+      </h3>
+      <p className="mt-3 text-sm leading-6 text-white/70">
+        18,000+ contacts only pay off if your email gets opened. The{" "}
+        <b className="text-white">Airplay Accelerator</b> is the campaign kit:
+        4,812 bonus curator contacts, the 6-week airplay campaign calendar, 11
+        subject lines with real open rates attached, the 3-touch follow-up
+        cadence that doubled replies, and one personal pitch review.
+      </p>
+      <p className="mt-3 flex items-baseline gap-2">
+        <span className="text-sm text-white/35 line-through">$822 value</span>
+        <span className="font-display text-3xl text-acid">$37</span>
+        <span className="text-[11px] uppercase tracking-wider text-white/40">
+          one-time
+        </span>
+      </p>
+
+      {!open ? (
+        <div className="mt-5 space-y-3">
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(true);
+              trackCustom("PostPurchaseOfferAccepted", {
+                product: "airplay_accelerator",
+                value: 37,
+                currency: "USD",
+                ...funnelVariantParams(),
+              });
+              track("InitiateCheckout", {
+                value: 37,
+                currency: "USD",
+                content_ids: ["airplay_accelerator"],
+                content_type: "product",
+                num_items: 1,
+                ...funnelVariantParams(),
+              });
+            }}
+            className="w-full rounded-full bg-acid px-5 py-4 text-sm font-bold uppercase tracking-[0.18em] text-ink transition hover:scale-[1.01]"
+          >
+            Yes — add the Airplay Accelerator ($37)
+          </button>
+          <p className="text-center text-[11px] leading-snug text-white/40">
+            Separate secure Stripe payment. Your downloads above stay unlocked
+            either way.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setDismissed(true);
+              trackCustom("PostPurchaseOfferDeclined", {
+                product: "airplay_accelerator",
+                ...funnelVariantParams(),
+              });
+            }}
+            className="block w-full text-center text-[12px] text-white/45 underline underline-offset-4 hover:text-white/75"
+          >
+            No thanks — I'll write my own pitches
+          </button>
+        </div>
+      ) : (
+        <div className="mt-5">
+          <p className="mb-3 text-[12px] leading-snug text-white/50">
+            Secure payment below. The moment it clears, this page reloads with
+            your Accelerator download. Your existing links are unchanged.
+          </p>
+          <Suspense
+            fallback={
+              <div className="rounded-xl border border-white/10 bg-black/30 p-6 text-sm text-white/60">
+                Preparing secure checkout…
+              </div>
+            }
+          >
+            <EmbeddedCheckout
+              items={["airplay_accelerator"]}
+              bundleId="airplay_accelerator"
+            />
+          </Suspense>
+        </div>
+      )}
     </div>
   );
 }
@@ -150,13 +269,18 @@ export default function SuccessPage() {
   async function startTip(amount: number) {
     try {
       setTipLoading(amount);
+      trackCustom("TipStarted", { amount, currency: "USD", ...funnelVariantParams() });
+
+      // Return the buyer to THIS page after the tip so their download links
+      // are never lost behind a redirect to the sales page.
+      const returnTo = `/#/success?session_id=${encodeURIComponent(sessionId)}`;
 
       const response = await fetch("/api/checkout/tip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amount }),
+        body: JSON.stringify({ amount, returnTo }),
       });
 
       const data = await response.json();
@@ -179,12 +303,16 @@ export default function SuccessPage() {
   async function sharePublicSalesPage() {
     const publicSalesUrl = "https://radioreach.us/";
 
+    trackCustom("ShareClicked", {
+      placement: "success_page",
+      ...funnelVariantParams(),
+    });
+
     const shareData = {
       title: "RadioReach",
       text: "Check out the RadioReach radio contact vault.",
       url: publicSalesUrl,
     };
-
     try {
       if (navigator.share) {
         await navigator.share(shareData);
@@ -359,6 +487,15 @@ export default function SuccessPage() {
                       </div>
                     ))}
                   </div>
+
+                  {/* One real, optional upgrade after the files the buyer paid
+                      for are already unlocked. Never blocks delivery. */}
+                  <PostPurchaseOffer
+                    eligible={
+                      state.kind === "ready" &&
+                      !state.items.some((i) => i.key === "airplay_accelerator")
+                    }
+                  />
                 </div>
 
                 <aside className="px-6 py-8 sm:px-8">

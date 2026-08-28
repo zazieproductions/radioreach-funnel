@@ -23,6 +23,8 @@ import { TESTIMONIALS } from "./testimonials";
 import { LuckyWheelButton } from "./LuckyWheel";
 import SecretSlotsSection from "./SecretSlots";
 import { trackCustom } from "../lib/metaPixel";
+import { funnelVariantParams } from "../lib/funnelVariant";
+import { PRICE } from "./prices";
 import {
   formatRemainingMs,
   getLuckyCouponRemainingMs,
@@ -94,6 +96,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
       experience: trafficContext.experience,
       paid_social: trafficContext.paidSocial,
       mobile: trafficContext.mobile,
+      ...funnelVariantParams(),
     });
   }, [trafficContext]);
 
@@ -129,8 +132,9 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
       experience: trafficContext.experience,
       paid_social: trafficContext.paidSocial,
       mobile: trafficContext.mobile,
-      value: 20,
+      value: PRICE.core,
       currency: "USD",
+      ...funnelVariantParams(),
     });
     onCta();
   };
@@ -275,7 +279,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <div className="mt-5 flex flex-col items-center gap-2">
               <LuckyWheelButton onClick={() => onOpenWheel?.()} />
               <p className="max-w-[32ch] text-center text-[11px] leading-snug text-white/40">
-                Free spin · no email · unlock the founder bundle
+                Free spin · optional · founder bundle reveal
               </p>
             </div>
           )}
@@ -380,8 +384,11 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
           affiliate code FR2AZEF as a "hidden industry secret". The promo
           code IS the affiliate; no outbound link, visitors copy it and
           enter it at PlaylistPush checkout. Feature flagged with a runtime
-          kill switch like the Momentum sequence. */}
-      {isSecretSlotsEnabled() && <SecretSlotsSection />}
+          kill switch like the Momentum sequence. Hidden for paid-social
+          visitors, like Momentum and the resource cluster: an off-topic
+          detour in the ad-to-checkout path costs more than the affiliate
+          pays. */}
+      {isSecretSlotsEnabled() && !trafficContext.paidSocial && <SecretSlotsSection />}
 
       {/* WHAT'S INSIDE / STACK */}
       <section id="inside" className="defer-render border-y border-white/10 bg-panel">
@@ -440,7 +447,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               </span>
               <div className="flex-1">
                 <p className="text-[11px] font-black uppercase tracking-[0.16em] text-acid">
-                  {hasWinningCoupon ? "Jackpot unlocked" : "Bonus: spin to unlock founder price"}
+                  {hasWinningCoupon ? "Jackpot unlocked" : "Founder pricing · launch special"}
                 </p>
                 <p className="mt-1 font-display text-lg leading-none sm:text-xl">FOUNDER'S BUNDLE: BOTH ADD-ONS</p>
                 <div className="mt-2 grid gap-2">
@@ -461,7 +468,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                     </>
                   ) : (
                     <>
-                      <b className="text-white">spin to unlock both add-ons</b> at the founder price
+                      <b className="text-acid">yours for $21 (save $33)</b> — founder pricing, no spin required. Add either or both at checkout.
                     </>
                   )}
                 </p>
@@ -475,16 +482,25 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                       Go to checkout for the $21 bundle →
                     </button>
                   ) : (
-                    <button
-                      type="button"
-                      onClick={() => onOpenWheel?.()}
-                      className="cta rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-4 py-2 text-xs font-black uppercase tracking-widest text-white"
-                    >
-                      🎡 Spin the wheel for free
-                    </button>
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleCta("founder_bundle")}
+                        className="cta rounded-full bg-acid px-4 py-2 text-xs font-black uppercase tracking-widest text-ink"
+                      >
+                        Get the $21 founder bundle at checkout →
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => onOpenWheel?.()}
+                        className="cta rounded-full bg-gradient-to-r from-[#ff3b82] via-[#7c5cff] to-[#00d4ff] px-4 py-2 text-xs font-black uppercase tracking-widest text-white"
+                      >
+                        🎡 Spin for the jackpot reveal
+                      </button>
+                    </>
                   )}
                   <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white/50">
-                    {hasWinningCoupon ? `⏳ ${remainingStr} left` : "Free spin"}
+                    {hasWinningCoupon ? `⏳ ${remainingStr} left` : "Optional"}
                   </span>
                 </div>
               </div>
