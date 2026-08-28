@@ -20,4 +20,8 @@ export const PRICE = {
   downsellTotal: 18,
   downsellPerLabel: "$6",
   downsellTotalLabel: "$18",
+
+  course: 97,
+  courseLabel: "$97",
+  courseAnchorLabel: "$997",
 };

@@ -111,26 +111,27 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     price: 97,
     compareAt: 997,
     stripePriceIdEnv: "STRIPE_PRICE_FREQUENCY_DOMINION",
-    r2BundleKey: "courses/frequency-dominion-97-upsell.zip",
+    r2BundleKey: "courses/frequency-dominion/frequency-dominion-course.zip",
     description:
-      "The complete backend course: 6 modules, 24 lessons, insider decoder, 6 executive playbooks, war-room PDFs, heat maps, and the 21-day campaign system.",
+      "The complete backend course: 6 modules, 24 lessons, industry decoder, 6 executive playbooks, war-room PDFs, heat maps, and the 21-day campaign system.",
     includes: [
       "6 modules · 24 lessons (video scripts + drills)",
+      "In-browser classroom with progress tracking",
       "Radio Industry Insider Decoder + 6 executive playbooks",
-      "24 fillable templates + 24 war-room PDFs",
+      "24 fillable templates + 24 war-room PDFs + 8 executive PDFs",
       "Bonus 1–5: heat map DB, audio vault, EPK deck, audit engine, resources",
       "Lifetime access + community + 30-day risk reversal",
     ],
     checkoutBadge: "Backend flagship",
     checkoutHeadline: "Stop Asking for Airplay. Own the Frequency.",
     checkoutValueLine:
-      "$997 anchor → $97. The $5,193 stack: 24 lessons, insider layer, 5 bonuses, and the system that turns contacts into a compounding airplay machine.",
+      "The $5,193 stack: 24 lessons, insider layer, 5 bonuses, and the system that turns contacts into a compounding airplay machine.",
   },
 };
 
 export const CHECKOUT_DEFAULTS = {
   core: "vault_core" as ProductKey,
-  addons: ["contract_bundle", "australia_addon", "contract_guide"] as ProductKey[],
+  addons: ["contract_bundle", "australia_addon", "contract_guide", "frequency_dominion"] as ProductKey[],
   upsells: ["airplay_accelerator", "upwork_course"] as ProductKey[],
 };
 

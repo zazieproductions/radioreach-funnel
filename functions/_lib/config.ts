@@ -31,10 +31,9 @@ export const ALLOWED_PRODUCTS = {
   },
   frequency_dominion: {
     envPriceVar: "STRIPE_PRICE_FREQUENCY_DOMINION",
-    bundleKey: "courses/frequency-dominion-97-upsell.zip",
-    name: "Frequency Dominion",
+    bundleKey: "courses/frequency-dominion/frequency-dominion-course.zip",
+    name: "Frequency Dominion: The 24-Lesson Radio Ownership System",
   },
-
 } as const;
 
 export type AllowedProductKey = keyof typeof ALLOWED_PRODUCTS;

@@ -663,6 +663,7 @@ export function ThankYou({
   hasContracts,
   hasAu,
   hasContractGuide,
+  hasCourse,
   hasUpwork,
   // hasFonts,
   onRestart,
@@ -671,6 +672,7 @@ export function ThankYou({
   hasContracts?: boolean;
   hasAu?: boolean;
   hasContractGuide?: boolean;
+  hasCourse?: boolean;
   hasUpwork?: boolean;
   // hasFonts?: boolean;
   onRestart: () => void;
@@ -683,6 +685,7 @@ export function ThankYou({
     ...(hasContracts ? [["📄", "The Indie Music Contract Kit", "6 Agreement Templates + Plain-English Usage Guide"] as [string, string, string]] : []),
     ...(hasAu ? [["🇦🇺", "Australian Radio Contact List", "Major national and regional AU contacts"] as [string, string, string]] : []),
     ...(hasContractGuide ? [["📄", "RadioReach Indie Artist Contract Info Guide (PDF)", "Instant PDF Access"] as [string, string, string]] : []),
+    ...(hasCourse ? [["📡", "Frequency Dominion Course", "6 modules · 24 lessons · classroom access"] as [string, string, string]] : []),
     ...(hasUpwork ? [["🎓", "Advanced Upwork Proposals: Full Course", `4 parts · ${TOTAL_LESSONS} lessons · lifetime access`] as [string, string, string]] : []),
     // ...(hasFonts ? [["🔤", "20,000 Fonts Mega Bundle; Arcane Type Vault", "A–Z folders · .OTF + .TTF · commercial license"] as [string, string, string]] : []),
   ];

@@ -11,6 +11,8 @@ const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
 const LabGallery = lazy(() => import("./lab/LabGallery"));
 const CustomLeadsPage = lazy(() => import("./funnel/CustomLeadsPage"));
 const CommunityForum = lazy(() => import("./funnel/CommunityForum"));
+const CourseSalesPage = lazy(() => import("./course/CourseSalesPage"));
+const CourseClassroom = lazy(() => import("./course/CourseClassroom"));
 
 const FrequencyDominionCheckout = lazy(() =>
   import("./funnel/FrequencyDominionCheckout")
@@ -45,6 +47,8 @@ export default function App() {
   const routeLab = hash.startsWith("#/lab");
   const routeCustomLeads = hash.startsWith("#/custom-leads");
   const routeCommunity = hash.startsWith("#/community");
+  const routeClassroom = hash.startsWith("#/course/classroom");
+  const routeCourse = hash.startsWith("#/course");
   const routeFdCheckout = hash.startsWith("#/fd-checkout");
 
   useEffect(() => {
@@ -59,6 +63,7 @@ export default function App() {
     contracts: false,
     au: false,
     contractGuide: false,
+    course: false,
   });
   const [hasUpwork, setHasUpwork] = useState(false);
 
@@ -144,6 +149,52 @@ export default function App() {
     );
   }
 
+  if (routeClassroom) {
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        <CourseClassroom
+          onBack={() => {
+            window.location.hash = "#/course";
+          }}
+          onBuy={() => {
+            try {
+              sessionStorage.setItem("radioreach:want-course", "1");
+            } catch {
+              /* ignore */
+            }
+            window.location.hash = "";
+            setStage("checkout");
+          }}
+        />
+      </Suspense>
+    );
+  }
+
+  if (routeCourse) {
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        <CourseSalesPage
+          onCta={() => {
+            try {
+              sessionStorage.setItem("radioreach:want-course", "1");
+            } catch {
+              /* ignore */
+            }
+            window.location.hash = "";
+            setStage("checkout");
+          }}
+          onClassroom={() => {
+            window.location.hash = "#/course/classroom";
+          }}
+          onVault={() => {
+            window.location.hash = "";
+            setStage("sales");
+          }}
+        />
+      </Suspense>
+    );
+  }
+
   const handleWheelWin = (c: LuckyCoupon) => {
     setLuckyCoupon(c);
   };
@@ -223,13 +274,14 @@ export default function App() {
             hasContracts={addons.contracts}
             hasAu={addons.au}
             hasContractGuide={addons.contractGuide}
+            hasCourse={addons.course}
             hasUpwork={hasUpwork}
             onRestart={() => {
               sessionStorage.clear();
               clearLuckyCoupon();
               setLuckyCoupon(null);
               setTotal(20);
-              setAddons({ contracts: false, au: false, contractGuide: false });
+              setAddons({ contracts: false, au: false, contractGuide: false, course: false });
               setHasUpwork(false);
               setStage("sales");
             }}
