@@ -1,10 +1,10 @@
 // Single source of truth for every number the funnel shouts at you.
 export const PRICE = {
-  core: 20,
-  coreLabel: "$20",
-  anchor: 55, // regular price displayed beside the launch offer
-  anchorLabel: "$55",
-  discountPct: 64,
+  core: 25,
+  coreLabel: "$25",
+  anchor: 350, // regular price displayed beside the launch offer
+  anchorLabel: "$350",
+  discountPct: 93,
 
   bump: 9,
   bumpLabel: "$9",

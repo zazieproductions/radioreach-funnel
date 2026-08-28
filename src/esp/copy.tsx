@@ -186,7 +186,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         from enterprise data providers run{" "}
         <span className="font-bold text-blood">$300–$500/year</span> and are built for corporate
         marketing departments. This is the same caliber of data: 18,000+ contacts, 10K+ verified
-        emails, for <span className="font-bold text-acid">$20</span>. That's{" "}
+        emails, for <span className="font-bold text-acid">$25</span>. That's{" "}
         <b className="text-white">0.11¢ per contact.</b> Priced for someone currently deciding
         between a mastering session and groceries. I know, because I was.
       </>
@@ -197,7 +197,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         enterprise data providers run{" "}
         <span className="font-bold text-blood">$300–$500/year</span> and are built for corporate
         marketing departments. This is the same caliber of data: 18,000+ contacts, 10K+ verified
-        emails, for <span className="font-bold text-acid">$20</span>, one time. That's{" "}
+        emails, for <span className="font-bold text-acid">$25</span>, one time. That's{" "}
         <b className="text-white">0.11¢ per contact.</b> No subscription, no upsell maze, and a
         30-day money-back guarantee if it's not for you.
       </>
@@ -207,7 +207,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
         <b className="text-white">The math serious artists do:</b> professional radio databases run{" "}
         <span className="font-bold text-blood">$300–$500/year</span> and are built for corporate
         marketing departments. You're being offered the same caliber of data: 18,000+ contacts,
-        10K+ verified emails, for <span className="font-bold text-acid">$20</span>, one time.{" "}
+        10K+ verified emails, for <span className="font-bold text-acid">$25</span>, one time.{" "}
         <b className="text-white">That's the edge the artists in rotation already paid for.</b>
       </>
     ),
@@ -215,7 +215,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
       <>
         <b className="text-white">The faster path:</b> professional databases can run{" "}
         <span className="font-bold text-blood">$300–$500/year</span>. RadioReach gives you an organized
-        research starting point for <span className="font-bold text-acid">$20 once</span>, about{" "}
+        research starting point for <span className="font-bold text-acid">$25 once</span>, about{" "}
         <b className="text-white">0.11¢ per entry</b>, so tonight can be about outreach instead of more searching.
       </>
     ),
@@ -223,10 +223,10 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
 
   /* note under the stack CTA */
   stackNote: {
-    default: "$20 one-time payment · instant download · no subscription",
-    calm: "$20 one-time payment · instant download · no subscription, ever",
-    aspire: "$20 today · instant download · join 1,940+ artists inside",
-    urgency: "$20 once · start your contact research tonight",
+    default: "$25 one-time payment · instant download · no subscription",
+    calm: "$25 one-time payment · instant download · no subscription, ever",
+    aspire: "$25 today · instant download · join 1,940+ artists inside",
+    urgency: "$25 once · start your contact research tonight",
   },
 
   /* testimonials headline */
@@ -239,13 +239,13 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   /* guarantee paragraph */
   guaranteePara: {
     default:
-      "Download it. Open it. Put it to work: contact at least five stations that fit your music and keep a simple log of what you sent. If you've genuinely tried it and it isn't worth $20, email me within 30 days with your receipt and I'll refund you in full. No airplay or replies required. Just an honest attempt.",
+      "Download it. Open it. Put it to work: contact at least five stations that fit your music and keep a simple log of what you sent. If you've genuinely tried it and it isn't worth $25, email me within 30 days with your receipt and I'll refund you in full. No airplay or replies required. Just an honest attempt.",
     calm:
-      "Download it. Open it. Take your time. Contact at least five stations that fit your music and note what you sent. If you've given it a real look and it isn't worth $20, email me within 30 days with your receipt for a full refund. No replies or airplay required. Just your honest attempt. The risk sits with me, not with you.",
+      "Download it. Open it. Take your time. Contact at least five stations that fit your music and note what you sent. If you've given it a real look and it isn't worth $25, email me within 30 days with your receipt for a full refund. No replies or airplay required. Just your honest attempt. The risk sits with me, not with you.",
     aspire:
       "Download it. Open it. Serious artists verify their tools: contact at least five stations that fit your music and log what you sent. If it doesn't meet your standard, email me within 30 days with your receipt and I'll refund you in full. You don't need a single reply to qualify; just a genuine, documented effort.",
     urgency:
-      "Download it tonight and put it to work. Contact at least five stations that fit your music and log what you sent. If it isn't worth $20 after a genuine try, email me within 30 days with your receipt. I'll issue a full refund, no airplay or replies required.",
+      "Download it tonight and put it to work. Contact at least five stations that fit your music and log what you sent. If it isn't worth $25 after a genuine try, email me within 30 days with your receipt. I'll issue a full refund, no airplay or replies required.",
   },
 
   /* final CTA, road A */
@@ -263,21 +263,21 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
   /* final CTA, road B */
   roadB: {
     default:
-      "Pay $20, less than a streaming subscription. Open the file in 90 seconds. Email 20 real music directors in your city tonight. Wake up to replies.",
+      "Pay $25, less than a streaming subscription. Open the file in 90 seconds. Email 20 real music directors in your city tonight. Wake up to replies.",
     calm:
-      "Pay $20 once, less than a streaming subscription. Open the file in 90 seconds. Email 20 real music directors in your city tonight. Simple as that.",
+      "Pay $25 once, less than a streaming subscription. Open the file in 90 seconds. Email 20 real music directors in your city tonight. Simple as that.",
     aspire:
-      "Pay $20 and start reaching the same people the artists in rotation reached. Open the file in 90 seconds and email 20 real music directors in your city tonight. Wake up to replies.",
+      "Pay $25 and start reaching the same people the artists in rotation reached. Open the file in 90 seconds and email 20 real music directors in your city tonight. Wake up to replies.",
     urgency:
-      "Pay $20 before the founder slots close. Open the file in 90 seconds. Email 20 real music directors in your city tonight. Other artists are still guessing at info@ inboxes.",
+      "Pay $25 before the founder slots close. Open the file in 90 seconds. Email 20 real music directors in your city tonight. Other artists are still guessing at info@ inboxes.",
   },
 
   /* sticky bar button label */
   stickyLabel: {
-    default: "Get Instant Access for $20",
-    calm: "Get The Contacts for $20",
-    aspire: "Join The Vault for $20",
-    urgency: "Start Outreach for $20",
+    default: "Get Instant Access for $25",
+    calm: "Get The Contacts for $25",
+    aspire: "Join The Vault for $25",
+    urgency: "Start Outreach for $25",
   },
 
   /* exit-intent dialog */
@@ -288,7 +288,7 @@ export const SLOT_COPY: Record<SlotKey, SlotVariants> = {
     urgency: "START OUTREACH INSTEAD OF ANOTHER NIGHT OF SEARCHING",
   },
   exitBody: {
-    default: "Get 18,000+ organized radio station entries for one $20 payment.",
+    default: "Get 18,000+ organized radio station entries for one $25 payment.",
     calm: "Review the sample, the guarantee, and the exact deliverables before you decide.",
     aspire: "The Vault gives you the research starting point. Your music and pitch do the rest.",
     urgency: "One click gets you the organized contact resource. Airplay is never guaranteed.",

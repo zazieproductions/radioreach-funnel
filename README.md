@@ -494,7 +494,7 @@ Trust is built through specificity, not superlatives.
 
 - **Testimonials** with photos, roles, verified badges, and concrete stats ("Got Unearthed airplay in 6 weeks from Ohio").
 - **Winner announcements** in the wheel flow ("Alex P. won 2m ago")—real-time social proof that the jackpot is achievable.
-- **Transparent pricing math** that shows exactly how the $20 price compares to enterprise alternatives ($300–$500/year) and computes the per-contact cost (0.11¢).
+- **Transparent pricing math** that shows exactly how the $25 price compares to enterprise alternatives ($300–$500/year) and computes the per-contact cost (0.11¢).
 - **Risk reversal** with a 30-day "I'll eat the cost" guarantee, framed as a respect for the buyer's judgment rather than a safety net.
 - **FTC-compliant disclaimer** that results are not guaranteed, contacts change over time, and the database is a research resource—not a live-updated service. Radical honesty as a trust signal.
 

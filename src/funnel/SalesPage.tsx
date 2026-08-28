@@ -55,8 +55,8 @@ const FAQS = [
     "The database gets you in the room. Your music and your pitch close it. This is meant for targeted, relevant, human outreach; not spam. Be personal. Be respectful. That's what works.",
   ],
   [
-    "Why is the RadioReach radio contact list only $20?",
-    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $20 is the launch rate. It goes to $50 once the founder slots are gone.",
+    "Why is the RadioReach radio contact list only $25?",
+    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $25 is the launch rate. It goes to $50 once the founder slots are gone.",
   ],
   [
     "Does RadioReach have a refund policy?",
@@ -214,7 +214,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
 
           <ul className="mx-auto mt-4 grid max-w-lg grid-cols-3 gap-2 text-center text-[10px] font-bold uppercase leading-tight tracking-wide text-white/65 sm:mt-5 sm:text-xs">
             <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">18K+</span> contacts</li>
-            <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">$20</span> once</li>
+            <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">$25</span> once</li>
             <li className="rounded-lg border border-white/10 bg-black/40 px-2 py-2.5"><span className="block text-base text-acid">90 sec</span> access</li>
           </ul>
 
@@ -238,7 +238,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
               onClick={() => handleCta("hero")}
               className="cta mt-4 min-h-14 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.15rem] uppercase leading-tight tracking-wide text-ink sm:px-5 sm:text-xl"
             >
-              Get Instant Access for $20
+              Get Instant Access for $25
               <span className="mt-0.5 block text-[11px] font-sans font-bold tracking-normal">
                 Secure checkout · download after payment
               </span>
@@ -426,8 +426,8 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             <div className="flex items-center justify-between gap-3 bg-acid p-3.5 text-ink sm:p-4">
               <span className="font-display text-base uppercase leading-tight sm:text-lg">Your price today</span>
               <span className="text-right">
-                <span className="block text-[11px] font-bold uppercase tracking-wider opacity-60 line-through">Normally $55</span>
-                <span className="font-display text-3xl">$20</span>
+                <span className="block text-[11px] font-bold uppercase tracking-wider opacity-60 line-through">Normally $350</span>
+                <span className="font-display text-3xl">$25</span>
               </span>
             </div>
           </div>
@@ -500,7 +500,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             onClick={() => handleCta("stack")}
             className="cta mt-7 w-full rounded-lg bg-acid px-5 py-5 font-display text-xl uppercase tracking-wide text-ink sm:text-2xl"
           >
-            Claim The Radio Reach Vault For $20 →
+            Claim The Radio Reach Vault For $25 →
           </button>
           <p className="mt-2 text-center text-[12px] text-white/40">
             <EmotiveText slot="stackNote" />
@@ -883,7 +883,7 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             onClick={() => handleCta("final")}
             className="cta mt-7 w-full rounded-lg bg-acid px-4 py-4 font-display text-[1.25rem] uppercase leading-tight tracking-wide text-ink sm:mt-8 sm:px-6 sm:py-5 sm:text-3xl"
           >
-            Give Me Instant Access for $20
+            Give Me Instant Access for $25
           </button>
           <p className="mt-3 text-[11px] leading-snug text-white/40 sm:text-[12px]">
             Secure checkout · Instant download · 30-day money-back guarantee · No subscription, ever

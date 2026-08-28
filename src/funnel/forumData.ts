@@ -1174,7 +1174,7 @@ So convince me this isn't the same graveyard with better kerning. Specifically:
 
 1. Who checks the checks? Every claim on the sales page is self-reported.
 2. What is the bounce reality from *senders*, not the vendor?
-3. The $20 price is itself suspicious. Real verification costs money. What is the actual catch?`,
+3. The $25 price is itself suspicious. Real verification costs money. What is the actual catch?`,
       },
       {
         author: "dial_turner",
@@ -1197,7 +1197,7 @@ As for the price: the founder has explained it since 2017 in roughly the same wo
 
 1. **who checks the checks:** you do, partly by design. every entry ships its last-verified date, so staleness is your call, not my marketing. beyond that: this forum. i can't edit your threads, and marissa (who is not me and not paid) locks mine when they get loopy. the receipts here are the audit.
 2. **bounce reality from senders:** the 2022 cycle thread has promoter numbers. my own inbox sees user-reported bounces at roughly 0.8% a month across active senders. when one lands, it's fixed in about four days. the number is the number, even when it's a bad week.
-3. **the price:** enterprise vendors charge $400 a year because their customers are corporations with procurement departments. mine are musicians. $20 was the 2017 sheet's "buy me a coffee while i verify" price, and it stuck, because a raise would mean refunds eating the difference. the catch is: i also sell add-ons to people who want more, and enough people do.
+3. **the price:** enterprise vendors charge $400 a year because their customers are corporations with procurement departments. mine are musicians. $25 was the 2017 sheet's "buy me a coffee while i verify" price, and it stuck, because a raise would mean refunds eating the difference. the catch is: i also sell add-ons to people who want more, and enough people do.
 
 stay skeptical. post your send numbers either way. the thread where you're proven right would be the most valuable thing on this board.`,
       },
@@ -1314,7 +1314,7 @@ the setup: bedroom pop EP, three songs, no label, no publicist, one landscape ph
 
 what i'd redo: i wasted my first two evenings designing a press-kit pdf nobody has asked for (quietframe's thread says this keeps happening. it kept happening). should have sent on day one.
 
-anyway. to the december version of me who almost bought a $1,200 promo package: hi. we're fine. it cost $20 and one honest evening.`,
+anyway. to the december version of me who almost bought a $1,200 promo package: hi. we're fine. it cost $25 and one honest evening.`,
       },
       {
         author: "BASSLINEBENJI",

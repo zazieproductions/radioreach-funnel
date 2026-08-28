@@ -127,7 +127,7 @@ export function SaleTimer({ compact = false }: { compact?: boolean }) {
       <div className="flex items-center justify-between gap-3">
         <div className="text-left">
           <p className="text-[9px] font-black uppercase tracking-[0.16em] text-acid">
-            {expired ? "Offer window ended" : "Your $20 offer is reserved for"}
+            {expired ? "Offer window ended" : "Your $25 offer is reserved for"}
           </p>
           <p className="mt-0.5 text-[10px] leading-snug text-white/45">
             {expired ? "Continue to checkout to see current availability." : "This timer is unique to this browser tab."}
@@ -154,7 +154,7 @@ export function Ticker() {
   const items = [
     "18,000+ radio station contacts",
     "1,940+ independent artists inside",
-    "$20 one-time payment · no subscription",
+    "$25 one-time payment · no subscription",
   ];
   return (
     <div className="border-y border-acid/25 bg-acid/10">
@@ -208,7 +208,7 @@ export function TopNav({ onCta }: { onCta: () => void }) {
           onClick={onCta}
           className="cta ml-auto shrink-0 rounded-lg bg-acid px-3 py-2 text-[12px] font-black uppercase tracking-wide text-ink sm:px-4 sm:text-[13px] md:ml-0"
         >
-          Get access <span className="hidden min-[380px]:inline">: $20</span>
+          Get access <span className="hidden min-[380px]:inline">: $25</span>
         </button>
       </nav>
     </header>
@@ -279,7 +279,7 @@ export function ExitIntent({
         </button>
 
         <p className="bg-blood py-2 text-[12px] font-black uppercase tracking-[0.18em]">
-          Before you go. See what $20 unlocks
+          Before you go. See what $25 unlocks
         </p>
 
         <div className="p-6 sm:p-8">
@@ -300,7 +300,7 @@ export function ExitIntent({
             onClick={onTake}
             className="cta mt-6 w-full rounded-lg bg-acid px-6 py-4 font-display text-xl uppercase tracking-wide text-ink"
           >
-            Get instant access for $20
+            Get instant access for $25
           </button>
           <button
             onClick={() => setOpen(false)}
@@ -320,7 +320,7 @@ export function ExitIntent({
 
 export function StickyBar({
   onCta,
-  label = "Get Instant Access for $20",
+  label = "Get Instant Access for $25",
 }: {
   onCta: () => void;
   /** String or adaptive copy (EmotiveText slot "stickyLabel"). */
@@ -353,11 +353,11 @@ export function StickyBar({
       <div className="mx-auto flex max-w-5xl items-center gap-2.5 px-3 py-2 sm:gap-3 sm:py-2.5">
         <div className="hidden shrink-0 sm:block">
           <p className="text-[10px] font-bold uppercase tracking-widest text-white/45">Radio Reach Vault</p>
-          <p className="font-display text-lg leading-none text-acid">18,000+ contacts · <span className="mr-1 text-sm text-white/40 line-through">$55</span>$20 today</p>
+          <p className="font-display text-lg leading-none text-acid">18,000+ contacts · <span className="mr-1 text-sm text-white/40 line-through">$350</span>$25 today</p>
         </div>
         <div className="hidden shrink-0 flex-col justify-center min-[400px]:flex sm:hidden">
           <p className="text-[9px] font-bold uppercase tracking-wider text-white/45">One-time</p>
-          <p className="tnum font-display text-sm leading-none text-acid"><span className="mr-1 text-[10px] text-white/40 line-through">$55</span>$20</p>
+          <p className="tnum font-display text-sm leading-none text-acid"><span className="mr-1 text-[10px] text-white/40 line-through">$350</span>$25</p>
         </div>
         <div className="min-w-0 flex-1 sm:ml-auto sm:flex-none">
           <button

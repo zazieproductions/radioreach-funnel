@@ -75,21 +75,21 @@ function Treatments({ variant }: { variant: string }) {
         onClick={() => labLogConversion("lab_visual_salience", variant, "cta_click")}
         className={`${base} ${styles[variant] ?? ""}`}
       >
-        {variant === "shimmer" && <span className="relative">Give Me The Contacts — $20</span>}
+        {variant === "shimmer" && <span className="relative">Give Me The Contacts — $25</span>}
         {variant === "countdown chip" && (
           <span className="relative flex items-center justify-center gap-2">
-            Give Me The Contacts — $20
+            Give Me The Contacts — $25
             <span className="rounded-full bg-ink px-2 py-0.5 font-mono text-[11px] text-acid">04:32</span>
           </span>
         )}
         {variant === "arrow slide" && (
           <span className="relative flex items-center justify-center gap-2">
-            Give Me The Contacts — $20
+            Give Me The Contacts — $25
             <span aria-hidden className="inline-block animate-[labSlideRight_1.4s_ease-in-out_infinite]">→</span>
           </span>
         )}
         {variant !== "shimmer" && variant !== "countdown chip" && variant !== "arrow slide" && (
-          <span className="relative">Give Me The Contacts — $20</span>
+          <span className="relative">Give Me The Contacts — $25</span>
         )}
       </button>
 

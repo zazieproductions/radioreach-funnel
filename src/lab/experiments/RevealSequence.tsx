@@ -124,14 +124,14 @@ function Reveal({ variant }: { variant: string }) {
       <div className="mt-3 flex items-center justify-between gap-3 rounded-xl bg-acid/10 px-4 py-3">
         <span className="font-display text-sm uppercase text-white/80">Total real value</span>
         <span className="font-display text-xl text-white/50 line-through decoration-blood decoration-2">$742</span>
-        <span className="font-display text-3xl text-acid">$20</span>
+        <span className="font-display text-3xl text-acid">$25</span>
       </div>
 
       <div className="mt-3">
         <LabCta
           experiment="lab_anticipation_reveal"
           variant={variant}
-          label="Open the whole drawer — $20"
+          label="Open the whole drawer — $25"
           sub="Everything above, instantly"
         />
       </div>

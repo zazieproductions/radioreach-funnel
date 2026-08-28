@@ -172,7 +172,7 @@ export const XP_RANKS: readonly LadderRank[] = [
   { name: "Listener", minXp: 0, unlock: "Base access" },
   { name: "Curator", minXp: 40, unlock: "Free: 5-pitch swipe file" },
   { name: "Program Director", minXp: 100, unlock: "Free: release checklist" },
-  { name: "Station Owner", minXp: 180, unlock: "Founder price lock — $20" },
+  { name: "Station Owner", minXp: 180, unlock: "Founder price lock — $25" },
 ];
 
 export function rankForXp(xp: number): LadderRank {

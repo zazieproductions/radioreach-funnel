@@ -907,7 +907,7 @@ export default function CommunityForum({ onBack }: { onBack: () => void }) {
               onClick={onBack}
               className="rounded-lg bg-acid px-4 py-2.5 text-sm font-black uppercase tracking-wide text-ink hover:bg-yellow-300"
             >
-              Get the directory ($20)
+              Get the directory ($25)
             </a>
           </div>
         </div>
