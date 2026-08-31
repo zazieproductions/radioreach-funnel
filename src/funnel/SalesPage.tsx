@@ -243,12 +243,12 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
                 Secure checkout · download after payment
               </span>
             </button>
-            <a
-              href="#/custom-leads"
-              className="mt-3 flex min-h-12 w-full items-center justify-center rounded-lg border border-white/25 bg-white/5 px-4 py-3 text-center text-xs font-black uppercase tracking-[0.08em] text-white/80 transition hover:border-acid hover:text-acid"
-            >
-              Need a more personal approach? Build a custom contact list →
-            </a>
+            <p className="mt-3 text-center text-[11px] leading-snug text-white/40">
+              Tonight: open the file, filter your city, send 5 named pitches.{" "}
+              <a href="#/custom-leads" className="text-white/55 underline decoration-white/20 underline-offset-4 hover:text-acid">
+                Prefer a custom list instead?
+              </a>
+            </p>
             <div className="mt-2 flex flex-col items-center gap-1.5">
               <button
                 type="button"

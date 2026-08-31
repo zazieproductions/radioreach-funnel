@@ -309,10 +309,20 @@ test("existing add-ons remain untouched and off by default", async () => {
   const labels = checkboxes.map((c) => c.getAttribute("aria-label"));
   assert.ok(labels.includes("Radio Reach Vault included"), "vault checkbox present");
 
-  // Contract Kit + AU list exist and stay disabled without a jackpot (existing behavior).
+  // Contract Kit + AU list exist and stay optional (off) without a jackpot.
   const text = visibleText(container);
   assert.ok(text.includes("The Indie Music Contract Kit"), "contract kit present");
   assert.ok(text.includes("Australian Radio Stations Contact List"), "AU list present");
+  const kit = container.querySelector<HTMLInputElement>(
+    'input[type="checkbox"][aria-label="Add Indie Music Contract Kit"]'
+  );
+  const au = container.querySelector<HTMLInputElement>(
+    'input[type="checkbox"][aria-label="Add Australian Radio Stations Contact List"]'
+  );
+  assert.equal(kit?.disabled, false, "contract kit is purchasable without a spin");
+  assert.equal(au?.disabled, false, "AU list is purchasable without a spin");
+  assert.equal(kit?.checked, false);
+  assert.equal(au?.checked, false);
 
   const guide = findGuideCheckbox(container);
   assert.equal(guide.checked, false);
