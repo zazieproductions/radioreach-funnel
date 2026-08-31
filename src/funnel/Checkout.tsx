@@ -62,13 +62,6 @@ export default function Checkout({
     ? formatRemainingMs(Math.max(0, luckyCoupon.expiresAt - nowMs))
     : "";
 
-  useEffect(() => {
-    if (hasWinningCoupon) return;
-    setContracts(false);
-    setAu(false);
-    setContractGuide(false);
-  }, [hasWinningCoupon]);
-
   const COURSE_PRICE = PRODUCTS.frequency_dominion.price;
   const total =
     BASE +
@@ -194,17 +187,23 @@ export default function Checkout({
                   <p className="mt-1 font-mono text-[10px] text-white/45">{luckyCoupon.code} · held for {remainingStr}</p>
                 </div>
               ) : (
-                <div className="mt-4 rounded-xl border border-fuchsia-400/25 bg-gradient-to-r from-orange-400/10 via-fuchsia-400/10 to-cyan-400/10 p-3 text-center">
-                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-fuchsia-300">Founder add-on prices are hidden</p>
-                  <p className="mt-1 text-sm font-bold text-white">Spin once to reveal your preset checkout jackpot.</p>
-                  <p className="mt-1 text-[11px] text-white/45">Free · no email · optional items stay unchecked</p>
-                  <button
-                    type="button"
-                    onClick={() => onOpenWheel?.()}
-                    className="cta mt-3 rounded-full bg-white px-5 py-2.5 text-xs font-black uppercase tracking-wider text-zinc-900"
-                  >
-                    🎡 Spin to reveal discount
-                  </button>
+                <div className="mt-4 rounded-xl border border-acid/25 bg-acid/5 p-3">
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-acid">Founder add-ons · optional</p>
+                  <p className="mt-1 text-sm font-bold text-white">
+                    Contract Kit $9 + AU List $12 · tap to add. Nothing pre-selected.
+                  </p>
+                  <p className="mt-1 text-[11px] text-white/45">
+                    Same founder prices with or without a spin. Wheel is just a reminder.
+                  </p>
+                  {onOpenWheel && (
+                    <button
+                      type="button"
+                      onClick={() => onOpenWheel()}
+                      className="mt-2 text-[11px] font-bold uppercase tracking-wider text-white/50 underline decoration-white/20 underline-offset-4 hover:text-acid"
+                    >
+                      Spin for the jackpot badge →
+                    </button>
+                  )}
                 </div>
               )}
 
@@ -228,12 +227,10 @@ export default function Checkout({
 
                 {/* Contract Kit; jackpot styling when winner */}
                 <label
-                  className={`relative flex min-h-14 items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
-                    hasWinningCoupon
-                      ? contracts
-                        ? "cursor-pointer border-emerald-500/30 bg-gradient-to-br from-emerald-500/[0.09] via-emerald-500/[0.04] to-transparent shadow-[0_8px_24px_rgba(16,185,129,0.08)]"
-                        : "cursor-pointer border-acid/30 bg-black/30"
-                      : "cursor-not-allowed border-white/10 bg-black/20 opacity-60"
+                  className={`relative flex min-h-14 cursor-pointer items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
+                    contracts
+                      ? "border-emerald-500/30 bg-gradient-to-br from-emerald-500/[0.09] via-emerald-500/[0.04] to-transparent shadow-[0_8px_24px_rgba(16,185,129,0.08)]"
+                      : "border-acid/30 bg-black/30 hover:border-acid/60"
                   }`}
                 >
                   {hasWinningCoupon && (
@@ -244,9 +241,9 @@ export default function Checkout({
                   <input
                     type="checkbox"
                     checked={contracts}
-                    disabled={!hasWinningCoupon}
                     onChange={(e) => setContracts(e.target.checked)}
-                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 disabled:cursor-not-allowed sm:mt-1"
+                    aria-label="Add Indie Music Contract Kit"
+                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <div className="space-y-1 pr-2 w-full">
                     <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.contract_bundle.name}</span>
@@ -270,11 +267,8 @@ export default function Checkout({
                       This is an educational template kit, not legal advice.
                     </span>
                     <span className="block text-sm mt-2">
-                      {hasWinningCoupon ? (
-                        <><span className="mr-2 text-white/35 line-through">${PRODUCTS.contract_bundle.compareAt}</span><b className="text-acid">JACKPOT ${PRODUCTS.contract_bundle.price.toFixed(2)}</b></>
-                      ) : (
-                        <b className="text-white/45">🔒 Spin to reveal founder price</b>
-                      )}
+                      <span className="mr-2 text-white/35 line-through">${PRODUCTS.contract_bundle.compareAt}</span>
+                      <b className="text-acid">{hasWinningCoupon ? "JACKPOT" : "FOUNDER"} ${PRODUCTS.contract_bundle.price.toFixed(2)}</b>
                     </span>
                     <span className="block text-[12px] text-white/45"><Stars /> "Saved me from a nightmare split deal." Jordan Meacham</span>
                   </div>
@@ -282,12 +276,10 @@ export default function Checkout({
 
                 {/* AU addon; jackpot styling when winner */}
                 <label
-                  className={`relative flex min-h-14 items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
-                    hasWinningCoupon
-                      ? au
-                        ? "cursor-pointer border-emerald-500/30 bg-gradient-to-br from-emerald-500/[0.09] via-emerald-500/[0.04] to-transparent shadow-[0_8px_24px_rgba(16,185,129,0.08)]"
-                        : "cursor-pointer border-acid/30 bg-black/30"
-                      : "cursor-not-allowed border-white/10 bg-black/20 opacity-60"
+                  className={`relative flex min-h-14 cursor-pointer items-start gap-3 overflow-hidden rounded-xl border p-3.5 sm:p-4 ${
+                    au
+                      ? "border-emerald-500/30 bg-gradient-to-br from-emerald-500/[0.09] via-emerald-500/[0.04] to-transparent shadow-[0_8px_24px_rgba(16,185,129,0.08)]"
+                      : "border-acid/30 bg-black/30 hover:border-acid/60"
                   }`}
                 >
                   {hasWinningCoupon && (
@@ -298,9 +290,9 @@ export default function Checkout({
                   <input
                     type="checkbox"
                     checked={au}
-                    disabled={!hasWinningCoupon}
                     onChange={(e) => setAu(e.target.checked)}
-                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 disabled:cursor-not-allowed sm:mt-1"
+                    aria-label="Add Australian Radio Stations Contact List"
+                    className="mt-0.5 h-6 w-6 shrink-0 accent-yellow-400 sm:mt-1"
                   />
                   <span className="space-y-1 pr-2 w-full">
                     <span className="block font-display text-lg uppercase leading-none">{PRODUCTS.australia_addon.name}</span>
@@ -316,6 +308,18 @@ export default function Checkout({
                     <span className="block text-[12px] text-white/45"><Stars /> "Got Unearthed airplay in 6 weeks from Ohio." Dee R.</span>
                   </span>
                 </label>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next = !(contracts && au);
+                    setContracts(next);
+                    setAu(next);
+                  }}
+                  className="cta w-full rounded-lg border border-acid/40 bg-acid/10 px-4 py-3 text-center text-[12px] font-black uppercase tracking-[0.12em] text-acid hover:bg-acid hover:text-ink"
+                >
+                  {contracts && au ? "Remove both add-ons" : "Add both add-ons · $21 (save $33 vs $54)"}
+                </button>
 
                 {/* Contract Info Guide — optional for everyone, one copy, off by default */}
                 <label
