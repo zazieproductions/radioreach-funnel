@@ -325,6 +325,30 @@ summary {
 }
 
 /* ─────────────────────────────────────────────
+   SIGNAL ROOM V2 — editorial system used by the rebuilt sales page
+───────────────────────────────────────────── */
+
+.eyebrow {
+  color: #c9f31d;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+  .eyebrow { font-size: 11px; }
+}
+
+/* Keep the live directory frame visually quiet so the data, not the chrome,
+   carries the proof. */
+#sample .overflow-hidden > .overflow-hidden {
+  border-color: rgba(201, 243, 29, 0.2);
+}
+
+/* ─────────────────────────────────────────────
    MOBILE CRO — polish only, same visual identity
    Scoped to ≤639px. Desktop classes stay untouched.
 ───────────────────────────────────────────── */
