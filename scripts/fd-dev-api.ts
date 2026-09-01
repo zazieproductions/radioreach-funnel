@@ -38,6 +38,9 @@ export function fdDevApi(): Plugin {
       const router = await server.ssrLoadModule("/functions/_lib/fd/router.ts").catch(() => import(path.join(ROOT, "functions/_lib/fd/router.ts")));
       const webhookMod = await server.ssrLoadModule("/functions/api/stripe/webhook.ts").catch(() => import(path.join(ROOT, "functions/api/stripe/webhook.ts")));
       const ordersMod = await server.ssrLoadModule("/functions/_lib/orders.ts").catch(() => import(path.join(ROOT, "functions/_lib/orders.ts")));
+      const verifyMod = await server.ssrLoadModule("/functions/api/checkout/verify.ts").catch(() => import(path.join(ROOT, "functions/api/checkout/verify.ts")));
+      const downloadsMod = await server.ssrLoadModule("/functions/api/downloads/session.ts").catch(() => import(path.join(ROOT, "functions/api/downloads/session.ts")));
+      const tokenMod = await server.ssrLoadModule("/functions/_lib/token.ts").catch(() => import(path.join(ROOT, "functions/_lib/token.ts")));
 
       async function readBody(req: NodeJS.ReadableStream): Promise<string> {
         const chunks: Buffer[] = [];
@@ -83,6 +86,45 @@ export function fdDevApi(): Plugin {
             const request = requestFrom(req, body);
             const fdPath = pathname.replace(/^\/api\/fd\/?/, "");
             const response = await router.dispatchFd(env, request, fdPath);
+            return sendResponse(res, response);
+          }
+          // Real storefront endpoints so the post-checkout success page works end-to-end in the sandbox.
+          if (pathname === "/api/checkout/verify" && req.method === "GET") {
+            const sid = url.searchParams.get("session_id") || "";
+            if (sid.startsWith("cs_test_dev_")) {
+              // Dev-simulated session: answer from the order store with the same response shape
+              // (Stripe's API has no record of it — this is exactly what a paid session looks like).
+              const order = (await ordersMod.getOrder(env, sid)) as {
+                paymentStatus?: string; amountTotal?: number; currency?: string; email?: string;
+                items?: { key: string; name: string }[]; momentum?: Record<string, string> | null;
+              } | null;
+              if (!order) return sendResponse(res, Response.json({ error: "Order not found" }, { status: 404 }));
+              const paid = order.paymentStatus === "paid";
+              const token = paid ? await tokenMod.signToken(env.APP_SECRET || env.STRIPE_WEBHOOK_SECRET, { sessionId: sid, exp: Date.now() + 15 * 60 * 1000 }) : null;
+              return sendResponse(res, Response.json({
+                sessionId: sid,
+                paymentStatus: order.paymentStatus || "paid",
+                status: "complete",
+                verified: paid,
+                token,
+                order: paid ? {
+                  amountTotal: order.amountTotal ?? null,
+                  currency: String(order.currency || "usd").toUpperCase(),
+                  email: order.email || null,
+                  productKeys: (order.items || []).map((i) => i.key),
+                  productNames: (order.items || []).map((i) => i.name),
+                  momentum: order.momentum || null,
+                } : null,
+              }));
+            }
+            const request = requestFrom(req);
+            const response = await (verifyMod.onRequestGet as unknown as (ctx: { request: Request; env: unknown }) => Promise<Response>)({ request, env });
+            return sendResponse(res, response);
+          }
+          if (pathname === "/api/downloads/session" && req.method === "POST") {
+            const body = await readBody(req);
+            const request = requestFrom(req, body);
+            const response = await (downloadsMod.onRequestPost as unknown as (ctx: { request: Request; env: unknown }) => Promise<Response>)({ request, env });
             return sendResponse(res, response);
           }
           if (pathname === "/api/stripe/webhook" && req.method === "POST") {

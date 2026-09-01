@@ -109,7 +109,6 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     name: "Frequency Dominion: The 24-Lesson Radio Ownership System",
     shortName: "Frequency Dominion",
     price: 97,
-    compareAt: 997,
     stripePriceIdEnv: "STRIPE_PRICE_FREQUENCY_DOMINION",
     r2BundleKey: "courses/frequency-dominion/frequency-dominion-course.zip",
     description:
@@ -125,7 +124,7 @@ export const PRODUCTS: Record<ProductKey, StorefrontProduct> = {
     checkoutBadge: "Backend flagship",
     checkoutHeadline: "Stop Asking for Airplay. Own the Frequency.",
     checkoutValueLine:
-      "The $5,193 stack: 24 lessons, insider layer, 5 bonuses, and the system that turns contacts into a compounding airplay machine.",
+      "24 lessons with pass-standard drills, the industry decoder, 6 executive playbooks, live war-room tools, and the 21-day campaign system.",
   },
 };
 

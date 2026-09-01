@@ -8,11 +8,14 @@ type Mode = "login" | "signup" | "claim";
 
 export function LoginScreen({ mode: initial, next }: { mode: "login" | "signup"; next: string }) {
   const { onAuthed } = useFd();
-  const [mode, setMode] = useState<Mode>(initial === "signup" ? "signup" : "login");
-  const [email, setEmail] = useState("");
+  const boot = (() => {
+    try { return new URLSearchParams(window.location.search); } catch { return null; }
+  })();
+  const [mode, setMode] = useState<Mode>(boot?.get("tab") === "claim" ? "claim" : initial === "signup" ? "signup" : "login");
+  const [email, setEmail] = useState(boot?.get("email") || "");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [sessionId, setSessionId] = useState("");
+  const [sessionId, setSessionId] = useState(boot?.get("sid") || "");
   const [claimMode, setClaimMode] = useState<"create" | "reset">("create");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
