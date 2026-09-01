@@ -899,7 +899,7 @@ export async function handleMe(ctx: Ctx): Promise<Response> {
   const db = DB(ctx);
   const entitlement = await requireEnrolled(ctx.env, ctx.user!.emailNormalized).then(() => "active").catch((e) => e.details?.code || "none");
   const profile = await db.prepare(`SELECT * FROM user_profiles WHERE user_id=?`).bind(ctx.user!.id).first<Record<string, unknown>>();
-  const campaign = await db.prepare(`SELECT * FROM campaigns WHERE user_id=? AND active=1 LIMIT 1`).bind(ctx.user!.id).first<Record<string, unknown>>();
+  let campaign = await db.prepare(`SELECT * FROM campaigns WHERE user_id=? AND active=1 LIMIT 1`).bind(ctx.user!.id).first<Record<string, unknown>>();
   let campaignId = campaign?.id as string | undefined;
   if (!campaign && entitlement === "active") {
     const first = await db.prepare(`SELECT * FROM campaigns WHERE user_id=? ORDER BY created_at DESC LIMIT 1`).bind(ctx.user!.id).first<Record<string, unknown>>();

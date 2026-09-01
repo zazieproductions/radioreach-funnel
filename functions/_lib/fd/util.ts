@@ -51,6 +51,7 @@ export async function rateLimit(
   limit: number,
   windowSec: number
 ): Promise<{ ok: boolean; retryAfter: number }> {
+  if ((env as Record<string, unknown>).FD_DEV_DISABLE_RATE_LIMITS === true) return { ok: true, retryAfter: 0 };
   const rk = `rl:${scope}:${key}`;
   const window = Math.floor(Date.now() / (windowSec * 1000));
   if (env.ORDER_STORE) {

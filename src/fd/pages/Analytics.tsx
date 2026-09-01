@@ -1,12 +1,11 @@
 /** Analytics: campaign rates with explicit denominators, breakdown tables,
  *  course + campaign progress. Correlation ≠ attribution, stated everywhere. */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { fdApi } from "../lib/api";
 import { useFd } from "../lib/store";
 import { Bar, Card, EmptyState, Rate, Spinner, Stat } from "../lib/ui";
 import { stateNameByAbbr } from "./Heatmap";
 
-type AnalyticsData = Awaited<ReturnType<typeof fdApi.get<never>>> extends never ? AnalyticsShape : AnalyticsShape;
 type AnalyticsShape = {
   analytics: {
     counts: Record<string, number> & { targets: { total: number; verified: number; suppressed: number } };
@@ -126,7 +125,6 @@ export function AnalyticsPage() {
 
 function BreakdownTable({ rows, goodLabel }: { rows: { label: string; targets: number; good: number }[]; goodLabel: string }) {
   if (!rows.length) return <p className="text-sm text-white/45">No data yet.</p>;
-  const max = Math.max(1, ...rows.map((r) => r.targets));
   return (
     <table className="fd-table">
       <thead><tr><th>Segment</th><th className="text-right">Targets</th><th className="text-right">{goodLabel}</th><th>Rate</th></tr></thead>

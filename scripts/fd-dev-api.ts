@@ -30,6 +30,7 @@ export function fdDevApi(): Plugin {
       const dbFile = path.join(ROOT, ".dev", "fd-local.db");
       fs.mkdirSync(path.dirname(dbFile), { recursive: true });
       const env = harness.makeEnv({ file: dbFile, seed: false });
+      (env as Record<string, unknown>).FD_DEV_DISABLE_RATE_LIMITS = true;
       if (!harness.isSeeded(env.__db)) {
         harness.seedMigrations(env.__db);
         console.log("[fd-dev] seeded local D1 (schema + content)");
@@ -45,12 +46,11 @@ export function fdDevApi(): Plugin {
       }
 
       function requestFrom(req: { method?: string; headers: Record<string, string | string[] | undefined>; url?: string }, body?: string): Request {
-        const url = new URL(req.url || "/", "http://localhost:8788");
+        const host = String(req.headers.host || "localhost:8788");
+        const url = new URL(req.url || "/", `http://${host}`);
         url.protocol = "http:";
-        url.hostname = "localhost";
         const headers = new Headers();
         for (const [k, v] of Object.entries(req.headers)) if (v != null) headers.set(k, Array.isArray(v) ? v.join(", ") : v);
-        headers.delete("host");
         return new Request(url.toString(), {
           method: req.method || "GET",
           headers,
@@ -75,7 +75,7 @@ export function fdDevApi(): Plugin {
 
       server.middlewares.use(async (req, res, next) => {
         try {
-          const url = new URL(req.url || "", "http://localhost:8788");
+          const url = new URL(req.url || "", `http://${String(req.headers.host || "localhost:8788")}`);
           const pathname = url.pathname;
 
           if (pathname.startsWith("/api/fd/")) {

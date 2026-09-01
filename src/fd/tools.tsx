@@ -1,9 +1,9 @@
 /** Interactive builders: 90-word pitch, subject-line engine, cadence board,
  *  90-day audit. All persist as account drafts (private, server-stored). */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { fdApi } from "./lib/api";
 import { useFd } from "./lib/store";
-import { Blocks, Card, EmptyState, Spinner } from "./lib/ui";
+import { Blocks, Card, Spinner } from "./lib/ui";
 
 type Draft = { id: string; kind: string; title: string; content: Record<string, unknown>; updated_at: string };
 
@@ -222,6 +222,3 @@ export function AuditChecklist() {
   );
 }
 
-export function _toolsInternal() {
-  return { wc };
-}

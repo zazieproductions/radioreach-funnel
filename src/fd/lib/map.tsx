@@ -29,17 +29,17 @@ export function MapCanvas({ points, stateColors, selected, onSelect, rings = [],
   const drag = useRef<{ x: number; y: number; tx: number; ty: number } | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const clampT = (t: number, size: number, kk: number) => Math.min(0, Math.max(W - W * kk, t));
+  const clampT = (t: number, kk: number) => Math.min(0, Math.max(W - W * kk, t));
 
   function zoomTo(nk: number, cx?: number, cy?: number) {
     const nk2 = Math.max(MIN_K, Math.min(MAX_K, nk));
     if (cx != null && cy != null) {
       // keep cursor point stationary
-      setTx(clampT(cx - ((cx - tx) * nk2) / k, W, nk2));
-      setTy(clampT(cy - ((cy - ty) * nk2) / k, H, nk2));
+      setTx(clampT(cx - ((cx - tx) * nk2) / k, nk2));
+      setTy(clampT(cy - ((cy - ty) * nk2) / k, nk2));
     } else {
-      setTx(clampT(W / 2 - ((W / 2 - tx) * nk2) / k, W, nk2));
-      setTy(clampT(H / 2 - ((H / 2 - ty) * nk2) / k, H, nk2));
+      setTx(clampT(W / 2 - ((W / 2 - tx) * nk2) / k, nk2));
+      setTy(clampT(H / 2 - ((H / 2 - ty) * nk2) / k, nk2));
     }
     setK(nk2);
   }
@@ -86,10 +86,10 @@ export function MapCanvas({ points, stateColors, selected, onSelect, rings = [],
           const step = 40 / k;
           if (e.key === "+" || e.key === "=") { e.preventDefault(); zoomTo(k * 1.35); }
           else if (e.key === "-") { e.preventDefault(); zoomTo(k / 1.35); }
-          else if (e.key === "ArrowLeft") { e.preventDefault(); setTx((t) => clampT(t + step, W, k)); }
-          else if (e.key === "ArrowRight") { e.preventDefault(); setTx((t) => clampT(t - step, W, k)); }
-          else if (e.key === "ArrowUp") { e.preventDefault(); setTy((t) => clampT(t + step, H, k)); }
-          else if (e.key === "ArrowDown") { e.preventDefault(); setTy((t) => clampT(t - step, H, k)); }
+          else if (e.key === "ArrowLeft") { e.preventDefault(); setTx((t) => clampT(t + step, k)); }
+          else if (e.key === "ArrowRight") { e.preventDefault(); setTx((t) => clampT(t - step, k)); }
+          else if (e.key === "ArrowUp") { e.preventDefault(); setTy((t) => clampT(t + step, k)); }
+          else if (e.key === "ArrowDown") { e.preventDefault(); setTy((t) => clampT(t - step, k)); }
           else if (e.key === "0") { setK(1); setTx(0); setTy(0); }
         }}
         onWheel={(e) => {
@@ -105,8 +105,8 @@ export function MapCanvas({ points, stateColors, selected, onSelect, rings = [],
           const r = svgRef.current?.getBoundingClientRect();
           if (!r) return;
           const sx = W / r.width, sy = H / r.height;
-          setTx(clampT(drag.current.tx + (e.clientX - drag.current.x) * sx, W, k));
-          setTy(clampT(drag.current.ty + (e.clientY - drag.current.y) * sy, H, k));
+          setTx(clampT(drag.current.tx + (e.clientX - drag.current.x) * sx, k));
+          setTy(clampT(drag.current.ty + (e.clientY - drag.current.y) * sy, k));
         }}
         onPointerUp={() => (drag.current = null)}
         onPointerLeave={() => (drag.current = null)}

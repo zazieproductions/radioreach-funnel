@@ -22,7 +22,8 @@ type LessonData = {
 
 type Answers = {
   responses: Record<string, string>;
-  worksheetCells: Record<string, string[]>[];
+  /** one keyed cell-map per worksheet: {"row:col": value} */
+  worksheetCells: Record<string, string>[];
   confirmations: Record<string, boolean>;
 };
 
@@ -158,7 +159,7 @@ export function LessonPage({ lessonId }: { lessonId: string }) {
             <WorksheetEditor key={wi} index={wi} worksheet={w} answers={answers} onChange={(cells) => setAnswers((a) => {
               const ws = [...(a.worksheetCells || [])];
               while (ws.length < wi + 1) ws.push({});
-              ws[wi] = cells as never as Record<string, string[]>;
+              ws[wi] = cells as never;
               return { ...a, worksheetCells: ws };
             })} />
           ))}
@@ -222,7 +223,7 @@ export function LessonPage({ lessonId }: { lessonId: string }) {
         {l.community?.length > 0 && (
           <div className="mt-5 rounded-lg border border-white/10 bg-black/25 p-3 text-sm">
             <p className="fd-label !mb-1">Community prompts (optional calibration)</p>
-            <ul className="list-inside list-disc text-white/70">{l.community.slice(0, 3).map((pr, i) => <li key={i}>{pr}</li>)}</li>
+            <ul className="list-inside list-disc text-white/70">{l.community.slice(0, 3).map((pr, i) => <li key={i}>{pr}</li>)}</ul>
           </div>
         )}
         <div className="mt-5 border-t border-white/10 pt-4">
@@ -305,11 +306,10 @@ function WorksheetEditor({ index, worksheet, answers, onChange }: {
       </div>
     );
   }
-}
+  const dataRows = worksheet.rows || [];
   const cells = (answers.worksheetCells || [])[index] || {};
   const set = (r: number, c: number, v: string) => onChange({ ...cells, [`${r}:${c}`]: v });
   const value = (r: number, c: number) => cells[`${r}:${c}`] ?? dataRows[r]?.[c] ?? "";
-  const dataRows = worksheet.rows || [];
   const extraRows = Math.max(0, Object.keys(cells).filter((k) => Number(k.split(":")[0]) >= dataRows.length).length ? Math.max(...Object.keys(cells).map((k) => Number(k.split(":")[0]) + 1)) - dataRows.length : 0);
   const totalRows = dataRows.length + extraRows;
   return (
@@ -321,10 +321,10 @@ function WorksheetEditor({ index, worksheet, answers, onChange }: {
           <tbody>
             {Array.from({ length: totalRows }).map((_, r) => (
               <tr key={r}>
-                {worksheet.headers.map((h, c) => (
+                {(worksheet.headers || []).map((h, c) => (
                   <td key={c}>
-                    {c === 0 && r < worksheet.rows.length ? (
-                      <span className="text-white/70">{worksheet.rows[r][c]}</span>
+                    {c === 0 && r < dataRows.length ? (
+                      <span className="text-white/70">{dataRows[r][c]}</span>
                     ) : (
                       <input
                         className="fd-input !min-h-[34px] !py-1 !px-2 text-xs"

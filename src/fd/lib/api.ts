@@ -52,7 +52,7 @@ export const fdApi = {
 };
 
 export const devPurchase = {
-  available: import.meta.env.DEV,
+  available: (import.meta as any).env?.DEV === true,
   simulate: (email: string) =>
     fetch("/api/fd-dev/simulate-purchase", {
       method: "POST",

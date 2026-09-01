@@ -25,11 +25,14 @@ function serveStaticPublicPages(): Plugin {
           /^\/(refund-policy|privacy-policy|terms)\/?$/,
         );
         const resources = pathname.match(/^\/resources\/?([a-z0-9-]+)?\/?$/);
+        const fdSales = pathname.match(/^\/frequency-dominion\/(index\.html)?$/);
 
         // Resolve to the public/ page production (Cloudflare Pages) serves.
         let file: string | null = null;
         if (legal) {
           file = path.join(__dirname, "public", legal[1], "index.html");
+        } else if (fdSales) {
+          file = path.join(__dirname, "public", "frequency-dominion", "index.html");
         } else if (resources) {
           file = resources[1]
             ? path.join(
@@ -44,6 +47,11 @@ function serveStaticPublicPages(): Plugin {
         if (!file) return next();
 
         // Mirror static hosts: normalize /refund-policy → /refund-policy/.
+        if (fdSales && pathname === "/frequency-dominion") {
+          res.statusCode = 308;
+          res.setHeader("location", `/frequency-dominion/${query ? `?${query}` : ""}`);
+          return res.end();
+        }
         if (!pathname.endsWith("/")) {
           res.statusCode = 308;
           res.setHeader("location", `${pathname}/${query ? `?${query}` : ""}`);

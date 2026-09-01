@@ -16,7 +16,7 @@ export function NotesPage() {
   const [editing, setEditing] = useState<Partial<Note> | null>(null);
   const [revisions, setRevisions] = useState<{ id: string; saved_at: string; size: number }[] | null>(null);
   const [evidence, setEvidence] = useState<Evidence[] | null>(null);
-  const [evForm, setEvForm] = useState<null | Partial<Evidence>>(null);
+  const [evForm, setEvForm] = useState<null | Record<string, unknown>>(null);
   const [fileBusy, setFileBusy] = useState(false);
 
   const loadNotes = useCallback(() => {
@@ -38,7 +38,7 @@ export function NotesPage() {
     loadNotes();
   };
 
-  const addEvidence = async (form: Partial<Evidence> & { file?: File | null }) => {
+  const addEvidence = async (form: Record<string, unknown> & { file?: File | null }) => {
     const { file, ...rest } = form;
     try {
       let objectKey = "";
@@ -195,8 +195,8 @@ function NoteEditor({ initial, onSave, onCancel }: { initial: Partial<Note>; onS
         <input className="fd-input !w-40 !min-h-[32px] text-xs" placeholder="+ tags, comma sep" value={tagInput} onChange={(e) => setTagInput(e.target.value)} aria-label="Add tags" />
         <label className="ml-auto flex items-center gap-2 text-xs"><input type="checkbox" className="fd-check" checked={!!n.pinned} onChange={(e) => setN({ ...n, pinned: e.target.checked })} /> pinned</label>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div><p className="fd-label">Write</p><SafeNotes text={""} /></div>
+      <div className="hidden">
+        <div><SafeNotes text={""} /></div>
       </div>
       <div className="flex gap-2">
         <button type="submit" className="fd-btn fd-btn--gold fd-btn--sm">Save</button>

@@ -6,7 +6,7 @@ import { fdApi, ApiFailure } from "../lib/api";
 import { FdLink } from "../lib/router";
 import { useFd } from "../lib/store";
 import type { CampaignRow } from "../lib/store";
-import { Card, EmptyState, Spinner, Stat } from "../lib/ui";
+import { Card, EmptyState, Spinner } from "../lib/ui";
 
 export type BoardTask = {
   id: string; day: number; phase: string; kind: string; title: string; detail: string; verification: string;
@@ -513,6 +513,3 @@ function ExportPanel({ campaignId, plan }: { campaignId: string; plan: Record<st
   );
 }
 
-export function boardHelpers() {
-  return { RESULT_LABEL };
-}

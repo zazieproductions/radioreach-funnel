@@ -61,7 +61,7 @@ export type PassPolicy = {
 
 export type ExerciseAnswers = {
   responses: Record<string, string>;
-  worksheetCells: Record<string, string[]>[];
+  worksheetCells: unknown[];
   confirmations: Record<string, boolean>;
 };
 
@@ -504,7 +504,10 @@ export function validateExercise(exercise: ExerciseDef, pass: PassPolicy, answer
   const needed = pass.requireWorksheetCells || 0;
   if (needed > 0) {
     let filled = 0;
-    for (const sheet of answers?.worksheetCells || []) for (const v of sheet) if (String(v || "").trim()) filled++;
+    for (const sheet of answers?.worksheetCells || []) {
+      const cells = Array.isArray(sheet) ? sheet : sheet && typeof sheet === "object" ? Object.values(sheet as Record<string, unknown>) : [sheet];
+      for (const row of cells) { const vs = Array.isArray(row) ? row : [row]; for (const v of vs) if (String(v || "").trim()) filled++; }
+    }
     if (filled < needed) missing.push(`At least ${needed} worksheet cells should be filled from your real campaign data`);
   }
   for (const c of exercise.confirmations || []) {

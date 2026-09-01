@@ -118,7 +118,7 @@ export async function handleProgressUpdate(ctx: Ctx): Promise<Response> {
 
   const answers = {
     responses: sanitizeResponses(body.answers?.responses),
-    worksheetCells: Array.isArray(body.answers?.worksheetCells) ? body.answers.worksheetCells.slice(0, 8).map((s: unknown) => (Array.isArray(s) ? s.slice(0, 80).map((c) => sanitizeText(String(c ?? ""), 500)) : [])) : [],
+    worksheetCells: Array.isArray(body.answers?.worksheetCells) ? body.answers.worksheetCells.slice(0, 8).map((s: unknown) => Array.isArray(s) ? s.slice(0, 80).map((c) => sanitizeText(String(c ?? ""), 500)) : s && typeof s === "object" ? Object.fromEntries(Object.entries(s as Record<string, unknown>).slice(0, 400).map(([k, c]) => [sanitizeText(String(k), 40), sanitizeText(String(c ?? ""), 500)])) : []) : [],
     confirmations: Object.fromEntries(Object.entries(body.answers?.confirmations || {}).map(([k, v]) => [sanitizeText(k, 40), Boolean(v)])),
   };
 

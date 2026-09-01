@@ -11,7 +11,7 @@ export function projectPoint(lon: number, lat: number): [number, number] {
   const contus =
     lat >= 24.4 && lat <= 49.5 && lon >= -125.1 && lon <= -66.9;
   if (contus) return albersProj(lon, lat, albers);
-  for (const [code, inset] of Object.entries(G.insets as Record<string, { bbox: number[]; lon: number[]; lat: number[] }>)) {
+  for (const inset of Object.values(G.insets as Record<string, { bbox: number[]; lon: number[]; lat: number[] }>)) {
     if (lon >= inset.lon[0] && lon <= inset.lon[1] && lat >= inset.lat[0] && lat <= inset.lat[1]) {
       const [x0, y0, x1, y1] = inset.bbox;
       const fx = (lon - inset.lon[0]) / (inset.lon[1] - inset.lon[0]);
