@@ -21,7 +21,8 @@
     "test:immersive": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json --test signal-rot-mastering-suite/tests/immersive.test.ts",
     "test:e2e": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json --test signal-rot-mastering-suite/tests/e2e.integration.ts",
     "freeze:presets": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json signal-rot-mastering-suite/scripts/freeze-presets.ts signal-rot-mastering-suite/baselines/listening-bank-20.7.json",
-    "test:browser": "npm --prefix signal-rot-mastering-suite run test:browser"
+    "test:browser": "npm --prefix signal-rot-mastering-suite run test:browser",
+    "test:study": "tsx --test scripts/test-study.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1101.0",

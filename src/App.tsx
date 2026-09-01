@@ -5,10 +5,12 @@ import type { Stage } from "./funnel/FunnelNav";
 import { trackTipFromReturnUrl } from "./lib/metaPixel";
 import { loadLuckyCoupon, type LuckyCoupon, clearLuckyCoupon } from "./lib/luckyCoupon";
 import { LuckyWheelModal } from "./funnel/LuckyWheel";
+import { isStudyEnabled } from "./study/flag";
 
 const Checkout = lazy(() => import("./funnel/Checkout"));
 const SuccessPage = lazy(() => import("./funnel/SuccessPage"));
 const LabGallery = lazy(() => import("./lab/LabGallery"));
+const StudyFunnel = lazy(() => import("./study/StudyFunnel"));
 const CustomLeadsPage = lazy(() => import("./funnel/CustomLeadsPage"));
 const CommunityForum = lazy(() => import("./funnel/CommunityForum"));
 const CourseSalesPage = lazy(() => import("./course/CourseSalesPage"));
@@ -45,6 +47,7 @@ export default function App() {
   const [hash, setHash] = useState(() => window.location.hash || "");
   const routeSuccess = hash.startsWith("#/success");
   const routeLab = hash.startsWith("#/lab");
+  const routeStudy = hash.startsWith("#/study");
   const routeCustomLeads = hash.startsWith("#/custom-leads");
   const routeCommunity = hash.startsWith("#/community");
   const routeClassroom = hash.startsWith("#/course/classroom");
@@ -116,6 +119,30 @@ export default function App() {
     return (
       <Suspense fallback={<LoadingScreen />}>
         <FrequencyDominionCheckout />
+      </Suspense>
+    );
+  }
+
+  // Persuasion Study — a fully simulated dark-pattern funnel kept as a
+  // research artifact. Never sells, charges, stores, or transmits anything.
+  // Gated by isStudyEnabled(): dev/preview only unless explicitly opted in.
+  if (routeStudy) {
+    if (!isStudyEnabled()) {
+      return (
+        <div className="min-h-screen grid place-items-center bg-ink p-6 text-center">
+          <div className="max-w-sm">
+            <p className="font-display text-2xl text-white">Not available here</p>
+            <p className="mt-2 text-sm text-white/50">
+              The persuasion study is a local research build and is disabled on
+              this deploy.
+            </p>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        <StudyFunnel />
       </Suspense>
     );
   }

@@ -493,3 +493,25 @@ summary {
     padding-inline: 0.9rem;
   }
 }
+
+/* ─────────────────────────────────────────────
+   PERSUASION STUDY (#/study) — simulation-only
+   Research build; never mounted on the live funnel.
+───────────────────────────────────────────── */
+
+@keyframes studyToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="studyToastIn"] {
+    animation: none !important;
+  }
+}
