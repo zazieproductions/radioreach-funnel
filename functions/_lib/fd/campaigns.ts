@@ -188,15 +188,13 @@ export async function handleCampaignOne(ctx: Ctx): Promise<Response> {
 async function redateCampaign(ctx: Ctx, campaignId: string, newStart: string) {
   const first = await DB(ctx).prepare(`SELECT scheduled_date, day FROM campaign_tasks WHERE campaign_id=? AND kind != 'custom' ORDER BY day ASC LIMIT 1`).bind(campaignId).first<{ scheduled_date: string; day: number }>();
   if (!first) return;
-  const deltaDays = Math.round((Date.parse(newStart) - Date.parse(first.scheduled_date)) / 864e5) - 0;
+  const deltaDays = Math.round((Date.parse(newStart) - Date.parse(first.scheduled_date)) / 864e5);
+  if (!deltaDays) return;
+  // Shift every pending task by the same delta; done/completed history keeps its real dates.
+  const modifier = `${deltaDays >= 0 ? "+" : ""}${deltaDays} days`;
   await DB(ctx).prepare(
-    `UPDATE campaign_tasks SET scheduled_date = CASE WHEN status='pending' THEN ? ELSE scheduled_date END, updated_at=? WHERE campaign_id=? AND user_id=? AND kind != 'custom' AND status='pending'`
-  ).bind(addDaysISO(first.scheduled_date, deltaDays), now(), campaignId, ctx.user!.id).run();
-  // per-task offsets are kept; shifting everything keeps the relative rhythm.
-  const rows = await DB(ctx).prepare(`SELECT id, scheduled_date FROM campaign_tasks WHERE campaign_id=? AND status='pending'`).bind(campaignId).all<{ id: string; scheduled_date: string }>();
-  for (const r of rows.results) {
-    await DB(ctx).prepare(`UPDATE campaign_tasks SET scheduled_date=? WHERE id=?`).bind(addDaysISO(r.scheduled_date, 0), r.id).run();
-  }
+    `UPDATE campaign_tasks SET scheduled_date = date(scheduled_date, ?), updated_at=? WHERE campaign_id=? AND user_id=? AND kind != 'custom' AND status='pending'`
+  ).bind(modifier, now(), campaignId, ctx.user!.id).run();
 }
 
 export async function handleGenerateTasks(ctx: Ctx): Promise<Response> {
@@ -387,7 +385,7 @@ export async function handleTargets(ctx: Ctx): Promise<Response> {
     }
     if (stmts.length) {
       const res = await db.batch(stmts as never[]);
-      added = (res[0]?.meta?.changes ?? stmts.length) as number;
+      added = Array.isArray(res) ? res.reduce((n, r) => n + ((r as { meta?: { changes?: number } })?.meta?.changes || 0), 0) : stmts.length;
     }
     await bumpStat(ctx.env, "targets_added", added);
     return Response.json({ ok: true, added, skippedSuppressed, message: skippedSuppressed ? `${skippedSuppressed} suppressed station(s) were skipped.` : "" });
