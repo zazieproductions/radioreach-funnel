@@ -7,21 +7,25 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-resources.mjs && vite build && vite build --config signal-rot-mastering-suite/vite.config.ts",
+    "build": "node scripts/build-resources.mjs && node scripts/build-fd-content.mjs && vite build",
     "build:resources": "node scripts/build-resources.mjs",
     "preview": "vite preview",
     "test:esp": "node scripts/run-esp-tests.mjs",
     "test:lab": "node scripts/run-lab-tests.mjs",
     "test:slots": "node scripts/run-slots-tests.mjs",
-    "lint": "tsc --noEmit && tsc --noEmit -p signal-rot-mastering-suite/tsconfig.json",
+    "lint": "tsc --noEmit",
     "test:checkout": "node --experimental-test-module-mocks --import tsx --test scripts/test-checkout.ts scripts/test-checkout-ui.ts",
-    "test": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json --test signal-rot-mastering-suite/tests/*.test.ts signal-rot-mastering-suite/tests/*.test.tsx && npm run test:esp && npm run test:lab && npm run test:checkout",
+    "test": "npm run test:esp && npm run test:lab && npm run test:checkout && npm run test:fd",
     "test:dsp": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json signal-rot-mastering-suite/scripts/run-dsp-fixtures.ts",
     "dev:signal-rot": "vite --config signal-rot-mastering-suite/vite.config.ts",
     "test:immersive": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json --test signal-rot-mastering-suite/tests/immersive.test.ts",
     "test:e2e": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json --test signal-rot-mastering-suite/tests/e2e.integration.ts",
     "freeze:presets": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json signal-rot-mastering-suite/scripts/freeze-presets.ts signal-rot-mastering-suite/baselines/listening-bank-20.7.json",
-    "test:browser": "npm --prefix signal-rot-mastering-suite run test:browser"
+    "test:browser": "npm --prefix signal-rot-mastering-suite run test:browser",
+    "build:fd-content": "node scripts/build-fd-content.mjs",
+    "seed:fd-sql": "node scripts/build-fd-content.mjs && node scripts/fd/gen-seed-sql.mjs",
+    "test:fd": "node --import tsx --test scripts/fd-tests/*.test.ts",
+    "types:fd": "tsc --noEmit -p tsconfig.fd.json"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1101.0",
@@ -45,6 +49,7 @@
     "tailwindcss": "4.1.17",
     "tsx": "^4.23.12",
     "typescript": "5.9.3",
+    "us-atlas": "^3.0.1",
     "vite": "7.3.2",
     "vite-plugin-singlefile": "2.3.0"
   }

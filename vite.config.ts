@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
+import { fdDevApi } from "./scripts/fd-dev-api";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -58,9 +59,29 @@ function serveStaticPublicPages(): Plugin {
   };
 }
 
+// The FD web app is a second entry (fd.html) with SPA-ish routes under
+// /frequency-dominion/{app,login,signup,admin}. In production Cloudflare
+// Pages serves those via public/_redirects (200 rewrites to /fd.html); in dev
+// Vite's history fallback would serve the funnel shell instead, so mirror it.
+function serveFdAppShell(): Plugin {
+  return {
+    name: "serve-fd-app-shell",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        const url = req.url || "";
+        if (/^\/frequency-dominion\/(app|login|signup|admin)([/?#]|$)/.test(url) || /^\/fd-app([/?#]|$)/.test(url)) {
+          req.url = "/fd.html";
+        }
+        next();
+      });
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), serveStaticPublicPages()],
+  plugins: [react(), tailwindcss(), serveStaticPublicPages(), serveFdAppShell(), fdDevApi()],
   // Bind all interfaces and accept any host header so the app can be
   // served behind preview proxies / tunnels (static site — no
   // host-dependent behavior).
@@ -72,6 +93,15 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
+      "@shared": path.resolve(__dirname, "shared"),
+    },
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+        fd: path.resolve(__dirname, "fd.html"),
+      },
     },
   },
 });

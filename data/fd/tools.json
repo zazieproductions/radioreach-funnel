@@ -1,0 +1,8353 @@
+{
+ "subjectLines": {
+  "engines": [
+   {
+    "n": 1,
+    "title": "THE PROOF (receipts beat adjectives)",
+    "formulas": [
+     "[NUMBER] local streams · [your market]",
+     "[NUMBER] tickets sold · [venue] · [city]",
+     "Added at [station] — [your market] responding",
+     "[NUMBER] spins since [month] — [genre]+[market]",
+     "Featured in [press] · [artist] · [city]",
+     "[NUMBER] saves last 30 days · [market]",
+     "[Sister station] added it — [this station] next?"
+    ]
+   },
+   {
+    "n": 2,
+    "title": "THE LOCAL STORY (dates are the strongest magnet)",
+    "formulas": [
+     "Local artist · [venue] · [date]",
+     "Hometown show [date] · [artist] · [city]",
+     "[Artist] brings [NUMBER] listeners to [city] [date]",
+     "$[NUMBER] ticket presale · [venue] · [date]",
+     "Before the [date] show — [artist] for [station]",
+     "Your market's local single — [date] release",
+     "[City] artist, [city] story, [date] date"
+    ]
+   },
+   {
+    "n": 3,
+    "title": "THE PROGRAMMER'S INTEREST (you understand their clock)",
+    "formulas": [
+     "Fits your [FORMAT] block · 3:12 edit",
+     "Between [Song A] and [Song B] · [your song]",
+     "For your [SHOW NAME] · [artist] · [genre]",
+     "Your 7–9pm local block · [artist]",
+     "[Genre] for [DAYPART] — [artist]",
+     "Late-night slot fit · [artist] · [song]",
+     "Rotation-ready · [duration] · clean edit ready"
+    ]
+   },
+   {
+    "n": 4,
+    "title": "THE HUMAN CONNECTION (name + specificity)",
+    "formulas": [
+     "[PD First Name], quick one about [their show]",
+     "[PD First Name] — [station] + [local date]",
+     "Hi [PD First Name], [artist] from [city]",
+     "[PD First Name], saw the [format] shift — [artist]",
+     "[PD First Name] · [song] · [station]",
+     "From [Artist] to [PD First Name] — [NUMBER] words",
+     "[PD First Name], the one you mentioned [topic]",
+     "[Station] + [artist] — 60 seconds?",
+     "One slot for [artist]? [market] local"
+    ]
+   }
+  ],
+  "rules": [
+   "Never ALL CAPS, never \"!!\", never emojis, never \"URGENT\" unless the building is on fire."
+  ]
+ },
+ "pitchVault": [
+  {
+   "n": 1,
+   "title": "THE HOMETOWN LAUNCH",
+   "subject": "Local artist · [venue] · [date]",
+   "wordNote": "88",
+   "body": "I'm [ARTIST], from [city], and I make [genRE]. [NUMBER] local streams last month, [NUMBER] tickets sold for [venue] on [date].\n\n[SONG] is a [length] radio edit that sits in your [format/show]. The [city] angle is real — I'm playing the room your listeners fill.\n\nWould it fit [show/block]? Happy to send the radio edit and a 90-second promo for the board.\n\nEPK: [url] · radio edit attached · [ARTIST] everywhere · [phone]."
+  },
+  {
+   "n": 2,
+   "title": "THE TOUR PRE-ROLL",
+   "subject": "Hometown show [date] · [artist] · [city]",
+   "wordNote": "86",
+   "body": "I'm [ARTIST], playing [venue] in [city] on [date]. [NUMBER] presales, [NUMBER] locals on the list.\n\n[SONG] is [length], clean, radio-loud — built for your [format]. We're bringing your listeners a show, and we'd love the station to be in the room.\n\nWould [song] fit a slot before the [date] show? Audio + EPK links below.\n\nEPK: [url] · 90-sec promo attached · [phone]. [ARTIST] on all platforms."
+  },
+  {
+   "n": 3,
+   "title": "THE PROOF-CASCADE",
+   "subject": "Added at [station] — [market] responding",
+   "wordNote": "80",
+   "body": "I'm [ARTIST]. [Sister station] added [SONG] last week — their [market] audience is responding (2,400 local streams since).\n\n[SONG] is a [length] edit for your [format]. If [station] fits their slot, I suspect it fits yours — same region, same listeners.\n\nOne slot for [SONG]? I'll send the WAV and a cut today.\n\nEPK: [url] · clean edit attached · [phone]."
+  },
+  {
+   "n": 4,
+   "title": "THE COLLEGE / SPECIALTY FLOOR",
+   "subject": "For your [SHOW NAME] · [artist] · [genre]",
+   "wordNote": "84",
+   "body": "I'm [ARTIST], [city] native, [genre] with a [specific] edge. [NUMBER] monthly listeners, [NUMBER] spins at [station].\n\n[SONG] is [length], fits a [show/block] slot. It's the kind of track that keeps a specialty show alive — new, local, loud.\n\nWould it land on [show/block] next week? Clean edit + promo attached, 60 seconds to check.\n\nEPK: [url] · [ARTIST] everywhere · [phone]."
+  },
+  {
+   "n": 5,
+   "title": "THE REPEAT ALLY",
+   "subject": "[PD LAST NAME] — [song] again?",
+   "wordNote": "70",
+   "body": "[ARTIST] here. You added [last song] in [month] — thank you for that. New single [SONG] is out [date].\n\n[length] clean edit, same lane as [last song]. [NUMBER] local streams before release.\n\nOne slot for [SONG] if there's room? WAV ready in one click — no folder, no fuss.\n\nEPK: [url] · [phone]. [ARTIST] on all platforms."
+  }
+ ],
+ "followUps": {
+  "cadence": [
+   {
+    "touch": 1,
+    "day": "0",
+    "job": "The 90-word pitch + audio",
+    "asset": "The weapon"
+   },
+   {
+    "touch": 2,
+    "day": "+4",
+    "job": "New proof, new value",
+    "asset": "The receipt"
+   },
+   {
+    "touch": 3,
+    "day": "+8 (or +10 cold)",
+    "job": "Grace close",
+    "asset": "Tiny new asset or none"
+   }
+  ],
+  "templates": [
+   {
+    "title": "TOUCH 2 — THE VALUE TEMPLATE (single receipt, zero reminders)",
+    "subject": "[NUMBER] [receipt] since [song] · [their station]",
+    "body": "Hi [PD First Name],\n\nQuick update since my last note: [NEW RECEIPT — e.g. \"we sold out [venue] Friday, here's the crowd video\" / \"700 local streams this week\" / \"sister station [CALLSIGN] just added it\"].\n\nIf it makes the decision easier, the 90-sec promo is here, and the clean WAV is ready the moment you ask.\n\n[ARTIST]\n\n*(No \"following up.\" No guilt. The receipt is the message.)*\n\n---"
+   },
+   {
+    "title": "TOUCH 3 — THE GRACE CLOSE (60 words, door open, zero pressure)",
+    "subject": "[song] — one ping, then I'm done",
+    "body": "Hi [PD First Name],\n\nLast note from me on [SONG] — if it's not a fit, no hard feelings at all. If it is, the clean WAV and 90-sec promo are one click away, and I'd love to know for the next single too.\n\nEither way, thanks for your ears. We'll be playing [venue] on [date] — you're welcome anytime.\n\n[ARTIST]\n\n---"
+   }
+  ],
+  "replies": [
+   {
+    "title": "REPLY 1 — \"Send it again / send the clean version\"",
+    "body": "**Subject:** `Here you go — [song] clean WAV`\n\nHi [PD First Name],\n\nHere's the clean WAV (3:12) and the 90-sec promo. One click, no folder. If it fits, tell me the slot and I'll tell my whole team — this city is going to hear about it.\n\n[ARTIST] · [phone]"
+   },
+   {
+    "title": "REPLY 2 — \"Not right now / wrong time\"",
+    "body": "**Subject:** `Totally get it — [recheck month]`\n\nHi [PD First Name],\n\nNo problem at all. I'll check back in [MONTH] with the next single — and if anything changes before then, I'll keep it to one note. Thanks for the honest answer — rare and appreciated.\n\n[ARTIST]"
+   },
+   {
+    "title": "REPLY 3 — A real question",
+    "body": "**Subject:** `Great question — [answer in 2 lines]`\n\nHi [PD First Name],\n\n[Answer the question directly in 2 lines, no essay.]\n\nIf it's easier to talk through, I'm free [DAY] [TIME] — 10 minutes, and I'll bring the single, the WAV, and the [market] numbers.\n\n[ARTIST] · [phone]\n\n---\n\n## THE 3 HARD RULES\n\n1. **Three touches maximum.** Touch 4 does not exist. MONITOR + 90-day recheck.\n2. **One new asset per touch.** Repeating the same link is a reminder, and reminders are spam.\n3. **Every touch logged.** Date, type, value, outcome — in T4.3 Followup-Tracker.csv.\n\n*Resource: Resources/Follow-Up/3-Touch-Follow-Up-Sequences-and-Templates.md · Frequency Dominion*"
+   }
+  ]
+ },
+ "audioVault": {
+  "acts": [],
+  "scripts": [
+   {
+    "n": 1,
+    "title": "THE HOMETOWN LAUNCH",
+    "useWhen": "",
+    "script": "- **Act 2 (voice):** \"New from [CITY]: this is [ARTIST], and this is [SONG].\"\n- **Act 4 (voice):** \"[ARTIST] live at [VENUE] on [DATE]. [NUMBER] tickets gone. This is the [CITY] sound.\"\n- **Act 5 (voice):** \"Request [SONG] on [STATION NAME] — [ARTIST], everywhere music lives.\""
+   },
+   {
+    "n": 2,
+    "title": "THE TOUR PRE-ROLL",
+    "useWhen": "",
+    "script": "- **Act 2:** \"Touring into your city — [ARTIST], with [SONG].\"\n- **Act 4:** \"The [VENUE] show hits [DATE] — presale at [LINK/CALL]. Your city, your night.\"\n- **Act 5:** \"Ask for [SONG] on [STATION]. Get your tickets, get in the room.\""
+   },
+   {
+    "n": 3,
+    "title": "THE PROOF CASCADE",
+    "useWhen": "",
+    "script": "- **Act 2:** \"[SONG], the one they're playing at [SISTER STATION] — now it's here.\"\n- **Act 4:** \"[NUMBER] spins and counting. [NUMBER] streams since [MONTH]. The word is moving.\"\n- **Act 5:** \"Hear [SONG] on [STATION] — [ARTIST] on all platforms.\""
+   },
+   {
+    "n": 4,
+    "title": "THE COLLEGE SPECIALTY FIT",
+    "useWhen": "",
+    "script": "- **Act 2:** \"Late-night radio, college energy — this is [SONG] by [ARTIST].\"\n- **Act 4:** \"Out of [CITY], straight to your speakers. If your show plays the new stuff, this is the new stuff.\"\n- **Act 5:** \"Keep it locked for [SONG] — [ARTIST], on all platforms tonight.\""
+   },
+   {
+    "n": 5,
+    "title": "THE COMING-OF-AGE STORY (first add ever)",
+    "useWhen": "",
+    "script": "- **Act 2:** \"For the first time ever on radio — [SONG] by [ARTIST].\"\n- **Act 4:** \"From soundcloud to your speakers in [X] months. No label. Just the work.\"\n- **Act 5:** \"Give it your [STATION] request — [ARTIST] on all platforms.\""
+   },
+   {
+    "n": 6,
+    "title": "THE GENRE-DEFINING PUSH",
+    "useWhen": "",
+    "script": "- **Act 2:** \"This is the sound of [GENRE] in [YEAR] — [SONG] by [ARTIST].\"\n- **Act 4:** \"Pushed by [PRESS/BLOG], played by [CO-SIGN], defined by the hook.\"\n- **Act 5:** \"Request [SONG] on [STATION] — the new [GENRE] standard.\""
+   },
+   {
+    "n": 7,
+    "title": "THE REPEAT ALLY (second single, same station)",
+    "useWhen": "",
+    "script": "- **Act 2:** \"You know the name. This is the new one — [SONG] by [ARTIST].\"\n- **Act 4:** \"The follow-up to [LAST SONG]. Same fire. Next level.\"\n- **Act 5:** \"Request [SONG] on [STATION] tonight — [ARTIST] everywhere.\""
+   },
+   {
+    "n": 8,
+    "title": "THE PLACEMENT / SYNC HUNTER",
+    "useWhen": "",
+    "script": "- **Act 2:** \"Looking for music with momentum? This is [SONG] by [ARTIST].\"\n- **Act 4:** \"[NUMBER] radio spins across [NUMBER] markets. Verified, loggable, license-ready.\"\n- **Act 5:** \"[ARTIST] / [SONG] — on all platforms, stems available.\""
+   },
+   {
+    "n": 9,
+    "title": "THE MARKET DOMINANCE (multi-city)",
+    "useWhen": "",
+    "script": "- **Act 2:** \"[CITY 1] heard it. [CITY 2] heard it. [CITY 3] — your turn: [SONG] by [ARTIST].\"\n- **Act 4:** \"[NUMBER] adds in [NUMBER] weeks. The map is filling in.\"\n- **Act 5:** \"Call it in on [STATION] — [ARTIST] on all platforms.\""
+   },
+   {
+    "n": 10,
+    "title": "THE GRACE CLOSE (for burned-well repairs)",
+    "useWhen": "",
+    "script": "- **Act 2:** \"If you remember [ARTIST], here's what's new: [SONG].\"\n- **Act 4:** \"Different record. Different year. Same city. No pressure — just the new one.\"\n- **Act 5:** \"That's [SONG] by [ARTIST]. All platforms. Thanks for listening.\"\n\n---"
+   }
+  ]
+ },
+ "audit": [
+  {
+   "title": "PART 1 — THE DATA PULL (10 minutes)",
+   "blocks": [
+    {
+     "b": "table",
+     "headers": [
+      "Data source",
+      "Where",
+      "Pulled?"
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "text",
+         "v": "War room — statuses + next actions"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Module 2.4 template"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "☐"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Follow-up tracker — touches, replies"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Module 4.3 template"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "☐"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Proof log — adds, assets, deployments"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Module 6.1 template"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "☐"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Income ledger — lanes, amounts"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Module 6.2 template"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "☐"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Ally engine — 30/10/10 tiers"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Module 5.4 template"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "☐"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Release calendar — gates, checkpoints"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Module 6.3 template"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "☐"
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "PART 2 — THE SCORECARD (25 minutes)",
+   "blocks": [
+    {
+     "b": "table",
+     "headers": [
+      "Column",
+      "What it measures",
+      "Score 1–10",
+      "Data evidence"
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "text",
+         "v": "Momentum"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Adds, replies, touches, proof assets"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Reach"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Stations, markets, cities entered"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Revenue"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Attributed lane income"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Relationship"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "30/10/10 portfolio health"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "System"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Gate passes, calendar adherence, ledger gaps"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ]
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "b",
+       "v": "TOTAL:  / 50"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "PART 3 — THE THREE FINDINGS (10 minutes)",
+   "blocks": [
+    {
+     "b": "list",
+     "ordered": false,
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "What worked"
+        },
+        {
+         "t": "text",
+         "v": " (name the exact system component + the number): ______________________"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "What didn't"
+        },
+        {
+         "t": "text",
+         "v": " (name the exact component + the number): ______________________"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "THE ONE CHANGE"
+        },
+        {
+         "t": "text",
+         "v": " (single surgical fix — weakest column): ______________________"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "PART 4 — THE NEXT QUARTER'S PLAN (10 minutes)",
+   "blocks": [
+    {
+     "b": "table",
+     "headers": [
+      "Item",
+      "Decision"
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "text",
+         "v": "Calendar dates (next release, W-8 gate)"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Target expansion (20 → 30 → 40 stations?)"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Lane focus (tickets / placements / streams / merch / sponsor / deals)"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "One column to repair"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "One commitment (name it, date it)"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "PART 5 — THE SIGNATURE (5 minutes)",
+   "blocks": [
+    {
+     "b": "quote",
+     "spans": [
+      {
+       "t": "text",
+       "v": "I reviewed the data honestly, named my weakest column, and commit to one surgical change for the next 90 days."
+      }
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "text",
+       "v": "Signature: ____________________  Date: ______________"
+      }
+     ]
+    },
+    {
+     "b": "hr"
+    }
+   ]
+  },
+  {
+   "title": "THE ASCENSION GATES (CHECK YOURSELF)",
+   "blocks": [
+    {
+     "b": "table",
+     "headers": [
+      "Gate",
+      "Requirement",
+      "Your numbers"
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "text",
+         "v": "Operator → Dominant"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "3 campaigns × 5+ adds; 1 revenue lane; audit ≥ 30"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Dominant → Empire"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "3 releases × 15+ adds; 3 revenue lanes; audit ≥ 40; 10+ active allies in one market"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "text",
+         "v": "Empire → $1M funnel"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "80+ stations, 5 markets, staffed team, sustained lane revenue"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "______"
+        }
+       ]
+      ]
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "b",
+       "v": "Rule:"
+      },
+      {
+       "t": "text",
+       "v": " don't ascend until the gate is passed. Repair the weakest column first. Scaling a breaking machine multiplies the breakage."
+      }
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "i",
+       "v": "Resource: Resources/Audit/90-Day-Audit-Checklist.md · Frequency Dominion · Module 6.4"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "epk": {
+  "blocks": [
+   {
+    "b": "quote",
+    "spans": [
+     {
+      "t": "b",
+      "v": "CONFIDENTIAL OPERATOR ASSET — FREQUENCY DOMINION"
+     },
+     {
+      "t": "text",
+      "v": " \"Your Electronic Press Kit is not a biographical brochure. It is an interactive single-screen Command Deck engineered to give a gatekeeper all critical operational facts in 20 seconds.\""
+     }
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "1. ARCHITECTURAL PHILOSOPHY & OBJECTIVE"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Traditional independent artist press kits fail because they are designed for vanity rather than rapid gatekeeper evaluation. Music directors, festival booking managers, and sync supervisors receive hundreds of submissions every week. When confronted with a 14-page PDF or a cluttered website with five dropdown navigation menus, they immediately bounce."
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The "
+     },
+     {
+      "t": "b",
+      "v": "One-Page EPK Command Deck"
+     },
+     {
+      "t": "text",
+      "v": " solves this by establishing a strict, single-screen responsive visual hierarchy. It answers the five core questions every gatekeeper asks within 20 seconds:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "i",
+        "v": "Who is this artist, and what is their visual authority?"
+       },
+       {
+        "t": "text",
+        "v": " (Block 1: Hero Identity)"
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "i",
+        "v": "What is their commercial sonic proposition in plain English?"
+       },
+       {
+        "t": "text",
+        "v": " (Block 2: 80-Word Bio)"
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "i",
+        "v": "What does the record sound like right now without friction?"
+       },
+       {
+        "t": "text",
+        "v": " (Block 3: Audio Deck)"
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "i",
+        "v": "Who else with institutional credibility has already validated them?"
+       },
+       {
+        "t": "text",
+        "v": " (Block 4: Proof Wall)"
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "i",
+        "v": "Where is their active regional ground game?"
+       },
+       {
+        "t": "text",
+        "v": " (Block 5: Tour Dates & Contact)"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "2. THE SIX-BLOCK MODULAR SPECIFICATION"
+     }
+    ]
+   },
+   {
+    "b": "table",
+    "headers": [
+     "Block Number",
+     "Modular Component",
+     "Required Elements",
+     "Technical Specification",
+     "Target Inspection Time"
+    ],
+    "rows": [
+     [
+      [
+       {
+        "t": "b",
+        "v": "Block 1"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Hero Identity & Stance"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "High-charisma landscape photo, artist title, genre tag, hometown city"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "1920x1080 compressed WebP (<250kb); high-contrast typography"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "3 seconds"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Block 2"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Executive Commercial Bio"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Exactly 80 words; objective third-person tone; two verifiable career facts"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "15px-17px clean sans-serif; 1.5 line height; zero poetic fluff"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "6 seconds"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Block 3"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Embedded Audio Engine"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Lead single at top + instant Broadcast Master WAV download button"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "HTML5 audio player; instantaneous playback; no login or download wall"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "4 seconds"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Block 4"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "The Proof Wall"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Four verifiable receipt cards: station adds, editorial quotes, ticket counts"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "High-contrast badge styling; active hyperlinks to external proof"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "3 seconds"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Block 5"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Tour Dates & Routing"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Chronological 90-day live schedule: Date, City, Venue, Capacity, Tickets"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Tabular format; prominent highlight on upcoming regional dates"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "2 seconds"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Block 6"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Direct Commercial Contact"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Direct mobile phone, direct email, booking & management contact"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Click-to-call / click-to-email active links; zero generic forms"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "2 seconds"
+       }
+      ]
+     ]
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "3. COPYWRITING FORMULA FOR THE 80-WORD BIO"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Follow this strict three-sentence template:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Sentence 1 (Identity & Sonic Stance):"
+       },
+       {
+        "t": "text",
+        "v": " \"[Artist Name] is a [City]-based [Genre] artist blending [Sonic Element A] with [Sonic Element B], delivering [Specific Emotional/Listener Feeling].\""
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Sentence 2 (Institutional & Broadcast Proof):"
+       },
+       {
+        "t": "text",
+        "v": " \"Currently in rotation on [Station Callsign A] and [Station Callsign B], their latest single '[Track Title]' peaked at #[Chart Position] on [Relevant Chart] following sold-out showcases at [Notable Venue].\""
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Sentence 3 (Current Operational Milestone):"
+       },
+       {
+        "t": "text",
+        "v": " \"With [Upcoming Tour Name] routing across [Region] this fall, [Artist Name] brings an uncompromising broadcast-ready sound to audiences and programmers alike.\""
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "4. DEPLOYMENT PROTOCOL & BEST PRACTICES"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Host at a Dedicated URL:"
+       },
+       {
+        "t": "text",
+        "v": " Host your Command Deck at "
+       },
+       {
+        "t": "code",
+        "v": "artistname.com/epk"
+       },
+       {
+        "t": "text",
+        "v": " or "
+       },
+       {
+        "t": "code",
+        "v": "artistname.com/radio"
+       },
+       {
+        "t": "text",
+        "v": ". Never send an attached document."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Zero Password Barriers:"
+       },
+       {
+        "t": "text",
+        "v": " Never password-protect your press kit. A gatekeeper arriving from a pitch will immediately close the tab if blocked by a login."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Mobile Screen Optimization:"
+       },
+       {
+        "t": "text",
+        "v": " Ensure Blocks 1, 2, and 3 are 100% visible on a standard smartphone screen without horizontal scrolling."
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "compliance": {
+  "source": "Derived from Lesson 1.4 (No-Spam Oath), Heat-Map Directory Usage Rules, and the 3-Touch Follow-Up guide",
+  "principles": [
+   "Three touches maximum per station per campaign. After touch three: silence, not a fourth email.",
+   "Never BCC a market. Every send is addressed to a named human at one station.",
+   "Verify the contact before sending; never invent a name, role, or claim of familiarity.",
+   "A stop is permanent: honor opt-outs, 'remove me' replies, and different-instruction replies by suppressing the contact for this release cycle onward.",
+   "Never attach heavy files cold; offer links and send assets only on request (keeps you off blacklist triggers).",
+   "Numbers in pitches must be your own verifiable metrics — no invented streams, sold-out claims, or 'everyone is talking about' language.",
+   "One play is a spin, not rotation. Report outcomes exactly as verified; never imply ongoing support from a single add.",
+   "No payola, no disguised sponsorship, no undisclosed consideration for airplay — federal law (US 47 U.S.C. § 317) and basic respect.",
+   "Give the station a story it can tell its own listeners; local context is the service you provide.",
+   "Thank-you protocol is non-transactional: gratitude for adds/ints carries no ask attached."
+  ]
+ },
+ "decoder": [
+  {
+   "n": 1,
+   "title": "HOW RADIO IS ACTUALLY MEASURED (THE RATINGS ENGINE)",
+   "blocks": [
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "text",
+       "v": "Every commercial station is fighting for one currency: "
+      },
+      {
+       "t": "b",
+       "v": "listenership"
+      },
+      {
+       "t": "text",
+       "v": ", measured by Nielsen Audio."
+      }
+     ]
+    },
+    {
+     "b": "list",
+     "ordered": false,
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "PPM markets (≈ top 48 metros):"
+        },
+        {
+         "t": "text",
+         "v": " people wear a Portable People Meter that logs listening "
+        },
+        {
+         "t": "i",
+         "v": "minute by minute"
+        },
+        {
+         "t": "text",
+         "v": " — every quarter-hour, every daypart, every station change. PPM stations have real data on exactly when their audience spikes. This is why drive-time and daypart fit matter so much: a station knows precisely which slots have the ears."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Diary markets (the rest of the country):"
+        },
+        {
+         "t": "text",
+         "v": " listeners write down what they heard in a diary. Coarser, moodier, and influenced by how memorable a station is. In diary markets, a song's "
+        },
+        {
+         "t": "b",
+         "v": "catchiness and station branding"
+        },
+        {
+         "t": "text",
+         "v": " matter disproportionately — because a listener has to "
+        },
+        {
+         "t": "i",
+         "v": "remember"
+        },
+        {
+         "t": "text",
+         "v": " to write your station down."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "\"The book\" / book periods:"
+        },
+        {
+         "t": "text",
+         "v": " ratings are delivered in quarterly \"books\" (PPM markets get monthly data). Stations run \"ratings weeks\" — typically the "
+        },
+        {
+         "t": "b",
+         "v": "last two weeks of each book period"
+        },
+        {
+         "t": "text",
+         "v": " — when programming gets conservative: fewer risks, more proven hits. Believing you can break an unknown during a ratings week is amateur thinking. Launch around book starts, not book ends."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "The metrics that matter to a PD:"
+        },
+        {
+         "t": "text",
+         "v": " "
+        },
+        {
+         "t": "b",
+         "v": "cume"
+        },
+        {
+         "t": "text",
+         "v": " (how many unique people heard the station) and "
+        },
+        {
+         "t": "b",
+         "v": "AQH"
+        },
+        {
+         "t": "text",
+         "v": " (average quarter-hour audience). Songs are inventory that either grows cume (a hit brings new listeners) or holds AQH (a familiar track keeps people from tuning away). Your pitch should answer one of those two jobs — not \"this song is good.\""
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "b",
+       "v": "Insider translation:"
+      },
+      {
+       "t": "text",
+       "v": " the PD's yes is a ratings bet. The format, the clock, and the slot matter more than your artistry. Serve the bet and you win the slot."
+      }
+     ]
+    },
+    {
+     "b": "hr"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "title": "THE CLOCK — HOW AN HOUR IS REALLY BUILT",
+   "blocks": [
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "text",
+       "v": "Every hour of radio is a "
+      },
+      {
+       "t": "b",
+       "v": "clock"
+      },
+      {
+       "t": "text",
+       "v": ": a fixed skeleton of intros, current hits, recurrents, golds, local breaks, sweepers, and legal IDs. A PD literally has a printed clock sheet."
+      }
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "text",
+       "v": "The rotation categories (record pools that a song lives in):"
+      }
+     ]
+    },
+    {
+     "b": "table",
+     "headers": [
+      "Category",
+      "Life",
+      "Spins/week (typical)",
+      "Job"
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "b",
+         "v": "POWER"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "New heavy"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "30–50+"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Carry the ratings"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "MEDIUM"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Established current"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "15–30"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Hold the hour"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "LIGHT"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Fading current"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "5–15"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Transition out"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "RECURRENT"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "6–18 months old"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Varies"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Familiarity"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "GOLD"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Catalog"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Varies"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Cume/faithful"
+        }
+       ]
+      ]
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "b",
+       "v": "What this means for you:"
+      },
+      {
+       "t": "text",
+       "v": " you don't need to be a power record to win — you need to be "
+      },
+      {
+       "t": "i",
+       "v": "a current"
+      },
+      {
+       "t": "text",
+       "v": ". The fastest win for an unknown is a specialty slot (night, weekend, local-focus), then get upgraded from specialty to medium by proving reaction. That ladder — specialty → medium → power — is the industry's actual entry ramp, and it's almost never explained because the artists who know it don't share it."
+      }
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "b",
+       "v": "Insider move:"
+      },
+      {
+       "t": "text",
+       "v": " when a PD says \"it's in light rotation,\" that's not a no — that's a category. Your job becomes a "
+      },
+      {
+       "t": "b",
+       "v": "rotation upgrade"
+      },
+      {
+       "t": "text",
+       "v": ", which is a much smaller ask: send listener-feedback receipts, ticket data, and stream spikes until the song graduates."
+      }
+     ]
+    },
+    {
+     "b": "hr"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "title": "ADD CYCLES — WHEN STATIONS ACTUALLY SAY YES",
+   "blocks": [
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "text",
+       "v": "Radio doesn't decide daily. It decides on "
+      },
+      {
+       "t": "b",
+       "v": "cycles"
+      },
+      {
+       "t": "text",
+       "v": ":"
+      }
+     ]
+    },
+    {
+     "b": "list",
+     "ordered": false,
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Commercial stations:"
+        },
+        {
+         "t": "text",
+         "v": " most formats have set \"add dates\" — often "
+        },
+        {
+         "t": "b",
+         "v": "Tuesdays"
+        },
+        {
+         "t": "text",
+         "v": " (matches new-music Tuesday and the industry's weekly cadence), though formats differ (some add Monday, some Friday, country historically Tuesday). The promo industry calls a record's big date an "
+        },
+        {
+         "t": "b",
+         "v": "\"impact date.\""
+        },
+        {
+         "t": "text",
+         "v": " Pitch timing is built around "
+        },
+        {
+         "t": "i",
+         "v": "the add day"
+        },
+        {
+         "t": "text",
+         "v": ", not around your release day."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "College and community stations:"
+        },
+        {
+         "t": "text",
+         "v": " music directors add on their own "
+        },
+        {
+         "t": "b",
+         "v": "weekly cycles"
+        },
+        {
+         "t": "text",
+         "v": " during business hours. College rotation is refreshed "
+        },
+        {
+         "t": "i",
+         "v": "weekly"
+        },
+        {
+         "t": "text",
+         "v": " — which means a Friday pitch gets heard Monday, and a Monday pitch can make the next rotation list."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Ratings weeks:"
+        },
+        {
+         "t": "text",
+         "v": " the \"no new music\" window. Don't pitch an unknown into the last two weeks of a book unless you're already in rotation."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "b",
+       "v": "Insider move:"
+      },
+      {
+       "t": "text",
+       "v": " ask the question that unlocks the calendar: "
+      },
+      {
+       "t": "i",
+       "v": "\"What's your add cycle — and what day does rotation news go out?\""
+      },
+      {
+       "t": "text",
+       "v": " You're not asking for airplay; you're asking for their operational schedule. That question alone separates you from 99% of emails, and the answer tells you exactly when to send."
+      }
+     ]
+    },
+    {
+     "b": "hr"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "title": "THE COLLEGE RADIO MACHINE (THE BEST KEPT LANE)",
+   "blocks": [
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "text",
+       "v": "College radio is not \"lesser\" — it's the only radio format with "
+      },
+      {
+       "t": "b",
+       "v": "structural hunger"
+      },
+      {
+       "t": "text",
+       "v": ": DJs and music directors who actively want new music, weekly rotation updates, and measurable charts."
+      }
+     ]
+    },
+    {
+     "b": "list",
+     "ordered": false,
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "The charts are real, public, and trackable."
+        },
+        {
+         "t": "text",
+         "v": " The "
+        },
+        {
+         "t": "b",
+         "v": "NACC 200"
+        },
+        {
+         "t": "text",
+         "v": " (North American College Chart) and "
+        },
+        {
+         "t": "b",
+         "v": "RMR"
+        },
+        {
+         "t": "text",
+         "v": " (Radio Monitor, the college airplay ranker) are the reporting lanes that labels and supervisors actually watch. Getting on the chart is how an unknown becomes \"charting\" — and \"charting at college radio\" is the single most undervalued proof line in independent music."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "The rep-network shortcut:"
+        },
+        {
+         "t": "text",
+         "v": " college radio promotion is commonly run through "
+        },
+        {
+         "t": "b",
+         "v": "college rep networks"
+        },
+        {
+         "t": "text",
+         "v": " — teams of student and regional reps who pitch stations, track adds, and report spins for a weekly fee. Labels use them for a reason: college stations respond to "
+        },
+        {
+         "t": "i",
+         "v": "personal reps"
+        },
+        {
+         "t": "text",
+         "v": " far better than email."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Why it matters to you:"
+        },
+        {
+         "t": "text",
+         "v": " college adds are cheap, fast, and they "
+        },
+        {
+         "t": "i",
+         "v": "feed the NACC chart"
+        },
+        {
+         "t": "text",
+         "v": ", which is verifiable proof for the commercial pitch, the sync license, and the sponsor deck."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "b",
+       "v": "Insider move:"
+      },
+      {
+       "t": "text",
+       "v": " you don't need a rep network to get the first 10 adds — you need the heat map, the specialty hunt, and the weekly cycle. But once you're charting, a rep network can scale the lane — and that's exactly what the Empire Loop (Module 6) is built to feed."
+      }
+     ]
+    },
+    {
+     "b": "hr"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "title": "HOW THE PROMOTION INDUSTRY ACTUALLY MOVES MUSIC",
+   "blocks": [
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "text",
+       "v": "The label promotion machine, in order:"
+      }
+     ]
+    },
+    {
+     "b": "list",
+     "ordered": true,
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Service the record"
+        },
+        {
+         "t": "text",
+         "v": " — send the music + one-page brief to the station list through delivery platforms or direct link. (This is your Module 3 payload.)"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Adds campaign"
+        },
+        {
+         "t": "text",
+         "v": " — an independent promo rep (or label staff) works the list week after week: calls, emails, playlist check-ins, spin tracking. The rep's whole job is "
+        },
+        {
+         "t": "b",
+         "v": "adds and rotation upgrades."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Chart week"
+        },
+        {
+         "t": "text",
+         "v": " — every week, stations report plays to chart services (Mediabase for commercial; NACC/RMR for college). The rep aggregates, reports, and the record climbs or stalls."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Second wave"
+        },
+        {
+         "t": "text",
+         "v": " — once a record is charting, the rep pitches it to bigger stations "
+        },
+        {
+         "t": "i",
+         "v": "with evidence"
+        },
+        {
+         "t": "text",
+         "v": ": \"charting at college, 40 stations, trending in [markets].\" Proof converts cold lists into warm ones."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "b",
+       "v": "What this means for an independent:"
+      },
+      {
+       "t": "text",
+       "v": " you can run a "
+      },
+      {
+       "t": "i",
+       "v": "condensed version of this machine"
+      },
+      {
+       "t": "text",
+       "v": " solo — which is exactly what this course teaches. The code word for the whole system: "
+      },
+      {
+       "t": "b",
+       "v": "the Add → Chart → Cascade loop."
+      },
+      {
+       "t": "text",
+       "v": " Labels pay $2,000–$10,000 per record for what you're about to run yourself."
+      }
+     ]
+    },
+    {
+     "b": "hr"
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "title": "THE INSIDER GLOSSARY (DEFINITIONS THAT CHANGE PITCHES)",
+   "blocks": [
+    {
+     "b": "table",
+     "headers": [
+      "Term",
+      "Meaning",
+      "Why it matters"
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "b",
+         "v": "Add"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Station adds the record to rotation"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "The core win"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Spin"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "One play"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "The measurable unit"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Rotation"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Category a song lives in (power/medium/light/current/recurrent/gold)"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Skews every follow-up ask"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Impact date"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "The planned first add date"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Timing weapon"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Current"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "A new song in rotation"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Your target category"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Specialty show"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Genre/locale/themed show with a dedicated host"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Fastest entry for unknowns"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Clock"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "The hour's fixed skeleton"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Where your song needs to fit"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Cume / AQH"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Unique listeners / avg quarter-hour audience"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "The ratings currency"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "PPM / Diary"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Meter vs. written-listener measurement"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Why daypart and memorability matter"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Book / ratings week"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Ratings period (quarterly)"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Kill window for new music"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "NACC 200"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "College radio chart"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Verifiable proof engine"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "RMR"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Radio Monitor — college airplay reporting"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Same, second lane"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Mediabase / BDS"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Commercial spin data services"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Supervisors and labels check these"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Rep network"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "College radio promo teams"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Scale lever for the college lane"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Clean edit"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Explicit-free version"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Required for daytime lanes"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Radio edit"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Shortened/hooked version"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Required for commercial clocks"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Service"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Sending the record to the list"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Step one of every campaign"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "b",
+         "v": "Rotation upgrade"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "Moving a song up a category"
+        }
+       ],
+       [
+        {
+         "t": "text",
+         "v": "The art of the follow-up"
+        }
+       ]
+      ]
+     ]
+    },
+    {
+     "b": "hr"
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "title": "THE 10 INSIDER RULES (MEMORIZE)",
+   "blocks": [
+    {
+     "b": "list",
+     "ordered": true,
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "text",
+         "v": "A PD's yes is a "
+        },
+        {
+         "t": "b",
+         "v": "ratings bet"
+        },
+        {
+         "t": "text",
+         "v": ", not a taste vote."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "text",
+         "v": "Serve the "
+        },
+        {
+         "t": "b",
+         "v": "clock"
+        },
+        {
+         "t": "text",
+         "v": ", not the ego — 3:00–3:45, hook inside 12 seconds, clean edit ready."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Specialty → medium → power"
+        },
+        {
+         "t": "text",
+         "v": " is the entry ladder. Never skip rungs."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Tuesday add cycles and weekly college cycles"
+        },
+        {
+         "t": "text",
+         "v": " are your scheduling spine."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Never pitch during ratings weeks"
+        },
+        {
+         "t": "text",
+         "v": " to a station that doesn't know you."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "text",
+         "v": "College "
+        },
+        {
+         "t": "b",
+         "v": "charting is proof"
+        },
+        {
+         "t": "text",
+         "v": " — NACC/RMR are real, public, and supervisors read them."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "text",
+         "v": "The industry moves music in "
+        },
+        {
+         "t": "b",
+         "v": "four phases: service → adds → chart → second wave."
+        },
+        {
+         "t": "text",
+         "v": " Run all four."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Rotation categories are asks"
+        },
+        {
+         "t": "text",
+         "v": ": light → medium is a smaller, winnable battle than unknown → power."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "b",
+         "v": "Spins are merchandise"
+        },
+        {
+         "t": "text",
+         "v": " — every spin is a data point you can sell (sync, sponsorship, booking)."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "text",
+         "v": "Labels pay for what you're building — the machine is the product."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "b": "p",
+     "spans": [
+      {
+       "t": "i",
+       "v": "Insider Layer · Frequency Dominion · paired with Modules 1–6 Insider Playbooks"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "playbooks": {
+  "m1": [
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive briefing. The doctrine beneath the lessons. Read after 1.1–1.4."
+     }
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE TRUST ARCHITECTURE (WHY IDENTITY CONVERTS)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Every radio decision is a "
+     },
+     {
+      "t": "b",
+      "v": "trust negotiation"
+     },
+     {
+      "t": "text",
+      "v": " between the PD's judgment and their risk. The singer's identity — how you show up — is the interface. Three layers, in order:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Competence layer"
+       },
+       {
+        "t": "text",
+        "v": " — \"this artist has a machine.\" Proof stacks, EPK, audio package, named files, a professional signature. Competence is what removes the "
+       },
+       {
+        "t": "i",
+        "v": "friction"
+       },
+       {
+        "t": "text",
+        "v": " of saying yes."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Character layer"
+       },
+       {
+        "t": "text",
+        "v": " — \"this artist is easy to work with.\" Polished follow-ups, promised deliveries kept, no guilt language, respect for the clock. Character is what makes a PD "
+       },
+       {
+        "t": "i",
+        "v": "want"
+       },
+       {
+        "t": "text",
+        "v": " to re-add you next cycle."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Contribution layer"
+       },
+       {
+        "t": "text",
+        "v": " — \"this artist gives before asking.\" Assets, receipts, shout-outs, tickets, station IDs. Contribution is what turns an add into an ally."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Amateurs reverse the order: they ask first, promise competence only in the bio, and contribute never. The entire Module 1 is built to stack these three layers in the right order — because a PD who experiences you in reverse reads you as a transaction, not a partner."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE UNHEARD TAX AS A COST MODEL (RUN THE ACTUAL MATH)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The Unheard Tax isn't a metaphor — model it like a business expense:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Opportunity cost:"
+       },
+       {
+        "t": "text",
+        "v": " one verified add per market per quarter ≈ 4 add receipts that can convert 2–3 placement/sponsor conversations. Zero adds = zero verifiable demand = those conversations don't happen."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Compounding interest:"
+       },
+       {
+        "t": "text",
+        "v": " every add is an asset that "
+       },
+       {
+        "t": "i",
+        "v": "keeps earning"
+       },
+       {
+        "t": "text",
+        "v": ": it feeds the proof stack, the NACC/RMR chart trajectory, the media kit, and the next pitch. The artist with 12 adds a year is not 12% ahead — they're on a different growth curve."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "The decay cost:"
+       },
+       {
+        "t": "text",
+        "v": " every month of silence trains your audience, the market, and your own habits into \"not a radio artist.\" Silence is not neutral — it's negative compounding."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "Operator move:"
+     },
+     {
+      "t": "text",
+      "v": " put a dollar figure on it (your average ticket × your conversion rate × 52 weeks). That number is the only thing that makes you act at 11pm when you're tired. Motivation is a mood; a tax invoice is a system."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE PROOF-STACK GRADING SYSTEM (USED BY PEOPLE WHO SCREEN ARTISTS)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Screeners rank proof in five buckets. Grade yours and fix the weakest:"
+     }
+    ]
+   },
+   {
+    "b": "table",
+    "headers": [
+     "Bucket",
+     "Examples",
+     "Radio weight"
+    ],
+    "rows": [
+     [
+      [
+       {
+        "t": "b",
+        "v": "S-tier"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Other stations' spins, chart listings (NACC/RMR), label/industry co-signs"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Decides the yes"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "A-tier"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Verified press, real playlists, notable sync/placement"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Strong support"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "B-tier"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Streams, saves, ticket counts, live receipts"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Context, not proof"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "C-tier"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Socials, features on micro-outlets"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Ambience — never lead with it"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "D-tier"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Unverifiable logos, paid features, fan screenshots"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Anti-proof — delete"
+       }
+      ]
+     ]
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "The secret:"
+     },
+     {
+      "t": "text",
+      "v": " your goal is never a perfect stack — it's one S-tier receipt per market and two A-tier receipts. One spin at the right station is worth 10k streams. Target receipts by market, not by size. (This is why Module 2's heat map matters: it finds where your S-tier is achievable.)"
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE NO-SPAM OATH AS A COMPETITIVE MOAT"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The oath isn't virtue — it's scarcity engineering. 95% of artists are spam. When you send one precise, proof-loaded, personalized payload, you are "
+     },
+     {
+      "t": "i",
+      "v": "the"
+     },
+     {
+      "t": "text",
+      "v": " anomaly. The radio industry's inbox is so full of garbage that a clean, courteous, three-touch professional stands out more than the loudest record. The oath is your positioning. Treat it like one."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE IDENTITY SHIFT EXERCISE (DO THIS AT 3 LEVELS)"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Language:"
+       },
+       {
+        "t": "text",
+        "v": " audit every sentence for 7 days. Kill \"please,\" \"I hope,\" \"just,\" \"sorry to bother.\" Replace with the supplier frame: \"Here's what this can do for your afternoon block.\""
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Artifacts:"
+       },
+       {
+        "t": "text",
+        "v": " your signature block, email address, EPK, file naming, folder names — every artifact either says \"hobby\" or \"operation.\" Rename everything this week."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Calendar:"
+       },
+       {
+        "t": "text",
+        "v": " operators have a Monday operating memo and a quarterly audit. Add both to your calendar right now. Identity is schedule, not mood."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE ONE SECRET MOST ARTISTS NEVER LEARN"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "PDs remember how you made them feel when they said yes — not how good your song was."
+     },
+     {
+      "t": "text",
+      "v": " The thank-you, the receipts, the no-pressure follow-ups, and the second-release check-in are what turn a one-time slot into a standing relationship. Identity is not the pitch. Identity is the "
+     },
+     {
+      "t": "i",
+      "v": "aftermath"
+     },
+     {
+      "t": "text",
+      "v": "."
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive Briefing · Frequency Dominion · Module 1 · Confidential"
+     }
+    ]
+   }
+  ],
+  "m2": [
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive briefing. The targeting layer that the lessons build. Read after 2.1–2.4."
+     }
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE MARKET-TIER SYSTEM (STOP SORTING STATIONS — SORT MARKETS)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Stations don't exist in a vacuum — they live in "
+     },
+     {
+      "t": "b",
+      "v": "market tiers"
+     },
+     {
+      "t": "text",
+      "v": " with different physics. Target by tier, not by size:"
+     }
+    ]
+   },
+   {
+    "b": "table",
+    "headers": [
+     "Tier",
+     "Type",
+     "Radio physics",
+     "Your play"
+    ],
+    "rows": [
+     [
+      [
+       {
+        "t": "b",
+        "v": "T1 — College towns"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "University + community + online density"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Hunger for new music, weekly cycles, chart-able"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "First campaign here, always"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "T2 — Mid metros"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "1–3 commercial stations + college + specialty"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Add cycles exist, ratings pressure moderate"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Second wave, after college proof"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "T3 — PPM metros"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Nielsen-metered, high format discipline"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Conservative, ratings-driven, risk-averse"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Only with chart evidence"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "T4 — College-corridor metros"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "2+ universities within 60 miles"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Multiple college lanes, cheap adds"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Cascade bonus market"
+       }
+      ]
+     ]
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The classic label move: "
+     },
+     {
+      "t": "b",
+      "v": "college-town campaign → chart → mid-metro add → PPM-metro pitch with the chart."
+     },
+     {
+      "t": "text",
+      "v": " You can't skip tiers and expect breaks. The heat map should be tier-tagged, not just ring-tagged."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "CHEAT CODE 1 — THE SPECIALTY-SHOW HUNT"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The highest-acceptance inventory in radio isn't a format — it's a "
+     },
+     {
+      "t": "b",
+      "v": "show"
+     },
+     {
+      "t": "text",
+      "v": ". Specialty shows (late-night, genre, regional, themed, new-music blocks) have hosts who "
+     },
+     {
+      "t": "i",
+      "v": "need"
+     },
+     {
+      "t": "text",
+      "v": " to fill time and "
+     },
+     {
+      "t": "i",
+      "v": "love discovering"
+     },
+     {
+      "t": "text",
+      "v": ". Find them through:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "text",
+        "v": "Station \"shows\" / \"programs\" pages (almost every station lists specialty shows with host names)."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "text",
+        "v": "NACC and RMR charts (charting stations have genre-specific shows — see who's charting adjacent artists)."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "text",
+        "v": "Instagram/DM direct to hosts (specialty hosts are contactable; MDs are gate-kept)."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "text",
+        "v": "Show descriptions: \"local focus,\" \"new music,\" \"undiscovered,\" \"hip-hop showcase,\" \"indie hour\" — those are acceptance signals."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "Rule:"
+     },
+     {
+      "t": "text",
+      "v": " one specialty-show add per week is a faster path to a 10-add year than 200 emails to commercial MDs. Week one of every campaign: hunt 10 specialty hosts in your tier-1 markers."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "CHEAT CODE 2 — THE FORMAT-INTELLIGENCE RADAR"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "A station's website says one thing; its playlist says everything. Before scoring any station:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "text",
+        "v": "Pull the "
+       },
+       {
+        "t": "b",
+        "v": "last 10–15 songs"
+       },
+       {
+        "t": "text",
+        "v": " (website \"recently played,\" online stream history, or the station's socials)."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "text",
+        "v": "Log tempo, energy, era mix, and genre drift — is it \"alt but plays pop?\" \"country but plays rock crossover?\""
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Check the specialty shows"
+       },
+       {
+        "t": "text",
+        "v": " — a station might "
+       },
+       {
+        "t": "i",
+        "v": "look"
+       },
+       {
+        "t": "text",
+        "v": " closed but host a local show that's wide open."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "text",
+        "v": "Compare against your track. Judge the gap, not the label."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Format scores without playlist reality are fiction. The 12-point check exists to stop you from pitching the station's "
+     },
+     {
+      "t": "i",
+      "v": "brand"
+     },
+     {
+      "t": "text",
+      "v": " instead of its "
+     },
+     {
+      "t": "i",
+      "v": "clock"
+     },
+     {
+      "t": "text",
+      "v": "."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "CHEAT CODE 3 — WHO ACTUALLY DECIDES (THE CONTACT TRIAGE)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Different stations, different deciders:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Commercial:"
+       },
+       {
+        "t": "text",
+        "v": " MD (music director) for adds; PD for rotation upgrades; APD sometimes. Start at MD; escalate politely."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "College:"
+       },
+       {
+        "t": "text",
+        "v": " music director (often several, per genre) — the "
+       },
+       {
+        "t": "b",
+        "v": "genre MD"
+       },
+       {
+        "t": "text",
+        "v": " is the real target, not the station's general email."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Community/specialty hosts:"
+       },
+       {
+        "t": "text",
+        "v": " the "
+       },
+       {
+        "t": "b",
+        "v": "host"
+       },
+       {
+        "t": "text",
+        "v": " decides the show; the MD decides the station. Pitch the host for the show, then use the show as a route into the station."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Online:"
+       },
+       {
+        "t": "text",
+        "v": " the founder/owner is usually the decider and the most responsive human in radio."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "Insider move:"
+     },
+     {
+      "t": "text",
+      "v": " a station's \"music director\" receives 100+ emails. A station's "
+     },
+     {
+      "t": "i",
+      "v": "genre-specific MD"
+     },
+     {
+      "t": "text",
+      "v": " receives 12. Find the genre MD. This one change alone can triple your reply rate."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "CHEAT CODE 4 — THE 20-STATION ALLOCATION FORMULA"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Don't fill your war room 20 random stations. Allocate for outcomes:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "10 slot-"
+       },
+       {
+        "t": "text",
+        "v": " (specialty + college, high acceptance, proof-producing)"
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "6 ladder shops"
+       },
+       {
+        "t": "text",
+        "v": " (stations that can upgrade you from specialty to rotation)"
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "3 market-makers"
+       },
+       {
+        "t": "text",
+        "v": " (the one or two commercial stations that matter in each metro)"
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "1 wildcard"
+       },
+       {
+        "t": "text",
+        "v": " (a stretch station with an actual human path)"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "This allocation is why 5 adds in 21 days is achievable: 10 high-acceptance slots aren't a hope, they're a probability."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "CHEAT CODE 5 — THE PRE-ROLL FIRE TEST"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Before any tour-date campaign: verify the market is "
+     },
+     {
+      "t": "i",
+      "v": "actually"
+     },
+     {
+      "t": "text",
+      "v": " reachable — drive time, venue capacity, station density, and whether any of your 10 slot stations have a local show that can plug the date. A date with zero station density is a concert, not a campaign. Fire the pre-roll only where the map says yes."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE ONE SECRET MOST ARTISTS NEVER LEARN"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "*"
+     },
+     {
+      "t": "i",
+      "v": "The best 20 stations are not the ones that play your genre — they're the ones that play your "
+     },
+     {
+      "t": "text",
+      "v": "neighborhood* of the genre.** A station that plays 1980s college rock and a station that plays \"indie pop but heavier\" both say \"alt\" and both are wrong for you. The playlist radar catches the neighborhood. Format family beats format label, every time."
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive Briefing · Frequency Dominion · Module 2 · Confidential"
+     }
+    ]
+   }
+  ],
+  "m3": [
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive briefing. The craft layer under the lessons. Read after 3.1–3.4."
+     }
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE FOUR-SECOND STACK (THE ACTUAL ATTENTION ECONOMY)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "A PD's evaluation isn't a read — it's a "
+     },
+     {
+      "t": "b",
+      "v": "stack of four-second decisions"
+     },
+     {
+      "t": "text",
+      "v": ":"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Inbox preview (4s)"
+       },
+       {
+        "t": "text",
+        "v": " — subject line + sender + first line. If the subject is vague, dead."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Body scan (4s)"
+       },
+       {
+        "t": "text",
+        "v": " — \"who is this, is there a receipt, what's the ask?\" If the proof isn't in the first 20 words, dead."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Asset sample (4s)"
+       },
+       {
+        "t": "text",
+        "v": " — one click: is the audio playable in 60 seconds? If it needs a player, a login, or a download, dead."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Ask decision (4s)"
+       },
+       {
+        "t": "text",
+        "v": " — is the request yes-able in one sentence? If the ask is a list, dead."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Design every payload to win all four stacks before the PD has to "
+     },
+     {
+      "t": "i",
+      "v": "think"
+     },
+     {
+      "t": "text",
+      "v": ". That's what the 90-word pitch, the one-page EPK, and the 3-file audio package are for. The weapon isn't the pitch — it's the "
+     },
+     {
+      "t": "b",
+      "v": "zero-thought path to a yes."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE DOMAIN & DELIVERY PROTOCOL (THE HIDDEN CREDIBILITY SIGNAL)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Decision-makers evaluate the "
+     },
+     {
+      "t": "i",
+      "v": "sender"
+     },
+     {
+      "t": "text",
+      "v": ", not just the message:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Send from a real domain"
+       },
+       {
+        "t": "text",
+        "v": ", not gmail.com. "
+       },
+       {
+        "t": "code",
+        "v": "pitch@yourname.com"
+       },
+       {
+        "t": "text",
+        "v": " reads operator; "
+       },
+       {
+        "t": "code",
+        "v": "yourname99@gmail.com"
+       },
+       {
+        "t": "text",
+        "v": " reads bedroom. Domain + professional signature is the cheapest status signal in the game."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Never send a zip, a folder, or a Dropbox link that requires a click-through."
+       },
+       {
+        "t": "text",
+        "v": " One link per payload. One attachment per payload (the 90-sec file). Everything else lives on the EPK page."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "File naming is branding:"
+       },
+       {
+        "t": "text",
+        "v": " "
+       },
+       {
+        "t": "code",
+        "v": "ARTIST-SONG-90SEC"
+       },
+       {
+        "t": "text",
+        "v": ", "
+       },
+       {
+        "t": "code",
+        "v": "ARTIST-SONG-CLEAN-WAV"
+       },
+       {
+        "t": "text",
+        "v": ", "
+       },
+       {
+        "t": "code",
+        "v": "ARTIST-EPK"
+       },
+       {
+        "t": "text",
+        "v": ". A PD forwarding your file forwards your professionalism."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Test the mobile path"
+       },
+       {
+        "t": "text",
+        "v": " — 80% of first opens happen on a phone. Open your own email on your phone and time it: how many seconds until the song is playing? If it's over 60, rework the payload."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE PROOF-SHAPING TRICK (HOW LABELS FRAME RECEIPTS)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "A receipt is a fact. "
+     },
+     {
+      "t": "b",
+      "v": "Framing is the weapon."
+     },
+     {
+      "t": "text",
+      "v": " Same number, different command:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "i",
+        "v": "Raw:"
+       },
+       {
+        "t": "text",
+        "v": " \"2,100 streams this month.\""
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "i",
+        "v": "Framed:"
+       },
+       {
+        "t": "text",
+        "v": " \"2,100 streams this month — [NUMBER] of them in [your station's metro], up [NUMBER]% since the radio adds.\""
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "i",
+        "v": "Super-framed:"
+       },
+       {
+        "t": "text",
+        "v": " \"[Sister station] added it last week and [metro] streams jumped [NUMBER]% — this is the track your audience is already showing up for.\""
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Always include: the market, the trend, and the third-party source. A PD doesn't buy your number — they buy the "
+     },
+     {
+      "t": "i",
+      "v": "direction"
+     },
+     {
+      "t": "text",
+      "v": " of your number in "
+     },
+     {
+      "t": "i",
+      "v": "their"
+     },
+     {
+      "t": "text",
+      "v": " market."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE TWO-EMAIL SYSTEM (THE INDUSTRY'S ACTUAL CADENCE)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Promo houses don't send one email per station. They run "
+     },
+     {
+      "t": "b",
+      "v": "two waves per cycle"
+     },
+     {
+      "t": "text",
+      "v": ":"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Wave A — the service email:"
+       },
+       {
+        "t": "text",
+        "v": " subject + proof + ask (your 90-word pitch). Purpose: get the listen."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Wave B — the value email (48h later):"
+       },
+       {
+        "t": "text",
+        "v": " \"here's the 90-sec promo built for your board\" or \"here's the listener-proof from [metro].\" Purpose: get the add."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Wave B is where most adds actually land — and 90% of independents never send it because they think one email equals one campaign. The two-email system is the single highest-ROI change in this module."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE SUBJECT-LINE MATH (BORROWED FROM DIRECT-RESPONSE)"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "text",
+        "v": "4–7 words wins. Long subjects get truncated on mobile — and truncation kills the engine."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Personal names in subjects"
+       },
+       {
+        "t": "text",
+        "v": " lift opens on cold lists. "
+       },
+       {
+        "t": "b",
+        "v": "Numbers in subjects"
+       },
+       {
+        "t": "text",
+        "v": " lift opens on proof-led lists. "
+       },
+       {
+        "t": "b",
+        "v": "Format-show references"
+       },
+       {
+        "t": "text",
+        "v": " lift opens on specialty lists. Match the engine to the station type, or the open dies."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Never reuse a subject that failed twice."
+       },
+       {
+        "t": "text",
+        "v": " Two failures = the angle is wrong for that list; change engines, not words."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Track everything in T3.1."
+       },
+       {
+        "t": "text",
+        "v": " Your personal data of "
+       },
+       {
+        "t": "i",
+        "v": "your"
+       },
+       {
+        "t": "text",
+        "v": " market beats every general rule ever written."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE AUDIO WEAPON: WHAT LABELS ACTUALLY SERVICE"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The industry's service standard isn't \"a song\" — it's a "
+     },
+     {
+      "t": "b",
+      "v": "radio package"
+     },
+     {
+      "t": "text",
+      "v": ":"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "The 90-second promo"
+       },
+       {
+        "t": "text",
+        "v": " (hook + voice + CTA) — the "
+       },
+       {
+        "t": "i",
+        "v": "pitch"
+       },
+       {
+        "t": "text",
+        "v": " in audio form."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "The radio edit"
+       },
+       {
+        "t": "text",
+        "v": " (clean, 3:00–3:45, hook < 12s) — the "
+       },
+       {
+        "t": "i",
+        "v": "inventory"
+       },
+       {
+        "t": "text",
+        "v": "."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "The 30-second payload"
+       },
+       {
+        "t": "text",
+        "v": " (for IDs, beds, and the promo team) — the "
+       },
+       {
+        "t": "i",
+        "v": "derivative"
+       },
+       {
+        "t": "text",
+        "v": " that gets forwarded."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Produce all three before the first send. The hour you spend in the studio saves 20 hours of campaign repair — because a PD who has to ask \"do you have a clean edit?\" is a PD who hasn't added you yet."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE ONE SECRET MOST ARTISTS NEVER LEARN"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "The reply you want is not \"we'll play it.\" The reply you want is a question."
+     },
+     {
+      "t": "text",
+      "v": " \"Send the WAV,\" \"what's the clean edit?\" — that's the PD engaging with the "
+     },
+     {
+      "t": "i",
+      "v": "logistics"
+     },
+     {
+      "t": "text",
+      "v": " of saying yes, which means the decision is already 80% made. When you get a question, treat it as a "
+     },
+     {
+      "t": "b",
+      "v": "yes in progress"
+     },
+     {
+      "t": "text",
+      "v": ": answer within 4 hours with a phone number and a 12-minute call offer. This is the highest-leverage moment in the entire campaign and almost nobody recognizes it."
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive Briefing · Frequency Dominion · Module 3 · Confidential"
+     }
+    ]
+   }
+  ],
+  "m4": [
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive briefing. The execution layer under the lessons. Read after 4.1–4.4."
+     }
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE ADD-CYCLE CLOCK (SCHEDULE YOUR CAMPAIGN INSIDE RADIO'S RHYTHM)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Radio acts on cycles, not on your energy. Align the 21 days to the industry calendar:"
+     }
+    ]
+   },
+   {
+    "b": "table",
+    "headers": [
+     "Day",
+     "Industry reality",
+     "Your move"
+    ],
+    "rows": [
+     [
+      [
+       {
+        "t": "b",
+        "v": "Mon"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Rotation boards refresh; add decisions from Friday reads"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Load + verify (no sends)"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Tue"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "New-music Tuesday: most commercial add dates"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Wave 1 — first half of the list"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Wed–Thu"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "College MDs process; specialty hosts plan weekends"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Wave 2; touch-2 value to wave 1"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Fri"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Week's rotation locks; specialty show prep"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Log; no cold pitches after 11am"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Sat–Sun"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Specialty shows air; hosts are reachable and "
+       },
+       {
+        "t": "i",
+        "v": "excited"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Host DMs, thank-yous, value drops"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Next Mon"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Fresh rotation board"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Touch-3 grace closes land on a fresh week"
+       }
+      ]
+     ]
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "The insider rule:"
+     },
+     {
+      "t": "text",
+      "v": " the campaign is a "
+     },
+     {
+      "t": "i",
+      "v": "weekly machine"
+     },
+     {
+      "t": "text",
+      "v": ", not a 21-day sprint. Each week of the campaign rides one rotation cycle. If you fire wave 1 on a Thursday and wave 2 on a Friday afternoon, you've just burned two weeks of cycles in one send — which is why the Load → Tue/Thu → next-Monday rhythm is the actual operating system."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE IMPACT-DATE MOVE (HOW LABELS TIME A CAMPAIGN)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Labels don't tell a station \"this is out.\" They tell the station "
+     },
+     {
+      "t": "b",
+      "v": "\"this is the impact date — play it the week of [date].\""
+     },
+     {
+      "t": "text",
+      "v": " That frames the add as a "
+     },
+     {
+      "t": "i",
+      "v": "scheduled event"
+     },
+     {
+      "t": "text",
+      "v": ", not a favor:"
+     }
+    ]
+   },
+   {
+    "b": "quote",
+    "spans": [
+     {
+      "t": "text",
+      "v": "\"Official impact: [date]. Rotation-ready. We're servicing [NUMBER] markets that week.\""
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "Your version:"
+     },
+     {
+      "t": "text",
+      "v": " give your campaign an internal impact date. Announce it in the pitch — \"servicing [city] stations the week of [date]\" — and time wave 1 exactly 1–2 weeks "
+     },
+     {
+      "t": "i",
+      "v": "before"
+     },
+     {
+      "t": "text",
+      "v": " the impact so the add lands "
+     },
+     {
+      "t": "i",
+      "v": "on"
+     },
+     {
+      "t": "text",
+      "v": " the week. PDs are calendar animals; a date converts \"maybe\" into \"when?\""
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE COLLEGE CHART EXPRESS (SERVICE → ADDS → CHART → SECOND WAVE)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "This is the mechanic the whole campaign optimizes for:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Service"
+       },
+       {
+        "t": "text",
+        "v": " (wk 1): 10 college slots + 4 specialty — the Tier-1 allocation."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Adds"
+       },
+       {
+        "t": "text",
+        "v": " (wk 2): rotation boards pick up; you track adds daily in T4.4."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Chart"
+       },
+       {
+        "t": "text",
+        "v": " (wk 3): college stations report to NACC/RMR. Chart position is "
+       },
+       {
+        "t": "i",
+        "v": "evidence"
+       },
+       {
+        "t": "text",
+        "v": "."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Second wave"
+       },
+       {
+        "t": "text",
+        "v": " (wk 4): the chart listing becomes the proof line for every commercial and mid-metro pitch: "
+       },
+       {
+        "t": "i",
+        "v": "\"charting at [NUMBER] college stations, NACC top [NUMBER].\""
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Run this loop and you're doing what labels pay $2,000+ per record for — with 20 stations and 21 days. The first add's real job is to start the chart. The chart's real job is to make the next 20 stations easy."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE ROTATION-UPGRADE STRATEGY (THE KILLER FOLLOW-UP)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Most artists treat a light-rotation add as the end. Operators treat it as the "
+     },
+     {
+      "t": "b",
+      "v": "start of the upgrade campaign"
+     },
+     {
+      "t": "text",
+      "v": ":"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Week after the add:"
+       },
+       {
+        "t": "text",
+        "v": " thank-you + listener-feedback receipts (streams, tickets, requests)."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Two weeks after:"
+       },
+       {
+        "t": "text",
+        "v": " second receipt — usually market-specific (\"your metro streams +30%\")."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Three weeks after:"
+       },
+       {
+        "t": "text",
+        "v": " the upgrade ask: "
+       },
+       {
+        "t": "i",
+        "v": "\"Is there a path for [SONG] to move into medium? We can support with [asset].\""
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The upgrade ask is the single most winnable ask in the industry — it's a "
+     },
+     {
+      "t": "i",
+      "v": "category change"
+     },
+     {
+      "t": "text",
+      "v": ", not a new favor — and it's the one almost no independent ever makes."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE SPIN-TRACKING DISCIPLINE (WHAT LABELS CHASE)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Spins are the industry's raw score. Track weekly per station: "
+     },
+     {
+      "t": "code",
+      "v": "adds"
+     },
+     {
+      "t": "text",
+      "v": ", "
+     },
+     {
+      "t": "code",
+      "v": "spins"
+     },
+     {
+      "t": "text",
+      "v": ", "
+     },
+     {
+      "t": "code",
+      "v": "rotation category"
+     },
+     {
+      "t": "text",
+      "v": ", "
+     },
+     {
+      "t": "code",
+      "v": "chart position"
+     },
+     {
+      "t": "text",
+      "v": ". The total spin count is your "
+     },
+     {
+      "t": "b",
+      "v": "momentum number"
+     },
+     {
+      "t": "text",
+      "v": " — the number that appears on the second-wave pitch, the sync package, the sponsor deck, and the booking email. Without weekly spin tracking, you're running a campaign without a scoreboard. With it, you're running a business."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE 3-TOUCH ESCALATION PSYCHOLOGY (THE INSIDER VERSION)"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Touch 1:"
+       },
+       {
+        "t": "text",
+        "v": " the ask lands. Silence = the PD is "
+       },
+       {
+        "t": "i",
+        "v": "not deciding yet"
+       },
+       {
+        "t": "text",
+        "v": " (busy, not hostile)."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Touch 2 (value):"
+       },
+       {
+        "t": "text",
+        "v": " the receipt or asset gives them a "
+       },
+       {
+        "t": "i",
+        "v": "new reason"
+       },
+       {
+        "t": "text",
+        "v": ". This is where the \"busy but interested\" cohort converts."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Touch 3 (grace):"
+       },
+       {
+        "t": "text",
+        "v": " the close. Politeness + an open door. This is where the \"I need a deadline\" cohort converts — and where the \"no\" cohort converts into a "
+       },
+       {
+        "t": "i",
+        "v": "relationship"
+       },
+       {
+        "t": "text",
+        "v": " instead of a burn."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The system's secret: all three touches are about the "
+     },
+     {
+      "t": "i",
+      "v": "next campaign"
+     },
+     {
+      "t": "text",
+      "v": " too. Touch 3's grace close is what makes touch 1 of your next release warmer than touch 3 of this one."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE ONE SECRET MOST ARTISTS NEVER LEARN"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "Adds happen in waves, not trickles."
+     },
+     {
+      "t": "text",
+      "v": " If you see 2–3 adds land in one morning, the rest of the week's board is likely moving too — that's the rotation cycle turning. Watch the wave: when it turns, escalate the second-wave pitch to every station that "
+     },
+     {
+      "t": "i",
+      "v": "hasn't"
+     },
+     {
+      "t": "text",
+      "v": " added yet, with the fresh proof. Timing the second wave off the first wave's momentum is the difference between 5 adds and 11."
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive Briefing · Frequency Dominion · Module 4 · Confidential"
+     }
+    ]
+   }
+  ],
+  "m5": [
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive briefing. The durable layer under the lessons. Read after 5.1–5.4."
+     }
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE RELATIONSHIP LADDER (MEMORIZE THE RUNGS)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Radio relationships move in ladder rungs. Every interaction should climb one rung — never skip, never stall:"
+     }
+    ]
+   },
+   {
+    "b": "table",
+    "headers": [
+     "Rung",
+     "Name",
+     "Definition",
+     "Your move"
+    ],
+    "rows": [
+     [
+      [
+       {
+        "t": "text",
+        "v": "1"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Stranger"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "No reply, no contact"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "The pitch"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "text",
+        "v": "2"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Contact"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "A reply — any reply"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Answer fast, offer the call"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "text",
+        "v": "3"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Conversation"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "A 12-minute call"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Listen 3 min, one ask, one next step"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "text",
+        "v": "4"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Ally"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "An add + thank-you + asset"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Thank-you economy"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "text",
+        "v": "5"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Champion"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Re-adds, upgrades, introduces you"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Value drops, 2-way intros"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "text",
+        "v": "6"
+       }
+      ],
+      [
+       {
+        "t": "b",
+        "v": "Confidant"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Shares feedback, format info, goes to bat"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Monthly one-line check-ins, zero asks"
+       }
+      ]
+     ]
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The ladder is why Module 5's cadence exists: a call doesn't get you a champion; the "
+     },
+     {
+      "t": "b",
+      "v": "year"
+     },
+     {
+      "t": "text",
+      "v": " of correct stewardship does. Most artists stall at rung 3 (one call, then nothing) and call radio a closed door."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE THANK-YOU MATRIX (WHAT LABELS ACTUALLY DO FOR THEIR CHAMPIONS)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The gesture hierarchy, keyed to rung:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Rung 4 (add):"
+       },
+       {
+        "t": "text",
+        "v": " specific 3-day thank-you + social clip tagging the station."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Rung 5 (upgrade/repeat):"
+       },
+       {
+        "t": "text",
+        "v": " 2-week asset (station ID, premiere, reserved tickets) + an on-air shout-out offer."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Rung 6 (champion):"
+       },
+       {
+        "t": "text",
+        "v": " 90-day value drop — "
+       },
+       {
+        "t": "i",
+        "v": "no ask attached"
+       },
+       {
+        "t": "text",
+        "v": ". Introduce them to an artist. Send a listener for the request line. Give them the story first."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The matrix's rule: "
+     },
+     {
+      "t": "b",
+      "v": "the gesture is always one rung above the ask."
+     },
+     {
+      "t": "text",
+      "v": " If you want champion behavior, give confidant respect first. This inversion is the entire economy."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE 12-MINUTE CALL: THE INSIDER SCRIPT QUEUE"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Beyond the structure, the "
+     },
+     {
+      "t": "i",
+      "v": "sequence of questions"
+     },
+     {
+      "t": "text",
+      "v": " does the heavy lifting:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "The warm-up is bait, not small talk."
+       },
+       {
+        "t": "text",
+        "v": " \"What's the most exciting thing that's happened on [show] this month?\" Their answer is a gift: it tells you exactly what they're proud of — and what to reference forever after."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "The format question is a market scan."
+       },
+       {
+        "t": "text",
+        "v": " \"What does a new record need to do to fit here?\" The answer contains their internal criteria — "
+       },
+       {
+        "t": "i",
+        "v": "their wording"
+       },
+       {
+        "t": "text",
+        "v": " — which you can mirror in every future pitch."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "The timing question is a calendar unlock."
+       },
+       {
+        "t": "text",
+        "v": " \"When's your add cycle and what day does rotation go out?\" Answers set your next campaign's dates."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "The ask is the smallest possible thing."
+       },
+       {
+        "t": "text",
+        "v": " One slot. One show. One recheck date. The call's goal is the "
+       },
+       {
+        "t": "i",
+        "v": "next step"
+       },
+       {
+        "t": "text",
+        "v": ", not the commitment."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "Golden rule:"
+     },
+     {
+      "t": "text",
+      "v": " never end a call without a next step and a date. No next step = no relationship. The 12-minute call that ends in a date becomes rung 3 → rung 4 in 72 hours."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE INDUSTRY ETIQUETTE CODE (VIOLATIONS THAT BURN WELLS)"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Never pitch another record in the same conversation as a thank-you."
+       },
+       {
+        "t": "text",
+        "v": " The thank-you is its own message. Momentum is not a coupon."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Never ask a PD for a separate favor (press, playlist, social) in the same ask."
+       },
+       {
+        "t": "text",
+        "v": " Radio owes you one thing per cycle. One ask, one cycle."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Never argue about a \"no.\""
+       },
+       {
+        "t": "text",
+        "v": " A \"not now\" is a calendar answer, not a judgment. A polite \"understood, checking back in [month]\" converts a no into a recheck — which is a win disguised as a rejection."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Never use the words \"sorry to bother you\" or \"I know you're busy.\""
+       },
+       {
+        "t": "text",
+        "v": " You're telling the PD their attention is a burden. They know. It's the ask that matters."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Never send a gift with an ask attached."
+       },
+       {
+        "t": "text",
+        "v": " The gift is the message."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Never share another artist's private contact or a promo rep's list."
+       },
+       {
+        "t": "text",
+        "v": " The industry is small; leaks travel fast and kill trust permanently."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE BURNED-WELL TRIAGE (POINTERS FROM THE REPLAY)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Repair priority is return-on-effort, not guilt:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Highest ROI:"
+       },
+       {
+        "t": "text",
+        "v": " the well you "
+       },
+       {
+        "t": "i",
+        "v": "ghosted"
+       },
+       {
+        "t": "text",
+        "v": " (a promise unkept). One honest bridge can recover a full ally in a month."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "High ROI:"
+       },
+       {
+        "t": "text",
+        "v": " the well you "
+       },
+       {
+        "t": "i",
+        "v": "spammed"
+       },
+       {
+        "t": "text",
+        "v": " (blasted, went quiet). 90-day cooling + clean signal + new value. Slow but recoverable."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Medium ROI:"
+       },
+       {
+        "t": "text",
+        "v": " the "
+       },
+       {
+        "t": "i",
+        "v": "clash"
+       },
+       {
+        "t": "text",
+        "v": " well (pitched a mismatch, argued). Only recover if the format changed or a new MD arrived — check the playlist first."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Low ROI:"
+       },
+       {
+        "t": "text",
+        "v": " the "
+       },
+       {
+        "t": "i",
+        "v": "value-debt"
+       },
+       {
+        "t": "text",
+        "v": " well (got a yes, gave nothing back). Recover via a genuine giving period — and this one actually "
+       },
+       {
+        "t": "i",
+        "v": "improves"
+       },
+       {
+        "t": "text",
+        "v": " you: it's a discipline lesson, not a repair."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Never re-pitch a well before its cooling period ends. Never re-pitch with the same angle. Two violations and the well is permanent."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE INTRO-WEB MULTIPLIER (THE CONFIDANT MOVE)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The highest-value relationship move in the entire system: "
+     },
+     {
+      "t": "b",
+      "v": "introduce two of your contacts who benefit each other."
+     },
+     {
+      "t": "text",
+      "v": " The PD gets a useful connection, you get network gravity, and the rung you climb is irrelevant — you become a "
+     },
+     {
+      "t": "i",
+      "v": "node of value"
+     },
+     {
+      "t": "text",
+      "v": ". Two intros a month builds a confidant network faster than fifty emails. When your next record drops, the intros you made are the credits you've banked."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE ONE SECRET MOST ARTISTS NEVER LEARN"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "A PD's time is the only inventory they can't restock — and they notice who respects it."
+     },
+     {
+      "t": "text",
+      "v": " The 12-minute call, the 3-touch stop, the one-ask rule, and the thank-you economy aren't politeness; they're a "
+     },
+     {
+      "t": "i",
+      "v": "demonstration"
+     },
+     {
+      "t": "text",
+      "v": " that you understand the inventory. That understanding is what makes a PD think of you when a specialty slot opens, a local spot opens, or a new-music hour needs a guest. The relationship isn't the ask. The relationship is the "
+     },
+     {
+      "t": "i",
+      "v": "respect for the clock"
+     },
+     {
+      "t": "text",
+      "v": "."
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive Briefing · Frequency Dominion · Module 5 · Confidential"
+     }
+    ]
+   }
+  ],
+  "m6": [
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive briefing. The growth layer under the lessons. Read after 6.1–6.4."
+     }
+    ]
+   },
+   {
+    "b": "hr"
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE PROOF PIPELINE AS A REVENUE MACHINE"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Proof isn't a wall of trophies — it's a "
+     },
+     {
+      "t": "b",
+      "v": "pipeline with five stages"
+     },
+     {
+      "t": "text",
+      "v": ", each of which feeds a different revenue lane:"
+     }
+    ]
+   },
+   {
+    "b": "table",
+    "headers": [
+     "Stage",
+     "Artifact",
+     "Feeds"
+    ],
+    "rows": [
+     [
+      [
+       {
+        "t": "b",
+        "v": "Capture"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "timestamped spin log"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "The audit"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Convert"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "screenshot / graphic / clip / quote"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Socials, EPK, pitch decks"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Deploy"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "proof line in every downstream pitch"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Adds cascade"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Measure"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "market response data"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Revenue attribution"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "t": "b",
+        "v": "Recycle"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "best-performing assets into next campaign"
+       }
+      ],
+      [
+       {
+        "t": "text",
+        "v": "Compounding"
+       }
+      ]
+     ]
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The pipeline's real function: "
+     },
+     {
+      "t": "b",
+      "v": "every spin becomes sellable evidence."
+     },
+     {
+      "t": "text",
+      "v": " The spin log is the one document that a music supervisor, a brand sponsor, a booking agent, and a label all accept. Most independents never produce it — which is why their proof is a collage instead of a currency."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE CHART-TO-CASH PIPELINE (THE EMPIRE'S ENGINE)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The four ladders that convert momentum into money — run in this priority:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Chart → Supervisor:"
+       },
+       {
+        "t": "text",
+        "v": " the NACC/RMR chart listing is the exact evidence sync supervisors cite when licensing. Build the one-page placement package (proof page + 90-sec cut + stems + contact) and send it to licensing libraries and music supervision contacts."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Chart → Bookings:"
+       },
+       {
+        "t": "text",
+        "v": " a charting, multi-market artist books rooms 2–3x easier. The booking email contains the proof line, the ticket history, and the next market's dates."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Chart → Sponsorship:"
+       },
+       {
+        "t": "text",
+        "v": " brands want "
+       },
+       {
+        "t": "i",
+        "v": "verifiable"
+       },
+       {
+        "t": "text",
+        "v": " audience. The chart + market data is the only verifiable asset an independent can offer — the sponsor deck is a one-pager with the proof pipeline inside."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Chart → Career:"
+       },
+       {
+        "t": "text",
+        "v": " labels and managers are proof buyers. The 90-day audit file (scorecard + pipeline + revenue ledger) is the document that gets the meeting."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The revenue lane order in this course (tickets → placements → streams → merch → sponsorship → deals) is a "
+     },
+     {
+      "t": "i",
+      "v": "liquidity"
+     },
+     {
+      "t": "text",
+      "v": " order, not a value order. Start where the cash turns fast; build the rest toward the big doors."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE RELEASE CALENDAR AS AN INDUSTRY ASSET"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The 12-week operation is also a "
+     },
+     {
+      "t": "b",
+      "v": "market-timing system"
+     },
+     {
+      "t": "text",
+      "v": ":"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Q1 (Jan–Mar):"
+       },
+       {
+        "t": "text",
+        "v": " post-holiday open — new formats, fresh ears, cheapest attention. Best for a debut."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Q2 (Apr–Jun):"
+       },
+       {
+        "t": "text",
+        "v": " spring + summer booking cycle — release with tour dates pre-rolled (the ticket lane fires here)."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Q3 (Sep–Oct):"
+       },
+       {
+        "t": "text",
+        "v": " fall push — the industry's biggest attention window for independent music. The breakout release lives here."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Q4 (Nov–Dec):"
+       },
+       {
+        "t": "text",
+        "v": " ratings season — cold for unknowns. Use it for proof-building, the annual audit, and the next-year plan."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Three releases a year maps to three attention windows. The \"one release per quarter\" rhythm is actually "
+     },
+     {
+      "t": "b",
+      "v": "three campaigns in the three open windows"
+     },
+     {
+      "t": "text",
+      "v": " — and one closed-window quarter spent on proof and audit. That's the difference between a calendar and a hobby."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE 90-DAY AUDIT AS A BUSINESS REVIEW (NOT A REPORT CARD)"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "The scorecard's real output is three decisions:"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": true,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Kill / keep:"
+       },
+       {
+        "t": "text",
+        "v": " which lane or market is bleeding? The audit gives you permission to kill the weakest column without guilt — the weak column is the one "
+       },
+       {
+        "t": "i",
+        "v": "repairing"
+       },
+       {
+        "t": "text",
+        "v": ", not the one you're proud of."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Scale / hold:"
+       },
+       {
+        "t": "text",
+        "v": " which lane returned the best margin per hour? The audit says where the next campaign's hours go."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Ascension:"
+       },
+       {
+        "t": "text",
+        "v": " which gate did you pass? The gates (Operator → Dominant → Empire) are capacity-based, not ambition-based. The audit is the only honest referee."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "b",
+      "v": "The rule:"
+     },
+     {
+      "t": "text",
+      "v": " one surgical fix per quarter. The audit's weakest-column rule exists because a machine with five weak columns gets fixed "
+     },
+     {
+      "t": "i",
+      "v": "one column at a time"
+     },
+     {
+      "t": "text",
+      "v": ". Fixing all five at once is the mistake that keeps ambitious artists busy and broke."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE ASCENSION FINANCE (WHAT SCALING ACTUALLY COSTS)"
+     }
+    ]
+   },
+   {
+    "b": "list",
+    "ordered": false,
+    "items": [
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Operator (solo):"
+       },
+       {
+        "t": "text",
+        "v": " 20 stations, ~6h/week. Cost: your time. Revenue: 1–2 lanes."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Dominant (with support):"
+       },
+       {
+        "t": "text",
+        "v": " 3 releases/year, 20–40 stations per campaign, a VA (10–15h/week), 3 lanes. Cost: ~$500–$1,500/month. Revenue: the first real six-figure attempt."
+       }
+      ]
+     },
+     {
+      "spans": [
+       {
+        "t": "b",
+        "v": "Empire (campaign team):"
+       },
+       {
+        "t": "text",
+        "v": " a rollout manager + a rep network for the college lane, multi-market campaigns. Cost: ~$2,000–$5,000/month. Revenue: seven-figure-scale mechanics."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "Scaling is a "
+     },
+     {
+      "t": "i",
+      "v": "purchase"
+     },
+     {
+      "t": "text",
+      "v": ", not a reward. You buy the VA when the audit says your bottleneck is available hours, not quality. You buy the rep network when the college chart lane is the highest-ROI path and your hands are full. The gates exist so you never buy scale before the machine has proven it converts."
+     }
+    ]
+   },
+   {
+    "b": "h",
+    "level": 2,
+    "spans": [
+     {
+      "t": "text",
+      "v": "THE ONE SECRET MOST ARTISTS NEVER LEARN"
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "text",
+      "v": "*"
+     },
+     {
+      "t": "i",
+      "v": "The industry's most valuable artist is not the best musician — it's the one with the most "
+     },
+     {
+      "t": "text",
+      "v": "provable* demand.** Every door in the seven-figure world (sync, sponsor, booking, label, management) opens on evidence, and radio is the only demand engine an independent can build that produces "
+     },
+     {
+      "t": "i",
+      "v": "public, verifiable, third-party receipts"
+     },
+     {
+      "t": "text",
+      "v": ". The Empire Loop is not about radio for its own sake. It's about owning the one proof engine that scales to a $1M funnel — for $97 and 21 days of system."
+     }
+    ]
+   },
+   {
+    "b": "p",
+    "spans": [
+     {
+      "t": "i",
+      "v": "Executive Briefing · Frequency Dominion · Module 6 · Confidential"
+     }
+    ]
+   }
+  ]
+ },
+ "releaseCalendar": [
+  {
+   "b": "quote",
+   "spans": [
+    {
+     "t": "b",
+     "v": "CONFIDENTIAL OPERATOR ASSET — FREQUENCY DOMINION"
+    },
+    {
+     "t": "text",
+     "v": " \"Three disciplined releases per year beat twelve rushed drops every single time. The Quarterly Release Calendar synchronizes recording, broadcast promotion, tour routing, and revenue monetization across a dominant 12-month timeline.\""
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "12-MONTH ENTERPRISE RELEASE SCHEDULE"
+    }
+   ]
+  },
+  {
+   "b": "table",
+   "headers": [
+    "Quarter",
+    "Focus Release",
+    "Target Impact Date",
+    "Campaign Start (T-8)",
+    "Campaign End (T+4)",
+    "Target Station Roster",
+    "Primary Monetization Lane",
+    "Audit & Ascension Date",
+    "Operational Status"
+   ],
+   "rows": [
+    [
+     [
+      {
+       "t": "b",
+       "v": "Quarter 1"
+      }
+     ],
+     [
+      {
+       "t": "b",
+       "v": "Single 1 (Anchor Single)"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "February 10, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "December 15, 2025"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "March 15, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "20 Scored Stations (Rings 1 & 2)"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Lane 1: Live Concert Ticket Sales"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "April 01, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "[ ] SCHEDULED"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "b",
+       "v": "Quarter 2"
+      }
+     ],
+     [
+      {
+       "t": "b",
+       "v": "Single 2 (Expansion Cut)"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "May 12, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "March 15, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "June 15, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "30 Stations (Cascade + Corridor)"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Lane 3: DSP Algorithmic Velocity"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "July 01, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "[ ] SCHEDULED"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "b",
+       "v": "Quarter 3"
+      }
+     ],
+     [
+      {
+       "t": "b",
+       "v": "Single 3 (Summer Focus)"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "September 15, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "July 15, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "October 15, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "40 Stations (National NACC / AAA)"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Lane 2: Commercial Sync Briefs"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "October 15, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "[ ] SCHEDULED"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "b",
+       "v": "Quarter 4"
+      }
+     ],
+     [
+      {
+       "t": "b",
+       "v": "Harvest & Catalog Review"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "November 10, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "October 01, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "December 15, 2026"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "30/10/10 Ally Engine Portfolio"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Lane 4: Brand Tour Sponsorships"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "January 15, 2027"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "[ ] SCHEDULED"
+      }
+     ]
+    ]
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE 12-WEEK CAMPAIGN EXECUTION PHASES"
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "text",
+     "v": "``"
+    },
+    {
+     "t": "code",
+     "v": " [W1 - W2] Final Master & Audio Weapon Build (-14 LUFS, FCC Clean, 90s Weapon) ↓ [W3 - W4] Target Architecture & 100-Point Station Scoring (Lock 20 Targets) ↓ [W5 - W6] Staging Command Deck EPK, 3-Layer Subject Lines & 7-Gate Clearance ↓ [W7 - W8] Tour Pre-Roll & Live Venue Synchronization (T-21 Countdowns) ↓ [WEEK 9]  RADIO IMPACT WEEK: Wave 1 (Tue) + Wave 2 (Thu) Dispatch ↓ [WEEK 10] Touch 2 Value Drop (30s Hook Cut Delivered) + Dialogue Management ↓ [WEEK 11] Touch 3 Graceful Exit + Cascade Expansion Loops to Sibling Stations ↓ [WEEK 12] Thank-You Economy Protocol, Physical Cards, and 90-Day Audit Review "
+    },
+    {
+     "t": "text",
+     "v": "``"
+    }
+   ]
+  }
+ ],
+ "relationship": [
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "i",
+     "v": "The 30/10/10 engine on a yearly schedule. One row per month. Two intros per month. One repair per quarter. Re-rank every 30 days."
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE YEAR AT A GLANCE"
+    }
+   ]
+  },
+  {
+   "b": "table",
+   "headers": [
+    "Month",
+    "Focus",
+    "Engine move",
+    "Target"
+   ],
+   "rows": [
+    [
+     [
+      {
+       "t": "text",
+       "v": "1"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Cold to Warm"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Re-add every ALLY tier; 2 intros"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "30 allies logged"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "2"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Warm to Active"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Value drops to 10 warm; calls"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "10 warm"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "3"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Active to Repeat"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Thank-you economy on every add; audit"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "10 active"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "4"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Cascade"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Sister-station asks; intro web"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "15 cascade asks"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "5"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Market 2"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Open next market's heat map"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "40 allies"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "6"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Repair"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Burned-well protocol × 2"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "2 repaired"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "7"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Reinforce"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Re-rank; feed active layer"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "12 active"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "8"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Placement lane"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Intro to supervisors/bookers"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "2 intros"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "9"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Harvest"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Re-add every active with new single"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "15 active"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "10"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Scale gate"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Audit: gate numbers met?"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Gate check"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "11"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Empire move"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Promote 2 allies to stakeholders"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "2 allies"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "text",
+       "v": "12"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Cycle"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Annual re-rank + new 90-day loop"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "60 allies"
+      }
+     ]
+    ]
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE 3 MOVES (REPEAT EVERY MONTH)"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": true,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Re-rank"
+      },
+      {
+       "t": "text",
+       "v": " — scan the T5.4 Ally Engine Tracker; move cold→warm→active by 30-day touch windows."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "One asset per active ally"
+      },
+      {
+       "t": "text",
+       "v": " — clip, ID, tickets, premiere, note. No ask attached."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Two intros"
+      },
+      {
+       "t": "text",
+       "v": " — connect two people you trust who can help each other. Log both."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE 30/10/10 DEFINITIONS"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "ALLY (30+):"
+      },
+      {
+       "t": "text",
+       "v": " has played/replied/met you. Needs a touch within 120 days or it decays."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "WARM (10):"
+      },
+      {
+       "t": "text",
+       "v": " you've traded assets, had a call, or gotten a real reply. Needs a touch within 60 days."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "ACTIVE (10):"
+      },
+      {
+       "t": "text",
+       "v": " touched within the last 30 days and ready for the "
+      },
+      {
+       "t": "i",
+       "v": "next"
+      },
+      {
+       "t": "text",
+       "v": " ask. This is your campaign fuel."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE REPAIR SCHEDULE (ONE PER QUARTER)"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "Q1: repair the well with the "
+      },
+      {
+       "t": "b",
+       "v": "highest potential upside"
+      },
+      {
+       "t": "text",
+       "v": " (biggest market, warmest history)."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "Q2: repair the well you "
+      },
+      {
+       "t": "b",
+       "v": "ghosted"
+      },
+      {
+       "t": "text",
+       "v": " (promise broken — highest trust debt)."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "Q3: repair the well you "
+      },
+      {
+       "t": "b",
+       "v": "spammed"
+      },
+      {
+       "t": "text",
+       "v": " (blasted list — signal + bridge)."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "Q4: repair the well where the "
+      },
+      {
+       "t": "b",
+       "v": "PD changed"
+      },
+      {
+       "t": "text",
+       "v": " (new decision-maker = clean slate attempt)."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE INTRO SCRIPT (2 SENTENCES, SEND THE SAME DAY)"
+    }
+   ]
+  },
+  {
+   "b": "quote",
+   "spans": [
+    {
+     "t": "text",
+     "v": "\"Hey [A], you should know [B] — they [specific value to A]. [B], this is [A], [specific value to B]. I'll let you two take it from here.\""
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "i",
+     "v": "Resource: Resources/Relationships/Relationship-Compounding-Playbook.md · Frequency Dominion · Module 5.4"
+    }
+   ]
+  }
+ ],
+ "arsenal": [
+  {
+   "b": "quote",
+   "spans": [
+    {
+     "t": "b",
+     "v": "CONFIDENTIAL OPERATOR ASSET — FREQUENCY DOMINION"
+    },
+    {
+     "t": "text",
+     "v": " \"Systems beat willpower every single time. The Master Resource Arsenal is your tactical armory — containing the pitch formulas, follow-up cadences, planning calendars, and audit scorecards required to execute the Frequency Dominion operating system.\""
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "1. ARSENAL INVENTORY & OPERATIONAL INDEX"
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "text",
+     "v": "The Resource Arsenal comprises six specialized tactical modules designed to support your 21-day campaign execution:"
+    }
+   ]
+  },
+  {
+   "b": "table",
+   "headers": [
+    "Arsenal Asset",
+    "Primary File Location",
+    "Core Operational Capability",
+    "Target Campaign Stage"
+   ],
+   "rows": [
+    [
+     [
+      {
+       "t": "b",
+       "v": "30-Formula Subject Line Bank"
+      }
+     ],
+     [
+      {
+       "t": "code",
+       "v": "Resources/Pitch-Weapons/"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "High-converting 3-layer subject lines engineered for 1.4-second mobile opens"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Weeks 5-6 (Load Sequence)"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "b",
+       "v": "90-Word Pitch Vault"
+      }
+     ],
+     [
+      {
+       "t": "code",
+       "v": "Resources/Pitch-Weapons/"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "10 modular pitch scripts across all radio formats and tour angles"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Weeks 5-6 (Load Sequence)"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "b",
+       "v": "3-Touch Follow-Up Sequences"
+      }
+     ],
+     [
+      {
+       "t": "code",
+       "v": "Resources/Follow-Up/"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Multi-touch value escalation copy with zero begging and dignified exit protocols"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Weeks 10-11 (Campaign Execution)"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "b",
+       "v": "21-Day Campaign Calendar"
+      }
+     ],
+     [
+      {
+       "t": "code",
+       "v": "Resources/Calendars/"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Day-by-day battle rhythm from pre-flight load to cascade expansion"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Weeks 7-12 (Execution & Cascade)"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "b",
+       "v": "Quarterly Release Calendar"
+      }
+     ],
+     [
+      {
+       "t": "code",
+       "v": "Resources/Calendars/"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "12-week quarterly campaign architecture synchronized with radio impact dates"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Annual Planning & Governance"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "b",
+       "v": "Relationship Compounding Playbook"
+      }
+     ],
+     [
+      {
+       "t": "code",
+       "v": "Resources/Relationships/"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "30/10/10 portfolio management system and Thank-You Economy protocols"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Post-Add & Evergreen Operations"
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "t": "b",
+       "v": "90-Day Audit Checklist"
+      }
+     ],
+     [
+      {
+       "t": "code",
+       "v": "Resources/Audit/"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "50-point quarterly audit scorecard and six-lane revenue attribution ledger"
+      }
+     ],
+     [
+      {
+       "t": "text",
+       "v": "Week 12 (Quarterly Governance)"
+      }
+     ]
+    ]
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "2. THE THREE RULES OF ARSENAL DEPLOYMENT"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": true,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Rule 1: Customize Every Payload:"
+      },
+      {
+       "t": "text",
+       "v": " Never deploy a formula verbatim without inserting specific station callsigns, music director names, verified run-times, and local venue dates. Specificity is the universal signal of respect."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Rule 2: Respect the Lifecycle Ladder:"
+      },
+      {
+       "t": "text",
+       "v": " Do not jump ahead to Cascade pitches before securing your initial anchor add. Follow the sequence: Hometown Heat Map → 20-Station War Room → Load Sequence → First Sends → Follow-Up → Gratitude → Cascade."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Rule 3: Maintain Operational Ledger Hygiene:"
+      },
+      {
+       "t": "text",
+       "v": " Every interaction generated through these tools must be recorded in your tracking ledgers within 60 minutes. Unlogged campaigns are unmanaged campaigns."
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "courseOverview": [
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "b",
+     "v": "Course overview · brand doctrine · module map · delivery guide"
+    },
+    {
+     "t": "text",
+     "v": " RadioReach.us · Complete backend upsell · $997 anchor → $97 offer"
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE DOCTRINE"
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "text",
+     "v": "Most artists treat radio like a favor they're hoping to collect. They buy a contact list, blast a generic email to 18,000 inboxes, and call it promotion. A list is not a strategy. A blast is not a campaign. And hoping is not a business model."
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "text",
+     "v": "Frequency Dominion is the opposite operating system:"
+    }
+   ]
+  },
+  {
+   "b": "quote",
+   "spans": [
+    {
+     "t": "b",
+     "v": "You do not ask for airplay. You own the frequency."
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "text",
+     "v": "An owner does three things a beggar can never do:"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": true,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "He chooses his targets like a buyer, not a suitor."
+      },
+      {
+       "t": "text",
+       "v": " Every station is a customer with a measurable need, a format, a clock, and a competition. You serve the need — or you don't touch the station."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "He proves value before he asks for it."
+      },
+      {
+       "t": "text",
+       "v": " Proof stacks, EPKs, and 90-second audio weapons mean the Program Director's first impression is "
+      },
+      {
+       "t": "i",
+       "v": "\"this is already a professional\""
+      },
+      {
+       "t": "text",
+       "v": " — not "
+      },
+      {
+       "t": "i",
+       "v": "\"another artist wants my time.\""
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "He runs campaigns, not emails."
+      },
+      {
+       "t": "text",
+       "v": " 21-day load sequences, 3-touch follow-ups, expansion loops, and 90-day audits. Systems compound. Emails don't."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE AUTOPSY: WHY PRIOR MATERIAL FAILS"
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "text",
+     "v": "Let's be brutal. The old playbook — the contact vault, the \"email everyone\" advice, the 400-word pitch, the press-kit PDF nobody opens — is dogshit for one reason:"
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "b",
+     "v": "It sells the who but never teaches the how."
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "A list of 18,000 names with no targeting system is a spam cannon. You don't get airplay from it. You get burned wells, marked-as-spam flags, and a reputation you have to climb out of."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "The 400-word pitch is read for four seconds. It's an essay in an era of a 90-word attention budget."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "\"Just be consistent\" is not a system. Consistency without a load sequence, a first-send wave, and a 3-touch follow-up cadence is just noise at a higher volume."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "No proof stack, no heat map, no format scoring, no expansion loop, no audit = no compounding. Without compounding, every single release restarts at zero."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "b",
+     "v": "Frequency Dominion replaces all of it."
+    },
+    {
+     "t": "text",
+     "v": " This is not a contact dump. This is the command layer that turns the contacts you already own — and the stations you haven't reached yet — into a predictable, compounding airplay machine. If you have the RadioReach Vault, you now have the keys. If you don't, this system tells you exactly who to buy, what to ask for, and how to win it."
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE SEVEN LAWS OF FREQUENCY DOMINION"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": true,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "The Unheard Tax is real."
+      },
+      {
+       "t": "text",
+       "v": " Every week without airplay costs you reach, revenue, and leverage. That tax is the enemy. This course is the audit."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "A station is a customer, not a favor."
+      },
+      {
+       "t": "text",
+       "v": " Serve the PD's clock. Win the format. Respect the market."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Proof precedes the pitch."
+      },
+      {
+       "t": "text",
+       "v": " Never ask a stranger to take a risk on an unknown. Show the proof stack first."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Targets are architecture, not luck."
+      },
+      {
+       "t": "text",
+       "v": " Hometown heat map → format score → 20-station war room → campaign. In that order. Every time."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "The pitch is a weapon, not a message."
+      },
+      {
+       "t": "text",
+       "v": " 90 words. One hook. One ask. Radio-ready audio in the first email."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Follow-up is a system, not a feeling."
+      },
+      {
+       "t": "text",
+       "v": " Three touches, spaced, escalated, polite. Persistence without the stench."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Empires compound."
+      },
+      {
+       "t": "text",
+       "v": " Proof → adds → exposure → income → better proof → bigger stations. The loop is the business."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "MODULE MAP — 24 LESSONS"
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 3,
+   "spans": [
+    {
+     "t": "text",
+     "v": "MODULE 1 · COMMAND IDENTITY — "
+    },
+    {
+     "t": "i",
+     "v": "You are not a pitch. You are a frequency."
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "1.1 The Unheard Tax — What Being Ignored Actually Costs You"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "1.2 Station-As-Customer — Radio Is a Market, Not a Favor"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "1.3 The Proof Stack — Build the Evidence Vault That Makes PDs Say Yes"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "1.4 The No-Spam Oath & Identity Shift — From Beggar to Dominion Owner"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 3,
+   "spans": [
+    {
+     "t": "text",
+     "v": "MODULE 2 · TARGET ARCHITECTURE — "
+    },
+    {
+     "t": "i",
+     "v": "Precision is the new volume."
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "2.1 The Hometown Heat Map — Find the Stations That Can't Say No"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "2.2 Tour Pre-Roll — Manufacture Airplay Demand With Dates"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "2.3 The Format Scoring System — Rank Every Station Like an Analyst"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "2.4 The 20-Station War Room — Build the Command Center That Never Sleeps"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 3,
+   "spans": [
+    {
+     "t": "text",
+     "v": "MODULE 3 · THE PITCH WEAPON — "
+    },
+    {
+     "t": "i",
+     "v": "Be the one email they answer."
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "3.1 Subject Lines That Cut Through Noise — The 30-Formula Vault"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "3.2 The 90-Word Pitch — The Only Email That Matters"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "3.3 The One-Page EPK That Commands Attention"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "3.4 Radio-Ready Audio — The 90-Second Weapon That Forces Replies"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 3,
+   "spans": [
+    {
+     "t": "text",
+     "v": "MODULE 4 · THE 21-DAY CAMPAIGN — "
+    },
+    {
+     "t": "i",
+     "v": "Burn nothing. Own everything."
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "4.1 The Load Sequence — Arm Every Station Before You Send"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "4.2 First Sends — Timing, Waves, and the 4-Hour Rule"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "4.3 The 3-Touch Follow-Up System — Persistence Without the Stench"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "4.4 Adds & Next-Market Expansion Loops — One Station Into a Cascade"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 3,
+   "spans": [
+    {
+     "t": "text",
+     "v": "MODULE 5 · HUMAN FREQUENCY — "
+    },
+    {
+     "t": "i",
+     "v": "The people are the airwaves."
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "5.1 High-Value Calls — The 12-Minute Relationship Call"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "5.2 The Thank-You Economy — Tiny Gestures, Lifelong Allies"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "5.3 Burned-Well Repair — The 5-Step Protocol for Salvaged Relationships"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "5.4 Relationship Compounding — The 90-Day Ally Engine"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 3,
+   "spans": [
+    {
+     "t": "text",
+     "v": "MODULE 6 · EMPIRE LOOP — "
+    },
+    {
+     "t": "i",
+     "v": "Convert airplay into an empire."
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "6.1 Proof Compounding Systems — Turn Every Spin Into a Weapon"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "6.2 Airplay-to-Income — Convert Frequency Into Money"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "6.3 The Release Calendar That Dominates Quarters"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "6.4 The 90-Day Audit & Ascension Engine — Scale to $1M"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "WHAT'S INSIDE EVERY LESSON"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Masterclass directive & strategic blueprint"
+      },
+      {
+       "t": "text",
+       "v": " — authoritative operational doctrine, commercial frameworks, and tactical rules of engagement (zero video script meta)."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Implementation drills"
+      },
+      {
+       "t": "text",
+       "v": " — reps, timeboxes, and pass/fail standards."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Action worksheet & operational protocol"
+      },
+      {
+       "t": "text",
+       "v": " — publication-grade structured tables and field protocols in printable PDF & Markdown."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "War-room notes (private strategy PDF)"
+      },
+      {
+       "t": "text",
+       "v": " — the elite-level doctrine, not for redistribution."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Community prompts"
+      },
+      {
+       "t": "text",
+       "v": " — four engagement posts per lesson for the member group."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE INSIDER LAYER (PREMIUM FLOOR)"
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "text",
+     "v": "Beneath the 24 lessons sits the operator's level — the mechanics the industry uses internally and almost never explains:"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "The Radio Industry Insider Decoder"
+      },
+      {
+       "t": "text",
+       "v": " — how ratings really work (PPM vs. diary, cume/AQH, books and ratings weeks), the clock and rotation categories (power/medium/light/recurrent/gold), real add cycles (Tuesday commercial, weekly college), the college chart machine (NACC 200 + RMR), the promotion industry's four-phase machine, a full glossary, and 10 insider rules."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Six executive module playbooks"
+      },
+      {
+       "t": "text",
+       "v": " — trust architecture, market tiers, the two-email system, the add-cycle clock + impact dates, the relationship ladder + etiquette code, and the chart-to-cash pipeline."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "The 24-Lesson Insider Edge"
+      },
+      {
+       "t": "text",
+       "v": " — one sharp upgrade per lesson: the mechanic, the missing piece, and the operator move."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Executive PDFs"
+      },
+      {
+       "t": "text",
+       "v": " of every playbook — branded, printable, confidential."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "text",
+     "v": "Access order: decode (day 1) → lesson → lesson's Insider Edge → module playbook (after the module's 4th lesson) → monthly rereads. This layer is why the offer is a mastermind, not a course."
+    }
+   ]
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE 5 BONUSES"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": true,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "The 300-Station Hometown Heat Map Database"
+      },
+      {
+       "t": "text",
+       "v": " — curated 300-station targeting directory in publication-grade PDF & Markdown ($297 value)"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "The 90-Second Radio-Ready Audio Script Vault"
+      },
+      {
+       "t": "text",
+       "v": " — 10 full scripts + hook formulas ($197 value)"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "The One-Page EPK Command Deck"
+      },
+      {
+       "t": "text",
+       "v": " — interactive fillable HTML proof weapon ($147 value)"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "The 90-Day Airplay-to-Income Audit Engine"
+      },
+      {
+       "t": "text",
+       "v": " — 50-point audit scorecard, spin verification log, weekly touch tracker, and revenue attribution ledger in PDF & Markdown ($97 value)"
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "The Entire Resource Arsenal"
+      },
+      {
+       "t": "text",
+       "v": " — heat maps, calendars, pitch vaults, follow-up sequences, CRM ladder ($400+ value)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "b",
+     "v": "Total certified value: $5,193 → $97. The Insider Layer alone carries $1,391 of the stack."
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "YOUR FIRST 24 HOURS (DO THIS BEFORE ANYTHING ELSE)"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": true,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "Open Module 1. Complete Lesson 1.1 Masterclass Dossier."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "Run the Unheard Tax audit — 20 minutes. Write your number down."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "Build your Proof Stack folder (Lesson 1.3) — even if it's three screenshots and a YouTube link."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "Sign the No-Spam Oath (Lesson 1.4). Print it. Read it before every send."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "text",
+       "v": "Post your Unheard Tax number in the community. The group holds you to it."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "b": "p",
+   "spans": [
+    {
+     "t": "text",
+     "v": "The system works only if you run it as a system. 21 days. 20 stations. 3 touches. That's the minimum viable empire."
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "THE COMMITMENT OATH"
+    }
+   ]
+  },
+  {
+   "b": "quote",
+   "spans": [
+    {
+     "t": "text",
+     "v": "I am done asking for airplay. From today, I am a frequency owner. I will target with precision, prove with evidence, pitch with weapons, follow up with systems, and compound every win until airplay is a revenue line — not a hope.  Signature: ____________________  Date: ______"
+    }
+   ]
+  },
+  {
+   "b": "hr"
+  },
+  {
+   "b": "h",
+   "level": 2,
+   "spans": [
+    {
+     "t": "text",
+     "v": "DELIVERY GUIDE (FOR RADIOREACH TEAM)"
+    }
+   ]
+  },
+  {
+   "b": "list",
+   "ordered": false,
+   "items": [
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Primary deliverable:"
+      },
+      {
+       "t": "text",
+       "v": " "
+      },
+      {
+       "t": "code",
+       "v": "SALES-PAGE.html"
+      },
+      {
+       "t": "text",
+       "v": " — host on "
+      },
+      {
+       "t": "code",
+       "v": "https://radioreach.us/frequency-dominion"
+      },
+      {
+       "t": "text",
+       "v": " (or submit as checkout upsell screen after Vault purchase)."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Course delivery:"
+      },
+      {
+       "t": "text",
+       "v": " zip "
+      },
+      {
+       "t": "code",
+       "v": "Frequency-Dominion-Upsell/"
+      },
+      {
+       "t": "text",
+       "v": " as "
+      },
+      {
+       "t": "code",
+       "v": "Frequency-Dominion-97-Upsell.zip"
+      },
+      {
+       "t": "text",
+       "v": " and serve via the existing R2 fulfillment flow. See "
+      },
+      {
+       "t": "code",
+       "v": "Resources/ZIP-AND-DELIVERY-GUIDE.md"
+      },
+      {
+       "t": "text",
+       "v": "."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Pricing:"
+      },
+      {
+       "t": "text",
+       "v": " anchor $997 → $97. 7-day urgency window. 30-day risk reversal: complete the 21-day campaign, document it, and if the system produced zero station replies after 3 touches, full refund + keep the bonuses."
+      }
+     ]
+    },
+    {
+     "spans": [
+      {
+       "t": "b",
+       "v": "Ascension path:"
+      },
+      {
+       "t": "text",
+       "v": " after Module 6, pitch the next tier — quarterly done-for-you campaign team or the RadioReach Pro campaign service — to buyers who complete the 90-day audit."
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "heatMapRules": [
+  "Verify Before Sending: Re-confirm current gatekeeper name via station staff directories or Spinitron logs.",
+  "Respect the Rings: Pitch Ring 1 (hometown metro) and Ring 2 (commuter corridor) before attempting distant markets.",
+  "Synchronize with Tour Dates: Connect pitches to local live concert dates whenever possible.",
+  "| ID | Callsign & Dial | Metro / City | State | Ring Tier | Primary Format | Decision Maker | Target Program / Slot | Outreach Strategy Angle |",
+  "|"
+ ]
+}
