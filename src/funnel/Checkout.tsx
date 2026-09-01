@@ -391,7 +391,6 @@ export default function Checkout({
                       {PRODUCTS.frequency_dominion.checkoutValueLine}
                     </span>
                     <span className="block pt-1">
-                      <span className="mr-2 text-white/35 line-through">${PRODUCTS.frequency_dominion.compareAt}</span>
                       <b className="text-base text-acid">Add for {usd(PRODUCTS.frequency_dominion.price)}</b>
                     </span>
                   </span>
@@ -540,7 +539,6 @@ function OrderSummaryRows({
       {course && (
         <SummaryRow
           label={PRODUCTS.frequency_dominion.shortName}
-          was={`$${PRODUCTS.frequency_dominion.compareAt}`}
           now={`$${PRODUCTS.frequency_dominion.price.toFixed(2)}`}
         />
       )}

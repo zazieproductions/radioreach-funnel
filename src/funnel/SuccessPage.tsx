@@ -29,6 +29,7 @@ type DeliveryState =
       items: DownloadItem[];
       errors: DownloadError[];
       momentum?: Record<string, string>;
+      products: string[];
     };
 
 function getSessionIdFromHash() {
@@ -128,6 +129,7 @@ export default function SuccessPage() {
           items: delivery.items || [],
           errors: delivery.errors || [],
           momentum: orderSummary?.momentum || undefined,
+          products: orderSummary?.productKeys || [],
         });
       } catch (err) {
         if (cancelled) return;
@@ -307,6 +309,31 @@ export default function SuccessPage() {
                       </p>
                     </div>
                   </div>
+
+                  {(state.products || []).includes("frequency_dominion") && (
+                    <div className="mb-6 rounded-2xl border border-acid/40 bg-acid/[0.07] p-5">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-acid">classroom access</p>
+                      <p className="mt-2 text-sm leading-relaxed text-white/75">
+                        The zip is your archive — the course itself runs in the Frequency Dominion classroom: 24
+                        lessons with pass-standard drills, the 300-station heat map, and your 20-station war room.
+                        Claim it with the email and reference shown on this page.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        <a
+                          className="rounded-full bg-acid px-5 py-3 text-sm font-black uppercase tracking-wider text-ink transition hover:scale-[1.02]"
+                          href={`/frequency-dominion/login?tab=claim&sid=${encodeURIComponent(sessionId)}&email=${encodeURIComponent(state.email || "")}`}
+                        >
+                          Claim classroom access →
+                        </a>
+                        <a
+                          className="rounded-full border border-white/20 px-5 py-3 text-sm font-bold uppercase tracking-wider text-white/75 hover:text-white"
+                          href="/frequency-dominion/app"
+                        >
+                          Already have an account? Sign in
+                        </a>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <div>

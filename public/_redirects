@@ -1,0 +1,9 @@
+# Frequency Dominion web app — SPA entry (fd.html) handles client-side routes.
+/frequency-dominion/app /fd.html 200
+/frequency-dominion/app/* /fd.html 200
+/frequency-dominion/login /fd.html 200
+/frequency-dominion/signup /fd.html 200
+/frequency-dominion/admin /fd.html 200
+/frequency-dominion/admin/* /fd.html 200
+# Legacy alias kept during rollout
+/fd-app/* /fd.html 200

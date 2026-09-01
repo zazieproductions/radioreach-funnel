@@ -7,6 +7,14 @@
       "id": "7a07ed1a29d5432c827c6b80d0327bed"
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "radioreach-fd",
+      "database_id": "REPLACE_WITH_D1_ID",
+      "migrations_dir": "./migrations"
+    }
+  ],
   "r2_buckets": [
     {
       "bucket_name": "radioreach-downloads",

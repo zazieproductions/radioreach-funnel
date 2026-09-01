@@ -1,4 +1,4 @@
-import { S3Client, GetObjectCommand, HeadObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, GetObjectCommand, HeadObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 export function getR2Client(env: Env) {
@@ -29,6 +29,20 @@ export async function createPrivateDownloadUrl(env: Env, key: string, expiresIn 
       Bucket: env.R2_BUCKET_NAME,
       Key: key,
       ResponseContentDisposition: `attachment; filename="${key.split("/").pop() || "download.zip"}"`,
+    }),
+    { expiresIn }
+  );
+}
+
+/** Short-lived presigned PUT for learner evidence uploads (private bucket). */
+export async function createPrivateUploadUrl(env: Env, key: string, expiresIn = 600) {
+  const s3 = getR2Client(env);
+  return getSignedUrl(
+    s3,
+    new PutObjectCommand({
+      Bucket: env.R2_BUCKET_NAME,
+      Key: key,
+      ContentType: "application/octet-stream",
     }),
     { expiresIn }
   );

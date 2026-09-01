@@ -1,10 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import EmbeddedStripeCheckout from "./EmbeddedStripeCheckout";
 import { PRODUCTS } from "../config/storefront";
 import { track, trackCustom } from "../lib/metaPixel";
 
 const FD = PRODUCTS.frequency_dominion;
-const FD_ANCHOR = FD.compareAt ?? FD.price;
 
 /** Standalone $97 checkout for the Frequency Dominion backend course.
  *  Reached from the /frequency-dominion/ sales page via /#/fd-checkout.
@@ -36,7 +35,8 @@ export default function FrequencyDominionCheckout() {
         <div className="mb-5 text-center sm:mb-6">
           <p className="font-display text-[1.65rem] leading-[1.1] sm:text-4xl">CLAIM YOUR FREQUENCY</p>
           <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-white/60">
-            Founders' dip pricing. The offer expires the moment the timer hits zero — then it returns to $997.
+            One price, one payment: $97 for the full system, forever. Launch pricing may rise as the video
+            library expands — but there is no timer on this page, because there is no fake deadline.
           </p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] font-bold uppercase tracking-wider text-white/50">
             <span>✓ Instant access</span>
@@ -44,8 +44,8 @@ export default function FrequencyDominionCheckout() {
             <span>✓ 30-day risk reversal</span>
           </div>
           <p className="mt-3 text-sm">
-            <span className="mr-2 text-white/35 line-through">${FD_ANCHOR}</span>
             <b className="text-2xl text-acid">${FD.price.toFixed(2)}</b>
+            <span className="ml-2 text-[11px] font-bold uppercase tracking-wider text-white/40">one-time</span>
           </p>
         </div>
 
@@ -75,11 +75,8 @@ export default function FrequencyDominionCheckout() {
                   ))}
                 </ul>
                 <span className="mt-3 block text-sm">
-                  <span className="mr-2 text-white/35 line-through">${FD_ANCHOR}</span>
                   <b className="text-acid">${FD.price.toFixed(2)}</b>{" "}
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-white/40">
-                    one-time · save ${FD_ANCHOR - FD.price}
-                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-white/40">one-time · lifetime access</span>
                 </span>
               </div>
             </section>
@@ -89,13 +86,8 @@ export default function FrequencyDominionCheckout() {
               <div className="flex items-start justify-between gap-4 text-[15px]">
                 <span className="text-white/75">{FD.name}</span>
                 <span className="shrink-0 whitespace-nowrap">
-                  <span className="mr-2 text-white/30 line-through">${FD_ANCHOR}</span>
                   <b className="text-acid">${FD.price.toFixed(2)}</b>
                 </span>
-              </div>
-              <div className="mt-3 flex justify-between border-t border-white/10 pt-3 text-white/50">
-                <span>You save</span>
-                <span className="font-bold text-acid">${FD_ANCHOR - FD.price}.00</span>
               </div>
               <div className="mt-3 flex justify-between border-t border-white/10 pt-3 text-white/50">
                 <span>Tax</span>
@@ -124,6 +116,7 @@ export default function FrequencyDominionCheckout() {
                 within 30 days for a full refund. <b className="text-white">You keep the bonuses.</b>
               </p>
             </div>
+            {import.meta.env.DEV && <DevSandboxPayment />}
             <EmbeddedStripeCheckout items={items} bundleId={bundleId} />
           </section>
         </div>
@@ -146,6 +139,69 @@ export default function FrequencyDominionCheckout() {
         </nav>
         <p className="mt-3">© {new Date().getFullYear()} Radio Reach. All rights reserved.</p>
       </footer>
+    </div>
+  );
+}
+
+/** Dev-only sandbox payment: records a real purchase through the same order store +
+ *  signed webhook path the production flow uses, then routes to the standard
+ *  /#/success page. Tree-shaken out of production builds (import.meta.env.DEV). */
+function DevSandboxPayment() {
+  const [email, setEmail] = useState(() => `buyer-${Date.now().toString(36)}@example.com`);
+  const [state, setState] = useState<"idle" | "busy" | "done">("idle");
+  const [err, setErr] = useState("");
+  const pay = async () => {
+    setState("busy");
+    setErr("");
+    try {
+      const r = await fetch("/api/fd-dev/simulate-purchase", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email, name: "Sandbox Buyer" }),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || !j.ok) throw new Error(String((j as { error?: string }).error || `dev purchase failed (${r.status})`));
+      setState("done");
+      window.setTimeout(
+        () => window.location.assign(`${window.location.origin}/#/success?session_id=${encodeURIComponent(String(j.sessionId))}`),
+        500
+      );
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Dev purchase failed.");
+      setState("idle");
+    }
+  };
+  return (
+    <div className="rounded-xl border border-acid/40 bg-acid/5 p-4 sm:p-5">
+      <p className="text-[10px] font-black uppercase tracking-[0.18em] text-acid">Sandbox · dev only</p>
+      <p className="mt-1 text-[13px] leading-relaxed text-white/70">
+        Stripe cannot load here. This button records a real test payment through the same order store and signed
+        webhook as production, then takes you to the normal success page — from which the "I already paid"
+        claim flow inside the classroom unlocks the course.
+      </p>
+      {state !== "done" ? (
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <input
+            aria-label="Email for the test purchase"
+            className="min-w-0 flex-1 rounded-md border border-white/15 bg-black/40 px-3 py-2 text-sm text-white outline-none placeholder:text-white/30 focus:border-acid/60"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email used for the purchase"
+          />
+          <button
+            type="button"
+            onClick={pay}
+            disabled={state === "busy"}
+            className="rounded-md bg-acid px-4 py-2 text-sm font-black uppercase tracking-wide text-ink disabled:opacity-50"
+          >
+            {state === "busy" ? "Recording payment…" : `Complete test payment — $${FD.price}`}
+          </button>
+        </div>
+      ) : (
+        <p className="mt-3 text-sm font-bold text-acid">Payment recorded — opening your receipt…</p>
+      )}
+      {err && <p role="alert" className="mt-2 text-[13px] text-blood">{err}</p>}
     </div>
   );
 }

@@ -1,0 +1,271 @@
+{
+ "product": "frequency_dominion",
+ "title": "Frequency Dominion",
+ "subtitle": "The 24-Lesson Independent Radio Campaign System",
+ "modules": [
+  {
+   "id": "m1",
+   "n": 1,
+   "title": "Command Identity",
+   "promise": "Reframe the job: you are a solutions supplier for a programmer's clock, not a supplicant. Quantify the cost of silence and lock the No-Spam Oath.",
+   "tools": [
+    {
+     "to": "/frequency-dominion/app/campaign",
+     "label": "Campaign Builder"
+    },
+    {
+     "to": "/frequency-dominion/app/vault",
+     "label": "Proof-stack organizer"
+    }
+   ],
+   "lessons": [
+    {
+     "id": "m1l1",
+     "code": "1.1",
+     "title": "The Unheard Tax — What Being Ignored Actually Costs You",
+     "minutes": 8,
+     "truth": "Every single release cycle without broadcast airplay imposes a compounding tax across your reach, direct revenue, and deal leverage. Silence is not neutral — it is an active expense."
+    },
+    {
+     "id": "m1l2",
+     "code": "1.2",
+     "title": "Station-As-Customer — Radio Is a Market, Not a Favor",
+     "minutes": 8,
+     "truth": "You are not asking a Program Director for a favor. You are offering a commercial enterprise a precision product that solves their clock, audience retention, and regulatory compliance problems."
+    },
+    {
+     "id": "m1l3",
+     "code": "1.3",
+     "title": "The Proof Stack — Build the Evidence Vault That Makes PDs Say Yes",
+     "minutes": 8,
+     "truth": "Nobody risks airtime on enthusiasm. The Proof Stack is your third-party credibility vault — transforming subjective musical taste into undeniable objective evidence."
+    },
+    {
+     "id": "m1l4",
+     "code": "1.4",
+     "title": "The No-Spam Oath & Identity Shift — From Beggar to Frequency Owner",
+     "minutes": 8,
+     "truth": "The artists who own radio are the ones who behave like owners — precision, respect, and earned volume. The No-Spam Oath is the line that separates you from 99% of your competition."
+    }
+   ]
+  },
+  {
+   "id": "m2",
+   "n": 2,
+   "title": "Target Architecture",
+   "promise": "Turn geography, tour dates, and format math into a 20-station war room with a defensible priority score for every row.",
+   "tools": [
+    {
+     "to": "/frequency-dominion/app/heatmap",
+     "label": "Heat Map workspace"
+    },
+    {
+     "to": "/frequency-dominion/app/stations",
+     "label": "Station War Room"
+    }
+   ],
+   "lessons": [
+    {
+     "id": "m2l1",
+     "code": "2.1",
+     "title": "The Hometown Heat Map — Find the Stations That Can't Say No",
+     "minutes": 8,
+     "truth": "Your first 20 wins are a geography problem, not a music problem. The Hometown Heat Map concentrates your fire where proximity makes you commercially undeniable."
+    },
+    {
+     "id": "m2l2",
+     "code": "2.2",
+     "title": "Tour Pre-Roll — Manufacture Airplay Demand With Dates",
+     "minutes": 8,
+     "truth": "A confirmed show date is the single most potent airplay catalyst in independent music — converting an abstract song submission into a time-stamped, ticket-selling community event."
+    },
+    {
+     "id": "m2l3",
+     "code": "2.3",
+     "title": "The Format Scoring System — Rank Every Station Like an Analyst",
+     "minutes": 8,
+     "truth": "Format fit accounts for 50% of every programming rejection. Scoring stations with mathematical rigor prevents you from wasting A-tier pitches on zero-probability rooms."
+    },
+    {
+     "id": "m2l4",
+     "code": "2.4",
+     "title": "The 20-Station War Room — Build the Command Center That Never Sleeps",
+     "minutes": 8,
+     "truth": "Dominion is concentration of force. A locked war room of 20 scored, personalized stations will produce 5x more adds than an undisciplined database of 500 names."
+    }
+   ]
+  },
+  {
+   "id": "m3",
+   "n": 3,
+   "title": "The Pitch System",
+   "promise": "Build the 4-7 word subject line, the 90-word pitch, the one-page EPK, and radio-ready audio — one weapon, one ask.",
+   "tools": [
+    {
+     "to": "/frequency-dominion/app/vault",
+     "label": "Pitch & subject-line tools"
+    }
+   ],
+   "lessons": [
+    {
+     "id": "m3l1",
+     "code": "3.1",
+     "title": "Subject Lines That Cut Through Noise — The 30-Formula Vault",
+     "minutes": 8,
+     "truth": "A music director decides whether to open your submission in 1.4 seconds. Your subject line is not a creative headline — it is an operational routing code."
+    },
+    {
+     "id": "m3l2",
+     "code": "3.2",
+     "title": "The 90-Word Pitch — The Only Email That Matters",
+     "minutes": 8,
+     "truth": "A music director reads your pitch for four seconds. The 90-word pitch is an operational payload — delivering maximum technical clarity, proof, and a single frictionless ask."
+    },
+    {
+     "id": "m3l3",
+     "code": "3.3",
+     "title": "The One-Page EPK That Commands Attention",
+     "minutes": 8,
+     "truth": "Your Electronic Press Kit is not a promotional brochure — it is a single-screen Command Deck designed to give a gatekeeper all critical operational facts in 20 seconds."
+    },
+    {
+     "id": "m3l4",
+     "code": "3.4",
+     "title": "Radio-Ready Audio — The 90-Second Weapon That Forces Replies",
+     "minutes": 8,
+     "truth": "A programmer does not have time to sit through a five-minute album cut. The 90-second audio weapon and compliant broadcast master remove every technical barrier between your music and their transmitter."
+    }
+   ]
+  },
+  {
+   "id": "m4",
+   "n": 4,
+   "title": "The 21-Day Campaign",
+   "promise": "Run the dated 21-day loop: load, fire, watch, follow up with value, exit with grace, log every result.",
+   "tools": [
+    {
+     "to": "/frequency-dominion/app/campaign",
+     "label": "21-Day Campaign board"
+    }
+   ],
+   "lessons": [
+    {
+     "id": "m4l1",
+     "code": "4.1",
+     "title": "The Load Sequence — Arm Every Station Before You Send",
+     "minutes": 8,
+     "truth": "The first email is not the launch — the Load Sequence is. A campaign executed without passing all seven pre-flight gates will collapse into chaotic improvisation."
+    },
+    {
+     "id": "m4l2",
+     "code": "4.2",
+     "title": "First Sends — Timing, Waves, and the 4-Hour Rule",
+     "minutes": 8,
+     "truth": "When you dispatch a payload matters as much as what is inside it. Two waves, Tuesday/Wednesday morning timing, and the four-hour monitoring window dictate initial conversion."
+    },
+    {
+     "id": "m4l3",
+     "code": "4.3",
+     "title": "The 3-Touch Follow-Up System — Persistence Without the Stench",
+     "minutes": 8,
+     "truth": "The first email is a knock on the door. The second is proof you are serious. The third is a dignified exit. Over 65% of all independent radio adds occur on Touch 2 and Touch 3."
+    },
+    {
+     "id": "m4l4",
+     "code": "4.4",
+     "title": "Adds & Next-Market Expansion Loops — One Station Into a Cascade",
+     "minutes": 8,
+     "truth": "An add is not the finish line — it is a live seed. The Expansion Loop converts a single station victory into a domino cascade across neighboring regional markets."
+    }
+   ]
+  },
+  {
+   "id": "m5",
+   "n": 5,
+   "title": "Human Frequency",
+   "promise": "Convert replies into relationships: high-value calls, gratitude protocols, burned-well repair, and the ally engine.",
+   "tools": [
+    {
+     "to": "/frequency-dominion/app/stations",
+     "label": "Station records & touch log"
+    }
+   ],
+   "lessons": [
+    {
+     "id": "m5l1",
+     "code": "5.1",
+     "title": "High-Value Calls — The 12-Minute Relationship Call",
+     "minutes": 8,
+     "truth": "One disciplined 12-minute phone conversation accomplishes more than twenty unread emails. The call is not a sales pitch — it is an elite relationship reconnaissance mission."
+    },
+    {
+     "id": "m5l2",
+     "code": "5.2",
+     "title": "The Thank-You Economy — Tiny Gestures, Lifelong Allies",
+     "minutes": 8,
+     "truth": "The difference between a station that plays you once and a station that champions your entire ten-year career is what you do in the 48 hours after they add your song."
+    },
+    {
+     "id": "m5l3",
+     "code": "5.3",
+     "title": "Burned-Well Repair — The 5-Step Protocol for Salvaged Relationships",
+     "minutes": 8,
+     "truth": "Every working artist has burned wells — past spam blasts, ghosted interviews, broken deadlines. The 5-Step Repair Protocol reopens doors you thought were locked forever."
+    },
+    {
+     "id": "m5l4",
+     "code": "5.4",
+     "title": "Relationship Compounding — The 90-Day Ally Engine",
+     "minutes": 8,
+     "truth": "One radio add is a transaction. Thirty lifetime allies is an unbreachable commercial moat. The 90-Day Ally Engine compounds relationships on a calendar schedule that never sleeps."
+    }
+   ]
+  },
+  {
+   "id": "m6",
+   "n": 6,
+   "title": "The Compounding Loop",
+   "promise": "Cascade proof into the next market, price your revenue lanes honestly, calendar the next release, and audit every 90 days.",
+   "tools": [
+    {
+     "to": "/frequency-dominion/app/analytics",
+     "label": "Campaign Analytics"
+    },
+    {
+     "to": "/frequency-dominion/app/vault",
+     "label": "90-day audit engine"
+    }
+   ],
+   "lessons": [
+    {
+     "id": "m6l1",
+     "code": "6.1",
+     "title": "Proof Compounding Systems — Turn Every Spin Into a Weapon",
+     "minutes": 8,
+     "truth": "Every broadcast spin is a verifiable intellectual property receipt; every receipt is ammunition; ammunition fuels the next release. The proof farm turns ephemeral airplay into permanent equity."
+    },
+    {
+     "id": "m6l2",
+     "code": "6.2",
+     "title": "Airplay-to-Income — Convert Frequency Into Money",
+     "minutes": 8,
+     "truth": "Airplay is not vanity applause — it is an intellectual property validation receipt that unlocks six distinct revenue lanes. If you are not monetizing frequency, you are leaking wealth."
+    },
+    {
+     "id": "m6l3",
+     "code": "6.3",
+     "title": "The Release Calendar That Dominates Quarters",
+     "minutes": 8,
+     "truth": "A release is not an isolated event — it is a 12-week military operation. The artists who own radio run an annual calendar with three armed campaigns a year, backwards-engineered from impact dates."
+    },
+    {
+     "id": "m6l4",
+     "code": "6.4",
+     "title": "The 90-Day Audit & Ascension Engine — Scale to $1M",
+     "minutes": 8,
+     "truth": "What gets measured gets dominated. The 90-Day Audit is the executive instrument panel; the Ascension Engine scales a localized radio footprint into a seven-figure independent music enterprise."
+    }
+   ]
+  }
+ ]
+}
