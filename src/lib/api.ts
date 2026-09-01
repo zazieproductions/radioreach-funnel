@@ -26,6 +26,27 @@ export async function createEmbeddedCheckoutSession(payload: CheckoutSelection) 
   return data;
 }
 
+/**
+ * Post-purchase one-time offer session. Server-side gated: only verified,
+ * paid parent orders can open one, and the price always resolves from the
+ * server env allowlist.
+ */
+export async function createOtoCheckoutSession(payload: {
+  parentSessionId: string;
+  item: ProductKey;
+}) {
+  const res = await fetch("/api/checkout/oto", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const data = (await res.json()) as CreateSessionResponse;
+  if (!res.ok || "error" in data) {
+    throw new Error("error" in data ? data.error : "Unable to start checkout");
+  }
+  return data;
+}
+
 export type VerifiedOrderSummary = {
   amountTotal: number | null; // in cents (Stripe convention)
   currency: string;

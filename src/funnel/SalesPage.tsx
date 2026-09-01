@@ -56,7 +56,7 @@ const FAQS = [
   ],
   [
     "Why is the RadioReach radio contact list only $25?",
-    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $25 is the launch rate. It goes to $50 once the founder slots are gone.",
+    "Because enterprise data vendors sell to corporate marketing teams on annual contracts with a sales call attached. I'm an independent artist. I built this because I had to do the research myself and refuse to gatekeep it. $25 is the founder launch rate against the $350 regular price, and it ends when the timer on this page hits zero.",
   ],
   [
     "Does RadioReach have a refund policy?",

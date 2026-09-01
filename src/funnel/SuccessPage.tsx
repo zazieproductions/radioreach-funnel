@@ -1,8 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { createDownloadLinks, verifySession } from "../lib/api";
 import { trackVerifiedPurchase } from "../lib/metaPixel";
 import { TARGET_LABELS, TARGET_STARTING_MOVES } from "../lib/momentumSequence";
 import { espLogConversion, getPersistedMode } from "../esp";
+import { wasOtoDismissed } from "./PostPurchaseOffer";
+
+// The post-purchase offer ships in its own chunk so the delivery screen's
+// critical path (verify → downloads) never waits on Stripe JS.
+const PostPurchaseOffer = lazy(() => import("./PostPurchaseOffer"));
 
 /* Keep purchase logging idempotent across re-verifies/re-mounts. */
 const purchaseLoggedFor = new Set<string>();
@@ -29,6 +34,7 @@ type DeliveryState =
       items: DownloadItem[];
       errors: DownloadError[];
       momentum?: Record<string, string>;
+      productKeys: string[];
     };
 
 function getSessionIdFromHash() {
@@ -36,6 +42,14 @@ function getSessionIdFromHash() {
   const query = hash.includes("?") ? hash.split("?")[1] : "";
   const params = new URLSearchParams(query);
   return params.get("session_id") || "";
+}
+
+/** OTO return: Stripe lands back here with &oto_done=cs_… appended. */
+function getOtoSessionIdFromHash() {
+  const hash = window.location.hash || "";
+  const query = hash.includes("?") ? hash.split("?")[1] : "";
+  const params = new URLSearchParams(query);
+  return params.get("oto_done") || "";
 }
 
 function formatExpiry(value: string) {
@@ -67,9 +81,15 @@ function PersonalizedStartingMove({ momentum }: { momentum?: Record<string, stri
 
 export default function SuccessPage() {
   const sessionId = useMemo(() => getSessionIdFromHash(), []);
+  const otoSessionId = useMemo(() => getOtoSessionIdFromHash(), []);
   const [state, setState] = useState<DeliveryState>({ kind: "loading" });
   const [tipLoading, setTipLoading] = useState<number | null>(null);
   const [shareStatus, setShareStatus] = useState("");
+  // The one-time offer shows once per order: never after purchase of the
+  // item, never again after an explicit decline.
+  const [otoDeclined, setOtoDeclined] = useState(() =>
+    sessionId ? wasOtoDismissed(sessionId) : true
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -109,6 +129,45 @@ export default function SuccessPage() {
 
         const delivery = await createDownloadLinks(verification.token);
 
+        // Merge in the one-time-offer purchase, if the buyer just accepted
+        // it. Uses the identical verified pipeline (webhook order → token →
+        // private link); a failed/unpaid OTO simply doesn't merge.
+        let otoItems: DownloadItem[] = [];
+        let otoErrors: DownloadError[] = [];
+        let otoKeys: string[] = [];
+        if (otoSessionId && otoSessionId.startsWith("cs_")) {
+          try {
+            // The Stripe redirect can beat the webhook by a moment; retry
+            // briefly so a paid OTO always merges into the delivery screen.
+            let otoVerification = await verifySession(otoSessionId);
+            for (let attempt = 0; attempt < 3 && !otoVerification.verified; attempt++) {
+              await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
+              if (cancelled) break;
+              otoVerification = await verifySession(otoSessionId);
+            }
+            if (otoVerification.verified && otoVerification.token) {
+              const o = otoVerification.order;
+              const otoAmount = o?.amountTotal;
+              if (o && typeof otoAmount === "number" && otoAmount > 0) {
+                trackVerifiedPurchase({
+                  sessionId: otoSessionId,
+                  email: o.email || undefined,
+                  value: otoAmount / 100,
+                  currency: o.currency || "USD",
+                  contentIds: o.productKeys,
+                  contentName: o.productNames.join(" + ") || "Airplay Accelerator",
+                }).catch(() => {});
+              }
+              const otoDelivery = await createDownloadLinks(otoVerification.token);
+              otoItems = otoDelivery.items || [];
+              otoErrors = otoDelivery.errors || [];
+              otoKeys = o?.productKeys || [];
+            }
+          } catch {
+            // OTO delivery must never break the main order's downloads.
+          }
+        }
+
         if (cancelled) return;
 
         // ESP conversion event: attribute this purchase to the emotional
@@ -121,13 +180,20 @@ export default function SuccessPage() {
           });
         }
 
+        const mergedItems = [...(delivery.items || []), ...otoItems];
+        const seenKeys = new Set<string>();
+        const dedupedItems = mergedItems.filter((i) =>
+          seenKeys.has(i.key) ? false : (seenKeys.add(i.key), true)
+        );
+
         setState({
           kind: "ready",
           email: delivery.email,
           orderId: delivery.orderId,
-          items: delivery.items || [],
-          errors: delivery.errors || [],
+          items: dedupedItems,
+          errors: [...(delivery.errors || []), ...otoErrors],
           momentum: orderSummary?.momentum || undefined,
+          productKeys: [...(orderSummary?.productKeys || []), ...otoKeys],
         });
       } catch (err) {
         if (cancelled) return;
@@ -145,7 +211,7 @@ export default function SuccessPage() {
     return () => {
       cancelled = true;
     };
-  }, [sessionId]);
+  }, [sessionId, otoSessionId]);
 
   async function startTip(amount: number) {
     try {
@@ -359,6 +425,19 @@ export default function SuccessPage() {
                       </div>
                     ))}
                   </div>
+
+                  {/* Post-purchase one-time offer — shown once per order,
+                      only to buyers who don't already own the Accelerator.
+                      Downloads above are never gated behind it. */}
+                  {!otoDeclined &&
+                    !state.productKeys.includes("airplay_accelerator") && (
+                      <Suspense fallback={null}>
+                        <PostPurchaseOffer
+                          parentSessionId={sessionId}
+                          onDecline={() => setOtoDeclined(true)}
+                        />
+                      </Suspense>
+                    )}
                 </div>
 
                 <aside className="px-6 py-8 sm:px-8">
@@ -446,12 +525,32 @@ export default function SuccessPage() {
                       )}
                     </div>
 
-                    <a
-                      href="#/course/classroom"
-                      className="inline-flex w-full items-center justify-center rounded-full bg-acid px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-ink transition hover:scale-[1.01]"
-                    >
-                      Open Frequency Dominion classroom
-                    </a>
+                    {state.productKeys.includes("frequency_dominion") ? (
+                      <a
+                        href="#/course/classroom"
+                        className="inline-flex w-full items-center justify-center rounded-full bg-acid px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-ink transition hover:scale-[1.01]"
+                      >
+                        Open Frequency Dominion classroom
+                      </a>
+                    ) : (
+                      <div className="rounded-2xl border border-acid/30 bg-acid/5 p-5">
+                        <p className="text-xs font-bold uppercase tracking-[0.24em] text-acid">
+                          when you're ready to go deeper
+                        </p>
+                        <p className="mt-3 text-sm leading-6 text-white/72">
+                          Frequency Dominion is the complete 24-lesson radio
+                          ownership system — the campaign, the pitch weapon,
+                          and the 21-day send plan built on the contacts you
+                          just downloaded.
+                        </p>
+                        <a
+                          href="/frequency-dominion/"
+                          className="mt-4 inline-flex w-full items-center justify-center rounded-full border border-acid/60 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-acid transition hover:bg-acid hover:text-ink"
+                        >
+                          See the course
+                        </a>
+                      </div>
+                    )}
 
                     <a
                       href="/"
