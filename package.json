@@ -13,6 +13,8 @@
     "test:esp": "node scripts/run-esp-tests.mjs",
     "test:lab": "node scripts/run-lab-tests.mjs",
     "test:slots": "node scripts/run-slots-tests.mjs",
+    "test:darkfunnel": "tsx --test scripts/test-darkfunnel.ts scripts/test-darkfunnel-ui.ts",
+    "dev:darkfunnel": "vite --config experiments/darkfunnel/vite.config.ts",
     "lint": "tsc --noEmit && tsc --noEmit -p signal-rot-mastering-suite/tsconfig.json",
     "test:checkout": "node --experimental-test-module-mocks --import tsx --test scripts/test-checkout.ts scripts/test-checkout-ui.ts",
     "test": "tsx --tsconfig signal-rot-mastering-suite/tsconfig.json --test signal-rot-mastering-suite/tests/*.test.ts signal-rot-mastering-suite/tests/*.test.tsx && npm run test:esp && npm run test:lab && npm run test:checkout",

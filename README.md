@@ -137,6 +137,8 @@ radioreach-funnel/
 │   ├── privacy-policy/          # Static privacy policy
 │   └── terms/                   # Static terms page
 ├── Frequency-Dominion-Upsell/   # Full 24-lesson backend course (see product catalog)
+├── experiments/
+│   └── darkfunnel/              # Isolated Vite entry for the funnel teardown (never built/deployed)
 ├── scripts/                     # ESP unit/integration test harness and asset tooling
 │   ├── fd_build_pdfs.py         # War-room PDF renderer (fpdf2)
 │   └── fd_generate_assets.py    # Template / heat-map / calendar generator
@@ -145,6 +147,7 @@ radioreach-funnel/
 │   ├── esp/                     # Emotional State Proxy engine and adaptive copy
 │   ├── funnel/                  # Sales, checkout, upsell, and success experiences
 │   ├── lab/                     # Conversion Lab: experiment catalog + 14 prototypes (#/lab)
+│   ├── darkfunnel/              # Dark-pattern teardown replica — research only, excluded from the build
 │   ├── lib/                     # API, attribution, and analytics clients
 │   └── App.tsx                  # Funnel orchestration, success routing, lab route
 ├── CLOUDFLARE_STRIPE_R2_SETUP.md
@@ -348,6 +351,16 @@ npx tsc --noEmit
 npm run build
 ```
 
+### Research-only scripts
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev:darkfunnel` | Serves the dark-pattern teardown replica on :5180 from its own Vite project |
+| `npm run test:darkfunnel` | 41 tests: pure funnel mechanics + a jsdom walkthrough of the whole ladder |
+
+Neither the replica nor its entry HTML is part of `npm run build` or the
+Cloudflare Pages publish output.
+
 ## Deployment
 
 RadioReach is designed for Cloudflare Pages Git deployments.
@@ -514,6 +527,24 @@ Every psychological system is instrumented. Nothing is assumed; everything is me
 - **`dataLayer`** events for every funnel stage: `MomentumSequenceStarted`, `MomentumSequenceFinished`, `InitiateCheckout`, `Purchase`, and custom ESP conversion events.
 - **ESP event log** in sessionStorage correlates emotional state with CTA clicks and purchases.
 - **Momentum attribution** (`sequence_variant`, `sequence_status`, `sequence_target`, etc.) attached to checkout and purchase events, so you can answer: *does completing the Momentum sequence increase conversion rate or average order value?*
+
+### Dark-Pattern Teardown (research replica — never deployed)
+
+A separate, deliberately manipulative funnel built as a study object: a fake
+clickbait article → long-form offer → weighted "compliance quiz" → demo
+checkout with a pre-checked bump → guilt-laden OTO → downsell → a thank-you
+page that reveals the product was vapor and prints back every pattern the
+visitor was exposed to.
+
+- **Run it:** `npm run dev:darkfunnel` (port 5180) · **Test it:** `npm run test:darkfunnel` (41 tests)
+- **Read it:** [`docs/dark-funnel-teardown.md`](docs/dark-funnel-teardown.md) — 24 catalogued patterns with mechanism, cost, citation, and legal exposure
+- **X-ray:** press `x` in the replica to label every technique on the live page
+- **Isolation:** its own Vite entry under `experiments/darkfunnel/`; `npm run build` never touches it, no production module imports `src/darkfunnel/`, output goes to gitignored `.arena/`, and the entry document is `noindex,nofollow`
+- **Safety:** no payment processor, no network calls, no form endpoints — the card field is inert and pre-filled with a test number
+
+It exists to sharpen the line the storefront holds: everything in the replica
+is a technique the production funnel deliberately does *not* use, or uses only
+where the underlying fact is true and checkable.
 
 ### Ethical Design Commitment
 

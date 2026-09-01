@@ -1,0 +1,244 @@
+@import "tailwindcss" source(none);
+@source "../../src/darkfunnel";
+@source "../../experiments/darkfunnel/index.html";
+
+/* ─────────────────────────────────────────────────────────────
+   DARK FUNNEL TEARDOWN — styles
+   Two visual registers on purpose:
+     · "paper"  — the content-farm article (light, serif, cheap)
+     · "pitch"  — the offer machine (dark, loud, expensive-looking)
+   The switch between them, mid-session, is itself the trick.
+───────────────────────────────────────────────────────────── */
+
+@theme {
+  --font-display: "Anton", system-ui, sans-serif;
+  --font-serif: "Domine", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* pitch register */
+  --color-ink: #08080a;
+  --color-panel: #101014;
+  --color-acid: #ffe600;
+  --color-blood: #e01b24;
+
+  /* paper register */
+  --color-paper: #f7f6f3;
+  --color-paperink: #16161a;
+  --color-rule: #dcd9d2;
+  --color-link: #0b4fa8;
+
+  /* teardown register */
+  --color-xray: #22d3ee;
+}
+
+html {
+  background: #08080a;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  color: #fff;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  min-height: 100dvh;
+}
+
+button,
+a,
+input,
+label,
+summary {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 3px solid #22d3ee;
+  outline-offset: 2px;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── paper register ─────────────────────────────────────── */
+
+.paper {
+  background: var(--color-paper);
+  color: var(--color-paperink);
+}
+
+.paper-body p {
+  font-family: "Domine", Georgia, serif;
+  font-size: 1.075rem;
+  line-height: 1.78;
+  margin: 0 0 1.35rem;
+}
+
+.paper-body p:first-of-type::first-letter {
+  float: left;
+  font-family: "Anton", sans-serif;
+  font-size: 3.4rem;
+  line-height: 0.82;
+  padding: 0.1rem 0.55rem 0 0;
+}
+
+/* ── decoy links: legible enough to register, faint enough
+      that nobody tries to click them ─────────────────────── */
+
+.decoy {
+  opacity: 0.38;
+  cursor: default;
+  transition: opacity 0.25s ease;
+}
+.decoy:hover {
+  opacity: 0.52;
+}
+
+/* ── animations ─────────────────────────────────────────── */
+
+@keyframes df-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.df-toast {
+  animation: df-toast-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes df-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.df-pulse {
+  animation: df-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes df-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.df-rise {
+  animation: df-rise 0.5s ease-out both;
+}
+
+@keyframes df-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.df-marquee {
+  animation: df-marquee 32s linear infinite;
+}
+
+@keyframes df-scan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+
+.df-terminal {
+  background:
+    linear-gradient(rgba(34, 211, 238, 0.035) 1px, transparent 1px) 0 0 / 100%
+      3px,
+    #05060a;
+  animation: df-scan 6s linear infinite;
+}
+
+.df-caret::after {
+  content: "▊";
+  margin-left: 2px;
+  animation: df-pulse 1s steps(2) infinite;
+}
+
+/* ── teardown / x-ray overlay ───────────────────────────── */
+
+.xray {
+  position: relative;
+  outline: 1px dashed color-mix(in srgb, var(--color-xray) 70%, transparent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.xray-tag {
+  position: absolute;
+  z-index: 60;
+  top: -0.35rem;
+  left: -0.35rem;
+  transform: translateY(-100%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  background: var(--color-xray);
+  color: #04141a;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: auto;
+  cursor: help;
+  max-width: min(86vw, 30rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* the tag would otherwise get clipped at the top of the viewport */
+.xray-tag[data-below="true"] {
+  top: auto;
+  bottom: -0.35rem;
+  transform: translateY(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
