@@ -12,6 +12,7 @@ const LabGallery = lazy(() => import("./lab/LabGallery"));
 const CustomLeadsPage = lazy(() => import("./funnel/CustomLeadsPage"));
 const CommunityForum = lazy(() => import("./funnel/CommunityForum"));
 const CourseSalesPage = lazy(() => import("./course/CourseSalesPage"));
+const DominionSalesPage = lazy(() => import("./dominion/DominionSalesPage"));
 const CourseClassroom = lazy(() => import("./course/CourseClassroom"));
 
 const FrequencyDominionCheckout = lazy(() =>
@@ -50,6 +51,12 @@ export default function App() {
   const routeClassroom = hash.startsWith("#/course/classroom");
   const routeCourse = hash.startsWith("#/course");
   const routeFdCheckout = hash.startsWith("#/fd-checkout");
+  // Dominion V2 sales experience. Reachable at #/dominion, or promoted to the
+  // default landing page by flipping __RADIOREACH_FLAGS__.dominionV2 to true.
+  const dominionDefault =
+    (window as unknown as { __RADIOREACH_FLAGS__?: { dominionV2?: boolean } })
+      .__RADIOREACH_FLAGS__?.dominionV2 === true;
+  const routeDominion = hash.startsWith("#/dominion") || (dominionDefault && hash === "");
 
   useEffect(() => {
     const onHashChange = () => setHash(window.location.hash || "");
@@ -126,6 +133,26 @@ export default function App() {
     return (
       <Suspense fallback={<LoadingScreen />}>
         <LabGallery />
+      </Suspense>
+    );
+  }
+
+  if (routeDominion) {
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        <DominionSalesPage
+          onCta={(tierId) => {
+            if (tierId === "command") {
+              try {
+                sessionStorage.setItem("radioreach:want-course", "1");
+              } catch {
+                /* ignore */
+              }
+            }
+            window.location.hash = "";
+            setStage("checkout");
+          }}
+        />
       </Suspense>
     );
   }
