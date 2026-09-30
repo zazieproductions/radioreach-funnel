@@ -6,6 +6,27 @@ Public-facing freshness signals (visible "Updated" dates, sitemap lastmod, hub
 changed.** This file records what changed and why, so GSC movement can be
 traced back to specific work.
 
+## 2026-09-30 — Product snippet warnings triaged (no markup change)
+
+- GSC reported two **non-critical** Product snippet items on `/`:
+  `aggregateRating` and `review`. Neither is a required property — Google
+  requires `name` plus one of `offers` / `review` / `aggregateRating`, and the
+  homepage `Product` (`#radio-reach-vault`) already ships a valid `Offer`
+  (USD 25.00, `InStock`, canonical URL, `RadioReach` seller). Snippet
+  eligibility is unaffected.
+- No structured data changed: there is still no verifiable first-party rating
+  set, and inventing one violates Google's structured data policies. Standing
+  explanation and the legitimate paths to clear the warnings (a real
+  post-purchase review flow, or Merchant Center ratings) are documented in
+  `docs/product-snippets.md`.
+- Added `scripts/test-structured-data.ts` (`npm run test:seo`) as a regression
+  guard: it asserts the homepage JSON-LD parses, contains exactly one `Product`
+  with `name` + a qualifying `Offer`, that price/currency match
+  `src/config/storefront.ts` and the OG product meta tags, and that
+  canonical/image/brand/seller references resolve. It intentionally never
+  requires `aggregateRating` or `review`, so the warnings can't be "fixed" by
+  fabricated values.
+
 ## 2026-08-18 — SEO pass 1: content library + technical foundation
 
 ### Content expansion (12 pages + hub)

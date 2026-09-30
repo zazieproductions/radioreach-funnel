@@ -337,6 +337,7 @@ The sequence stores answers under `radioreach:momentum-ownership:v1`, emits life
 | `npm run preview` | Preview the production build locally |
 | `npm run test:esp` | Run ESP decision-logic and jsdom integration scenarios |
 | `npm run test:lab` | Run Conversion Lab mechanics (bucketing, schedules, streaks) + gallery scenarios |
+| `npm run test:seo` | Validate homepage Product/Offer JSON-LD (price, canonical, seller refs); never requires fabricated reviews |
 | `npx tsc --noEmit` | Run the strict frontend TypeScript check |
 
 Before opening a pull request, run:
