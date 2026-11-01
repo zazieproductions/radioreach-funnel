@@ -37,5 +37,5 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
             momentum: order.momentum || null,
           }
         : null,
-  });
+  }, { headers: { "Cache-Control": "no-store" } });
 };
