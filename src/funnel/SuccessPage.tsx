@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { createDownloadLinks, verifySession } from "../lib/api";
+import { createDownloadLinks, waitForVerifiedSession } from "../lib/api";
 import { trackVerifiedPurchase } from "../lib/metaPixel";
 import { TARGET_LABELS, TARGET_STARTING_MOVES } from "../lib/momentumSequence";
 import { espLogConversion, getPersistedMode } from "../esp";
@@ -68,11 +68,14 @@ function PersonalizedStartingMove({ momentum }: { momentum?: Record<string, stri
 export default function SuccessPage() {
   const sessionId = useMemo(() => getSessionIdFromHash(), []);
   const [state, setState] = useState<DeliveryState>({ kind: "loading" });
+  const [retry, setRetry] = useState(0);
   const [tipLoading, setTipLoading] = useState<number | null>(null);
   const [shareStatus, setShareStatus] = useState("");
 
   useEffect(() => {
     let cancelled = false;
+    const controller = new AbortController();
+    setState({ kind: "loading" });
 
     async function load() {
       try {
@@ -80,7 +83,7 @@ export default function SuccessPage() {
           throw new Error("Missing session ID.");
         }
 
-        const verification = await verifySession(sessionId);
+        const verification = await waitForVerifiedSession(sessionId, controller.signal);
 
         if (!verification.verified || !verification.token) {
           throw new Error(
@@ -144,8 +147,9 @@ export default function SuccessPage() {
     load();
     return () => {
       cancelled = true;
+      controller.abort();
     };
-  }, [sessionId]);
+  }, [sessionId, retry]);
 
   async function startTip(amount: number) {
     try {
@@ -226,21 +230,26 @@ export default function SuccessPage() {
             <div className="border-b border-white/10 px-5 py-7 sm:px-8 sm:py-10">
               <div className="mb-5 flex items-start gap-3 sm:items-center sm:gap-4">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-acid/40 bg-acid text-ink shadow-[0_0_30px_rgba(220,255,0,0.25)] sm:h-14 sm:w-14 sm:rounded-2xl">
-                  <span className="text-2xl">✓</span>
+                  <span className="text-2xl">{state.kind === "ready" ? "✓" : state.kind === "loading" ? "…" : "!"}</span>
                 </div>
                 <div className="min-w-0">
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-acid sm:text-xs sm:tracking-[0.28em]">
-                    purchase confirmed
+                    {state.kind === "ready" ? "purchase confirmed" : state.kind === "loading" ? "verification in progress" : "delivery needs attention"}
                   </p>
                   <h1 className="font-display text-2xl uppercase leading-tight tracking-tight text-white sm:text-4xl">
-                    Your files are unlocked
+                    {state.kind === "ready"
+                      ? (state.errors.length || !state.items.length ? "Payment verified — check delivery below" : "Your files are unlocked")
+                      : state.kind === "loading" ? "Verifying your purchase…" : "Unable to unlock your files"}
                   </h1>
                 </div>
               </div>
 
               <p className="max-w-2xl text-sm leading-6 text-white/70 sm:text-base">
-                Payment verified. Your secure RadioReach delivery screen is active below.
-                Download your files now, and revisit this page later if you need a fresh private link.
+                {state.kind === "ready"
+                  ? "Payment verified. Review your downloads below. Revisit this page later if you need a fresh private link."
+                  : state.kind === "loading"
+                    ? "Please wait while we verify payment and prepare your private download links."
+                    : "Delivery could not be completed. Retry below, or contact support with your receipt email. Please do not purchase again."}
               </p>
             </div>
 
@@ -267,7 +276,7 @@ export default function SuccessPage() {
 
                   <div className="mt-5 flex flex-wrap gap-3">
                     <button
-                      onClick={() => window.location.reload()}
+                      onClick={() => setRetry((value) => value + 1)}
                       className="rounded-full bg-acid px-5 py-3 text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.02]"
                     >
                       Retry
