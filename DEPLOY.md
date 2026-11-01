@@ -1,122 +1,49 @@
-# Deploying to Cloudflare Pages
+# Deploying RadioReach to Cloudflare Pages
 
-This funnel builds to a **single self-contained `index.html`** (JS + CSS are inlined by
-`vite-plugin-singlefile`). Deployment is drag-and-drop simple.
+## Build and deployment
 
-## Build
+Use Node 22.13 or newer (Node 22 recommended).
 
-```bash
-npm install
+```sh
+npm ci
+npm run lint
+npm test
 npm run build
 ```
 
-Output lands in `dist/`:
+The build produces `dist/index.html`, hashed JS/CSS in `dist/assets/`, and static legal/resource pages. Deploy from the repository root using Pages Git integration (build command `npm run build`, output `dist`) or Wrangler:
 
-```
-dist/
-├── index.html        ← entire app, inlined (~92 kB gzipped)
-├── _headers          ← security + cache rules
-├── 404.html          ← real 404s for unknown URLs (no SPA catch-all:
-│                       the app uses hash routing, so a /* /index.html
-│                       fallback would only create soft-404s)
-├── resources/        ← SEO guide library + hub (generated, see below)
-├── sitemap.xml
-└── images/
-    └── ...
+```sh
+npx wrangler pages deploy dist --project-name=<existing-pages-project>
 ```
 
-## Resource pages (SEO library)
+Use the existing project name from the Cloudflare dashboard, not a newly created project. **Do not use dashboard drag-and-drop:** uploading only `dist` omits the `functions/` checkout, verification, webhook, and download APIs. Wrangler must run from the repository root so it bundles `functions/` and reads `wrangler.jsonc`.
 
-The guide pages under `/resources/` are **generated** — do not edit the HTML in
-`public/resources/` directly. Content lives in `scripts/resources/content-*.mjs`;
-run:
+## Required production configuration
 
-```bash
-npm run build:resources
-```
+- Set build variable `VITE_STRIPE_PUBLISHABLE_KEY` before building. It is compiled into browser assets; setting it only after a build does not work.
+- Configure runtime secrets `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, and `APP_SECRET`.
+- Configure each `STRIPE_PRICE_*` variable used by `functions/_lib/config.ts`. All prices and publishable/secret keys must belong to the same Stripe account and test/live mode.
+- Keep `ORDER_STORE` bound to the intended production KV namespace.
+- Runtime download signing requires `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, and `R2_BUCKET_NAME`. The R2 binding alone does not configure these S3 signing credentials. Keep the bucket private.
+- Preserve `nodejs_compat` in `wrangler.jsonc` for Node-dependent SDKs.
+- Configure preview separately; do not point test purchases at production KV or live Stripe prices.
 
-That regenerates every guide page, the `/resources/` hub, and `public/sitemap.xml`
-with consistent metadata, structured data, breadcrumbs, and internal links
-(the build fails if a page is thin, a link is dead, or metadata is missing).
-`npm run build` runs it automatically before Vite.
+Never put secret keys in `VITE_*` variables or commit them.
 
-## Option A — Drag & Drop (fastest)
+## Stripe webhook and post-deploy smoke checks
 
-1. Go to **Cloudflare Dashboard → Workers & Pages → Create → Pages → Upload assets**
-2. Give the project a name (e.g. `radio-reach-vault`)
-3. **Drag the entire `dist` folder** onto the upload area
-4. Click **Deploy site**
+Configure Stripe to send `checkout.session.completed`, `checkout.session.async_payment_succeeded`, and `checkout.session.async_payment_failed` to `https://<production-domain>/api/stripe/webhook`. Use that endpoint's signing secret.
 
-Live in ~20 seconds at `https://<project>.pages.dev`.
+1. Verify `/api/checkout/session` handles POST as JSON, not static HTML/404. Bypass any dashboard Cache Everything or challenge rules for `/api/*`; responses include `Cache-Control: no-store`.
+2. In an isolated test-mode preview, complete checkout, check successful Stripe webhook delivery, confirm the success page unlocks downloads, and open each download.
+3. Confirm webhook retries do not duplicate orders and delayed payment success can create fulfillment even if it arrives before the completed event.
+4. Check Cloudflare Functions logs for Stripe configuration or R2 access failures. Do not log secret keys or full checkout client secrets.
 
-## Option B — Git integration (auto-deploy on push)
+The success page retries pending verification and transient failures before displaying an error, with a manual Retry action. Longer delays or missing webhook delivery still require operational investigation.
 
-Connect the repo in Cloudflare Pages and use:
+## Resource pages and feature flags
 
-| Setting | Value |
-|---|---|
-| Framework preset | `Vite` |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-| Node version | `18` or higher |
+Resource content lives in `scripts/resources/content-*.mjs`; `npm run build:resources` regenerates `public/resources/` and the sitemap. The production build runs this automatically.
 
-## Option C — Wrangler CLI
-
-```bash
-npm i -g wrangler
-wrangler pages deploy dist --project-name=radio-reach-vault
-```
-
-## What's already configured
-
-- **`public/_headers`** — long-lived immutable caching on `/images/*`,
-  `must-revalidate` on all HTML, plus `X-Content-Type-Options`,
-  `Referrer-Policy`, `X-Frame-Options`, `Strict-Transport-Security` and a
-  `Permissions-Policy` that disables FLoC/geolocation/mic/camera
-- **Single-file bundle** — one HTTP request for the whole app; no chunk
-  waterfall, no CORS surprises, works from any subpath
-- **Relative asset paths** — deploys correctly on `*.pages.dev`, a custom
-  domain, or a subdirectory
-- **Testimonial photos** are hot-linked from the Pexels CDN, so they cost you
-  no bandwidth and no storage
-
-## Custom domain
-
-Cloudflare Pages → your project → **Custom domains → Set up a domain**.
-If the domain is already on Cloudflare, DNS is configured automatically and
-SSL is issued within a minute.
-
-## Favicon / icon cache-busting
-
-The favicon `<link>` tags point at `/favicon.*` with a `?v=N` query string
-(e.g. `/favicon.svg?v=2`). Browsers and Cloudflare cache favicons at those
-URLs very aggressively, so when the artwork changes you must **bump the
-version** on every favicon/apple-touch-icon/manifest link — in `index.html`,
-`public/404.html`, `scripts/resources/layout.mjs` (resource pages), and
-`scripts/build-resources.mjs` (the `/resources/` hub) — and then rebuild so
-the change lands in `public/` and `dist/`. Bumping the query makes the URLs
-new, which forces browsers and the CDN to re-fetch instead of serving the
-previous icon. Keep the canonical `/favicon.ico` file in place: crawlers and
-browsers request it directly (no query string) as a fallback.
-
-The icon files themselves are generated by `scripts/build-favicon.mjs` (needs
-`sharp` and ImageMagick, e.g. `npm i --no-save sharp`). The cache TTL on the
-icon files is kept short (`max-age=86400` in `public/_headers`) so canonical
-URLs self-heal within a day after a change.
-
-## Momentum sequence feature flag
-
-The mid-page Momentum + Ownership sequence has two kill switches:
-
-1. **Runtime (fastest):** set `window.__RADIOREACH_FLAGS__.momentumOwnershipSequence`
-   to `false` in `index.html`. The section is omitted entirely on the next page load.
-2. **Build-time (hard off):** set `VITE_MOMENTUM_SEQUENCE_ENABLED=false` in the
-   Cloudflare Pages environment and redeploy.
-
-The runtime flag cannot turn the feature back on when the build-time flag is off.
-Answers are stored under `radioreach:momentum-ownership:v1` in localStorage and
-are also attached as low-cardinality `sequence_*` Stripe metadata. Client events
-are sent to Meta as custom events, pushed to `dataLayer`, and dispatched as a
-`radioreach:analytics` browser event. The tracked lifecycle is viewed, started,
-each step completed, finished, and sequence CTA clicked. InitiateCheckout and
-Purchase include the same `sequence_*` attribution for conversion analysis.
+Disable the Momentum sequence with `VITE_MOMENTUM_SEQUENCE_ENABLED=false` and rebuild, or set `window.__RADIOREACH_FLAGS__.momentumOwnershipSequence=false` in `index.html`. The runtime flag cannot override a build-time disable.
