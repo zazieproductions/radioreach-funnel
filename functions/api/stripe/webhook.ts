@@ -47,7 +47,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       }
     }
 
-    if (!order && event.type === "checkout.session.completed") {
+    if (!order && event.type !== "checkout.session.async_payment_failed" && session.metadata?.payment_type !== "tip") {
       const allowed = resolveAllowedPrices(env);
       const selected = ((session.metadata?.product_keys || "").split(",").filter(Boolean) as AllowedProductKey[]).map((key) => ({
         key,

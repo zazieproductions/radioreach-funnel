@@ -471,3 +471,29 @@ test("verify rejects unknown sessions", async () => {
   assert.equal(status, 500, "missing Stripe session must not verify");
   assert.match(message, /No such checkout session/);
 });
+
+test("async success arriving before completed still persists fulfillment", async () => {
+  const kv = new FakeKV();
+  const env = makeEnv({}, kv);
+  stripeState.webhookEvent = completedEvent();
+  stripeState.webhookEvent.type = "checkout.session.async_payment_succeeded";
+  const { response } = await postWebhook(env);
+  assert.equal(response.status, 200);
+  const order = JSON.parse(kv.store.get("order:cs_test_fake123")!);
+  assert.equal(order.paymentStatus, "paid");
+  assert.equal(order.fulfillmentStatus, "ready");
+  assert.equal(order.items.length, 2);
+});
+
+test("tip checkout does not create an empty product fulfillment order", async () => {
+  const kv = new FakeKV();
+  stripeState.webhookEvent = completedEvent({ metadata: { payment_type: "tip" } });
+  const { response } = await postWebhook(makeEnv({}, kv));
+  assert.equal(response.status, 200);
+  assert.equal(kv.store.has("order:cs_test_fake123"), false);
+});
+
+test("checkout responses must never be cached by Cloudflare or the browser", async () => {
+  const { response } = await postSession(makeEnv(), { items: ["vault_core"] });
+  assert.equal(response.headers.get("cache-control"), "no-store");
+});
