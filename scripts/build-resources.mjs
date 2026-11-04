@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   SITE,
+  SISTER,
   CATEGORIES,
   categoryById,
   esc,
@@ -25,13 +26,14 @@ import { renderPage, resolveRelated } from "./resources/layout.mjs";
 import { CORE_PAGES } from "./resources/content-core.mjs";
 import { TOOL_PAGES } from "./resources/content-tools.mjs";
 import { GENRE_REFERENCE_PAGES } from "./resources/content-genre-reference.mjs";
+import { SYNC_PAGES } from "./resources/content-sync.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const PUBLIC = path.join(ROOT, "public");
 const RESOURCES = path.join(PUBLIC, "resources");
 
-const PAGES = [...CORE_PAGES, ...TOOL_PAGES, ...GENRE_REFERENCE_PAGES];
+const PAGES = [...CORE_PAGES, ...TOOL_PAGES, ...GENRE_REFERENCE_PAGES, ...SYNC_PAGES];
 
 // ---------------------------------------------------------------------------
 // Validation — fail the build on SEO defects instead of shipping them.
@@ -192,6 +194,8 @@ const CARDS = {
     "40+ radio terms in plain English — adds, spins, rotation, NACC, one-sheets, mixshows, and more.",
   "radio-promotion-faq":
     "Straight answers to the questions independent artists ask most about getting music on the radio.",
+  "sync-licensing-for-independent-artists":
+    "Cue libraries, composer portfolios, deliverables, and metadata — the path from instrumental music to film and TV.",
 };
 
 function renderHub() {
@@ -310,6 +314,7 @@ main{padding:34px 0 64px}
 .cta a.button{display:inline-block;background:var(--accent);color:#0a0a0c;font-weight:800;padding:12px 20px;border-radius:8px;text-decoration:none}
 footer.site{border-top:1px solid var(--line);margin-top:64px;padding:28px 0 44px;font-size:.9rem;color:var(--muted)}
 footer.site nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
+footer.site .elsewhere{margin:0 0 10px}
 .small{font-size:.85rem}
 @media (prefers-reduced-motion: reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none !important}}
 </style>
@@ -362,6 +367,9 @@ footer.site nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
       <a href="/terms/">Terms of service</a>
       <a href="/refund-policy/">Refund policy</a>
     </nav>
+    <p class="small elsewhere">Elsewhere:
+    <a href="${SISTER.url}" rel="noopener">${esc(SISTER.name)}</a> —
+    ${esc(SISTER.shortDescription.charAt(0).toLowerCase() + SISTER.shortDescription.slice(1).replace(/\.$/, ""))}.</p>
     <p class="small">© ${new Date().getFullYear()} RadioReach. Guidance here is general
     information — individual radio stations set their own submission and programming
     policies.</p>

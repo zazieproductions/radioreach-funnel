@@ -1,5 +1,7 @@
 // Genre playbooks and reference pages (glossary, FAQ hub).
 
+import { SISTER } from "./shared.mjs";
+
 export const GENRE_REFERENCE_PAGES = [
   {
     slug: "hip-hop-radio-promotion",
@@ -138,6 +140,10 @@ export const GENRE_REFERENCE_PAGES = [
 <li>Proof other shows played you, once you have it</li>
 </ul>
 <p>That's a modest list, and most pitches fail half of it. Nailing it puts you in the top tier of submissions any host receives — the <a href="/resources/electronic-press-kit-radio/">EPK guide</a> shows how to keep it all in one link.</p>
+
+<h2 id="film-and-sync">Where electronic artists go next: cues and film work</h2>
+<p>A show host and a music supervisor are asking the same question in different words: can this piece carry the moment it is dropped into? That is why so many instrumental producers end up scoring to picture. A modular or ambient cue that a host plays at 2am is a serviceable bed for a scene, and the sync market has no opinion about whether a track is radio-friendly.</p>
+<p>The preparation overlaps with everything above. Cues need clean edit points and alternate versions the way show pitches need radio edits and instrumentals, and a catalog organized by mood is far easier to license than one organized by release date. Atmospheric, dark-leaning catalogs have a particular advantage in genre film — the <a href="${SISTER.url}" rel="noopener">${SISTER.name} horror score archive</a> is a useful model for how to present that work, with cues filed by emotional register, credits attached, and a direct inquiry path for producers. The <a href="/resources/sync-licensing-for-independent-artists/">sync and scoring guide</a> covers the deliverables, paperwork, and pricing side of that market.</p>
 `,
   },
 

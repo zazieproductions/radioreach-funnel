@@ -1,5 +1,13 @@
 // Shared constants and helpers for the RadioReach resource-page generator.
 
+import sisterSites from "../../src/config/sister-sites.json" with { type: "json" };
+
+// Editorial links to other properties. One file owns every outbound editorial
+// URL (src/config/sister-sites.json) so the React app and the generated guide
+// library can never drift apart or accumulate stray hard-coded links.
+// See docs/backlink-strategy.md for the placement rules.
+export const SISTER = sisterSites.zazieProductions;
+
 export const SITE = {
   name: "RadioReach",
   url: "https://radioreach.us",
