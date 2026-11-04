@@ -1,0 +1,10 @@
+{
+  "$comment": "Single source of truth for editorial links to other properties. Consumed by the React app (src/config/sisterSites.ts), the resource-page generator (scripts/resources/shared.mjs), and asserted by the resource build. Keep every URL here — never hard-code an outbound editorial link in content. See docs/backlink-strategy.md.",
+  "zazieProductions": {
+    "name": "Zazie Productions",
+    "url": "https://horror.zazieproductions.com/",
+    "showreelUrl": "https://horror.zazieproductions.com/#showreel",
+    "shortDescription": "Original scores and sound design for psychological, folk, and art-house horror film.",
+    "footerLine": "Elsewhere"
+  }
+}

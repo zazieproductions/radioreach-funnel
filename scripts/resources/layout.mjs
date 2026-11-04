@@ -1,6 +1,7 @@
 // Layout + JSON-LD builders for generated RadioReach resource pages.
 import {
   SITE,
+  SISTER,
   CATEGORIES,
   categoryById,
   esc,
@@ -74,6 +75,7 @@ details.faq .a{padding:6px 18px 16px}
 .related .k{font-size:.82rem;color:var(--muted)}
 footer.site{border-top:1px solid var(--line);margin-top:64px;padding:28px 0 44px;font-size:.9rem;color:var(--muted)}
 footer.site nav{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
+footer.site .elsewhere{margin:0 0 10px}
 .small{font-size:.85rem;color:var(--muted)}
 .template{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0}
 .template strong.t{display:block;color:#fff;margin-bottom:6px}
@@ -125,7 +127,7 @@ function breadcrumbNodes(items) {
 }
 
 function articleNode(page) {
-  return {
+  const node = {
     "@type": "Article",
     "@id": `${pageUrl(page.slug)}#article`,
     headline: page.h1,
@@ -144,6 +146,11 @@ function articleNode(page) {
     publisher: { "@id": `${SITE.url}/#organization` },
     isPartOf: { "@id": `${SITE.url}/resources/#collection` },
   };
+  // Editorial citations of outside work (`mentions`) — the machine-readable
+  // twin of an in-body link. Keep them honest: a mention asserts only that the
+  // page references the work, not that RadioReach owns or endorses it.
+  if (page.mentions?.length) node.mentions = page.mentions;
+  return node;
 }
 
 function faqNode(faq) {
@@ -325,6 +332,9 @@ ${jsonLd(graph)}
       <a href="/terms/">Terms of service</a>
       <a href="/refund-policy/">Refund policy</a>
     </nav>
+    <p class="small elsewhere">Elsewhere:
+    <a href="${SISTER.url}" rel="noopener">${esc(SISTER.name)}</a> —
+    ${esc(SISTER.shortDescription.toLowerCase().replace(/\.$/, ""))}.</p>
     <p class="small">© ${new Date().getFullYear()} RadioReach. Guidance on this
     page is general information — individual radio stations set their own
     submission and programming policies.</p>

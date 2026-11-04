@@ -1,5 +1,7 @@
 // Templates, press kits, and comparison/strategy pages.
 
+import { SISTER } from "./shared.mjs";
+
 export const TOOL_PAGES = [
   {
     slug: "radio-pitch-email-templates",
@@ -211,6 +213,10 @@ If you ever want an interview, a station ID, or a live session, I'm easy to reac
 
 <h2 id="photos-and-art">Photos and artwork</h2>
 <p>Include at least one horizontal, high-resolution photo (1200px wide or more) and your release artwork. Stations that blog, post, or build show pages will use what's in the kit — or skip you if there's nothing to publish.</p>
+
+<h2 id="cue-page">If your music is instrumental, add a cue page</h2>
+<p>Hosts who program ambient, experimental, or late-night shows are choosing a mood rather than a hook — and so are the directors, editors, and music supervisors who license music. If your catalog is largely instrumental, give the kit one small extra page: short pieces grouped by what they do (tension, drift, dread, release), each with a 20–30 second stream and a line about instrumentation.</p>
+<p>That structure comes from scoring portfolios. The <a href="${SISTER.url}" rel="noopener">${SISTER.name} horror score archive</a>, for example, files cues by emotional register — atmosphere, dissonance, psychological tension — so a visitor can find the right piece for a scene without auditioning a whole album. For a radio kit the version is smaller: five cues, honest labels, one link. It costs an afternoon and makes you legible to two different kinds of buyer.</p>
 
 <h2 id="airplay-history">Turning airplay history into momentum</h2>
 <p>Once stations play you, your one-sheet gains its most persuasive section: a short "radio" list. Three truthful lines — stations, cities, chart weeks — signal to the next programmer that other professionals already took the risk. Update the sheet every time it changes; stale evidence is worse than none.</p>

@@ -14,6 +14,7 @@ import {
 import TerminalPreview from "./TerminalPreview";
 import PdfSampleModal from "./PdfSampleModal";
 import { isMomentumSequenceEnabled, isSecretSlotsEnabled } from "../config/features";
+import { ZAZIE_PRODUCTIONS } from "../config/sisterSites";
 
 // Keep the substantial below-the-fold interaction out of the initial mobile
 // bundle so it never competes with the hero for main-thread time.
@@ -982,6 +983,18 @@ export default function SalesPage({ onCta, luckyCoupon, onOpenWheel, onClaimWhee
             Refund policy
           </a>
         </nav>
+        <p className="mt-3">
+          Elsewhere:{" "}
+          <a
+            href={ZAZIE_PRODUCTIONS.url}
+            rel="noopener"
+            className="underline decoration-white/20 underline-offset-4 hover:text-white/60"
+          >
+            {ZAZIE_PRODUCTIONS.name}
+          </a>{" "}
+          — {ZAZIE_PRODUCTIONS.shortDescription.charAt(0).toLowerCase() +
+            ZAZIE_PRODUCTIONS.shortDescription.slice(1)}
+        </p>
         <p className="mt-3">© {new Date().getFullYear()} Radio Reach Vault. All rights reserved.</p>
       </footer>
 

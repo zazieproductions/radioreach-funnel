@@ -6,6 +6,37 @@ Public-facing freshness signals (visible "Updated" dates, sitemap lastmod, hub
 changed.** This file records what changed and why, so GSC movement can be
 traced back to specific work.
 
+## 2026-11-04 — Sync/scoring cluster + one editorial cross-link
+
+- **New guide:** `/resources/sync-licensing-for-independent-artists/` (category
+  *Comparisons & strategy*, FAQPage schema). Written for the artists the radio
+  playbooks serve least well — instrumental, atmospheric, experimental — and the
+  only page that carries a contextual link out to
+  `horror.zazieproductions.com` in body copy.
+- **Contextual edits (2 pages):** `electronic-music-radio-promotion` gained a
+  "Where electronic artists go next" section; `electronic-press-kit-radio`
+  gained "If your music is instrumental, add a cue page". Each links once, in
+  sentence, to the score archive as a worked example.
+- **Internal linking:** `how-to-get-your-song-on-the-radio` closes with a
+  "Radio is one channel" section pointing at the new guide, so the cluster is
+  crawled from the strongest page rather than orphaned.
+- **Footer credit line:** one `Elsewhere:` link, generated once
+  (`scripts/resources/layout.mjs`, hub in `scripts/build-resources.mjs`) plus the
+  existing SalesPage footer. Deliberately **not** on checkout, upsell, success,
+  or legal pages.
+- **Structured data:** the new guide's `Article` node carries
+  `mentions: CreativeWork` for the cited archive. No `sameAs`, no shared
+  `Organization`, no `rel="me"` — the two brands stay separate entities.
+- **Attribution:** `Referrer-Policy` relaxed from `no-referrer` to
+  `strict-origin-when-cross-origin` (`public/_headers`, `index.html`) so the
+  destination can see the origin of referral traffic. Origin only — no path,
+  query string, or fragment is sent.
+- **Governance:** URLs live in `src/config/sister-sites.json` (consumed by both
+  the generator and the React app); placement rules, anchor table, and the
+  quarterly review checklist are in `docs/backlink-strategy.md`.
+- Sitemap regenerated (18 URLs); `llms.txt` gained a *Sync and scoring* entry and
+  an *Elsewhere* section.
+
 ## 2026-09-30 — Product snippet warnings triaged (no markup change)
 
 - GSC reported two **non-critical** Product snippet items on `/`:

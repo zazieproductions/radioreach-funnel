@@ -353,6 +353,10 @@ export const CORE_PAGES = [
 <li>Lead with it in the next wave of pitches</li>
 </ul>
 <p>Airplay compounds. Stations are more likely to add an artist other stations are already playing, and each confirmed spin makes the next pitch easier to believe.</p>
+
+<h2 id="beyond-radio">Radio is one channel, not the whole campaign</h2>
+<p>Airplay builds a story in a market, and it is not the only way a recording reaches the people who need it. Film, television, games, and small productions license independent music directly, and for instrumental or atmospheric artists that door is often wider than the dial. The assets are the same ones this guide already asked you to assemble — a clean one-sheet, honest credits, files that are easy to deliver — so preparing for it costs a folder, not a second campaign.</p>
+<p>Our <a href="/resources/sync-licensing-for-independent-artists/">guide to sync licensing and film scoring</a> covers cue libraries, deliverables, pricing, and where to pitch without an agent.</p>
 `,
   },
 ];
